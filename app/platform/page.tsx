@@ -1,0 +1,162 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Button, Container, Eyebrow, Pill, Section, SectionHead } from "@/components/ui";
+import { Icon } from "@/components/Icon";
+import { SparkMark } from "@/components/Brand";
+import { DashboardMock, PhoneMock } from "@/components/ProductMocks";
+import { LogoMarquee, StatBand } from "@/components/sections";
+import { homeStats, ILLUSTRATIVE, type IconName } from "@/lib/content";
+
+export const metadata: Metadata = {
+  title: "Platform",
+  description:
+    "One engagement operating system — listening, recognition, communication, analytics, manager enablement, case management and a branded mobile app, with Vadal AI throughout.",
+};
+
+const pillars: { name: string; icon: IconName; body: string }[] = [
+  { name: "Listening & Feedback", icon: "pulse", body: "Pulse surveys, eNPS and always-on listening with sentiment — anonymity protected by min-N gating." },
+  { name: "Engagement & Recognition", icon: "heart", body: "Recognition, a rewards marketplace, campaigns and communities that make appreciation a habit." },
+  { name: "Communication & Campaigns", icon: "broadcast", body: "Targeted internal comms, a Social Wall, push & SMS, and secure chat — reach everyone in seconds." },
+  { name: "Analytics & Insights", icon: "chart", body: "Dashboards, heatmaps, drill-downs, benchmarks and the engagement↔performance correlation." },
+  { name: "Manager Enablement", icon: "users", body: "Action planning, manager-level insight and coaching that turns scores into next steps." },
+  { name: "Case Management", icon: "checks", body: "Feedback becomes tracked, SLA'd HR cases — nothing important falls through the cracks." },
+  { name: "Mobile & Platform", icon: "phone", body: "A branded employee app with SSO, SCIM and HRMS integrations at the core." },
+];
+
+export default function PlatformPage() {
+  return (
+    <>
+      {/* hero */}
+      <section className="relative overflow-hidden">
+        <div className="aurora-wash animate-aurora pointer-events-none absolute inset-0 -z-10" />
+        <Container className="pt-16 pb-10 text-center sm:pt-24">
+          <div className="mx-auto flex max-w-3xl flex-col items-center gap-6">
+            <Pill aurora>
+              <SparkMark size={14} /> The engagement operating system
+            </Pill>
+            <h1 className="display-xl font-extrabold">
+              Everything engagement,
+              <br /> on <span className="aurora-text">one platform</span>
+            </h1>
+            <p className="max-w-xl text-[18px] leading-relaxed text-[var(--muted)]">
+              Replace the stack — comms tool, survey tool, LMS, recognition, analytics — with a
+              single system built on one idea: don&apos;t just measure engagement, drive it.
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button href="/demo" size="lg" icon>Book demo</Button>
+              <Button href="#ai" variant="ghost" size="lg">Meet Vadal AI</Button>
+            </div>
+          </div>
+          <div className="mx-auto mt-14 max-w-4xl">
+            <DashboardMock />
+          </div>
+        </Container>
+      </section>
+
+      {/* the spine */}
+      <Section tone="surface">
+        <Container>
+          <SectionHead
+            eyebrow="The spine"
+            title={<>Score <span className="text-[var(--muted-2)]">→</span> Insight <span className="text-[var(--muted-2)]">→</span> Action <span className="text-[var(--muted-2)]">→</span> Impact</>}
+            lede="Most tools stop at the score. Vadal carries you all the way to impact — and loops back."
+          />
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { t: "Score", d: "Measure how engaged every team really is, continuously.", i: "pulse" },
+              { t: "Insight", d: "Understand why — drivers, drill-downs and AI explanations.", i: "chart" },
+              { t: "Action", d: "Give managers concrete plays: campaigns, recognition, nudges.", i: "checks" },
+              { t: "Impact", d: "See it land — engagement moving the business, side by side.", i: "spark" },
+            ].map((s, idx) => (
+              <div key={s.t} className="relative rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6">
+                <span className="text-[12px] font-bold text-[var(--muted-2)]">0{idx + 1}</span>
+                <Icon name={s.i as IconName} size={24} className="mt-2 text-[var(--brand)]" />
+                <h3 className="mt-3 text-[18px] font-bold">{s.t}</h3>
+                <p className="mt-1.5 text-[14px] leading-relaxed text-[var(--muted)]">{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* seven pillars */}
+      <Section tone="base">
+        <Container>
+          <SectionHead eyebrow="Capabilities" title="Seven pillars, one experience" />
+          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {pillars.map((p) => (
+              <div key={p.name} className="flex gap-4 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[13px] bg-[var(--brand-tint)] text-[var(--brand)]">
+                  <Icon name={p.icon} size={22} />
+                </span>
+                <div>
+                  <h3 className="text-[16px] font-bold">{p.name}</h3>
+                  <p className="mt-1 text-[14px] leading-relaxed text-[var(--muted)]">{p.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* AI */}
+      <section id="ai" className="relative scroll-mt-20 overflow-hidden bg-[var(--background)] py-20 sm:py-28">
+        <div className="aurora-wash pointer-events-none absolute inset-0 opacity-90" />
+        <Container className="relative grid items-center gap-12 lg:grid-cols-2">
+          <div>
+            <Pill aurora><SparkMark size={14} animate /> Vadal AI · Aurora</Pill>
+            <h2 className="display-lg mt-5 font-extrabold">
+              Intelligence for <span className="aurora-text">everyone</span>
+            </h2>
+            <p className="mt-5 max-w-lg text-[18px] leading-relaxed text-[var(--muted)]">
+              An AI co-pilot for managers and employees alike. Ask in plain language, get
+              answers from across your workforce, and let proactive nudges surface what needs
+              attention before it becomes a problem.
+            </p>
+            <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+              {["Ask Vadal command bar", "Streaming AI briefings", "Select-text-to-ask", "“Explain this” on charts", "Contextual follow-ups", "Attrition-risk signals"].map((f) => (
+                <li key={f} className="flex items-center gap-2.5 text-[15px]"><SparkMark size={16} /> {f}</li>
+              ))}
+            </ul>
+            <div className="mt-8"><Button href="/demo" variant="ai" size="lg" icon>See it on your data</Button></div>
+          </div>
+          <DashboardMock />
+        </Container>
+      </section>
+
+      {/* App */}
+      <Section tone="surface" id="app" className="scroll-mt-20">
+        <Container className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="order-2 flex justify-center lg:order-1"><PhoneMock /></div>
+          <div className="order-1 lg:order-2">
+            <Eyebrow>The branded app</Eyebrow>
+            <h2 className="display-md mt-3 font-extrabold">The home screen of the workday</h2>
+            <p className="mt-4 max-w-lg text-[17px] leading-relaxed text-[var(--muted)]">
+              A warm, human app your people open every day — greeting and mood check, what&apos;s
+              up next, a quick poll, recognition, communities and an Ask Vadal card. Human pulse,
+              daily ritual.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {["SSO & SCIM", "HRMS sync", "Your brand", "40+ languages", "Offline-friendly"].map((t) => (
+                <Pill key={t}>{t}</Pill>
+              ))}
+            </div>
+            <div className="mt-8"><Button href="/security" variant="ghost" icon>How we keep it secure</Button></div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* results */}
+      <Section tone="base">
+        <Container>
+          <SectionHead eyebrow="Business results" title="What changes when everyone’s in" />
+          <div className="mt-12"><StatBand stats={homeStats} note={ILLUSTRATIVE} /></div>
+        </Container>
+      </Section>
+
+      <Section tone="surface" className="!py-16">
+        <Container><LogoMarquee label="Trusted across the deskless economy" /></Container>
+      </Section>
+    </>
+  );
+}

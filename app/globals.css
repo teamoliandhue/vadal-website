@@ -1,0 +1,424 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   Vadal — Lumen + Aurora design tokens (ported from design.md)
+   Golden rule: brand violet #7C5CF8 = the user's actions.
+                The Aurora gradient = "this is intelligence." Never mix.
+   ========================================================================== */
+
+:root {
+  /* Lumen neutrals — light.
+     ONE cohesive canvas system: the site body is a soft off-white canvas
+     (`--background`); `--surface` is a single subtle step deeper for grouped
+     areas + small fills; `--card` is the only pure white, so cards and the
+     colored brand panels always pop. No section is plain white. */
+  --background: #f3f4f8;    /* the canvas — body + default sections */
+  --surface: #e9ebf1;       /* one step deeper — surface sections + fills */
+  --surface-2: #dfe2ea;     /* deepest fills (tracks, chips) */
+  --card: #ffffff;          /* pure white — cards & panels lift off the canvas */
+  --foreground: #1a1b1f;    /* ink */
+  --ink-deep: #0d0b16;      /* deepest */
+  --muted: #6b6e78;         /* muted text */
+  --muted-2: #9498a3;
+  --line: #e7e8ef;          /* hairline border (reads on the canvas) */
+  --line-strong: #dadce6;
+
+  /* Brand solid + accents */
+  --brand: #7c5cf8;         /* violet = actions */
+  --brand-hover: #6a48ec;
+  --brand-active: #5d3ce0;
+  --brand-tint: #f1edff;    /* soft violet fill */
+  --brand-tint-2: #e7e0ff;
+  --signal-red: #fb4b43;
+  --spark: #ff8a5b;         /* apricot */
+
+  /* Aurora gradient stops — light */
+  --aurora-from: #23d7be;   /* teal */
+  --aurora-via: #3b9eff;    /* blue */
+  --aurora-to: #7c5cf8;     /* violet */
+  --aurora: linear-gradient(135deg, #23d7be 0%, #3b9eff 50%, #7c5cf8 100%);
+  --aurora-soft: linear-gradient(135deg, #d9f7f1 0%, #dceaff 50%, #ece5ff 100%);
+
+  /* Status */
+  --success: #00d579;
+  --warning: #f5b72e;
+  --danger: #fb4b43;
+
+  /* Radius scale (soft, generous) */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-2xl: 36px;
+  --r-pill: 999px;
+
+  /* Elevation — soft, low-spread; float, don't pop */
+  --shadow-sm: 0 1px 2px rgba(13, 11, 22, 0.04), 0 1px 3px rgba(13, 11, 22, 0.04);
+  --shadow-md: 0 4px 14px rgba(13, 11, 22, 0.06), 0 1px 3px rgba(13, 11, 22, 0.04);
+  --shadow-lg: 0 18px 50px -12px rgba(13, 11, 22, 0.16), 0 6px 18px -8px rgba(13, 11, 22, 0.08);
+  --shadow-aurora: 0 24px 70px -20px rgba(124, 92, 248, 0.35);
+
+  /* Button system — ported from the Figma design system (node 67-293).
+     primary = ink, brand = violet, secondary = violet tint, tertiary = white
+     outline, ghost = transparent, danger = red, ai = aurora + glow. */
+  --btn-primary-bg: #0a0a0c;
+  --btn-primary-bg-hover: #232329;
+  --btn-primary-bg-active: #000000;
+  --btn-primary-label: #ffffff;
+  --btn-brand-bg: #7c5cf8;
+  --btn-brand-bg-hover: #6a4fe6;
+  --btn-brand-bg-active: #5a40d6;
+  --btn-brand-label: #ffffff;
+  --btn-secondary-bg: #f1effd;
+  --btn-secondary-bg-hover: #e7e2fc;
+  --btn-secondary-bg-active: #ddd6fa;
+  --btn-secondary-label: #7c5cf8;
+  --btn-tertiary-bg: #ffffff;
+  --btn-tertiary-bg-hover: #f6f6f8;
+  --btn-tertiary-border: #ebebef;
+  --btn-tertiary-label: #1a1b1f;
+  --btn-ghost-label: #1a1b1f;
+  --btn-ghost-bg-hover: #f6f6f8;
+  --btn-danger-bg: #d44a50;
+  --btn-danger-bg-hover: #c43f45;
+  --btn-danger-bg-active: #b2373c;
+  --btn-danger-label: #ffffff;
+  --btn-focus-ring: rgba(124, 92, 248, 0.4);
+  --btn-disabled-bg: #f6f6f8;
+  --btn-disabled-label: #9b9ea8;
+  --btn-ai-glow: 0 6px 24px -6px rgba(124, 92, 248, 0.45), 0 2px 10px -2px rgba(255, 138, 91, 0.28);
+
+  --maxw: 1200px;
+}
+
+/* Dark tokens are defined for parity with the product design system. The
+   marketing site renders light by default; specific sections opt into dark
+   via .on-dark. (design.md §2.5) */
+.on-dark {
+  --background: #0d0d11;
+  --surface: #17171d;
+  --surface-2: #1f1f27;
+  --card: #17171d;
+  --foreground: #ecedf1;
+  --ink-deep: #ffffff;
+  --muted: #9d9fab;
+  --muted-2: #7d808c;
+  --line: #26262e;
+  --line-strong: #313139;
+  --brand: #9270ff;
+  --brand-hover: #a384ff;
+  --brand-tint: rgba(146, 112, 255, 0.14);
+  --brand-tint-2: rgba(146, 112, 255, 0.22);
+  --aurora-from: #3debd0;
+  --aurora-via: #52acff;
+  --aurora-to: #9270ff;
+  --spark: #ff9d6b;
+}
+
+/* Map tokens into Tailwind's theme so utilities (bg-brand, text-muted…) work */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-ink-deep: var(--ink-deep);
+  --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-tint: var(--brand-tint);
+  --color-brand-tint-2: var(--brand-tint-2);
+  --color-signal-red: var(--signal-red);
+  --color-spark: var(--spark);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-aurora-from: var(--aurora-from);
+  --color-aurora-via: var(--aurora-via);
+  --color-aurora-to: var(--aurora-to);
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+  --radius-2xl: var(--r-2xl);
+
+  --shadow-soft: var(--shadow-md);
+  --shadow-float: var(--shadow-lg);
+
+  --container-page: var(--maxw);
+}
+
+/* ----------------------------------------------------------------- base */
+* {
+  border-color: var(--line);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;            /* 16px body floor — design.md §3.1 */
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv05";
+}
+
+::selection {
+  background: var(--brand-tint-2);
+  color: var(--ink-deep);
+}
+
+/* In @layer base so utilities (text-white, text-[...]) can override these
+   defaults — unlayered rules would otherwise beat layered utilities, which
+   silently breaks e.g. white button text on <a> Links and white headings. */
+@layer base {
+  h1, h2, h3, h4 {
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    font-weight: 700;
+    color: var(--foreground);
+    text-wrap: balance;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------ utilities */
+
+/* Aurora = intelligence. Gradient text + fills, used only for AI/insight/hero. */
+.aurora-text {
+  background: var(--aurora);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Keep gradient-clipped text legible in forced-colors / high-contrast mode */
+@media (forced-colors: active) {
+  .aurora-text {
+    color: var(--foreground);
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+.aurora-fill {
+  background: var(--aurora);
+}
+
+/* Reveal-on-scroll — applied by the <Reveal> client component via
+   IntersectionObserver. The component only adds these classes when JS runs and
+   motion is allowed, so no-JS / reduced-motion users always see content. */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Staggered reveal — direct children of [data-reveal-stagger] (inside a Reveal)
+   fade in one after another as the section enters view. Opacity only, so it
+   never fights the container's rise. Only hidden while the JS-driven reveal is
+   active, so no-JS / reduced-motion users always see the content. */
+.reveal-on-scroll [data-reveal-stagger] > * {
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+.reveal-on-scroll.is-revealed [data-reveal-stagger] > * { opacity: 1; }
+.reveal-on-scroll.is-revealed [data-reveal-stagger] > *:nth-child(2) { transition-delay: 0.07s; }
+.reveal-on-scroll.is-revealed [data-reveal-stagger] > *:nth-child(3) { transition-delay: 0.14s; }
+.reveal-on-scroll.is-revealed [data-reveal-stagger] > *:nth-child(4) { transition-delay: 0.21s; }
+.reveal-on-scroll.is-revealed [data-reveal-stagger] > *:nth-child(5) { transition-delay: 0.28s; }
+.reveal-on-scroll.is-revealed [data-reveal-stagger] > *:nth-child(6) { transition-delay: 0.35s; }
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Animated nav underline (scales in from the left), mirrored on focus-visible */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0.875rem;
+  right: 0.875rem;
+  bottom: 0.3rem;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s ease;
+}
+.nav-underline:hover::after,
+.nav-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.aurora-ring {
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    var(--aurora) border-box;
+  border: 1.5px solid transparent;
+}
+
+/* Soft Aurora wash for hero / intelligence backdrops (premium, restrained) */
+.aurora-wash {
+  background:
+    radial-gradient(60% 55% at 78% 8%, rgba(124, 92, 248, 0.16) 0%, transparent 60%),
+    radial-gradient(55% 50% at 12% 18%, rgba(59, 158, 255, 0.14) 0%, transparent 62%),
+    radial-gradient(50% 45% at 50% 100%, rgba(35, 215, 190, 0.12) 0%, transparent 60%);
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.dotgrid {
+  background-image: radial-gradient(rgba(13, 11, 22, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.hairline { border: 1px solid var(--line); }
+
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
+
+/* fluid display sizes */
+.display-xl { font-size: clamp(3rem, 1.6rem + 5.4vw, 5.2rem); line-height: 1.03; letter-spacing: -0.035em; }
+.display-lg { font-size: clamp(2.1rem, 1.3rem + 3vw, 3.4rem); line-height: 1.05; letter-spacing: -0.03em; }
+.display-md { font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.4rem); line-height: 1.12; letter-spacing: -0.025em; }
+
+/* hero headline — Maze-style: large, light weight, tight tracking, 2 lines */
+.hero-display {
+  font-size: clamp(2.2rem, 0.7rem + 5.4vw, 4.35rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  font-weight: 460;
+}
+
+/* ------------------------------------------------------------- motion */
+@keyframes aurora-drift {
+  0%   { transform: translate3d(0,0,0) scale(1);   opacity: 0.9; }
+  50%  { transform: translate3d(2%, -2%, 0) scale(1.06); opacity: 1; }
+  100% { transform: translate3d(0,0,0) scale(1);   opacity: 0.9; }
+}
+
+@keyframes spark-shimmer {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(124,92,248,0)); transform: rotate(0deg); }
+  50%      { filter: drop-shadow(0 4px 14px rgba(124,92,248,0.45)); transform: rotate(8deg); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+.animate-aurora { animation: aurora-drift 14s ease-in-out infinite; }
+.animate-marquee { animation: marquee 38s linear infinite; }
+.animate-float { animation: float-y 7s ease-in-out infinite; }
+.animate-spark { animation: spark-shimmer 4.5s ease-in-out infinite; }
+
+.reveal {
+  opacity: 0;
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.marquee-track { width: max-content; }
+
+/* live "now" pulse dot (poll). Auto-frozen by the reduced-motion block below,
+   and it oscillates 1 → 0.45 so it never starts hidden. */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.45; transform: scale(0.78); }
+}
+.live-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+/* ---------------------------------------------------- hero bento mosaic */
+/* A Maze-style mosaic of real product moments. Desktop uses named grid
+   areas; tablet collapses to 2 columns; mobile stacks in DOM order. */
+.hero-bento {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+.hero-bento > * { min-width: 0; }
+
+@media (min-width: 640px) {
+  .hero-bento {
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 14px;
+    grid-template-areas:
+      "photo channels"
+      "photo ask";
+  }
+  .ba-photo    { grid-area: photo; }
+  .ba-channels { grid-area: channels; }
+  .ba-ask      { grid-area: ask; }
+}
+
+/* Respect reduced motion — static fallbacks for every animation */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; }
+}
