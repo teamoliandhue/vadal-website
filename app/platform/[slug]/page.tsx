@@ -5,7 +5,7 @@ import { Button, Container, Pill, Section, SectionHead, CheckItem } from "@/comp
 import { Icon } from "@/components/Icon";
 import { SparkMark } from "@/components/Brand";
 import { DashboardMock, PhoneMock, VoiceCard } from "@/components/ProductMocks";
-import { FeatureRow, StatBand, TestimonialCard } from "@/components/sections";
+import { CrowdPanel, FeatureRow, IconChip, StatBand, TestimonialCard } from "@/components/sections";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { getProductPage, productPages } from "@/lib/product-pages";
 import { ILLUSTRATIVE } from "@/lib/content";
@@ -96,34 +96,38 @@ export default async function ProductPage({
       </section>
 
       {/* ------------------------------------------------------ how it works */}
-      <Section tone="surface">
-        <Container>
-          <SectionHead
-            eyebrow="How it works"
-            title={
-              <>
-                {p.steps.map((s, i) => (
-                  <span key={s.title}>
-                    {i > 0 && <span className="text-[var(--muted-2)]"> → </span>}
-                    {s.title}
-                  </span>
-                ))}
-              </>
-            }
-          />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+      {/* Maze-style blue crowd panel — the four steps float as white cards */}
+      <Section tone="base">
+        <CrowdPanel
+          tone="blue"
+          eyebrow="How it works"
+          title={
+            <>
+              {p.steps.map((s, i) => (
+                <span key={s.title}>
+                  {i > 0 && <span className="text-white/50"> → </span>}
+                  {s.title}
+                </span>
+              ))}
+            </>
+          }
+        >
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
             {p.steps.map((s, idx) => (
               <div
                 key={s.title}
-                className="relative rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6"
+                className="group flex flex-col rounded-[var(--r-lg)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lg)]"
               >
-                <span className="text-[12px] font-bold text-[var(--muted-2)]">0{idx + 1}</span>
-                <h3 className="mt-2 text-[18px] font-bold">{s.title}</h3>
+                <span className="inline-flex items-center gap-2 self-start rounded-md border border-[var(--line)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--foreground)]">
+                  <span className="h-2 w-2 rounded-[2px]" style={{ background: "#FF8A5B" }} />
+                  Step 0{idx + 1}
+                </span>
+                <h3 className="mt-3 text-[18px] font-bold">{s.title}</h3>
                 <p className="mt-1.5 text-[14px] leading-relaxed text-[var(--muted)]">{s.body}</p>
               </div>
             ))}
           </div>
-        </Container>
+        </CrowdPanel>
       </Section>
 
       {/* ------------------------------------------- feature rows (alternating) */}

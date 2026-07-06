@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Button, Container, Pill, Section, SectionHead } from "@/components/ui";
-import { Icon } from "@/components/Icon";
+import { IconChip } from "@/components/sections";
 import { SparkMark } from "@/components/Brand";
 import { scienceMenu } from "@/lib/content";
 
@@ -80,9 +80,7 @@ export default function SciencePage() {
                 className="scroll-mt-24 rounded-[var(--r-2xl)] border border-[var(--line)] bg-[var(--card)] p-7 shadow-[var(--shadow-sm)] sm:p-9"
               >
                 <div className="flex items-center gap-3.5">
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[13px] bg-[var(--brand-tint)] text-[var(--brand)]">
-                    <Icon name={s.icon} size={22} />
-                  </span>
+                  <IconChip icon={s.icon} tint={i} />
                   <div>
                     <span className="text-[12px] font-bold text-[var(--muted-2)]">0{i + 1}</span>
                     <h2 className="text-[20px] font-extrabold leading-tight tracking-[-0.02em]">{s.name}</h2>

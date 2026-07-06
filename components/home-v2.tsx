@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import { Button, CheckItem, Container, Eyebrow, Pill, SectionHead } from "./ui";
-import { PanelStage } from "./sections";
+import { CrowdPanel, IconChip, PanelStage } from "./sections";
+import { DashboardMock, VoiceCard } from "./ProductMocks";
 import {
   actionSection,
   analyticsSection,
@@ -15,9 +16,10 @@ import {
 
 /* ============================================================================
    Home v2 sections — the "AI-Powered Workforce Engagement & Decision
-   Intelligence" repositioning (Home page content (1).docx, 2026-07-06).
-   All server components; interactivity lives in PersonaTabs (the hero is
-   ScrollHero — the scroll-driven canvas animation — carrying the v2 copy).
+   Intelligence" repositioning, dressed in the site's original Maze-style
+   design language: colored crowd-texture panels, halftone stages, product UI
+   floating in cards, and multi-tint icon chips. Interactivity lives in
+   PersonaTabs; the hero is ScrollHero.
    ========================================================================== */
 
 /* ------------------------------------------------------- feature card grid */
@@ -25,11 +27,13 @@ function FeatureCard({
   title,
   body,
   icon,
+  tint = 0,
   className = "",
 }: {
   title: string;
   body: string;
   icon: Parameters<typeof Icon>[0]["name"];
+  tint?: number;
   className?: string;
 }) {
   return (
@@ -37,9 +41,7 @@ function FeatureCard({
       className={`group relative flex flex-col gap-3 overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)] ${className}`}
     >
       <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[var(--brand-tint)] opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
-      <span className="relative grid h-11 w-11 place-items-center rounded-[13px] bg-[var(--brand-tint)] text-[var(--brand)] transition-colors duration-300 group-hover:bg-[var(--brand)] group-hover:text-white">
-        <Icon name={icon} size={22} />
-      </span>
+      <IconChip icon={icon} tint={tint} className="relative" />
       <h3 className="relative text-[17px] font-bold leading-snug">{title}</h3>
       <p className="relative text-[14px] leading-relaxed text-[var(--muted)]">{body}</p>
     </div>
@@ -47,46 +49,92 @@ function FeatureCard({
 }
 
 /* ---------------------------------------------------------------- surveys */
+/* Maze-signature blue crowd panel — white cards floating on the halftone. */
 export function SurveysSection() {
   return (
-    <Container>
-      <SectionHead
-        eyebrow={surveysSection.eyebrow}
-        title={surveysSection.title}
-        lede={surveysSection.lede}
-        aurora
-      />
-      <div className="mt-12 grid gap-4 sm:grid-cols-2" data-reveal-stagger>
-        {surveysSection.features.map((f) => (
-          <FeatureCard key={f.title} {...f} />
+    <CrowdPanel
+      tone="blue"
+      eyebrow={surveysSection.eyebrow}
+      title={surveysSection.title}
+      lede={surveysSection.lede}
+      ctaLabel="Explore engagement surveys"
+      ctaHref="/platform/engagement-surveys"
+    >
+      <div className="grid gap-3 sm:grid-cols-2" data-reveal-stagger>
+        {surveysSection.features.map((f, i) => (
+          <div
+            key={f.title}
+            className="group flex flex-col gap-3 rounded-[var(--r-lg)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lg)]"
+          >
+            <div className="flex items-center gap-3">
+              <IconChip icon={f.icon} tint={i} size="sm" />
+              <span className="inline-flex items-center gap-2 rounded-md border border-[var(--line)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--foreground)]">
+                <span className="h-2 w-2 rounded-[2px]" style={{ background: "#FF8A5B" }} />
+                0{i + 1}
+              </span>
+            </div>
+            <h3 className="text-[17px] font-bold leading-snug">{f.title}</h3>
+            <p className="text-[14px] leading-relaxed text-[var(--muted)]">{f.body}</p>
+          </div>
         ))}
       </div>
-      <div className="mt-10 text-center">
-        <Button href="/platform/engagement-surveys" variant="ghost" icon>
-          Explore engagement surveys
-        </Button>
-      </div>
-    </Container>
+    </CrowdPanel>
   );
 }
 
 /* -------------------------------------------------------------- analytics */
+/* Bento with the live product front and centre — a Maze staple. */
 export function AnalyticsSection() {
-  const [first, second, ...rest] = analyticsSection.features;
+  const [enps, sentiment, benchmark, reports, exports_] = analyticsSection.features;
   return (
     <Container>
       <SectionHead
         eyebrow={analyticsSection.eyebrow}
         title={analyticsSection.title}
         lede={analyticsSection.lede}
+        aurora
       />
       <div className="mt-12 grid gap-4 lg:grid-cols-6" data-reveal-stagger>
-        <FeatureCard {...first} className="lg:col-span-3" />
-        <FeatureCard {...second} className="lg:col-span-3" />
-        {rest.map((f) => (
-          <FeatureCard key={f.title} {...f} className="lg:col-span-2" />
-        ))}
+        {/* live product card */}
+        <div className="relative isolate flex min-h-[360px] flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] lg:col-span-3">
+          <div className="aurora-wash pointer-events-none absolute inset-0 opacity-80" aria-hidden="true" />
+          <div className="relative flex items-center justify-between p-5 pb-0">
+            <Pill aurora>
+              <SparkMark size={13} animate /> Live product
+            </Pill>
+            <span className="rounded-full bg-[var(--card)] px-3 py-1 text-[12px] font-semibold text-[var(--muted)] shadow-[var(--shadow-sm)]">
+              app.vadal.ai
+            </span>
+          </div>
+          <div className="relative mt-4 flex flex-1 items-end justify-center px-5">
+            <div className="w-full max-w-[440px] translate-y-4 transition-transform duration-500 hover:translate-y-1">
+              <DashboardMock />
+            </div>
+          </div>
+        </div>
+
+        <FeatureCard {...enps} tint={0} className="lg:col-span-3" />
+        <FeatureCard {...sentiment} tint={1} className="lg:col-span-2" />
+        <FeatureCard {...benchmark} tint={2} className="lg:col-span-2" />
+        <FeatureCard {...reports} tint={3} className="lg:col-span-2" />
+
+        {/* wide exports strip */}
+        <div className="group flex flex-col gap-5 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)] sm:flex-row sm:items-center lg:col-span-6">
+          <div className="flex items-start gap-4 sm:flex-1">
+            <IconChip icon={exports_.icon} tint={1} />
+            <div>
+              <h3 className="text-[17px] font-bold leading-snug">{exports_.title}</h3>
+              <p className="mt-1 max-w-xl text-[14px] leading-relaxed text-[var(--muted)]">{exports_.body}</p>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2 sm:justify-end">
+            {["Excel", "CSV", "PDF", "Power BI", "Tableau", "Looker"].map((f) => (
+              <Pill key={f}>{f}</Pill>
+            ))}
+          </div>
+        </div>
       </div>
+
       <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
         <span className="mr-1 text-[13px] font-semibold uppercase tracking-[0.1em] text-[var(--muted-2)]">
           Additional insights
@@ -98,7 +146,7 @@ export function AnalyticsSection() {
           </Pill>
         ))}
       </div>
-      <div className="mt-10 text-center">
+      <div className="mt-8 text-center">
         <Button href="/platform/people-analytics" variant="ghost" icon>
           Explore people analytics
         </Button>
@@ -111,7 +159,7 @@ export function AnalyticsSection() {
 export function FeedbackSection() {
   return (
     <Container>
-      <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div>
           <Eyebrow aurora>{feedbackSection.eyebrow}</Eyebrow>
           <h2 className="display-md mt-3 font-extrabold">{feedbackSection.title}</h2>
@@ -129,11 +177,25 @@ export function FeedbackSection() {
             </Button>
           </div>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2" data-reveal-stagger>
-          {feedbackSection.cards.map((c) => (
-            <FeatureCard key={c.title} {...c} />
-          ))}
-        </div>
+
+        {/* the voice of the workforce, on a halftone stage */}
+        <PanelStage tone="blue" className="lg:self-stretch">
+          <div className="flex flex-col items-center gap-4 py-2">
+            <VoiceCard />
+            <div className="animate-float flex items-center gap-2 rounded-full bg-[var(--card)] px-4 py-2 shadow-[0_18px_40px_-16px_rgba(8,5,30,0.5)]">
+              <SparkMark size={14} />
+              <span className="text-[13px] font-bold text-[var(--foreground)]">
+                Sentiment: <span className="text-[#0fa88f]">positive & rising</span>
+              </span>
+            </div>
+          </div>
+        </PanelStage>
+      </div>
+
+      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+        {feedbackSection.cards.map((c, i) => (
+          <FeatureCard key={c.title} {...c} tint={i} />
+        ))}
       </div>
     </Container>
   );
@@ -157,7 +219,7 @@ export function ActionBand() {
               Book a demo
             </Button>
             <Link
-              href="/platform#ai-engagement"
+              href="/platform/workforce-intelligence"
               className="group inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[14.5px] font-bold text-white"
             >
               See action planning
@@ -239,35 +301,62 @@ export function PrivacySection() {
 }
 
 /* ------------------------------------------------------------ integrations */
-export function IntegrationsSection() {
+/* Two counter-scrolling rows of integration cards — motion sells the depth
+   of the ecosystem better than a static grid. Pauses on hover. */
+function IntegrationCard({ c, tint }: { c: (typeof integrationsSection.categories)[number]; tint: number }) {
   return (
-    <Container>
-      <SectionHead
-        eyebrow={integrationsSection.eyebrow}
-        title={integrationsSection.title}
-        lede={integrationsSection.lede}
-      />
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5" data-reveal-stagger>
-        {integrationsSection.categories.map((c) => (
-          <div
-            key={c.name}
-            className="group rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
-          >
-            <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-[var(--brand-tint)] text-[var(--brand)] transition-colors duration-300 group-hover:bg-[var(--brand)] group-hover:text-white">
-              <Icon name={c.icon} size={18} />
-            </span>
-            <h3 className="mt-3 text-[14.5px] font-bold">{c.name}</h3>
-            <p className="mt-1.5 text-[12.5px] leading-relaxed text-[var(--muted)]">{c.vendors}</p>
-          </div>
-        ))}
+    <div className="mx-2 w-[280px] shrink-0 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow-lg)]">
+      <div className="flex items-center gap-3">
+        <IconChip icon={c.icon} tint={tint} size="sm" />
+        <h3 className="text-[14.5px] font-bold">{c.name}</h3>
       </div>
-      <p className="mt-8 text-center text-[14px] text-[var(--muted)]">
+      <p className="mt-2.5 text-[12.5px] leading-relaxed text-[var(--muted)]">{c.vendors}</p>
+    </div>
+  );
+}
+
+export function IntegrationsSection() {
+  const rowA = integrationsSection.categories.slice(0, 5);
+  const rowB = integrationsSection.categories.slice(5);
+  const mask = {
+    maskImage: "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
+    WebkitMaskImage: "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
+  } as const;
+  return (
+    <div>
+      <Container>
+        <SectionHead
+          eyebrow={integrationsSection.eyebrow}
+          title={integrationsSection.title}
+          lede={integrationsSection.lede}
+        />
+      </Container>
+      <div className="mt-12 space-y-4">
+        <div className="relative overflow-hidden" style={mask}>
+          <div className="marquee-track flex animate-marquee hover:[animation-play-state:paused]" style={{ animationDuration: "46s" }}>
+            {[...rowA, ...rowA, ...rowA].map((c, i) => (
+              <IntegrationCard key={`${c.name}-${i}`} c={c} tint={i} />
+            ))}
+          </div>
+        </div>
+        <div className="relative overflow-hidden" style={mask}>
+          <div
+            className="marquee-track flex animate-marquee hover:[animation-play-state:paused]"
+            style={{ animationDuration: "52s", animationDirection: "reverse" }}
+          >
+            {[...rowB, ...rowB, ...rowB].map((c, i) => (
+              <IntegrationCard key={`${c.name}-${i}`} c={c} tint={i + 1} />
+            ))}
+          </div>
+        </div>
+      </div>
+      <p className="mt-9 text-center text-[14px] text-[var(--muted)]">
         …and anything with a REST API.{" "}
         <Link href="/contact" className="font-bold text-[var(--brand)] underline-offset-4 hover:underline">
           Ask us about your stack →
         </Link>
       </p>
-    </Container>
+    </div>
   );
 }
 
@@ -294,37 +383,39 @@ export function ImplementationSection() {
           </div>
         </div>
 
-        {/* the 5-week stepper */}
-        <div className="rounded-[var(--r-2xl)] border border-[var(--line)] bg-[var(--card)] p-7 shadow-[var(--shadow-sm)] sm:p-9">
-          <div className="flex items-center justify-between">
-            <p className="text-[13px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
-              Your first five weeks
-            </p>
-            <SparkMark size={16} />
+        {/* the 5-week stepper, floating on a warm halftone stage */}
+        <PanelStage tone="spark">
+          <div className="w-full max-w-[440px] rounded-[var(--r-2xl)] bg-[var(--card)] p-7 shadow-[0_24px_60px_-20px_rgba(120,45,10,0.45)] sm:p-8">
+            <div className="flex items-center justify-between">
+              <p className="text-[13px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
+                Your first five weeks
+              </p>
+              <SparkMark size={16} />
+            </div>
+            <ol className="mt-6">
+              {implementationSection.weeks.map((w, i) => (
+                <li key={w.week} className="relative flex gap-4 pb-6 last:pb-0">
+                  {i < implementationSection.weeks.length - 1 && (
+                    <span className="absolute left-[17px] top-9 bottom-0 w-px bg-[var(--line)]" aria-hidden="true" />
+                  )}
+                  <span
+                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-extrabold ${
+                      i === implementationSection.weeks.length - 1
+                        ? "aurora-fill text-white"
+                        : "bg-[var(--brand-tint)] text-[var(--brand)]"
+                    }`}
+                  >
+                    {i + 1}
+                  </span>
+                  <div className="pt-1">
+                    <p className="text-[12px] font-bold uppercase tracking-[0.1em] text-[var(--muted-2)]">{w.week}</p>
+                    <p className="text-[15.5px] font-bold text-[var(--foreground)]">{w.title}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
-          <ol className="mt-6">
-            {implementationSection.weeks.map((w, i) => (
-              <li key={w.week} className="relative flex gap-4 pb-6 last:pb-0">
-                {i < implementationSection.weeks.length - 1 && (
-                  <span className="absolute left-[17px] top-9 bottom-0 w-px bg-[var(--line)]" aria-hidden="true" />
-                )}
-                <span
-                  className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12px] font-extrabold ${
-                    i === implementationSection.weeks.length - 1
-                      ? "aurora-fill text-white"
-                      : "bg-[var(--brand-tint)] text-[var(--brand)]"
-                  }`}
-                >
-                  {i + 1}
-                </span>
-                <div className="pt-1">
-                  <p className="text-[12px] font-bold uppercase tracking-[0.1em] text-[var(--muted-2)]">{w.week}</p>
-                  <p className="text-[15.5px] font-bold text-[var(--foreground)]">{w.title}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
+        </PanelStage>
       </div>
     </Container>
   );

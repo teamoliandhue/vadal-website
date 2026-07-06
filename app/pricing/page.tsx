@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Button, Container, Pill, Section, SectionHead } from "@/components/ui";
 import { Icon } from "@/components/Icon";
+import { IconChip } from "@/components/sections";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { type IconName } from "@/lib/content";
 
@@ -113,9 +114,7 @@ export default function PricingPage() {
                     <Pill aurora>Most popular</Pill>
                   </span>
                 )}
-                <span className="grid h-11 w-11 place-items-center rounded-[13px] bg-[var(--brand-tint)] text-[var(--brand)]">
-                  <Icon name={t.icon} size={22} />
-                </span>
+                <IconChip icon={t.icon} tint={i} />
                 <h2 className="mt-4 text-[22px] font-extrabold">{t.name}</h2>
                 <p className="mt-1 text-[14px] font-semibold text-[var(--muted)]">{t.audience}</p>
                 <ul className="mt-5 space-y-2.5">

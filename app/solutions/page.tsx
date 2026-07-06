@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container, Section, SectionHead } from "@/components/ui";
 import { Icon } from "@/components/Icon";
-import { LogoMarquee, SolutionGrid } from "@/components/sections";
+import { IconChip, LogoMarquee, SolutionGrid } from "@/components/sections";
 import { solutionsByOutcome, solutionsByWorkforce } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -31,15 +31,13 @@ export default function SolutionsIndex() {
         <Container>
           <SectionHead eyebrow="By outcome" title="Start from the result you need" />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {solutionsByOutcome.map((s) => (
+            {solutionsByOutcome.map((s, i) => (
               <Link
                 key={s.name}
                 href={s.href}
                 className="group flex flex-col rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
               >
-                <span className="grid h-11 w-11 place-items-center rounded-[13px] bg-[var(--brand-tint)] text-[var(--brand)] transition-colors duration-300 group-hover:bg-[var(--brand)] group-hover:text-white">
-                  <Icon name={s.icon ?? "spark"} size={22} />
-                </span>
+                <IconChip icon={s.icon ?? "spark"} tint={i} />
                 <h3 className="mt-4 text-[17px] font-bold">{s.name}</h3>
                 <p className="mt-2 text-[14px] leading-relaxed text-[var(--muted)]">{s.blurb}</p>
                 <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-[13px] font-semibold text-[var(--brand)]">
@@ -61,15 +59,13 @@ export default function SolutionsIndex() {
             lede="In-office, remote, hybrid or on the frontline — reach and understand every employee, in 150+ languages, at enterprise scale."
           />
           <div className="mt-12 grid gap-4 sm:grid-cols-3">
-            {solutionsByWorkforce.map((s) => (
+            {solutionsByWorkforce.map((s, i) => (
               <Link
                 key={s.name}
                 href={s.href}
                 className="group flex flex-col rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
               >
-                <span className="grid h-11 w-11 place-items-center rounded-[13px] bg-[var(--brand-tint)] text-[var(--brand)] transition-colors duration-300 group-hover:bg-[var(--brand)] group-hover:text-white">
-                  <Icon name={s.icon ?? "globe"} size={22} />
-                </span>
+                <IconChip icon={s.icon ?? "globe"} tint={i + 1} />
                 <h3 className="mt-4 text-[17px] font-bold">{s.name}</h3>
                 <p className="mt-2 text-[14px] leading-relaxed text-[var(--muted)]">{s.blurb}</p>
                 <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-[13px] font-semibold text-[var(--brand)]">

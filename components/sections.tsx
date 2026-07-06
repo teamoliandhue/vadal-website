@@ -9,6 +9,119 @@ import {
   type Testimonial,
 } from "@/lib/content";
 
+/* ----------------------------------------------------------- Icon chip */
+/* Multi-tint icon tiles (Maze-style) — rotating the brand's accent hues
+   breaks the all-violet monotony on card grids. Cycle with tint={i}. */
+const CHIP_TINTS = [
+  { bg: "var(--brand-tint)", fg: "var(--brand)" }, // violet
+  { bg: "#e6f3fe", fg: "#2b8de0" }, // blue
+  { bg: "#dffaf5", fg: "#0fa88f" }, // teal
+  { bg: "#ffece3", fg: "#ee6a35" }, // spark
+];
+
+export function IconChip({
+  icon,
+  tint = 0,
+  size = "md",
+  className = "",
+}: {
+  icon: Parameters<typeof Icon>[0]["name"];
+  tint?: number;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+}) {
+  const t = CHIP_TINTS[tint % CHIP_TINTS.length];
+  const dims = size === "lg" ? "h-12 w-12 rounded-[14px]" : size === "sm" ? "h-9 w-9 rounded-[10px]" : "h-11 w-11 rounded-[13px]";
+  const iconSize = size === "lg" ? 24 : size === "sm" ? 18 : 22;
+  return (
+    <span
+      className={`grid shrink-0 place-items-center ${dims} ${className}`}
+      style={{ background: t.bg, color: t.fg }}
+    >
+      <Icon name={icon} size={iconSize} />
+    </span>
+  );
+}
+
+/* ---------------------------------------------------------- Crowd panel */
+/* The signature Maze-style stage: a full-width rounded panel over a halftone
+   crowd texture, with a heading block and free-form children (usually a grid
+   of white cards). Blue and teal variants match the brand textures. */
+const CROWD_TONES = {
+  blue: {
+    bg: "#2978F0",
+    img: "/textures/crowd-blue.webp",
+    scrim:
+      "radial-gradient(120% 75% at 50% -8%, rgba(255,255,255,0.24), transparent 55%), linear-gradient(180deg, transparent 58%, rgba(8,30,78,0.22))",
+    heading: "text-white",
+    lede: "text-white/85",
+  },
+  teal: {
+    bg: "#39C7C0",
+    img: "/textures/crowd-teal.webp",
+    scrim:
+      "radial-gradient(120% 75% at 50% -8%, rgba(255,255,255,0.3), transparent 55%), linear-gradient(180deg, transparent 58%, rgba(6,52,50,0.2))",
+    heading: "text-[var(--ink-deep)]",
+    lede: "text-[var(--ink-deep)]/75",
+  },
+} as const;
+
+export function CrowdPanel({
+  tone = "blue",
+  eyebrow,
+  title,
+  lede,
+  ctaLabel,
+  ctaHref,
+  children,
+}: {
+  tone?: keyof typeof CROWD_TONES;
+  eyebrow?: string;
+  title: ReactNode;
+  lede?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  children: ReactNode;
+}) {
+  const t = CROWD_TONES[tone];
+  return (
+    <Container>
+      <div
+        className="relative overflow-hidden rounded-[32px] px-5 py-12 sm:px-10 sm:py-14 lg:py-16"
+        style={{
+          backgroundColor: t.bg,
+          backgroundImage: `url('${t.img}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* depth — soft top highlight + gentle bottom shade over the halftone */}
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true" style={{ background: t.scrim }} />
+
+        <div className="relative">
+          <div className="mx-auto max-w-2xl text-center">
+            {eyebrow && (
+              <p className={`text-[13px] font-bold uppercase tracking-[0.14em] ${t.lede}`}>{eyebrow}</p>
+            )}
+            <h2 className={`mt-3 text-[clamp(2rem,1.1rem+2.6vw,3.1rem)] font-extrabold leading-[1.08] tracking-[-0.025em] ${t.heading}`}>
+              {title}
+            </h2>
+            {lede && <p className={`mx-auto mt-4 max-w-xl text-[16px] leading-relaxed ${t.lede}`}>{lede}</p>}
+            {ctaLabel && (
+              <div className="mt-6 flex justify-center">
+                <Button href={ctaHref || "/demo"} variant="dark" size="lg" icon>
+                  {ctaLabel}
+                </Button>
+              </div>
+            )}
+          </div>
+          <div className="mt-10">{children}</div>
+        </div>
+      </div>
+    </Container>
+  );
+}
+
 /* --------------------------------------------------------- Logo marquee */
 function LogoChip({ name }: { name: string }) {
   return (
