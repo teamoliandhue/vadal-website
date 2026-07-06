@@ -2,14 +2,11 @@ import Link from "next/link";
 import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import { Button, CheckItem, Container, Eyebrow, Pill, SectionHead } from "./ui";
-import { HeroEmailForm } from "./HeroEmailForm";
-import { DashboardMock } from "./ProductMocks";
 import { PanelStage } from "./sections";
 import {
   actionSection,
   analyticsSection,
   feedbackSection,
-  heroV2,
   implementationSection,
   integrationsSection,
   privacySection,
@@ -19,41 +16,9 @@ import {
 /* ============================================================================
    Home v2 sections — the "AI-Powered Workforce Engagement & Decision
    Intelligence" repositioning (Home page content (1).docx, 2026-07-06).
-   All server components; interactivity lives in HeroEmailForm / PersonaTabs.
+   All server components; interactivity lives in PersonaTabs (the hero is
+   ScrollHero — the scroll-driven canvas animation — carrying the v2 copy).
    ========================================================================== */
-
-/* ------------------------------------------------------------------- hero */
-export function HeroV2() {
-  return (
-    <section className="relative overflow-hidden">
-      <div className="aurora-wash animate-aurora pointer-events-none absolute inset-0 -z-10" />
-      <Container className="grid w-full items-center gap-12 pb-16 pt-14 lg:grid-cols-[55%_45%] lg:gap-10 sm:pt-20">
-        <div className="flex flex-col items-start gap-6">
-          <Pill aurora>
-            <SparkMark size={14} animate /> {heroV2.pill}
-          </Pill>
-          <h1 className="hero-display text-[var(--foreground)]">
-            {heroV2.titleA}
-            <br />
-            <span className="aurora-text">{heroV2.titleB}</span>
-          </h1>
-          <p className="max-w-xl text-[18px] font-normal leading-relaxed text-[var(--muted)] text-pretty">
-            {heroV2.lede}
-          </p>
-          <HeroEmailForm />
-          <Button href="/platform" variant="ghost" size="lg">
-            <Icon name="play" size={15} className="text-[var(--brand)]" />
-            {heroV2.secondaryCta}
-          </Button>
-        </div>
-        <div className="relative hidden lg:block">
-          <div className="aurora-wash pointer-events-none absolute -inset-8 -z-10 rounded-[var(--r-2xl)] opacity-80" />
-          <DashboardMock />
-        </div>
-      </Container>
-    </section>
-  );
-}
 
 /* ------------------------------------------------------- feature card grid */
 function FeatureCard({

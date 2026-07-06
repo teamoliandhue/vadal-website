@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Button, Container, Section, SectionHead } from "@/components/ui";
 import { PersonaTabs } from "@/components/PersonaTabs";
+import { ScrollHero } from "@/components/ScrollHero";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { EnterprisePanel, LogoMarquee } from "@/components/sections";
 import {
   ActionBand,
   AnalyticsSection,
   FeedbackSection,
-  HeroV2,
   ImplementationSection,
   IntegrationsSection,
   PrivacySection,
@@ -26,8 +26,10 @@ import { homeFaqsV2, platformOverview, securitySection } from "@/lib/content";
 export default function HomePage() {
   return (
     <>
-      {/* ============================================================ HERO */}
-      <HeroV2 />
+      {/* ================================ HERO (scroll transform animation) */}
+      {/* NOTE: never wrap in <Section reveal> — Reveal's transform breaks the
+          sticky pinning the canvas animation depends on. */}
+      <ScrollHero />
 
       {/* ==================================================== LOGO MARQUEE */}
       <Section tone="base" className="!py-14">

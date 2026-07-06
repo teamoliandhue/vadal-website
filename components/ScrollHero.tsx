@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Button, Container } from "./ui";
+import { Button, Container, Pill } from "./ui";
 import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import { HeroBento } from "./HeroBento";
+import { HeroEmailForm } from "./HeroEmailForm";
+import { heroV2 } from "@/lib/content";
 
 /* ============================================================================
    ScrollHero — a Maze-style scroll-driven transformation.
@@ -338,24 +340,23 @@ export function ScrollHero() {
           className={enabled ? "absolute inset-0 z-10 flex items-center pb-16" : "relative z-10 flex items-center"}
         >
           <Container className="grid w-full items-center gap-12 py-12 lg:grid-cols-[56%_44%] lg:gap-10 lg:py-6">
-            <div ref={textColRef} className="flex flex-col items-start gap-6">
+            <div ref={textColRef} className="flex flex-col items-start gap-5">
+              <Pill aurora>
+                <SparkMark size={14} animate /> {heroV2.pill}
+              </Pill>
               <h1 className="hero-display text-[var(--foreground)]">
-                A better way to reach
-                <br />&amp; <span className="aurora-text">engage</span> employees
+                {heroV2.titleA}
+                <br />
+                <span className="aurora-text">{heroV2.titleB}</span>
               </h1>
-              <p className="max-w-lg text-[19px] font-normal leading-relaxed text-[var(--muted)] text-pretty">
-                In a world that never sits still, Vadal helps you reach, train and hear every
-                employee — especially the people who don&apos;t sit at a desk.
+              <p className="max-w-lg text-[17px] font-normal leading-relaxed text-[var(--muted)] text-pretty">
+                {heroV2.lede}
               </p>
-              <div className="mt-1 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-                <Button href="/demo" size="lg" icon>
-                  Book demo
-                </Button>
-                <Button href="/platform" variant="ghost" size="lg">
-                  <Icon name="play" size={15} className="text-[var(--brand)]" />
-                  Watch the 2-min tour
-                </Button>
-              </div>
+              <HeroEmailForm />
+              <Button href="/platform" variant="ghost" size="lg">
+                <Icon name="play" size={15} className="text-[var(--brand)]" />
+                {heroV2.secondaryCta}
+              </Button>
             </div>
             <div ref={bentoColRef} className="will-change-transform">
               <HeroBento />
@@ -381,11 +382,11 @@ export function ScrollHero() {
             <h2 className="display-lg font-semibold">
               One platform.
               <br />
-              <span className="aurora-text">Every employee.</span>
+              <span className="aurora-text">Every decision.</span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-[18px] leading-relaxed text-[var(--muted)]">
-              Vadal brings communication, training, culture and tasks into one place — so
-              engagement keeps pace with your people.
+              Vadal.ai unifies engagement, workforce intelligence and action planning in one
+              place — so every people decision is a confident one.
             </p>
             <div className="mt-8 flex justify-center">
               <Button href="/platform" size="lg" icon>
