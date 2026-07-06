@@ -103,10 +103,10 @@ export function CrowdPanel({
             {eyebrow && (
               <p className={`text-[13px] font-bold uppercase tracking-[0.14em] ${t.lede}`}>{eyebrow}</p>
             )}
-            <h2 className={`mt-3 text-[clamp(2rem,1.1rem+2.6vw,3.1rem)] font-extrabold leading-[1.08] tracking-[-0.025em] ${t.heading}`}>
+            <h2 className={`mt-3 text-[clamp(2rem,1.1rem+2.6vw,3.1rem)] font-extrabold leading-[1.08] tracking-[-0.025em] text-balance ${t.heading}`}>
               {title}
             </h2>
-            {lede && <p className={`mx-auto mt-4 max-w-xl text-[16px] leading-relaxed ${t.lede}`}>{lede}</p>}
+            {lede && <p className={`mx-auto mt-4 max-w-xl text-[15.5px] leading-relaxed sm:text-[16px] ${t.lede}`}>{lede}</p>}
             {ctaLabel && (
               <div className="mt-6 flex justify-center">
                 <Button href={ctaHref || "/demo"} variant="dark" size="lg" icon>
@@ -296,8 +296,8 @@ export function FeatureRow({
     <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
       <div className={reverse ? "lg:order-2" : ""}>
         <Eyebrow aurora={aurora}>{eyebrow}</Eyebrow>
-        <h3 className="display-md mt-3 font-extrabold">{title}</h3>
-        <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-[var(--muted)]">{body}</p>
+        <h3 className="display-md mt-3 font-extrabold text-balance">{title}</h3>
+        <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-[var(--muted)] sm:text-[17px]">{body}</p>
         {bullets && (
           <ul className="mt-6 space-y-3">
             {bullets.map((b) => (

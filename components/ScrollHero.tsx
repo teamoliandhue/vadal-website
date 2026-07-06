@@ -342,18 +342,21 @@ export function ScrollHero() {
           <Container className="grid w-full items-center gap-12 py-12 lg:grid-cols-[56%_44%] lg:gap-10 lg:py-6">
             <div ref={textColRef} className="flex flex-col items-start gap-5">
               <Pill aurora>
-                <SparkMark size={14} animate /> {heroV2.pill}
+                <SparkMark size={14} animate />
+                {/* the full positioning line wraps awkwardly at phone widths */}
+                <span className="sm:hidden">AI-Powered Decision Intelligence</span>
+                <span className="hidden sm:inline">{heroV2.pill}</span>
               </Pill>
               <h1 className="hero-display text-[var(--foreground)]">
                 {heroV2.titleA}
                 <br />
                 <span className="aurora-text">{heroV2.titleB}</span>
               </h1>
-              <p className="max-w-lg text-[17px] font-normal leading-relaxed text-[var(--muted)] text-pretty">
+              <p className="max-w-lg text-[16px] font-normal leading-relaxed text-[var(--muted)] text-pretty sm:text-[17px]">
                 {heroV2.lede}
               </p>
               <HeroEmailForm />
-              <Button href="/platform" variant="ghost" size="lg">
+              <Button href="/platform" variant="ghost" size="lg" className="w-full justify-center sm:w-auto">
                 <Icon name="play" size={15} className="text-[var(--brand)]" />
                 {heroV2.secondaryCta}
               </Button>

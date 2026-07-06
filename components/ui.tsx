@@ -184,9 +184,9 @@ export function SectionHead({
   return (
     <div className={`flex flex-col gap-4 ${a} ${align === "center" ? "max-w-2xl" : ""} ${className}`}>
       {eyebrow && <Eyebrow aurora={aurora}>{eyebrow}</Eyebrow>}
-      <Heading className="display-md font-extrabold">{title}</Heading>
+      <Heading className="display-md font-extrabold text-balance">{title}</Heading>
       {lede && (
-        <p className="text-[17px] leading-relaxed text-[var(--muted)] text-pretty">{lede}</p>
+        <p className="text-[16px] leading-relaxed text-[var(--muted)] text-pretty sm:text-[17px]">{lede}</p>
       )}
     </div>
   );
