@@ -53,7 +53,8 @@ export default function ResourcesPage() {
         </Container>
       </section>
 
-      <Section tone="surface" className="!pt-10">
+      {/* "proof" + "learn" + "start" anchors are shared with the header mega-menu */}
+      <Section tone="surface" id="proof" className="scroll-mt-20 !pt-10">
         <Container>
           <div className="grid gap-4 md:grid-cols-3">
             {featured.map((f) => (
@@ -70,7 +71,7 @@ export default function ResourcesPage() {
         </Container>
       </Section>
 
-      <Section tone="base">
+      <Section tone="base" id="learn" className="scroll-mt-20">
         <Container>
           <SectionHead eyebrow="From the blog" title="Latest reads" align="left" />
           <div className="mt-8 divide-y divide-[var(--line)] rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)]">
@@ -84,7 +85,7 @@ export default function ResourcesPage() {
         </Container>
       </Section>
 
-      <Section tone="surface">
+      <Section tone="surface" id="start" className="scroll-mt-20">
         <Container>
           <div className="overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line)] bg-[var(--card)] p-8 text-center sm:p-12">
             <h2 className="display-md mx-auto max-w-lg font-extrabold">Get engagement ideas in your inbox</h2>

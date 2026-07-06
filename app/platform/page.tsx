@@ -5,7 +5,7 @@ import { Icon } from "@/components/Icon";
 import { SparkMark } from "@/components/Brand";
 import { DashboardMock, PhoneMock } from "@/components/ProductMocks";
 import { LogoMarquee, StatBand } from "@/components/sections";
-import { homeStats, ILLUSTRATIVE, type IconName } from "@/lib/content";
+import { homeStats, ILLUSTRATIVE, portfolioGroups, type IconName } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Platform",
@@ -92,6 +92,41 @@ export default function PlatformPage() {
                 <div>
                   <h3 className="text-[16px] font-bold">{p.name}</h3>
                   <p className="mt-1 text-[14px] leading-relaxed text-[var(--muted)]">{p.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* portfolio — the six product families (Portfolio for Vadal.docx).
+          Anchor ids are shared with the header mega-menu. */}
+      <Section tone="surface" id="portfolio" className="scroll-mt-20">
+        <Container>
+          <SectionHead
+            eyebrow="The full portfolio"
+            title="Every capability, six product families"
+            lede="From workforce experience to decision intelligence — the complete Vadal.ai portfolio, unified on one AI-powered platform."
+          />
+          <div className="mt-14 space-y-14">
+            {portfolioGroups.map((g) => (
+              <div key={g.id} id={g.id} className="scroll-mt-24">
+                <div className="flex items-center gap-3">
+                  <span className="grid h-10 w-10 place-items-center rounded-[12px] bg-[var(--brand-tint)] text-[var(--brand)]">
+                    <Icon name={g.icon} size={20} />
+                  </span>
+                  <h3 className="text-[22px] font-extrabold tracking-[-0.02em]">{g.name}</h3>
+                </div>
+                <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {g.items.map((it) => (
+                    <div
+                      key={it.name}
+                      className="rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
+                    >
+                      <h4 className="text-[15px] font-bold">{it.name}</h4>
+                      <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--muted)]">{it.blurb}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}

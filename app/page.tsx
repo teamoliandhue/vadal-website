@@ -1,118 +1,108 @@
 import Link from "next/link";
 import { Button, Container, Section, SectionHead } from "@/components/ui";
-import { BroadcastCard, DashboardMock, PhoneMock, VoiceCard } from "@/components/ProductMocks";
-import { AudienceShowcase } from "@/components/AudienceShowcase";
-import { ScrollHero } from "@/components/ScrollHero";
-import { StickyShowcase } from "@/components/StickyShowcase";
+import { PersonaTabs } from "@/components/PersonaTabs";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
+import { EnterprisePanel, LogoMarquee } from "@/components/sections";
 import {
-  EnterprisePanel,
-  FeatureRow,
-  LogoMarquee,
-  ResultCards,
-  SolutionsPanel,
-} from "@/components/sections";
+  ActionBand,
+  AnalyticsSection,
+  FeedbackSection,
+  HeroV2,
+  ImplementationSection,
+  IntegrationsSection,
+  PrivacySection,
+  SurveysSection,
+} from "@/components/home-v2";
 import { FaqAccordion } from "@/components/FaqAccordion";
-import {
-  enterpriseServices,
-  ILLUSTRATIVE,
-  resultsStats,
-} from "@/lib/content";
+import { homeFaqsV2, platformOverview, securitySection } from "@/lib/content";
+
+/* ============================================================================
+   Home — the AI-Powered Workforce Engagement & Decision Intelligence platform.
+   Section order mirrors the content doc (and the category's proven flow):
+   hero → trust → persona tabs → surveys → analytics → feedback → action →
+   privacy → integrations → security → implementation → testimonials → FAQ.
+   ========================================================================== */
 
 export default function HomePage() {
   return (
     <>
-      {/* =========================================== HERO (scroll transform) */}
-      <ScrollHero />
+      {/* ============================================================ HERO */}
+      <HeroV2 />
 
-      {/* ===================================================== LOGO MARQUEE */}
-      <Section tone="base" className="!py-16">
+      {/* ==================================================== LOGO MARQUEE */}
+      <Section tone="base" className="!py-14">
         <Container>
-          <LogoMarquee label="Built for retail, facilities, finance, hospitality, manufacturing & logistics" />
+          <LogoMarquee label="Trusted by HR, people and business leaders across industries" />
         </Container>
       </Section>
 
-      {/* ======================================================= SOLUTIONS */}
-      <Section tone="base" id="solutions" reveal>
-        <SolutionsPanel />
-      </Section>
-
-      {/* ===================== FEATURES — pinned "stop-scroll" showcase */}
-      <section className="relative bg-[var(--background)]">
-        <div className="py-20 lg:py-16">
-          <StickyShowcase
-            eyebrow="Why teams choose Vadal"
-            note={ILLUSTRATIVE}
-            steps={[
-              {
-                heading: "Reach every employee in seconds",
-                body: "Publish once and it lands on every phone — frontline included. Targeted, two-way, and impossible to miss. Finally, comms people actually read.",
-                stat: "94%",
-                statLabel: "active reach in the first week of rollout",
-                bg: "/textures/stage-blue.webp",
-                visual: <BroadcastCard />,
-              },
-              {
-                heading: "Mobile learning, built for thumbs",
-                body: "Turn training, guides and onboarding into bite-size micro-learning your teams finish on shift — any time, any place. Built for phones, not desks.",
-                stat: "87%",
-                statLabel: "course completion rate on mobile",
-                bg: "/textures/stage-teal.webp",
-                visual: (
-                  <div className="scale-90">
-                    <PhoneMock />
-                  </div>
-                ),
-              },
-              {
-                heading: "Make people feel genuinely heard",
-                body: "Pulse surveys, recognition and a social wall that bring your values to life — so every colleague has a voice, and a reason to stay.",
-                stat: "28%",
-                statLabel: "lower first-year frontline attrition",
-                bg: "/textures/stage-yellow.webp",
-                visual: <VoiceCard />,
-              },
-              {
-                heading: "Stop guessing, start knowing",
-                body: "Ask in plain language and Vadal AI reads the signal across your whole workforce — turning every score into insight, action and impact.",
-                stat: "3×",
-                statLabel: "faster from signal to action",
-                bg: "/textures/stage-violet.webp",
-                visual: <div className="w-full max-w-[440px]"><DashboardMock /></div>,
-              },
-            ]}
-          />
-        </div>
-      </section>
-
-      {/* ========================================================= RESULTS */}
-      <Section tone="base" reveal>
+      {/* ================================== PLATFORM OVERVIEW + PERSONA TABS */}
+      <Section tone="base" id="platform" reveal>
         <Container>
           <SectionHead
-            eyebrow="Business results"
-            title="Measurable results, powered by Vadal"
-            lede="When people feel heard and informed, the business feels it too."
+            eyebrow={platformOverview.eyebrow}
+            title={platformOverview.title}
+            lede={platformOverview.lede}
           />
-          <div className="mt-14">
-            <ResultCards stats={resultsStats} note={ILLUSTRATIVE} />
+          <div className="mt-12">
+            <PersonaTabs />
           </div>
         </Container>
       </Section>
 
-      {/* =================================================== AUDIENCE SHOWCASE */}
-      <Section tone="base" reveal>
-        <Container>
-          <AudienceShowcase />
-        </Container>
+      {/* ========================================================= SURVEYS */}
+      <Section tone="base" id="surveys" reveal className="scroll-mt-20">
+        <SurveysSection />
       </Section>
 
-      {/* ===================================================== TESTIMONIALS */}
+      {/* ======================================================= ANALYTICS */}
+      <Section tone="base" id="analytics" reveal className="scroll-mt-20">
+        <AnalyticsSection />
+      </Section>
+
+      {/* ======================================================== FEEDBACK */}
+      <Section tone="base" id="feedback" reveal className="scroll-mt-20">
+        <FeedbackSection />
+      </Section>
+
+      {/* ===================================================== ACTION BAND */}
+      <Section tone="base" id="action" reveal className="scroll-mt-20 !pt-0">
+        <ActionBand />
+      </Section>
+
+      {/* ========================================================= PRIVACY */}
+      <Section tone="base" id="privacy" reveal className="scroll-mt-20">
+        <PrivacySection />
+      </Section>
+
+      {/* ==================================================== INTEGRATIONS */}
+      <Section tone="base" id="integrations" reveal className="scroll-mt-20">
+        <IntegrationsSection />
+      </Section>
+
+      {/* ============================================ SECURITY & COMPLIANCE */}
+      <Section tone="base" id="security" reveal className="scroll-mt-20">
+        <EnterprisePanel
+          items={securitySection.cards}
+          title={securitySection.title}
+          lede={securitySection.lede}
+          ctaLabel="See our security"
+          ctaHref="/security"
+        />
+      </Section>
+
+      {/* ================================================== IMPLEMENTATION */}
+      <Section tone="base" id="implementation" reveal className="scroll-mt-20">
+        <ImplementationSection />
+      </Section>
+
+      {/* ==================================================== TESTIMONIALS */}
       <Section tone="base" reveal>
         <Container>
           <SectionHead
             eyebrow="Customer stories"
-            title="Take two minutes to see why teams love Vadal"
-            lede="From the retail floor to the loading bay — engagement people can feel."
+            title="What our customers love about us"
+            lede="From head office to the frontline — intelligence people can feel."
           />
           <div className="mt-14">
             <TestimonialCarousel />
@@ -123,11 +113,6 @@ export default function HomePage() {
             </Button>
           </div>
         </Container>
-      </Section>
-
-      {/* ================================================ ENTERPRISE SERVICES */}
-      <Section tone="base" reveal>
-        <EnterprisePanel items={enterpriseServices} />
       </Section>
 
       {/* ============================================================= FAQ */}
@@ -156,10 +141,10 @@ export default function HomePage() {
               <SectionHead
                 eyebrow="Good to know"
                 title="Questions, answered"
-                lede="Everything teams ask before they bring Vadal to the frontline."
+                lede="Everything leaders ask before they bring Vadal.ai to their workforce."
               />
               <div className="mx-auto mt-10 max-w-3xl">
-                <FaqAccordion faqs={HOME_FAQS} variant="glass" />
+                <FaqAccordion faqs={homeFaqsV2} variant="glass" />
               </div>
               <p className="mt-8 text-center text-[15px] text-[var(--foreground)]/80">
                 Still curious?{" "}
@@ -177,22 +162,3 @@ export default function HomePage() {
     </>
   );
 }
-
-const HOME_FAQS = [
-  {
-    q: "How is Vadal different from email or an intranet?",
-    a: "Vadal is built for the non-desk workforce. Instead of assuming a corporate inbox people rarely open, it lives on the phone everyone already carries — two-way, instant, and measurable. Comms, training, recognition, tasks and analytics sit in one app, so it replaces a stack of disconnected tools rather than adding another.",
-  },
-  {
-    q: "Who is Vadal for?",
-    a: "Medium-to-large organisations (roughly 1,000–50,000 employees) with a meaningful frontline — retail, facilities management, finance, hospitality, manufacturing and logistics — where HR, internal comms, L&D and operations leaders need to reach and engage everyone, not just head office.",
-  },
-  {
-    q: "What makes the analytics and AI different?",
-    a: "Most tools stop at measuring. Vadal turns Score → Insight → Action → Impact: dashboards and heatmaps show what's happening, Vadal AI explains why in plain language, and manager action plans close the loop — so engagement is something you drive, not just track.",
-  },
-  {
-    q: "Does it integrate with our HR systems?",
-    a: "Yes. Sync your HRMS, payroll and identity provider with SSO and SCIM so people data flows in automatically and your app stays current without manual upkeep.",
-  },
-];

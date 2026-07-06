@@ -79,12 +79,14 @@ export const solutionsNav: NavSolution[] = [
   },
 ];
 
+// v2 nav — CultureMonkey-style IA per "Header Hovering content" doc:
+// Platform · Solutions · Resources · Science · Pricing (+ Login · Book a demo · search)
 export const headerNav = [
-  { label: "Platform", href: "/platform" },
-  { label: "Solutions", href: "/solutions", mega: true },
-  { label: "Customers", href: "/customers" },
-  { label: "Resources", href: "/resources" },
-  { label: "About", href: "/about" },
+  { label: "Platform", href: "/platform", mega: "platform" as const },
+  { label: "Solutions", href: "/solutions", mega: "solutions" as const },
+  { label: "Resources", href: "/resources", mega: "resources" as const },
+  { label: "Science", href: "/science", mega: "science" as const },
+  { label: "Pricing", href: "/pricing" },
 ];
 
 // ------------------------------------------------------------ sample logos
@@ -624,3 +626,540 @@ export const solutions: Solution[] = [
 export function getSolution(slug: string) {
   return solutions.find((s) => s.slug === slug);
 }
+
+// ============================================================================
+// V2 — "AI-Powered Workforce Engagement & Decision Intelligence" repositioning
+// Source of truth: Home page content (1).docx, Header Hovering content.docx,
+// Portfolio for Vadal.docx (received 2026-07-06). Structure benchmarked against
+// culturemonkey.io; copy lightly edited for grammar/consistency, not meaning.
+// ============================================================================
+
+export const heroV2 = {
+  pill: "AI-Powered Workforce Engagement & Decision Intelligence",
+  // H1 renders as two lines with an aurora accent on the second
+  titleA: "Transform workforce experiences",
+  titleB: "across the employee lifecycle",
+  lede:
+    "Go beyond engagement — lead with intelligence. Vadal.ai unifies workforce, talent, leadership and organizational data into AI-powered decision intelligence, so CEOs, CHROs and business leaders can predict risks, uncover opportunities and make faster, smarter decisions.",
+  emailCta: "Book a Demo",
+  emailCaption: "Book a free product demo call with our experts.",
+  secondaryCta: "Watch product tour",
+};
+
+// ------------------------------------------------------------- persona tabs
+export type PersonaTab = {
+  id: string;
+  tab: string;
+  title: string;
+  body: string[];
+  links: { label: string; href: string }[];
+  icon: IconName;
+  stat: { value: string; label: string };
+};
+
+export const platformOverview = {
+  eyebrow: "One intelligent platform",
+  title: "The enterprise workforce engagement and decision intelligence platform",
+  lede:
+    "Vadal.ai unifies workforce engagement, talent, leadership and organizational intelligence into one AI-powered platform — enabling CEOs, CHROs, managers and business leaders to anticipate change, optimize performance and make confident decisions that drive lasting business impact.",
+};
+
+export const personaTabs: PersonaTab[] = [
+  {
+    id: "employees",
+    tab: "For Employees",
+    title: "Create a workplace where every employee feels heard, valued and engaged",
+    body: [
+      "Employee engagement starts with trust, transparency and meaningful conversations. Vadal.ai empowers employees with a safe, intelligent platform to share feedback, celebrate achievements, access personalized growth opportunities and actively contribute to a culture of continuous improvement.",
+      "Powered by AI, Vadal.ai transforms employee feedback into meaningful actions — strengthening engagement, improving wellbeing and creating exceptional employee experiences where every individual can grow and succeed.",
+    ],
+    links: [
+      { label: "Employee Engagement & Experience", href: "/solutions/employee-experience" },
+      { label: "Continuous Listening & Feedback", href: "/platform#ai-engagement" },
+    ],
+    icon: "heart",
+    stat: { value: "89%", label: "of employees say they feel heard" },
+  },
+  {
+    id: "managers",
+    tab: "For Managers",
+    title: "Empower managers to build engaged teams and deliver exceptional performance",
+    body: [
+      "Every team has unique goals, challenges and engagement drivers. Vadal.ai equips managers with real-time engagement insights, workforce intelligence and AI-powered recommendations to understand team sentiment, recognize achievements, identify performance and retention risks, and take timely action.",
+      "Transform everyday people decisions into measurable outcomes with one intelligent platform.",
+    ],
+    links: [
+      { label: "Manager Intelligence", href: "/platform#workforce-intelligence" },
+      { label: "Engagement & Performance", href: "/solutions" },
+    ],
+    icon: "users",
+    stat: { value: "5 hrs", label: "saved per manager, every week" },
+  },
+  {
+    id: "hrs",
+    tab: "For HRs",
+    title: "AI-powered intelligence for modern HR teams",
+    body: [
+      "Transform HR from a support function into a strategic business partner. Vadal.ai gives HR leaders predictive workforce analytics, talent intelligence, leadership insights and AI-powered recommendations to improve workforce planning, employee experience, succession readiness and organizational effectiveness.",
+      "Monitor workforce health, anticipate future talent needs and make confident decisions backed by real-time intelligence.",
+    ],
+    links: [
+      { label: "Explore HR Intelligence", href: "/platform" },
+      { label: "Experience the AI Copilot", href: "/platform#ai" },
+    ],
+    icon: "pulse",
+    stat: { value: "3×", label: "faster from signal to action" },
+  },
+  {
+    id: "chros",
+    tab: "For CHROs",
+    title: "Empower HR to drive business impact",
+    body: [
+      "Today's HR leaders need more than surveys and dashboards — they need intelligence that enables better decisions. Vadal.ai brings workforce, talent, leadership and organizational insights into one AI-powered platform.",
+      "Predict workforce risks, optimize talent strategies, strengthen leadership and align people decisions with business goals.",
+    ],
+    links: [
+      { label: "Workforce Intelligence", href: "/platform#workforce-intelligence" },
+      { label: "Talent Intelligence", href: "/platform#talent-intelligence" },
+    ],
+    icon: "chart",
+    stat: { value: "+62", label: "employee NPS after six months" },
+  },
+  {
+    id: "company",
+    tab: "For Company",
+    title: "Transform employee engagement into enterprise performance",
+    body: [
+      "Employee engagement is more than a metric — it is a driver of innovation, productivity and sustainable business success. Vadal.ai unifies engagement, workforce intelligence, talent insights and organizational analytics into one intelligent platform.",
+      "Measure workforce health, predict future challenges and align people strategies with business priorities — with AI-driven recommendations for every leader.",
+    ],
+    links: [
+      { label: "Workforce Intelligence Platform", href: "/platform" },
+      { label: "Organizational Analytics", href: "/platform#workforce-intelligence" },
+    ],
+    icon: "globe",
+    stat: { value: "18%", label: "uplift in customer satisfaction" },
+  },
+];
+
+// ------------------------------------------------------------ surveys section
+export const surveysSection = {
+  eyebrow: "AI-powered surveys",
+  title: "AI-powered workforce intelligence surveys",
+  lede: "Transform employee feedback into smarter business decisions — through AI-powered engagement, pulse, lifecycle and organizational surveys.",
+  features: [
+    {
+      title: "Create intelligent employee engagement programs",
+      body: "Design AI-powered engagement, pulse and lifecycle surveys tailored to your organization's unique culture and business priorities — and transform meaningful feedback into actionable workforce intelligence.",
+      icon: "pulse" as IconName,
+    },
+    {
+      title: "Launch research-backed survey templates",
+      body: "Accelerate employee listening with a library of expert-designed templates covering engagement, wellbeing, onboarding, leadership, DEI, culture, learning and lifecycle events — customizable to your goals.",
+      icon: "checks" as IconName,
+    },
+    {
+      title: "Automate continuous listening with AI",
+      body: "Move beyond scheduled surveys. Automatically trigger personalized pulse surveys on milestones, lifecycle events or organizational changes — while AI analyzes responses and recommends timely actions.",
+      icon: "spark" as IconName,
+    },
+    {
+      title: "Predict engagement risks with pulse intelligence",
+      body: "Monitor engagement in real time with intelligent pulse surveys and predictive analytics. Spot disengagement, attrition risk and emerging challenges early — before they impact business performance.",
+      icon: "chart" as IconName,
+    },
+  ],
+};
+
+// ---------------------------------------------------------- analytics section
+export const analyticsSection = {
+  eyebrow: "Workforce intelligence & analytics",
+  title: "Measure what matters. Predict what comes next. Act with confidence.",
+  lede: "Vadal.ai transforms engagement, workforce, talent and organizational data into actionable intelligence — real-time visibility, predictive insights and personalized recommendations for every leader.",
+  features: [
+    {
+      title: "Employee Engagement Score (eNPS)",
+      body: "Go beyond traditional eNPS by combining engagement, recognition, feedback and workforce intelligence to uncover what drives loyalty and retention. Track trends, benchmark teams and get AI-driven recommendations.",
+      icon: "pulse" as IconName,
+    },
+    {
+      title: "AI Sentiment Intelligence",
+      body: "Advanced AI and NLP analyze surveys, feedback, recognition and conversations to identify emotions, emerging concerns and engagement drivers — so leaders act before issues hit morale or retention.",
+      icon: "chat" as IconName,
+    },
+    {
+      title: "Workforce Benchmark Intelligence",
+      body: "Measure performance against business units, locations, functions and industry benchmarks — across engagement, workforce health, leadership effectiveness and organizational performance.",
+      icon: "globe" as IconName,
+    },
+    {
+      title: "Executive Reports & AI Insights",
+      body: "Presentation-ready dashboards and AI-powered insights covering engagement, workforce analytics, leadership and talent trends — customized for CEOs, CHROs, managers and business leaders.",
+      icon: "chart" as IconName,
+    },
+    {
+      title: "Enterprise Data Export & Integration",
+      body: "Export surveys, analytics, sentiment and benchmark reports to Excel, CSV or PDF — or integrate with Workday, SAP SuccessFactors, Oracle HCM, Power BI and Tableau for advanced reporting.",
+      icon: "plug" as IconName,
+    },
+  ],
+  chips: [
+    "Employee Engagement Score",
+    "Attrition Risk Prediction",
+    "Workforce Health Index",
+    "Leadership Effectiveness Score",
+    "Organizational Intelligence",
+    "AI Decision Copilot",
+  ],
+};
+
+// ----------------------------------------------------------- feedback section
+export const feedbackSection = {
+  eyebrow: "Employee feedback intelligence",
+  title: "Transform employee feedback into workforce intelligence",
+  body: "Vadal.ai continuously captures employee feedback, measures engagement and understands workforce sentiment through AI-powered listening — helping leaders identify emerging risks, prioritize actions and create exceptional employee experiences that drive measurable business outcomes.",
+  bullets: [
+    "Capture employee feedback through multiple listening channels",
+    "Measure engagement and workforce sentiment in real time",
+    "Prioritize feedback with AI-powered insights and predictive analytics",
+    "Give managers and HR personalized action recommendations",
+    "Strengthen communication, trust and collaboration",
+    "Turn employee feedback into measurable business outcomes",
+  ],
+  cards: [
+    {
+      title: "AI-Powered Workforce Insights",
+      body: "Instant summaries of employee feedback, engagement and workforce trends — with actionable AI-generated insights.",
+      icon: "spark" as IconName,
+    },
+    {
+      title: "Intelligent Filtering & Prioritization",
+      body: "Analyze workforce data across teams, locations and employee segments to identify priorities faster.",
+      icon: "checks" as IconName,
+    },
+    {
+      title: "AI-Driven Action Planning",
+      body: "Convert feedback into personalized action plans, assign ownership and measure business impact.",
+      icon: "rocket" as IconName,
+    },
+    {
+      title: "Predictive Workforce Intelligence",
+      body: "Discover hidden trends, engagement drivers and organizational risks through AI-powered analytics.",
+      icon: "chart" as IconName,
+    },
+  ],
+};
+
+// ------------------------------------------------------------- action section
+export const actionSection = {
+  eyebrow: "Employee action intelligence",
+  title: "From employee feedback to meaningful action",
+  body: "Vadal.ai transforms feedback, engagement insights and workforce intelligence into AI-powered action plans — with clear ownership, real-time progress tracking and measurable outcomes, so every leader is accountable for building a more engaged, high-performing workplace.",
+};
+
+// ------------------------------------------------------------ privacy section
+export const privacySection = {
+  eyebrow: "Employee privacy & trust",
+  title: "Build a culture where every voice is heard, protected and valued",
+  body: "Trust is the foundation of meaningful engagement. Vadal.ai lets employees confidently share feedback, ideas and concerns through AI-powered listening channels — with the highest standards of privacy, confidentiality and data protection.",
+  features: [
+    {
+      title: "Enterprise-grade privacy & global compliance",
+      body: "GDPR-ready privacy controls, role-based access, enterprise security and compliance standards that safeguard employee data and organizational trust.",
+      icon: "shield" as IconName,
+    },
+    {
+      title: "Anonymous & confidential listening",
+      body: "Secure, anonymous surveys, pulse checks and continuous listening channels that encourage honest, open communication.",
+      icon: "lock" as IconName,
+    },
+    {
+      title: "AI-powered privacy-first reporting",
+      body: "Intelligent aggregation, privacy thresholds and role-based analytics protect individual identities while leaders still get actionable insight.",
+      icon: "chart" as IconName,
+    },
+    {
+      title: "Secure two-way anonymous conversations",
+      body: "Confidential, AI-assisted conversations between employees and HR or managers — acknowledge concerns and resolve issues while preserving anonymity.",
+      icon: "chat" as IconName,
+    },
+  ],
+  capabilities: [
+    "End-to-end data encryption",
+    "Role-based access control (RBAC)",
+    "SSO & Multi-Factor Authentication",
+    "GDPR, SOC 2 & ISO 27001-aligned",
+    "Configurable anonymity thresholds",
+    "AI-powered PII detection & masking",
+    "Audit logs & compliance reporting",
+    "Secure enterprise integrations",
+  ],
+};
+
+// -------------------------------------------------------------- integrations
+export const integrationsSection = {
+  eyebrow: "Enterprise integrations",
+  title: "Seamlessly connect your enterprise. Empower every workforce decision.",
+  lede: "Vadal.ai integrates with your HR, finance, ERP, collaboration, identity and analytics stack — creating one unified, AI-powered workforce intelligence ecosystem.",
+  categories: [
+    { name: "HRIS & HCM", vendors: "Workday, SAP SuccessFactors, Oracle HCM, Darwinbox, UKG", icon: "users" as IconName },
+    { name: "ERP & Finance", vendors: "SAP, Oracle ERP, Microsoft Dynamics 365", icon: "chart" as IconName },
+    { name: "Payroll", vendors: "ADP, Ramco, SAP Payroll", icon: "checks" as IconName },
+    { name: "ATS & Recruitment", vendors: "Greenhouse, Lever, iCIMS, SmartRecruiters", icon: "rocket" as IconName },
+    { name: "Learning", vendors: "Cornerstone, Moodle, Docebo", icon: "graduation" as IconName },
+    { name: "Collaboration", vendors: "Microsoft Teams, Slack, Google Workspace", icon: "chat" as IconName },
+    { name: "Identity & Security", vendors: "Microsoft Entra ID, Okta, OneLogin", icon: "lock" as IconName },
+    { name: "Analytics", vendors: "Power BI, Tableau, Looker", icon: "pulse" as IconName },
+    { name: "CRM", vendors: "Salesforce, HubSpot", icon: "heart" as IconName },
+    { name: "API & Automation", vendors: "REST APIs, Webhooks, Zapier, Power Automate", icon: "plug" as IconName },
+  ],
+};
+
+// --------------------------------------------------------- security & trust
+export const securitySection = {
+  title: "Enterprise-grade security for workforce intelligence",
+  lede: "Security, privacy and compliance at the core — every interaction protected by enterprise-grade controls, robust governance and global compliance standards.",
+  cards: [
+    {
+      title: "Enterprise-Grade Security",
+      body: "Protect workforce and organizational data with encryption, role-based access controls and continuous security monitoring.",
+    },
+    {
+      title: "Global Privacy & Compliance",
+      body: "GDPR, SOC 2, ISO 27001 and other enterprise compliance requirements — with privacy-first data management and governance.",
+    },
+    {
+      title: "Responsible AI Governance",
+      body: "Transparency, accountability and ethical AI with explainable insights, controlled access and governance frameworks.",
+    },
+    {
+      title: "Identity & Access Management",
+      body: "SSO, Multi-Factor Authentication and seamless integration with Microsoft Entra ID, Okta and other identity providers.",
+    },
+  ],
+};
+
+// -------------------------------------------------------------- implementation
+export const implementationSection = {
+  eyebrow: "Implementation & onboarding",
+  title: "Seamless implementation & AI-driven onboarding",
+  body: "A smooth, guided implementation designed for enterprise success. In a structured 5-week implementation, Vadal.ai sets up AI-powered workforce intelligence, tailored insights and your personalized decision dashboards — with a dedicated customer success manager who partners with you for life.",
+  checks: [
+    "Onboarding and data migration at no extra cost",
+    "Integrates with all major HRIS & HCM platforms",
+    "Dedicated customer success manager, for life",
+    "Comprehensive knowledge base & strategic reviews",
+  ],
+  weeks: [
+    { week: "Week 1", title: "Kickoff & data migration" },
+    { week: "Week 2", title: "HRIS & identity integrations" },
+    { week: "Week 3", title: "Configuration & branding" },
+    { week: "Week 4", title: "AI calibration & dashboards" },
+    { week: "Week 5", title: "Launch & enablement" },
+  ],
+};
+
+// ============================================================== nav mega-menus
+export type MenuItem = { name: string; blurb?: string; href: string; icon?: IconName };
+export type MenuGroup = { label: string; items: MenuItem[] };
+
+// -- Platform mega
+export const platformPillars: MenuItem[] = [
+  {
+    name: "Intelligent Workforce Engagement Surveys",
+    blurb: "Design, deploy and measure AI-powered surveys that deliver actionable workforce insights.",
+    href: "/#surveys",
+    icon: "pulse",
+  },
+  {
+    name: "Continuous Employee Listening",
+    blurb: "Gather feedback continuously across channels — from surveys to real-time interactions.",
+    href: "/#feedback",
+    icon: "chat",
+  },
+  {
+    name: "Actionable Workforce Intelligence",
+    blurb: "Turn feedback into AI-driven recommendations that improve engagement and performance.",
+    href: "/#action",
+    icon: "spark",
+  },
+  {
+    name: "AI-Driven People Analytics",
+    blurb: "Align workforce strategies with business outcomes — leadership decisions, data-informed.",
+    href: "/#analytics",
+    icon: "chart",
+  },
+];
+
+export const surveyTypes: MenuItem[] = [
+  { name: "Engagement Surveys", blurb: "Annual intelligence surveys for culture and performance.", href: "/#surveys" },
+  { name: "Pulse Surveys", blurb: "Frequent, intelligent pulse checks that predict trends.", href: "/#surveys" },
+  { name: "Lifecycle Surveys", blurb: "Feedback at key milestones, onboarding to offboarding.", href: "/#surveys" },
+  { name: "Predictive eNPS", blurb: "Track loyalty and the AI-explained drivers behind it.", href: "/#analytics" },
+  { name: "Confidential Feedback", blurb: "Anonymous, secure channels for honest feedback.", href: "/#privacy" },
+];
+
+export const platformFeatured: MenuItem[] = [
+  { name: "Enterprise Workforce Intelligence", blurb: "AI-driven surveys and analytics at enterprise scale, security and compliance.", href: "/platform", icon: "shield" },
+  { name: "AI-Powered People Intelligence", blurb: "Workforce data, AI insights and people science — better decisions, lasting trust.", href: "/science", icon: "spark" },
+  { name: "Frontline & Deskless Engagement", blurb: "Reach every employee via SMS, WhatsApp or QR — no email required.", href: "/solutions#workforce", icon: "phone" },
+];
+
+// -- Portfolio (Portfolio for Vadal.docx) — the six product families. Anchors
+//    land on /platform#<id>; all 28 key offerings fold into these groups.
+export type PortfolioGroup = {
+  id: string;
+  name: string;
+  icon: IconName;
+  items: { name: string; blurb: string }[];
+};
+
+export const portfolioGroups: PortfolioGroup[] = [
+  {
+    id: "workforce-experience",
+    name: "Workforce Experience",
+    icon: "heart",
+    items: [
+      { name: "Employee Communication", blurb: "AI-powered announcements, targeted campaigns, digital noticeboards and multi-channel messaging." },
+      { name: "Employee Experience", blurb: "Measure and improve every stage of the lifecycle with AI-powered listening and journey analytics." },
+      { name: "Employee Wellbeing & Culture", blurb: "Continuous listening, wellbeing assessments and recognition that foster a healthy workplace." },
+      { name: "Recognition & Rewards", blurb: "AI-enabled peer recognition, milestone celebrations and performance-based rewards." },
+    ],
+  },
+  {
+    id: "workforce-intelligence",
+    name: "Workforce Intelligence",
+    icon: "chart",
+    items: [
+      { name: "People Analytics", blurb: "Predictive analytics, AI dashboards and BI to uncover trends and identify risks." },
+      { name: "Sentiment Intelligence", blurb: "NLP-driven analysis of emotions, workplace trends and engagement drivers." },
+      { name: "Benchmark Intelligence", blurb: "Compare engagement and performance across units, locations and industry benchmarks." },
+      { name: "Executive Reports", blurb: "Executive-ready dashboards, board reports and AI-powered workforce summaries." },
+      { name: "Attrition Prediction", blurb: "AI models that flag employees at risk of leaving, so you can retain top talent." },
+      { name: "Manager Intelligence", blurb: "AI coaching, team health dashboards and recommendations for every manager." },
+    ],
+  },
+  {
+    id: "talent-intelligence",
+    name: "Talent Intelligence",
+    icon: "rocket",
+    items: [
+      { name: "Pre- & Onboarding", blurb: "Personalized journeys, digital documentation and AI-guided onboarding." },
+      { name: "Skills Intelligence", blurb: "Map capabilities, spot skill gaps and recommend personalized learning paths." },
+      { name: "Leadership Intelligence", blurb: "Assess leadership effectiveness, strengthen succession and coach future leaders." },
+      { name: "Workforce Planning", blurb: "Optimize capacity, hiring plans and org design with predictive analytics." },
+    ],
+  },
+  {
+    id: "ai-engagement",
+    name: "AI Engagement",
+    icon: "pulse",
+    items: [
+      { name: "Engagement Surveys", blurb: "AI-powered engagement, pulse and lifecycle surveys that capture meaningful feedback." },
+      { name: "Continuous Listening", blurb: "Multi-channel listening — surveys, portals, recognition and AI conversations." },
+      { name: "Feedback Intelligence", blurb: "AI that organizes and prioritizes feedback into recurring themes and actions." },
+      { name: "Action Planning", blurb: "AI-generated action plans with ownership tracking and progress monitoring." },
+    ],
+  },
+  {
+    id: "digital-workplace",
+    name: "Digital Workplace",
+    icon: "phone",
+    items: [
+      { name: "AI Employee Chat", blurb: "An intelligent assistant for HR support, policy guidance and knowledge discovery." },
+      { name: "Tasks & Workflow", blurb: "Digitize, assign and monitor tasks with intelligent workflow automation." },
+      { name: "Mobile & E-Learning", blurb: "Mobile-first learning journeys, microlearning and AI content recommendations." },
+      { name: "Employee Productivity", blurb: "Intelligent task prioritization, automated workflows and performance insights." },
+    ],
+  },
+  {
+    id: "enterprise-platform",
+    name: "Enterprise Platform",
+    icon: "shield",
+    items: [
+      { name: "Integrations", blurb: "Connect HRIS, HCM, ERP, ATS, payroll, collaboration and analytics platforms." },
+      { name: "Security & Compliance", blurb: "Enterprise-grade security, GDPR-ready privacy and responsible AI governance." },
+      { name: "Implementation", blurb: "Structured implementation, free data migration and dedicated customer success." },
+      { name: "Decision Intelligence Copilot", blurb: "Ask workforce questions in natural language, get AI-powered predictive guidance." },
+    ],
+  },
+];
+
+// -- Solutions mega
+export const solutionsByOutcome: MenuItem[] = [
+  { name: "Employee Retention", blurb: "Identify attrition risk early and retain top talent with data-backed actions.", href: "/solutions#retention", icon: "heart" },
+  { name: "Manager Effectiveness", blurb: "AI-powered insights and coaching recommendations for high-performing teams.", href: "/solutions#managers", icon: "users" },
+  { name: "Employee Wellbeing", blurb: "Measure and enhance wellbeing with intelligent listening and proactive nudges.", href: "/solutions#wellbeing", icon: "pulse" },
+  { name: "Diversity & Inclusion", blurb: "Build an equitable culture with AI-powered DEI insights and feedback loops.", href: "/solutions#dei", icon: "globe" },
+  { name: "Remote & Hybrid Work", blurb: "Keep distributed teams connected with analytics tuned for hybrid work.", href: "/solutions#hybrid", icon: "compass" },
+];
+
+export const solutionsByWorkforce: MenuItem[] = [
+  { name: "Frontline & Deskless", blurb: "Engage frontline teams via SMS, WhatsApp, QR and more — no email required.", href: "/solutions#workforce", icon: "phone" },
+  { name: "Global & Multilingual", blurb: "AI-powered surveys and analytics across 150+ languages and regions.", href: "/solutions#workforce", icon: "globe" },
+  { name: "Enterprise", blurb: "Scale securely with enterprise-grade AI, compliance and governance.", href: "/solutions#workforce", icon: "shield" },
+];
+
+// -- Resources mega
+export const resourcesMenu: MenuGroup[] = [
+  {
+    label: "Learn",
+    items: [
+      { name: "Thought Leadership Blog", blurb: "AI-driven workforce intelligence, talent strategy and leadership decisions.", href: "/resources#learn", icon: "spark" },
+      { name: "Guides & Deep Dives", blurb: "In-depth explorations of workforce analytics and AI-driven HR strategy.", href: "/resources#learn", icon: "graduation" },
+      { name: "Workforce Intelligence Glossary", blurb: "Key terms in AI, workforce analytics and talent intelligence, defined.", href: "/resources#learn", icon: "checks" },
+    ],
+  },
+  {
+    label: "Proof & Community",
+    items: [
+      { name: "Transformation Stories", blurb: "Real-world cases where workforce intelligence drove measurable impact.", href: "/customers", icon: "heart" },
+      { name: "Benchmark Reports", blurb: "Industry-wide workforce analytics and talent benchmarks.", href: "/resources#proof", icon: "chart" },
+      { name: "Vadal.ai Community", blurb: "A global network of HR leaders sharing AI-powered workforce strategies.", href: "/resources#proof", icon: "users" },
+    ],
+  },
+  {
+    label: "Start Here",
+    items: [
+      { name: "What is Workforce Intelligence?", blurb: "The definitive guide to AI-powered workforce decision-making.", href: "/resources#start", icon: "compass" },
+      { name: "Key Workforce Survey Questions", blurb: "What to ask in intelligent surveys to drive actionable insights.", href: "/resources#start", icon: "pulse" },
+      { name: "Understanding Pulse Intelligence", blurb: "How AI-powered pulse surveys predict workforce trends.", href: "/resources#start", icon: "bell" },
+    ],
+  },
+];
+
+// -- Science mega
+export const scienceMenu = {
+  heading: "Feedback grounded in AI-powered intelligence",
+  items: [
+    { name: "People Science & AI", blurb: "How people science and AI combine for smarter, predictive workforce decisions.", href: "/science#people-science", icon: "users" },
+    { name: "AI-Driven Methodology", blurb: "The intelligent framework behind our insights — predictive models to actions.", href: "/science#methodology", icon: "checks" },
+    { name: "Workforce Intelligence", blurb: "How AI turns feedback and performance data into predictive insights.", href: "/science#workforce-intelligence", icon: "chart" },
+    { name: "AI Technology Platform", blurb: "The unified platform for workforce data, AI analytics and decision intelligence.", href: "/science#platform", icon: "spark" },
+    { name: "Predictive Industry Benchmarks", blurb: "Dynamic, AI-built benchmarks that guide strategic workforce planning.", href: "/science#benchmarks", icon: "globe" },
+  ] as MenuItem[],
+};
+
+// ---------------------------------------------------------------- home FAQs
+export const homeFaqsV2 = [
+  {
+    q: "What is Vadal.ai?",
+    a: "Vadal.ai is an AI-powered workforce engagement and decision intelligence platform. It unifies employee engagement, workforce analytics, talent insights and organizational data into one system — so CEOs, CHROs, managers and HR teams can predict risks, uncover opportunities and act with confidence.",
+  },
+  {
+    q: "How is Vadal.ai different from a survey tool?",
+    a: "Surveys are the starting point, not the destination. Vadal.ai carries you from Score → Insight → Action → Impact: AI-powered surveys capture the signal, sentiment intelligence and people analytics explain it, and AI-generated action plans with ownership tracking make sure something actually changes.",
+  },
+  {
+    q: "Is employee feedback really anonymous?",
+    a: "Yes. Anonymity is protected with configurable thresholds and intelligent aggregation, so individual identities are never exposed. GDPR-ready privacy controls, role-based access and AI-powered PII masking are built in — and two-way anonymous conversations let you follow up without breaking trust.",
+  },
+  {
+    q: "Does Vadal.ai integrate with our existing systems?",
+    a: "Yes. Vadal.ai connects with Workday, SAP SuccessFactors, Oracle HCM, Microsoft Teams, Slack, Entra ID, Okta, Power BI, Tableau and more — plus REST APIs and webhooks for anything custom. People data flows in automatically; intelligence flows back out.",
+  },
+  {
+    q: "How long does implementation take?",
+    a: "A structured 5-week implementation, with onboarding and data migration at no extra cost. A dedicated customer success manager partners with you from kickoff through launch — and for life after it.",
+  },
+];

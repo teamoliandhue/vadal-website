@@ -10,4 +10,4 @@
    (/platform, /solutions/*, /customers, …) still exist and build — they're just
    not linked from the chrome for now.
    ========================================================================== */
-export const LANDING_ONLY = true;
+export const LANDING_ONLY = false;

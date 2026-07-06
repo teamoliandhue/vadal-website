@@ -14,26 +14,27 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.vadal.ai"),
   title: {
-    default: "Vadal — the engagement operating system for the whole workforce",
-    template: "%s · Vadal",
+    default: "Vadal.ai — AI-powered workforce engagement & decision intelligence",
+    template: "%s · Vadal.ai",
   },
   description:
-    "Vadal connects your entire workforce — especially deskless and frontline teams — through one warm, mobile-first employee app, and gives leaders the analytics and AI to act. Score → Insight → Action → Impact.",
+    "Vadal.ai unifies workforce engagement, talent, leadership and organizational data into AI-powered decision intelligence — so CEOs, CHROs and business leaders can predict risks, uncover opportunities and act with confidence. Score → Insight → Action → Impact.",
   keywords: [
     "employee engagement platform",
+    "workforce intelligence",
+    "people analytics",
+    "AI employee surveys",
+    "decision intelligence",
     "employee experience",
-    "deskless workforce app",
-    "internal communications",
-    "frontline employee app",
-    "mobile learning",
-    "employee app",
+    "eNPS",
+    "attrition prediction",
   ],
   openGraph: {
-    title: "Vadal — keep your company human, at any scale",
+    title: "Vadal.ai — transform workforce experiences across the employee lifecycle",
     description:
-      "One mobile-first app for communication, training, culture and tasks — with the analytics and AI to drive engagement, not just measure it.",
+      "Go beyond engagement — lead with intelligence. AI-powered surveys, workforce analytics, action planning and enterprise-grade security, on one platform.",
     type: "website",
-    siteName: "Vadal",
+    siteName: "Vadal.ai",
   },
   icons: {
     icon: "/brand/signal-mark.svg",

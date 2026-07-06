@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import { Button } from "./ui";
@@ -19,6 +19,16 @@ const sizes = ["1,000–5,000", "5,000–15,000", "15,000–50,000", "50,000+"];
 export function DemoForm() {
   const [sent, setSent] = useState(false);
   const [size, setSize] = useState(sizes[0]);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Prefill the email field when arriving from the hero email-capture
+  // (/demo?email=…). Post-mount, so there's no hydration mismatch.
+  useEffect(() => {
+    const email = new URLSearchParams(window.location.search).get("email");
+    if (!email) return;
+    const input = formRef.current?.querySelector<HTMLInputElement>('input[name="email"]');
+    if (input && !input.value) input.value = email;
+  }, []);
 
   if (sent) {
     return (
@@ -43,6 +53,7 @@ export function DemoForm() {
 
   return (
     <form
+      ref={formRef}
       onSubmit={(e) => {
         e.preventDefault();
         setSent(true);

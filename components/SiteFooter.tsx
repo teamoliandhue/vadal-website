@@ -7,36 +7,37 @@ import { LANDING_ONLY } from "@/lib/flags";
 
 const columns = [
   {
-    title: "Solutions",
-    links: solutionsNav.map((s) => ({ label: s.name, href: `/solutions/${s.slug}` })),
-  },
-  {
-    title: "Product",
+    title: "Platform",
     links: [
-      { label: "Platform", href: "/platform" },
-      { label: "Vadal AI", href: "/platform#ai" },
-      { label: "Mobile app", href: "/platform#app" },
-      { label: "Integrations", href: "/resources" },
+      { label: "Platform overview", href: "/platform" },
+      { label: "Engagement surveys", href: "/#surveys" },
+      { label: "Analytics & insights", href: "/#analytics" },
+      { label: "AI Copilot", href: "/platform#ai" },
+      { label: "Integrations", href: "/#integrations" },
       { label: "Security", href: "/security" },
     ],
+  },
+  {
+    title: "Solutions",
+    links: solutionsNav.map((s) => ({ label: s.name, href: `/solutions/${s.slug}` })),
   },
   {
     title: "Company",
     links: [
       { label: "About us", href: "/about" },
       { label: "Customers", href: "/customers" },
+      { label: "Pricing", href: "/pricing" },
       { label: "Careers", href: "/about#careers" },
       { label: "Contact", href: "/contact" },
-      { label: "Partners", href: "/about#partners" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "Blog", href: "/resources" },
+      { label: "Blog", href: "/resources#learn" },
       { label: "Guides & downloads", href: "/resources" },
-      { label: "Webinars", href: "/resources" },
-      { label: "Help centre", href: "/resources" },
+      { label: "The science", href: "/science" },
+      { label: "Benchmark reports", href: "/resources#proof" },
       { label: "Book a demo", href: "/demo" },
     ],
   },
@@ -127,8 +128,8 @@ export function SiteFooter() {
             <div className="max-w-sm">
               <Logo size={32} />
               <p className="mt-5 text-[15px] leading-relaxed text-[var(--muted)]">
-                The engagement operating system for the whole workforce — especially the
-                people who don&apos;t sit at a desk.
+                The AI-powered workforce engagement &amp; decision intelligence platform —
+                for every leader, every employee, every decision.
               </p>
               <p className="mt-5 flex items-center gap-2 text-[13px] text-[var(--muted)]">
                 <Icon name="globe" size={15} />

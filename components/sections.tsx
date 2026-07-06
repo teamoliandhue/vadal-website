@@ -434,8 +434,16 @@ export function ServiceGrid({
 /* ------------------------------------- Enterprise panel (Maze-style, teal) */
 export function EnterprisePanel({
   items,
+  title = "Enterprise services for enterprise needs",
+  lede,
+  ctaLabel = "Contact sales",
+  ctaHref = "/contact",
 }: {
   items: { title: string; body: string }[];
+  title?: string;
+  lede?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
 }) {
   return (
     <Container>
@@ -461,11 +469,16 @@ export function EnterprisePanel({
         <div className="relative">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-[clamp(2rem,1.1rem+2.6vw,3.1rem)] font-extrabold leading-[1.08] tracking-[-0.025em] text-[var(--ink-deep)]">
-              Enterprise services for enterprise needs
+              {title}
             </h2>
+            {lede && (
+              <p className="mx-auto mt-4 max-w-xl text-[16px] leading-relaxed text-[var(--ink-deep)]/75">
+                {lede}
+              </p>
+            )}
             <div className="mt-7 flex justify-center">
-              <Button href="/contact" variant="dark" size="lg" icon>
-                Contact sales
+              <Button href={ctaHref} variant="dark" size="lg" icon>
+                {ctaLabel}
               </Button>
             </div>
           </div>
