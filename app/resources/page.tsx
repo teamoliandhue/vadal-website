@@ -7,7 +7,7 @@ import { type IconName } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Resources",
   description:
-    "Guides, blog posts, webinars and templates on employee engagement, internal communication and the deskless workforce.",
+    "Guides, benchmark reports, webinars and templates on workforce intelligence, employee engagement and AI-powered people analytics.",
 };
 
 const categories: { t: string; icon: IconName }[] = [
@@ -18,17 +18,17 @@ const categories: { t: string; icon: IconName }[] = [
 ];
 
 const featured = [
-  { tag: "Guide", title: "The frontline engagement playbook", read: "18 min read", icon: "rocket" as IconName },
-  { tag: "Ebook", title: "Optimising employee lifetime value", read: "Download", icon: "chart" as IconName },
-  { tag: "Webinar", title: "Reaching the deskless 80% of your workforce", read: "42 min", icon: "play" as IconName },
+  { tag: "Guide", title: "The workforce intelligence playbook", read: "18 min read", icon: "rocket" as IconName },
+  { tag: "Ebook", title: "From engagement scores to business decisions", read: "Download", icon: "chart" as IconName },
+  { tag: "Webinar", title: "Predicting attrition before the resignation letter", read: "42 min", icon: "play" as IconName },
 ];
 
 const posts = [
-  "Why employee communications fail — and 5 ways to fix them",
-  "Onboarding that starts before day one",
-  "Pulse surveys vs. annual surveys: what frontline teams need",
-  "Building a recognition habit across shifts",
-  "The internal comms content calendar, explained",
+  "Why engagement surveys fail — and 5 ways to fix them",
+  "Continuous listening: beyond the annual survey",
+  "Pulse surveys vs. annual surveys: what modern teams need",
+  "What your eNPS is really telling you",
+  "The employee listening calendar, explained",
   "Turning engagement scores into manager action",
 ];
 
@@ -40,8 +40,9 @@ export default function ResourcesPage() {
         <Container className="pt-16 pb-10 text-center sm:pt-24">
           <SectionHead
             eyebrow="Resources"
-            title="Ideas for engaging the whole workforce"
-            lede="Practical guides, research and templates for people teams building a better frontline experience. Sample content shown."
+            as="h1"
+            title="Ideas for leading with workforce intelligence"
+            lede="Practical guides, research and templates for leaders turning employee feedback into confident decisions. Sample content shown."
           />
           <div className="mt-8 flex flex-wrap justify-center gap-2">
             {categories.map((c) => (

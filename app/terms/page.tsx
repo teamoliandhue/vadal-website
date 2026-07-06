@@ -3,7 +3,7 @@ import { LegalPage } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions",
-  description: "The terms that govern use of the Vadal website and platform.",
+  description: "The terms that govern use of the Vadal.ai website and platform.",
 };
 
 export default function TermsPage() {
@@ -11,7 +11,7 @@ export default function TermsPage() {
     <LegalPage
       title="Terms & Conditions"
       updated="June 2026"
-      intro="These Terms govern your access to and use of the Vadal website and platform. By using our services you agree to them. Commercial use of the platform is additionally governed by the agreement signed with your organisation."
+      intro="These Terms govern your access to and use of the Vadal.ai website and platform. By using our services you agree to them. Commercial use of the platform is additionally governed by the agreement signed with your organisation."
       sections={[
         { heading: "Use of the service", body: ["You may use the website and platform only in line with these Terms and applicable law, and only for the purposes for which they are provided."] },
         { heading: "Accounts", body: ["You are responsible for activity under your account and for keeping your credentials secure. Notify us promptly of any unauthorised use."] },

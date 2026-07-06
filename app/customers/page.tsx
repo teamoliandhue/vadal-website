@@ -9,7 +9,7 @@ import { homeStats, ILLUSTRATIVE, testimonials, type IconName } from "@/lib/cont
 export const metadata: Metadata = {
   title: "Customers",
   description:
-    "How people teams use Vadal to reach, train and engage their frontline — across retail, facilities, logistics, hospitality, finance and manufacturing.",
+    "How HR, people and business leaders use Vadal.ai to understand, predict and improve their workforce — across retail, facilities, logistics, hospitality, finance and manufacturing.",
 };
 
 type Story = {
@@ -38,8 +38,9 @@ export default function CustomersPage() {
         <Container className="pt-16 pb-10 text-center sm:pt-24">
           <SectionHead
             eyebrow="Customer stories"
-            title="Engagement people can feel"
-            lede="From the retail floor to the loading bay — see how teams put Vadal to work. Every story below is an illustrative sample pending Vadal's verified case studies."
+            as="h1"
+            title="Intelligence people can feel"
+            lede="From the retail floor to the boardroom — see how teams put Vadal.ai to work. Every story below is an illustrative sample pending verified case studies."
           />
         </Container>
       </section>
@@ -85,7 +86,7 @@ export default function CustomersPage() {
       {/* grid */}
       <Section tone="base">
         <Container>
-          <SectionHead eyebrow="More stories" title="Across every kind of frontline" align="left" />
+          <SectionHead eyebrow="More stories" title="Across every kind of workforce" align="left" />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {stories.map((s) => (
               <Link

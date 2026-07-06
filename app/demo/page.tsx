@@ -8,13 +8,13 @@ import { sampleCustomers } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Book a demo",
   description:
-    "See Vadal on your own use case. Book a personalised demo and we'll tailor it to your industry — retail, facilities, finance, hospitality, manufacturing or logistics.",
+    "See Vadal.ai on your own use case. Book a personalised demo and we'll tailor it to your industry — retail, facilities, finance, hospitality, manufacturing or logistics.",
 };
 
 const points = [
-  { t: "Tailored to your industry", d: "We'll shape the demo around your frontline, not a generic script." },
-  { t: "See the AI on real questions", d: "Watch Vadal AI answer the things your managers actually ask." },
-  { t: "A clear rollout plan", d: "Leave knowing exactly how a launch to your workforce would run." },
+  { t: "Tailored to your industry", d: "We'll shape the demo around your organization, not a generic script." },
+  { t: "See the AI on real questions", d: "Watch the Vadal.ai copilot answer the things your leaders actually ask." },
+  { t: "A clear rollout plan", d: "Leave knowing exactly how a 5-week implementation would run for you." },
 ];
 
 export default function DemoPage() {
@@ -28,11 +28,11 @@ export default function DemoPage() {
             <SparkMark size={14} /> Book a free demo
           </span>
           <h1 className="display-lg mt-5 font-extrabold">
-            See what your workforce looks like, all in one place
+            See your workforce intelligence, live on a real demo
           </h1>
           <p className="mt-5 max-w-md text-[18px] leading-relaxed text-[var(--muted)]">
-            Increase employee engagement, reach everyone in seconds, and finally measure the
-            impact. Fill out the form and we&apos;ll get in touch within 24 hours.
+            AI-powered surveys, predictive analytics and action planning — the whole loop, on
+            your use case. Fill out the form and we&apos;ll get in touch within 24 hours.
           </p>
 
           <ul className="mt-9 space-y-5">

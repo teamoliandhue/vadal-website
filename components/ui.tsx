@@ -169,6 +169,7 @@ export function SectionHead({
   align = "center",
   aurora = false,
   className = "",
+  as: Heading = "h2",
 }: {
   eyebrow?: string;
   title: ReactNode;
@@ -176,12 +177,14 @@ export function SectionHead({
   align?: "center" | "left";
   aurora?: boolean;
   className?: string;
+  /** Heading level — pass "h1" when SectionHead is the page hero */
+  as?: "h1" | "h2";
 }) {
   const a = align === "center" ? "text-center mx-auto items-center" : "text-left items-start";
   return (
     <div className={`flex flex-col gap-4 ${a} ${align === "center" ? "max-w-2xl" : ""} ${className}`}>
       {eyebrow && <Eyebrow aurora={aurora}>{eyebrow}</Eyebrow>}
-      <h2 className="display-md font-extrabold">{title}</h2>
+      <Heading className="display-md font-extrabold">{title}</Heading>
       {lede && (
         <p className="text-[17px] leading-relaxed text-[var(--muted)] text-pretty">{lede}</p>
       )}

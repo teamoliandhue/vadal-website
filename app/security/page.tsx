@@ -6,7 +6,7 @@ import { type IconName } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Security",
   description:
-    "How Vadal protects your people data — encryption, SSO/SCIM, role-based access, anonymity min-N gating and privacy by design.",
+    "How Vadal.ai protects your people data — encryption, SSO/SCIM, role-based access, anonymity min-N gating and privacy by design.",
 };
 
 const controls: { t: string; d: string; icon: IconName }[] = [

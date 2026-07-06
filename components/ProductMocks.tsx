@@ -7,7 +7,7 @@ import { Icon } from "./Icon";
    reads 1:1. Decorative — marked aria-hidden.
    ========================================================================== */
 
-/* The branded employee app — the "daily ritual" home screen. */
+/* The branded employee app — the home screen of the workday. */
 export function PhoneMock({ className = "" }: { className?: string }) {
   return (
     <div className={`relative ${className}`} aria-hidden="true">

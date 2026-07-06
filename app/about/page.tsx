@@ -7,13 +7,13 @@ import { type IconName } from "@/lib/content";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Vadal exists to keep companies human at scale — an engagement OS for the whole workforce, especially the people who don't sit at a desk.",
+    "Vadal.ai exists so every workforce decision is a confident one — AI-powered engagement, intelligence and action for every leader and every employee.",
 };
 
 const values: { t: string; d: string; icon: IconName }[] = [
-  { t: "Human first", d: "We design for the cleaner, the cashier, the driver — not just head office. If it doesn't work for the frontline, it doesn't ship.", icon: "heart" },
-  { t: "Outcomes over features", d: "We measure ourselves by engagement that actually moves, not by the length of a feature list.", icon: "chart" },
-  { t: "Clarity, always", d: "Plain language, honest metrics, no jargon walls. Intelligence everyone can use.", icon: "spark" },
+  { t: "Every voice counts", d: "We design for the cleaner, the cashier and the CHRO alike. If a voice can't reach the platform, the intelligence is incomplete.", icon: "heart" },
+  { t: "Decisions over dashboards", d: "We measure ourselves by the decisions our intelligence improves, not by the length of a feature list.", icon: "chart" },
+  { t: "Clarity, always", d: "Plain language, honest metrics, explainable AI. Intelligence everyone can use — and verify.", icon: "spark" },
   { t: "Earned trust", d: "Security and anonymity aren't add-ons. People speak freely because we protect them by design.", icon: "shield" },
 ];
 
@@ -24,14 +24,15 @@ export default function AboutPage() {
         <div className="aurora-wash animate-aurora pointer-events-none absolute inset-0 -z-10" />
         <Container className="pt-16 pb-12 text-center sm:pt-24">
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-6">
-            <Pill aurora><SparkMark size={14} /> Human pulse × Daily ritual</Pill>
+            <Pill aurora><SparkMark size={14} /> Go beyond engagement</Pill>
             <h1 className="display-xl font-extrabold">
-              Keep companies <span className="aurora-text">human</span>, at scale
+              Every voice heard.
+              <br />Every decision <span className="aurora-text">confident</span>.
             </h1>
             <p className="max-w-xl text-[18px] leading-relaxed text-[var(--muted)]">
-              Most engagement tools are built for the desk. We built Vadal for everyone else —
-              the millions of people who keep the world running with a phone in their pocket and
-              no corporate inbox in sight.
+              Most tools stop at measuring how people feel. We built Vadal.ai to go further —
+              unifying workforce, talent and organizational data into intelligence that leaders
+              can actually act on, for every employee from the frontline to the boardroom.
             </p>
           </div>
         </Container>
@@ -43,15 +44,15 @@ export default function AboutPage() {
           <div className="space-y-6 text-[18px] leading-relaxed text-[var(--foreground)]">
             <p>
               When people feel informed, recognised and heard, they do their best work — and
-              they stay. But on the frontline, that&apos;s exactly where the tools fall short.
-              Updates don&apos;t land. Training never gets finished. Feedback disappears. And
-              leaders are left guessing.
+              they stay. But in most organizations, feedback disappears into annual reports,
+              analytics live in silos, and by the time leaders see a problem, it has already
+              become attrition.
             </p>
             <p className="text-[var(--muted)]">
-              Vadal is the engagement operating system that closes that gap. One warm,
-              mobile-first app brings communication, training, culture, onboarding and tasks
-              together — and gives leaders the analytics and AI to act on what they learn. We
-              don&apos;t just help you <i>measure</i> engagement. We help you <b>drive</b> it.
+              Vadal.ai closes that gap. One AI-powered platform brings engagement surveys,
+              continuous listening, people analytics and action planning together — and turns
+              what your workforce is telling you into decisions leaders can stand behind. We
+              don&apos;t just help you <i>measure</i> engagement. We help you <b>lead</b> with it.
             </p>
           </div>
 
@@ -92,19 +93,19 @@ export default function AboutPage() {
         <Container className="grid gap-5 md:grid-cols-2">
           <div id="careers" className="scroll-mt-24 rounded-[var(--r-xl)] border border-[var(--line)] bg-[var(--card)] p-8">
             <Eyebrow>Careers</Eyebrow>
-            <h2 className="mt-3 text-[24px] font-extrabold">Build the human side of work</h2>
+            <h2 className="mt-3 text-[24px] font-extrabold">Build the intelligent side of work</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-[var(--muted)]">
-              We&apos;re a small, craft-obsessed team building for a huge, underserved audience.
-              If that sounds like your kind of problem, hit us up.
+              We&apos;re a small, craft-obsessed team building AI that makes work better for
+              millions of people. If that sounds like your kind of problem, hit us up.
             </p>
             <div className="mt-6"><Button href="/contact" variant="secondary" icon>Get in touch</Button></div>
           </div>
           <div id="partners" className="scroll-mt-24 rounded-[var(--r-xl)] border border-[var(--line)] bg-[var(--card)] p-8">
             <Eyebrow>Partners</Eyebrow>
-            <h2 className="mt-3 text-[24px] font-extrabold">Grow with Vadal</h2>
+            <h2 className="mt-3 text-[24px] font-extrabold">Grow with Vadal.ai</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-[var(--muted)]">
-              Consultancies, resellers and HRMS platforms — let&apos;s bring better engagement to
-              more frontline teams together.
+              Consultancies, resellers and HRMS platforms — let&apos;s bring workforce
+              intelligence to more organizations together.
             </p>
             <div className="mt-6"><Button href="/contact" variant="ghost" icon>Become a partner</Button></div>
           </div>

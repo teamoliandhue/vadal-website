@@ -3,7 +3,7 @@ import { LegalPage } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
   title: "GDPR",
-  description: "How Vadal supports compliance with the EU/UK General Data Protection Regulation.",
+  description: "How Vadal.ai supports compliance with the EU/UK General Data Protection Regulation.",
 };
 
 export default function GdprPage() {

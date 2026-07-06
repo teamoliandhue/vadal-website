@@ -6,7 +6,6 @@ import { Button, CheckItem, Container, Eyebrow } from "./ui";
 import {
   sampleCustomers,
   solutionsNav,
-  type IconName,
   type Testimonial,
 } from "@/lib/content";
 
@@ -82,65 +81,6 @@ export function SolutionGrid() {
   );
 }
 
-/* --------------------------------------------- Solutions panel (Maze-style) */
-export function SolutionsPanel() {
-  return (
-    <Container>
-      <div
-        className="relative overflow-hidden rounded-[32px] p-5 sm:p-10"
-        style={{
-          backgroundColor: "#2978F0",
-          backgroundImage: "url('/textures/crowd-blue.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        {/* depth — a soft top highlight and a gentle bottom shade over the halftone */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          aria-hidden="true"
-          style={{
-            background:
-              "radial-gradient(120% 75% at 50% -8%, rgba(255,255,255,0.24), transparent 55%), linear-gradient(180deg, transparent 58%, rgba(8,30,78,0.22))",
-          }}
-        />
-
-        <div className="relative">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-[clamp(2rem,1.1rem+2.6vw,3.1rem)] font-extrabold leading-[1.08] tracking-[-0.025em] text-white">
-              The key areas Vadal helps you succeed in
-            </h2>
-            <div className="mt-5 flex justify-center">
-              <Button href="/platform" variant="dark" size="lg" icon>
-                Explore the platform
-              </Button>
-            </div>
-          </div>
-
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
-            {solutionsNav.map((s) => (
-              <Link
-                key={s.slug}
-                href={`/solutions/${s.slug}`}
-                className="group flex flex-col gap-2.5 rounded-[var(--r-lg)] bg-[var(--card)] p-5 shadow-[var(--shadow-sm)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lg)]"
-              >
-                <span className="inline-flex items-center gap-2 self-start rounded-md border border-[var(--line)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--foreground)]">
-                  <span className="h-2 w-2 rounded-[2px]" style={{ background: "#FF8A5B" }} />
-                  {s.name}
-                </span>
-                <p className="text-[14px] leading-relaxed text-[var(--muted)]">{s.detail}</p>
-                <span className="mt-auto inline-flex items-center gap-1.5 pt-0.5 text-[13px] font-semibold text-[var(--brand)] opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
-                  Explore <Icon name="arrow" size={14} className="transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-    </Container>
-  );
-}
-
 /* ------------------------------------------------------------ Stat band */
 export function StatBand({
   stats,
@@ -165,105 +105,6 @@ export function StatBand({
       </div>
       {note && (
         <p className="mt-10 text-center text-[12px] text-[var(--muted-2)]">{note}</p>
-      )}
-    </div>
-  );
-}
-
-/* ------------------------------------------------ Result cards (Paraform) */
-/* One image-backed card per data point — brand mark + tag top-left, big plain
-   number bottom-left, short description beneath it. Backgrounds alternate
-   pale (dark text) and deep (white text). The grid is driven by the data:
-   N cards, laid out in a single row on desktop. */
-type ResultStat = { value: string; label: string; tag?: string };
-
-const RESULT_BG = [
-  { img: "result-cool", dark: false },
-  { img: "result-aurora", dark: true },
-  { img: "result-warm", dark: false },
-  { img: "result-indigo", dark: true },
-];
-
-export function ResultCards({
-  stats,
-  note,
-}: {
-  stats: ResultStat[];
-  note?: string;
-}) {
-  const n = stats.length;
-  const cols =
-    n >= 4
-      ? "sm:grid-cols-2 lg:grid-cols-4"
-      : n === 3
-        ? "sm:grid-cols-3"
-        : n === 2
-          ? "sm:grid-cols-2"
-          : "";
-
-  return (
-    <div>
-      <div className={`grid grid-cols-1 gap-4 sm:gap-5 ${cols}`} data-reveal-stagger>
-        {stats.map((s, i) => {
-          const t = RESULT_BG[i % RESULT_BG.length];
-          return (
-            <div
-              key={s.label}
-              className="group relative flex min-h-[440px] flex-col justify-between overflow-hidden rounded-[var(--r-2xl)] p-7 shadow-[var(--shadow-sm)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lg)]"
-            >
-              {/* background image + legibility scrim (ordered by DOM, not z-index) */}
-              <img
-                src={`/textures/${t.img}.webp`}
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-              />
-              <div
-                aria-hidden="true"
-                className={`absolute inset-0 ${
-                  t.dark
-                    ? "bg-gradient-to-t from-black/55 via-black/10 to-black/5"
-                    : "bg-gradient-to-t from-white/60 via-white/5 to-white/10"
-                }`}
-              />
-
-              {/* top-left: brand mark + category tag (the "logo" slot) */}
-              <div className="relative flex items-center gap-2">
-                <SparkMark size={16} />
-                {s.tag && (
-                  <span
-                    className={`text-[12px] font-bold uppercase tracking-[0.13em] ${
-                      t.dark ? "text-white/85" : "text-[var(--ink-deep)]/70"
-                    }`}
-                  >
-                    {s.tag}
-                  </span>
-                )}
-              </div>
-
-              {/* bottom-left: big number + description */}
-              <div className="relative">
-                <div
-                  className={`text-[clamp(2.6rem,1.9rem+2.2vw,3.4rem)] font-semibold leading-[0.95] tracking-[-0.03em] ${
-                    t.dark ? "text-white" : "text-[var(--ink-deep)]"
-                  }`}
-                >
-                  {s.value}
-                </div>
-                <p
-                  className={`mt-3.5 max-w-[15rem] text-[15px] leading-snug ${
-                    t.dark ? "text-white/80" : "text-[var(--ink-deep)]/75"
-                  }`}
-                >
-                  {s.label}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      {note && (
-        <p className="mt-8 text-center text-[12px] text-[var(--muted-2)]">{note}</p>
       )}
     </div>
   );
@@ -397,37 +238,6 @@ export function TestimonialCard({ t, featured = false }: { t: Testimonial; featu
         </span>
       </figcaption>
     </figure>
-  );
-}
-
-/* ----------------------------------------------- Enterprise services */
-export function ServiceGrid({
-  items,
-}: {
-  items: { title: string; body: string; icon: IconName }[];
-}) {
-  const cols =
-    items.length % 4 === 0
-      ? "sm:grid-cols-2 lg:grid-cols-4"
-      : items.length % 3 === 0
-        ? "sm:grid-cols-2 lg:grid-cols-3"
-        : "sm:grid-cols-2";
-  return (
-    <div className={`grid gap-4 ${cols}`}>
-      {items.map((s) => (
-        <div
-          key={s.title}
-          className="group relative flex flex-col gap-3 overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
-        >
-          <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[var(--brand-tint)] opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
-          <span className="relative grid h-11 w-11 place-items-center rounded-[13px] bg-[var(--brand-tint)] text-[var(--brand)] transition-colors duration-300 group-hover:bg-[var(--brand)] group-hover:text-white">
-            <Icon name={s.icon} size={22} />
-          </span>
-          <h3 className="relative text-[18px] font-bold">{s.title}</h3>
-          <p className="relative text-[14px] leading-relaxed text-[var(--muted)]">{s.body}</p>
-        </div>
-      ))}
-    </div>
   );
 }
 

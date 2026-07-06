@@ -36,7 +36,11 @@ export default async function SolutionPage({
   const s = getSolution(slug);
   if (!s) notFound();
 
-  const others = solutions.filter((x) => x.slug !== s.slug).slice(0, 3);
+  // related = the next three entries in the array (wrapping), so outcome pages
+  // suggest outcome pages and workforce pages suggest their neighbours, rather
+  // than every page suggesting the same first three solutions.
+  const idx = solutions.findIndex((x) => x.slug === s.slug);
+  const others = Array.from({ length: 3 }, (_, i) => solutions[(idx + 1 + i) % solutions.length]);
 
   return (
     <>

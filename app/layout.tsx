@@ -12,7 +12,8 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.vadal.ai"),
+  // apex is canonical — www 308-redirects to it
+  metadataBase: new URL("https://vadal.ai"),
   title: {
     default: "Vadal.ai — AI-powered workforce engagement & decision intelligence",
     template: "%s · Vadal.ai",
@@ -37,7 +38,8 @@ export const metadata: Metadata = {
     siteName: "Vadal.ai",
   },
   icons: {
-    icon: "/brand/signal-mark.svg",
+    // brand assets were renamed (2e5b539) — the mark lives at /brand/mark.svg
+    icon: "/brand/mark.svg",
   },
 };
 

@@ -26,6 +26,8 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState<MegaId | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const searchBtnRef = useRef<HTMLButtonElement>(null);
+  const mobileBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -41,11 +43,30 @@ export function SiteHeader() {
     };
   }, [mobileOpen]);
 
-  // Escape closes whichever overlay is open
+  // If the viewport grows past the lg breakpoint while the mobile menu is
+  // open, close it — otherwise the body scroll-lock survives with the menu
+  // (and its toggle) display:none'd, freezing the page. Listens on both the
+  // media query and window resize for robustness.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (mq.matches) setMobileOpen(false);
+    };
+    mq.addEventListener("change", onChange);
+    window.addEventListener("resize", onChange);
+    return () => {
+      mq.removeEventListener("change", onChange);
+      window.removeEventListener("resize", onChange);
+    };
+  }, []);
+
+  // Escape closes whichever overlay is open, returning focus to its trigger
   useEffect(() => {
     if (!mobileOpen && !megaOpen && !searchOpen) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        if (searchOpen) searchBtnRef.current?.focus();
+        if (mobileOpen) mobileBtnRef.current?.focus();
         setMobileOpen(false);
         setMegaOpen(null);
         setSearchOpen(false);
@@ -54,6 +75,11 @@ export function SiteHeader() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [mobileOpen, megaOpen, searchOpen]);
+
+  const closeSearch = () => {
+    setSearchOpen(false);
+    searchBtnRef.current?.focus();
+  };
 
   return (
     <header className="sticky top-0 z-50">
@@ -86,7 +112,6 @@ export function SiteHeader() {
                     <Link
                       href={item.href}
                       className="nav-underline flex items-center gap-1 rounded-full px-3.5 py-2 text-[14px] font-semibold text-[var(--foreground)] transition-colors hover:text-[var(--brand)]"
-                      aria-haspopup="true"
                       aria-expanded={megaOpen === item.mega}
                     >
                       {item.label}
@@ -121,6 +146,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-1.5">
             {!LANDING_ONLY && (
               <button
+                ref={searchBtnRef}
                 onClick={() => setSearchOpen((v) => !v)}
                 aria-label="Search"
                 aria-expanded={searchOpen}
@@ -148,11 +174,12 @@ export function SiteHeader() {
           {/* mobile toggle — hidden in landing-only stage (no nav to open) */}
           {!LANDING_ONLY && (
             <button
+              ref={mobileBtnRef}
               className="grid h-10 w-10 place-items-center rounded-full border border-[var(--line)] lg:hidden"
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Toggle menu"
               aria-expanded={mobileOpen}
-              aria-controls="mobile-menu"
+              aria-controls={mobileOpen ? "mobile-menu" : undefined}
             >
               <div className="flex flex-col gap-[5px]">
                 <span className={`h-[1.6px] w-4 bg-[var(--foreground)] transition-all ${mobileOpen ? "translate-y-[6.6px] rotate-45" : ""}`} />
@@ -164,7 +191,7 @@ export function SiteHeader() {
         </Container>
       </div>
 
-      {!LANDING_ONLY && searchOpen && <SearchPanel onClose={() => setSearchOpen(false)} />}
+      {!LANDING_ONLY && searchOpen && <SearchPanel onClose={closeSearch} />}
       {!LANDING_ONLY && mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} />}
     </header>
   );
@@ -519,19 +546,19 @@ function MobileLink({ item, onClose }: { item: MenuItem; onClose: () => void }) 
 }
 
 function MobileMenu({ onClose }: { onClose: () => void }) {
-  const panelRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     panelRef.current?.querySelector<HTMLElement>("a, button, summary")?.focus();
   }, []);
 
+  // A full-screen disclosure, not a modal — the header above stays usable,
+  // so no aria-modal/dialog role (there's no focus trap to back it up).
   return (
-    <div
+    <nav
       ref={panelRef}
       id="mobile-menu"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Menu"
+      aria-label="Mobile menu"
       className="fixed inset-x-0 top-[68px] bottom-0 z-40 overflow-y-auto bg-[var(--background)] lg:hidden"
     >
       <Container className="flex flex-col py-4">
@@ -569,6 +596,6 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
           Book a demo
         </Button>
       </Container>
-    </div>
+    </nav>
   );
 }

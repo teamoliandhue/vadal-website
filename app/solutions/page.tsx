@@ -11,9 +11,6 @@ export const metadata: Metadata = {
     "AI-powered solutions by outcome — retention, manager effectiveness, wellbeing, DEI, hybrid work — and by workforce: frontline & deskless, global & multilingual, enterprise.",
 };
 
-// Per-outcome anchor ids used by the header mega-menu
-const OUTCOME_IDS = ["retention", "managers", "wellbeing", "dei", "hybrid"];
-
 export default function SolutionsIndex() {
   return (
     <>
@@ -22,23 +19,23 @@ export default function SolutionsIndex() {
         <Container className="pt-16 pb-10 text-center sm:pt-24">
           <SectionHead
             eyebrow="Solutions"
+            as="h1"
             title="Intelligence for every outcome, every workforce"
             lede="Vadal.ai goes horizontal where others go narrow — AI-powered workforce intelligence tuned to the outcomes you're accountable for and the workforce you run."
           />
         </Container>
       </section>
 
-      {/* by outcome — anchors shared with the header mega-menu */}
-      <Section tone="surface" id="outcomes" className="scroll-mt-20 !pt-10">
+      {/* by outcome */}
+      <Section tone="surface" className="!pt-10">
         <Container>
           <SectionHead eyebrow="By outcome" title="Start from the result you need" />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {solutionsByOutcome.map((s, i) => (
+            {solutionsByOutcome.map((s) => (
               <Link
                 key={s.name}
                 href={s.href}
-                id={OUTCOME_IDS[i]}
-                className="group flex flex-col scroll-mt-24 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
+                className="group flex flex-col rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
               >
                 <span className="grid h-11 w-11 place-items-center rounded-[13px] bg-[var(--brand-tint)] text-[var(--brand)] transition-colors duration-300 group-hover:bg-[var(--brand)] group-hover:text-white">
                   <Icon name={s.icon ?? "spark"} size={22} />
@@ -56,7 +53,7 @@ export default function SolutionsIndex() {
       </Section>
 
       {/* by workforce */}
-      <Section tone="base" id="workforce" className="scroll-mt-20">
+      <Section tone="base">
         <Container>
           <SectionHead
             eyebrow="By workforce"

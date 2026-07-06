@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo, SparkMark } from "./Brand";
 import { Button, Container } from "./ui";
 import { Icon } from "./Icon";
-import { solutionsNav } from "@/lib/content";
+import { solutionsByOutcome, solutionsByWorkforce } from "@/lib/content";
 import { LANDING_ONLY } from "@/lib/flags";
 
 const columns = [
@@ -19,7 +19,9 @@ const columns = [
   },
   {
     title: "Solutions",
-    links: solutionsNav.map((s) => ({ label: s.name, href: `/solutions/${s.slug}` })),
+    links: [...solutionsByOutcome, ...solutionsByWorkforce.filter((s) => s.name === "Enterprise")].map(
+      (s) => ({ label: s.name, href: s.href })
+    ),
   },
   {
     title: "Company",
@@ -50,7 +52,7 @@ function Socials({ className = "" }: { className?: string }) {
     <div className={`flex items-center gap-2.5 ${className}`}>
       <a
         href="https://www.linkedin.com/company/vadal"
-        aria-label="Vadal on LinkedIn"
+        aria-label="Vadal.ai on LinkedIn"
         target="_blank"
         rel="noopener noreferrer"
         className={base}
@@ -61,7 +63,7 @@ function Socials({ className = "" }: { className?: string }) {
       </a>
       <a
         href="https://x.com/vadal"
-        aria-label="Vadal on X"
+        aria-label="Vadal.ai on X"
         target="_blank"
         rel="noopener noreferrer"
         className={base}
@@ -101,12 +103,12 @@ export function SiteFooter() {
               <SparkMark size={15} /> Score → Insight → Action → Impact
             </span>
             <h2 className="display-md font-extrabold text-[var(--ink-deep)]">
-              Keep your company human, at any scale.
+              Go beyond engagement. Lead with intelligence.
             </h2>
             <p className="text-[17px] leading-relaxed text-[var(--foreground)]">
-              See your whole workforce in one place — and give every employee an app they
-              actually want to open. Book a personalised demo and we&apos;ll tailor it to your
-              industry.
+              See your workforce clearly, predict what&apos;s coming and act with confidence —
+              on one AI-powered platform. Book a personalised demo and we&apos;ll tailor it to
+              your industry.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row">
               <Button href="/demo" size="lg" icon>
@@ -184,7 +186,7 @@ export function SiteFooter() {
       <div className="border-t border-[var(--line)]">
         <Container className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="order-3 text-[13px] text-[var(--muted)] sm:order-1">
-            © {new Date().getFullYear()} Vadal Inc. · Keeping companies human at scale.
+            © {new Date().getFullYear()} Vadal.ai · Go beyond engagement. Lead with intelligence.
           </p>
           <div className="order-1 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-[var(--muted)] sm:order-2">
             <Link href="/terms" className="transition-colors hover:text-[var(--foreground)]">Terms of use</Link>

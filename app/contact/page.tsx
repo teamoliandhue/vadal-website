@@ -5,7 +5,7 @@ import { type IconName } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Talk to the Vadal team — sales, support, partnerships or press.",
+  description: "Talk to the Vadal.ai team — sales, support, partnerships or press.",
 };
 
 const channels: { t: string; d: string; cta: string; href: string; icon: IconName }[] = [

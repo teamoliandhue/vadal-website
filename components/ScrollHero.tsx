@@ -15,7 +15,7 @@ import { heroV2 } from "@/lib/content";
    scroll they fade in and shrink in place; the four real product cards fade out
    and "become" four of those rectangles. Then every rectangle shrinks and
    travels inward, gathering into a glowing Aurora circle — revealing the next
-   headline, "One platform. Every employee."
+   headline, "One platform. Every decision."
 
    Runs on a <canvas> driven by scroll progress (0→1). Enabled only on large
    screens without a reduced-motion preference; otherwise the hero and the

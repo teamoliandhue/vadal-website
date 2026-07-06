@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Button, Container, Pill, Section, SectionHead, CheckItem } from "@/components/ui";
 import { Icon } from "@/components/Icon";
 import { SparkMark } from "@/components/Brand";
-import { BroadcastCard, DashboardMock, PhoneMock, VoiceCard } from "@/components/ProductMocks";
+import { DashboardMock, PhoneMock, VoiceCard } from "@/components/ProductMocks";
 import { FeatureRow, StatBand, TestimonialCard } from "@/components/sections";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { getProductPage, productPages } from "@/lib/product-pages";
@@ -32,8 +32,6 @@ function Mock({ kind, scale = false }: { kind: string; scale?: boolean }) {
   const inner =
     kind === "phone" ? (
       <PhoneMock />
-    ) : kind === "broadcast" ? (
-      <BroadcastCard />
     ) : kind === "voice" ? (
       <VoiceCard />
     ) : (

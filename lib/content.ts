@@ -12,10 +12,10 @@ export const ILLUSTRATIVE =
   "Illustrative sample data — to be replaced with Vadal's verified proof before launch.";
 
 export const site = {
-  name: "Vadal",
+  name: "Vadal.ai",
   domain: "vadal.ai",
-  tagline: "The engagement operating system for the whole workforce.",
-  trustLine: "Trusted by people teams to reach 1M+ employees across 80+ countries",
+  tagline: "The AI-powered workforce engagement & decision intelligence platform.",
+  trustLine: "Trusted by HR, people and business leaders across industries",
   demoUrl: "/demo",
 };
 
@@ -110,37 +110,9 @@ export const homeStats = [
   { value: "4.6/5", label: "average employee rating of their app" },
 ];
 
-// Business-outcome proof for the homepage results band — deliberately distinct
-// from the feature stats surfaced in the scroll showcase. ILLUSTRATIVE.
-export const resultsStats = [
-  { value: "11 days", label: "average time to go live across every site", tag: "Rollout speed" },
-  { value: "+62", label: "employee NPS after six months", tag: "Advocacy" },
-  { value: "5 hrs", label: "saved per manager every week", tag: "Productivity" },
-  { value: "18%", label: "uplift in customer satisfaction scores", tag: "Business impact" },
-];
-
-export const enterpriseServices: { title: string; body: string; icon: IconName }[] = [
-  {
-    title: "Secure",
-    body: "SSO, SCIM, granular roles and audit trails. Anonymity is protected with min-N gating, so people speak freely.",
-    icon: "shield",
-  },
-  {
-    title: "Personal",
-    body: "A savvy success team plus a 200+ article help centre. Real humans when you need them, answers when you don't.",
-    icon: "lifebuoy",
-  },
-  {
-    title: "Tailored",
-    body: "Your brand, your structure, your languages. The app looks and feels like it was built in-house.",
-    icon: "palette",
-  },
-  {
-    title: "Integrated",
-    body: "Sync your HRMS, payroll and identity in a click. People data flows in; engagement flows out.",
-    icon: "plug",
-  },
-];
+// (v1 `resultsStats` and `enterpriseServices` removed 2026-07-06 — their
+// consumers, ResultCards and the homepage EnterprisePanel usage, were replaced
+// by the v2 sections below.)
 
 // ------------------------------------------------------------ testimonials
 export type Testimonial = {

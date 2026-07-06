@@ -10,18 +10,8 @@ import { homeStats, ILLUSTRATIVE, portfolioGroups, type IconName } from "@/lib/c
 export const metadata: Metadata = {
   title: "Platform",
   description:
-    "One engagement operating system — listening, recognition, communication, analytics, manager enablement, case management and a branded mobile app, with Vadal AI throughout.",
+    "The AI-powered workforce engagement & decision intelligence platform — surveys, continuous listening, people analytics and action planning, with the Vadal.ai copilot throughout.",
 };
-
-const pillars: { name: string; icon: IconName; body: string }[] = [
-  { name: "Listening & Feedback", icon: "pulse", body: "Pulse surveys, eNPS and always-on listening with sentiment — anonymity protected by min-N gating." },
-  { name: "Engagement & Recognition", icon: "heart", body: "Recognition, a rewards marketplace, campaigns and communities that make appreciation a habit." },
-  { name: "Communication & Campaigns", icon: "broadcast", body: "Targeted internal comms, a Social Wall, push & SMS, and secure chat — reach everyone in seconds." },
-  { name: "Analytics & Insights", icon: "chart", body: "Dashboards, heatmaps, drill-downs, benchmarks and the engagement↔performance correlation." },
-  { name: "Manager Enablement", icon: "users", body: "Action planning, manager-level insight and coaching that turns scores into next steps." },
-  { name: "Case Management", icon: "checks", body: "Feedback becomes tracked, SLA'd HR cases — nothing important falls through the cracks." },
-  { name: "Mobile & Platform", icon: "phone", body: "A branded employee app with SSO, SCIM and HRMS integrations at the core." },
-];
 
 export default function PlatformPage() {
   return (
@@ -35,12 +25,13 @@ export default function PlatformPage() {
               <SparkMark size={14} /> The workforce intelligence platform
             </Pill>
             <h1 className="display-xl font-extrabold">
-              Everything engagement,
+              Every workforce decision,
               <br /> on <span className="aurora-text">one platform</span>
             </h1>
             <p className="max-w-xl text-[18px] leading-relaxed text-[var(--muted)]">
-              Replace the stack — comms tool, survey tool, LMS, recognition, analytics — with a
-              single system built on one idea: don&apos;t just measure engagement, drive it.
+              Surveys, continuous listening, people analytics and action planning in one
+              AI-powered system — built on one idea: don&apos;t just measure your workforce,
+              lead it with intelligence.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button href="/demo" size="lg" icon>Book demo</Button>
@@ -73,26 +64,6 @@ export default function PlatformPage() {
                 <Icon name={s.i as IconName} size={24} className="mt-2 text-[var(--brand)]" />
                 <h3 className="mt-3 text-[18px] font-bold">{s.t}</h3>
                 <p className="mt-1.5 text-[14px] leading-relaxed text-[var(--muted)]">{s.d}</p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* seven pillars */}
-      <Section tone="base">
-        <Container>
-          <SectionHead eyebrow="Capabilities" title="Seven pillars, one experience" />
-          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {pillars.map((p) => (
-              <div key={p.name} className="flex gap-4 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[13px] bg-[var(--brand-tint)] text-[var(--brand)]">
-                  <Icon name={p.icon} size={22} />
-                </span>
-                <div>
-                  <h3 className="text-[16px] font-bold">{p.name}</h3>
-                  <p className="mt-1 text-[14px] leading-relaxed text-[var(--muted)]">{p.body}</p>
-                </div>
               </div>
             ))}
           </div>
@@ -168,11 +139,11 @@ export default function PlatformPage() {
             <h2 className="display-md mt-3 font-extrabold">The home screen of the workday</h2>
             <p className="mt-4 max-w-lg text-[17px] leading-relaxed text-[var(--muted)]">
               A warm, human app your people open every day — greeting and mood check, what&apos;s
-              up next, a quick poll, recognition, communities and an Ask Vadal card. Human pulse,
-              daily ritual.
+              up next, a quick poll, recognition, communities and an Ask Vadal card. Every
+              interaction feeds the intelligence; every insight makes the day better.
             </p>
             <div className="mt-7 flex flex-wrap gap-2">
-              {["SSO & SCIM", "HRMS sync", "Your brand", "40+ languages", "Offline-friendly"].map((t) => (
+              {["SSO & SCIM", "HRMS sync", "Your brand", "150+ languages", "Offline-friendly"].map((t) => (
                 <Pill key={t}>{t}</Pill>
               ))}
             </div>
@@ -190,7 +161,7 @@ export default function PlatformPage() {
       </Section>
 
       <Section tone="surface" className="!py-16">
-        <Container><LogoMarquee label="Trusted across the deskless economy" /></Container>
+        <Container><LogoMarquee label="Trusted by HR, people and business leaders across industries" /></Container>
       </Section>
     </>
   );

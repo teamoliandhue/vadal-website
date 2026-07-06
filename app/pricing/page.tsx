@@ -83,6 +83,7 @@ export default function PricingPage() {
         <Container className="pt-16 pb-10 text-center sm:pt-24">
           <SectionHead
             eyebrow="Pricing"
+            as="h1"
             title="Pricing that fits your workforce"
             lede="Every organization's workforce — and ambition — is different. Tell us yours and we'll shape a plan around it, with a quote in 48 hours."
           />

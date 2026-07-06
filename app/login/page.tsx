@@ -5,7 +5,7 @@ import { SignalMark } from "@/components/Brand";
 
 export const metadata: Metadata = {
   title: "Login",
-  description: "Sign in to your Vadal workspace.",
+  description: "Sign in to your Vadal.ai workspace.",
 };
 
 export default function LoginPage() {
@@ -16,7 +16,7 @@ export default function LoginPage() {
         <div className="w-full max-w-sm rounded-[var(--r-xl)] border border-[var(--line)] bg-[var(--card)] p-8 shadow-[var(--shadow-md)]">
           <SignalMark size={34} className="mx-auto" />
           <h1 className="mt-5 text-center text-[24px] font-extrabold">Welcome back</h1>
-          <p className="mt-1.5 text-center text-[14px] text-[var(--muted)]">Sign in to your Vadal workspace</p>
+          <p className="mt-1.5 text-center text-[14px] text-[var(--muted)]">Sign in to your Vadal.ai workspace</p>
 
           <form className="mt-7 space-y-4">
             <label className="block">
