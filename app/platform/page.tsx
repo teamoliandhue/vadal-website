@@ -32,7 +32,7 @@ export default function PlatformPage() {
         <Container className="pt-16 pb-10 text-center sm:pt-24">
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-6">
             <Pill aurora>
-              <SparkMark size={14} /> The engagement operating system
+              <SparkMark size={14} /> The workforce intelligence platform
             </Pill>
             <h1 className="display-xl font-extrabold">
               Everything engagement,

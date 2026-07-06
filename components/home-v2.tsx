@@ -61,6 +61,11 @@ export function SurveysSection() {
           <FeatureCard key={f.title} {...f} />
         ))}
       </div>
+      <div className="mt-10 text-center">
+        <Button href="/platform/engagement-surveys" variant="ghost" icon>
+          Explore engagement surveys
+        </Button>
+      </div>
     </Container>
   );
 }
@@ -93,6 +98,11 @@ export function AnalyticsSection() {
           </Pill>
         ))}
       </div>
+      <div className="mt-10 text-center">
+        <Button href="/platform/people-analytics" variant="ghost" icon>
+          Explore people analytics
+        </Button>
+      </div>
     </Container>
   );
 }
@@ -113,6 +123,11 @@ export function FeedbackSection() {
               <CheckItem key={b}>{b}</CheckItem>
             ))}
           </ul>
+          <div className="mt-8">
+            <Button href="/platform/employee-listening" variant="secondary" icon>
+              Explore continuous listening
+            </Button>
+          </div>
         </div>
         <div className="grid gap-4 sm:grid-cols-2" data-reveal-stagger>
           {feedbackSection.cards.map((c) => (
@@ -209,6 +224,15 @@ export function PrivacySection() {
             </span>
           ))}
         </div>
+        <p className="relative mt-8 text-center">
+          <Link
+            href="/platform/confidential-feedback"
+            className="group inline-flex items-center gap-1.5 text-[14.5px] font-bold text-white"
+          >
+            Explore confidential feedback
+            <Icon name="arrow" size={16} className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </p>
       </div>
     </Container>
   );
