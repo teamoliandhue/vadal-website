@@ -106,7 +106,7 @@ export default function PlatformPage() {
       </Section>
 
       {/* AI */}
-      <section id="ai" className="relative scroll-mt-20 overflow-hidden bg-[var(--background)] py-20 sm:py-28">
+      <section id="ai" className="relative scroll-mt-20 overflow-hidden bg-[var(--background)] py-12 sm:py-16">
         <div className="aurora-wash pointer-events-none absolute inset-0 opacity-90" />
         <Container className="relative grid items-center gap-12 lg:grid-cols-2">
           <div>

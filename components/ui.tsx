@@ -155,7 +155,9 @@ export function Section({
     dark: "on-dark bg-[var(--background)] text-[var(--foreground)]",
   };
   return (
-    <section id={id} className={`relative py-14 sm:py-20 lg:py-28 ${tones[tone]} ${className}`}>
+    // tightened rhythm (was py-14/20/28) — founder feedback 2026-07-07:
+    // less dead canvas between sections, Maze-style density
+    <section id={id} className={`relative py-10 sm:py-14 lg:py-16 ${tones[tone]} ${className}`}>
       {reveal ? <Reveal>{children}</Reveal> : children}
     </section>
   );

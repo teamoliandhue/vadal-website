@@ -80,7 +80,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-white">
       {/* closing CTA — misty image panel floating on a clean white surround */}
-      <Container className="py-16 sm:py-24">
+      <Container className="py-12 sm:py-16">
         <div
           className="relative isolate overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line-strong)] px-6 py-16 text-center shadow-[var(--shadow-lg)] sm:px-12 sm:py-28"
           style={{
@@ -124,7 +124,7 @@ export function SiteFooter() {
 
       {/* footer body — brand left, contact (or link columns) right */}
       <div className="border-t border-[var(--line)]">
-        <Container className="py-16 sm:py-20">
+        <Container className="py-12 sm:py-16">
           <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
             {/* brand */}
             <div className="max-w-sm">
