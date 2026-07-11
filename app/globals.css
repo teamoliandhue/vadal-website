@@ -52,11 +52,15 @@
   --r-2xl: 36px;
   --r-pill: 999px;
 
-  /* Elevation — soft, low-spread; float, don't pop */
-  --shadow-sm: 0 1px 2px rgba(13, 11, 22, 0.04), 0 1px 3px rgba(13, 11, 22, 0.04);
-  --shadow-md: 0 4px 14px rgba(13, 11, 22, 0.06), 0 1px 3px rgba(13, 11, 22, 0.04);
-  --shadow-lg: 0 18px 50px -12px rgba(13, 11, 22, 0.16), 0 6px 18px -8px rgba(13, 11, 22, 0.08);
+  /* Elevation — soft, low-spread, multi-layered; float, don't pop.
+     Three stacked layers (contact + ambient + deep) read as real depth
+     rather than a single flat drop-shadow — the "expensive" tell. */
+  --shadow-sm: 0 1px 2px rgba(13, 11, 22, 0.04), 0 2px 5px -1px rgba(13, 11, 22, 0.05);
+  --shadow-md: 0 1px 2px rgba(13, 11, 22, 0.04), 0 5px 16px -3px rgba(13, 11, 22, 0.08), 0 12px 28px -12px rgba(13, 11, 22, 0.08);
+  --shadow-lg: 0 1px 3px rgba(13, 11, 22, 0.05), 0 10px 30px -8px rgba(13, 11, 22, 0.12), 0 28px 60px -18px rgba(13, 11, 22, 0.18);
+  --shadow-hover: 0 2px 6px rgba(13, 11, 22, 0.06), 0 16px 40px -8px rgba(13, 11, 22, 0.16), 0 40px 80px -20px rgba(13, 11, 22, 0.24);
   --shadow-aurora: 0 24px 70px -20px rgba(124, 92, 248, 0.35);
+  --shadow-menu: 0 2px 8px -2px rgba(13, 11, 22, 0.08), 0 24px 50px -12px rgba(13, 11, 22, 0.18), 0 44px 90px -30px rgba(13, 11, 22, 0.24);
 
   /* Button system — ported from the Figma design system (node 67-293).
      primary = ink, brand = violet, secondary = violet tint, tertiary = white
@@ -369,6 +373,11 @@ html.lenis body {
   50%      { transform: translateY(-10px); }
 }
 
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 .animate-aurora { animation: aurora-drift 14s ease-in-out infinite; }
 .animate-marquee { animation: marquee 38s linear infinite; }
 .animate-float { animation: float-y 7s ease-in-out infinite; }
@@ -410,6 +419,138 @@ html.lenis body {
   .ba-photo    { grid-area: photo; }
   .ba-channels { grid-area: channels; }
   .ba-ask      { grid-area: ask; }
+}
+
+/* ============================================================================
+   Premium polish layer — the details that separate "clean template" from
+   "$10k crafted". Reusable, token-driven, all with reduced-motion fallbacks.
+   ========================================================================== */
+
+/* --- signature eyebrow: a small aurora tick before the kicker label --- */
+.eyebrow-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.eyebrow-mark::before {
+  content: "";
+  width: 1.4rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--aurora);
+  flex: none;
+}
+
+/* --- crafted card: hairline top-sheen + layered depth + confident lift ---
+   opt-in via class so we don't disturb bespoke cards. */
+.card-lift {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease;
+}
+/* soft light catching the top edge — the "glass" tell */
+.card-lift::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--line-strong);
+}
+
+/* --- premium mega-menu shell --- */
+.menu-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-menu);
+}
+/* a hairline aurora gradient riding the very top edge */
+.menu-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--aurora);
+  opacity: 0.9;
+  z-index: 2;
+}
+/* a soft aurora bloom in the top-right, behind content */
+.menu-panel::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -12%;
+  width: 46%;
+  height: 90%;
+  background: radial-gradient(circle, rgba(124, 92, 248, 0.1), transparent 68%);
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: 0;
+}
+.menu-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* menu row — arrow slides in, icon warms up */
+.menu-row {
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+.menu-row .menu-arrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.menu-row:hover .menu-arrow,
+.menu-row:focus-visible .menu-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- gradient hairline divider (fades at both ends) --- */
+.divider-glow {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--line-strong) 15%,
+    var(--line-strong) 85%,
+    transparent
+  );
+}
+
+/* --- section glow: reusable aurora bloom backdrop (place absolute, -z) --- */
+.section-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+
+/* --- soft grain: a barely-there texture for premium depth on panels --- */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* Respect reduced motion — static fallbacks for every animation */

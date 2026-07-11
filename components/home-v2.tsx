@@ -38,10 +38,10 @@ function FeatureCard({
 }) {
   return (
     <div
-      className={`group relative flex flex-col gap-3 overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)] ${className}`}
+      className={`group relative flex flex-col gap-3 overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)] transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] hover:-translate-y-1.5 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-hover)] ${className}`}
     >
       <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[var(--brand-tint)] opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
-      <IconChip icon={icon} tint={tint} className="relative" />
+      <IconChip icon={icon} tint={tint} className="relative transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 group-hover:scale-[1.06]" />
       <h3 className="relative text-[17px] font-bold leading-snug">{title}</h3>
       <p className="relative text-[14px] leading-relaxed text-[var(--muted)]">{body}</p>
     </div>

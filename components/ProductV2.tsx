@@ -181,7 +181,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
       </Section>
 
       {/* -------------------------------------------------------- AI inside */}
-      <Section tone="surface">
+      <Section tone="surface" glow="top">
         <Container>
           <SectionHead
             eyebrow="AI inside"

@@ -125,13 +125,18 @@ export function Eyebrow({
   children,
   className = "",
   aurora = false,
+  mark = true,
 }: {
   children: ReactNode;
   className?: string;
   aurora?: boolean;
+  /** the signature aurora tick before the label (default on) */
+  mark?: boolean;
 }) {
   return (
-    <p className={`eyebrow ${aurora ? "aurora-text" : ""} ${className}`}>{children}</p>
+    <p className={`eyebrow ${mark ? "eyebrow-mark" : ""} ${aurora ? "aurora-text" : ""} ${className}`}>
+      {children}
+    </p>
   );
 }
 
@@ -142,22 +147,37 @@ export function Section({
   tone = "base",
   id,
   reveal = false,
+  glow,
 }: {
   children: ReactNode;
   className?: string;
   tone?: "base" | "surface" | "dark";
   id?: string;
   reveal?: boolean;
+  /** subtle aurora bloom backdrop — used sparingly on signature sections */
+  glow?: "left" | "right" | "top";
 }) {
   const tones: Record<string, string> = {
     base: "bg-[var(--background)]",
     surface: "bg-[var(--surface)]",
     dark: "on-dark bg-[var(--background)] text-[var(--foreground)]",
   };
+  // corner blooms — teal/blue/violet, kept low-opacity so the canvas stays calm
+  const glows: Record<string, string> = {
+    left: "left-[-8%] top-[10%] h-[380px] w-[380px] bg-[radial-gradient(circle,rgba(35,215,190,0.14),transparent_70%)]",
+    right: "right-[-8%] top-[6%] h-[420px] w-[420px] bg-[radial-gradient(circle,rgba(124,92,248,0.14),transparent_70%)]",
+    top: "left-1/2 top-[-14%] h-[340px] w-[720px] -translate-x-1/2 bg-[radial-gradient(ellipse,rgba(59,158,255,0.12),transparent_70%)]",
+  };
   return (
     // tightened rhythm (was py-14/20/28) — founder feedback 2026-07-07:
-    // less dead canvas between sections, Maze-style density
-    <section id={id} className={`relative py-10 sm:py-14 lg:py-16 ${tones[tone]} ${className}`}>
+    // less dead canvas between sections, Maze-style density.
+    // overflow-hidden only when a glow is present (else it'd clip overflowing
+    // badges like the pricing "Most popular" pill and hover lifts).
+    <section
+      id={id}
+      className={`relative py-10 sm:py-14 lg:py-16 ${glow ? "overflow-hidden" : ""} ${tones[tone]} ${className}`}
+    >
+      {glow && <div className={`section-glow ${glows[glow]}`} aria-hidden="true" />}
       {reveal ? <Reveal>{children}</Reveal> : children}
     </section>
   );

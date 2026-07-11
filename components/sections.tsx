@@ -35,8 +35,13 @@ export function IconChip({
   const iconSize = size === "lg" ? 24 : size === "sm" ? 18 : 22;
   return (
     <span
-      className={`grid shrink-0 place-items-center ${dims} ${className}`}
-      style={{ background: t.bg, color: t.fg }}
+      className={`relative grid shrink-0 place-items-center ${dims} ${className}`}
+      style={{
+        background: t.bg,
+        color: t.fg,
+        // top light edge + soft inner base — makes the chip feel physical
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 2px rgba(13,11,22,0.05)",
+      }}
     >
       <Icon name={icon} size={iconSize} />
     </span>

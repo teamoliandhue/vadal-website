@@ -39,7 +39,7 @@ export default function HomePage() {
       </Section>
 
       {/* ================================== PLATFORM OVERVIEW + PERSONA TABS */}
-      <Section tone="base" id="platform" reveal>
+      <Section tone="base" id="platform" reveal glow="top">
         <Container>
           <SectionHead
             eyebrow={platformOverview.eyebrow}
@@ -53,12 +53,12 @@ export default function HomePage() {
       </Section>
 
       {/* ========================================================= SURVEYS */}
-      <Section tone="base" id="surveys" reveal className="scroll-mt-20">
+      <Section tone="base" id="surveys" reveal glow="right" className="scroll-mt-20">
         <SurveysSection />
       </Section>
 
       {/* ======================================================= ANALYTICS */}
-      <Section tone="base" id="analytics" reveal className="scroll-mt-20">
+      <Section tone="base" id="analytics" reveal glow="left" className="scroll-mt-20">
         <AnalyticsSection />
       </Section>
 
@@ -78,7 +78,7 @@ export default function HomePage() {
       </Section>
 
       {/* ==================================================== INTEGRATIONS */}
-      <Section tone="base" id="integrations" reveal className="scroll-mt-20">
+      <Section tone="base" id="integrations" reveal glow="right" className="scroll-mt-20">
         <IntegrationsSection />
       </Section>
 

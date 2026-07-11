@@ -203,26 +203,27 @@ function MenuLink({ item, onNavigate, compact = false }: { item: MenuItem; onNav
     <Link
       href={item.href}
       onClick={onNavigate}
-      className="group flex items-start gap-3 rounded-[var(--r-md)] p-2.5 transition-colors hover:bg-[var(--surface)]"
+      className="menu-row group flex items-center gap-3 rounded-[var(--r-md)] p-2.5 hover:bg-[var(--surface)]"
     >
       {item.icon && (
-        <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-[var(--brand-tint)] text-[var(--brand)] transition-colors group-hover:bg-[var(--brand)] group-hover:text-white">
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-[var(--brand-tint)] text-[var(--brand)] transition-colors group-hover:bg-[var(--brand)] group-hover:text-white">
           <Icon name={item.icon} size={16} />
         </span>
       )}
-      <span className="min-w-0">
+      <span className="min-w-0 flex-1">
         <span className="block text-[13.5px] font-bold leading-snug text-[var(--foreground)]">{item.name}</span>
         {!compact && item.blurb && (
           <span className="mt-0.5 block text-[12.5px] leading-snug text-[var(--muted)]">{item.blurb}</span>
         )}
       </span>
+      <Icon name="arrow" size={14} className="menu-arrow shrink-0 self-center text-[var(--brand)]" />
     </Link>
   );
 }
 
 function GroupLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="px-2.5 pb-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
+    <p className="eyebrow-mark px-2.5 pb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
       {children}
     </p>
   );
@@ -238,8 +239,11 @@ function PanelShell({
   footer?: React.ReactNode;
 }) {
   return (
-    <div className={`absolute left-1/2 top-full z-50 max-w-[calc(100vw-24px)] -translate-x-1/2 pt-3 ${width}`}>
-      <div className="overflow-hidden rounded-[var(--r-xl)] border border-[var(--line)] bg-[var(--card)] shadow-[var(--shadow-lg)]">
+    <div
+      className={`absolute left-1/2 top-full z-50 max-w-[calc(100vw-24px)] -translate-x-1/2 pt-3 ${width}`}
+      style={{ animation: "menu-in 0.22s cubic-bezier(0.22,1,0.36,1)" }}
+    >
+      <div className="menu-panel">
         {children}
         {footer}
       </div>
@@ -249,13 +253,13 @@ function PanelShell({
 
 function PanelFooter({ links, onNavigate }: { links: { label: string; href: string; spark?: boolean }[]; onNavigate: () => void }) {
   return (
-    <div className={`grid border-t border-[var(--line)] bg-[var(--surface)] ${links.length > 1 ? "grid-cols-2" : ""}`}>
+    <div className={`relative z-[1] grid border-t border-[var(--line)] bg-gradient-to-b from-[var(--surface)] to-[var(--card)] ${links.length > 1 ? "grid-cols-2" : ""}`}>
       {links.map((l, i) => (
         <Link
           key={l.href + l.label}
           href={l.href}
           onClick={onNavigate}
-          className={`flex items-center justify-between gap-2 px-5 py-3.5 text-[13px] font-semibold transition-colors hover:bg-[var(--surface-2)] ${
+          className={`menu-row group flex items-center justify-between gap-2 px-5 py-3.5 text-[13px] font-semibold hover:bg-[var(--surface-2)] ${
             i < links.length - 1 ? "border-r border-[var(--line)]" : ""
           }`}
         >
@@ -263,7 +267,7 @@ function PanelFooter({ links, onNavigate }: { links: { label: string; href: stri
             {l.spark && <SparkMark size={15} />}
             {l.label}
           </span>
-          <Icon name="arrow" size={16} className="text-[var(--brand)]" />
+          <Icon name="arrow" size={16} className="text-[var(--brand)] transition-transform group-hover:translate-x-0.5" />
         </Link>
       ))}
     </div>
@@ -302,8 +306,8 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
         />
       }
     >
-      <div className="grid grid-cols-[1.1fr_1.3fr_1.05fr] gap-2 p-4">
-        {/* key offerings — interactive list */}
+      <div className="grid grid-cols-[1.05fr_1.35fr_1.05fr] gap-3 p-3.5">
+        {/* key offerings — interactive rail */}
         <div className="border-r border-[var(--line)] pr-3">
           <GroupLabel>Key offerings</GroupLabel>
           <div className="space-y-0.5">
@@ -314,16 +318,27 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
                 onFocus={() => setActive(i)}
                 onClick={() => setActive(i)}
                 aria-expanded={i === active}
-                className={`flex w-full items-center gap-2.5 rounded-[var(--r-md)] p-2.5 text-left transition-colors ${
-                  i === active ? "bg-[var(--brand-tint)]" : "hover:bg-[var(--surface)]"
+                className={`group relative flex w-full items-center gap-2.5 rounded-[var(--r-md)] p-2.5 text-left transition-all duration-200 ${
+                  i === active
+                    ? "bg-gradient-to-r from-[var(--brand-tint)] to-transparent"
+                    : "hover:bg-[var(--surface)]"
                 }`}
               >
+                {/* left accent bar on the active item */}
                 <span
-                  className={`grid h-8 w-8 shrink-0 place-items-center rounded-[10px] transition-colors ${
+                  className={`absolute left-0 top-1/2 h-6 w-[3px] -translate-y-1/2 rounded-full transition-opacity duration-200 ${
+                    i === active ? "opacity-100" : "opacity-0"
+                  }`}
+                  style={{ background: "var(--aurora)" }}
+                  aria-hidden="true"
+                />
+                <span
+                  className={`grid h-8 w-8 shrink-0 place-items-center rounded-[10px] transition-all duration-200 ${
                     i === active
-                      ? "bg-[var(--brand)] text-white"
+                      ? "text-white shadow-[var(--shadow-sm)]"
                       : "bg-[var(--brand-tint)] text-[var(--brand)]"
                   }`}
+                  style={i === active ? { background: "var(--aurora)" } : undefined}
                 >
                   <Icon name={g.icon} size={16} />
                 </span>
@@ -333,8 +348,8 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
                 <Icon
                   name="arrow"
                   size={14}
-                  className={`shrink-0 text-[var(--brand)] transition-opacity ${
-                    i === active ? "opacity-100" : "opacity-0"
+                  className={`shrink-0 text-[var(--brand)] transition-all duration-200 ${
+                    i === active ? "translate-x-0 opacity-100" : "-translate-x-1 opacity-0"
                   }`}
                 />
               </button>
@@ -342,36 +357,47 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
           </div>
         </div>
 
-        {/* selected offering — description + modules */}
-        <div className="min-h-[350px] border-r border-[var(--line)] pr-3">
-          <GroupLabel>{cloud.name}</GroupLabel>
-          <p className="px-2.5 text-[12.5px] leading-snug text-[var(--muted)]">
-            {cloud.description}
-          </p>
-          <p className="mt-4 px-2.5 pb-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
-            Modules
-          </p>
+        {/* selected offering — description card + module grid */}
+        <div className="flex min-h-[366px] flex-col border-r border-[var(--line)] pr-3">
+          <div className="rounded-[var(--r-md)] border border-[var(--line)] bg-gradient-to-br from-[var(--surface)] to-[var(--card)] p-3.5">
+            <div className="flex items-center gap-2">
+              <span className="grid h-6 w-6 place-items-center rounded-[8px] text-white" style={{ background: "var(--aurora)" }}>
+                <Icon name={cloud.icon} size={13} />
+              </span>
+              <p className="text-[13px] font-extrabold text-[var(--foreground)]">{cloud.name}</p>
+            </div>
+            <p className="mt-2 text-[12.5px] leading-relaxed text-[var(--muted)]">{cloud.description}</p>
+          </div>
+          <GroupLabel>
+            <span className="mt-3.5 inline-block">Modules</span>
+          </GroupLabel>
           <div className="space-y-0.5">
             {modules.map((it) => (
-              <MenuLink
+              <Link
                 key={it.slug}
-                item={{ name: it.name, href: `/platform/${it.slug}` }}
-                onNavigate={onNavigate}
-                compact
-              />
+                href={`/platform/${it.slug}`}
+                onClick={onNavigate}
+                className="menu-row group flex items-center gap-2 rounded-[var(--r-md)] px-2.5 py-2 hover:bg-[var(--surface)]"
+              >
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--brand-tint-2)] transition-colors group-hover:bg-[var(--brand)]" />
+                <span className="min-w-0 flex-1 text-[13px] font-semibold text-[var(--foreground)]">
+                  {it.name}
+                </span>
+                <Icon name="arrow" size={13} className="menu-arrow shrink-0 text-[var(--brand)]" />
+              </Link>
             ))}
           </div>
           <Link
             href={`/platform#${cloud.id}`}
             onClick={onNavigate}
-            className="group mt-2 inline-flex items-center gap-1.5 px-2.5 text-[12.5px] font-bold text-[var(--brand)]"
+            className="group mt-auto inline-flex items-center gap-1.5 px-2 pt-3 text-[12.5px] font-bold text-[var(--brand)]"
           >
             Explore {cloud.name}
             <Icon name="arrow" size={13} className="transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
 
-        {/* survey types + featured — unchanged per the amendment */}
+        {/* survey types + featured */}
         <div>
           <GroupLabel>Survey types</GroupLabel>
           <div className="space-y-0.5">
@@ -380,11 +406,26 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
             ))}
           </div>
           <GroupLabel>
-            <span className="mt-3 inline-block">Featured</span>
+            <span className="mt-3.5 inline-block">Featured</span>
           </GroupLabel>
-          <div className="space-y-0.5">
+          <div className="space-y-1">
             {platformFeatured.map((f) => (
-              <MenuLink key={f.name} item={{ ...f, blurb: undefined }} onNavigate={onNavigate} compact />
+              <Link
+                key={f.name}
+                href={f.href}
+                onClick={onNavigate}
+                className="menu-row group flex items-center gap-2.5 rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--card)] p-2.5 shadow-[var(--shadow-sm)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]"
+              >
+                {f.icon && (
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] text-white" style={{ background: "var(--aurora)" }}>
+                    <Icon name={f.icon} size={15} />
+                  </span>
+                )}
+                <span className="min-w-0 flex-1 text-[12.5px] font-bold leading-snug text-[var(--foreground)]">
+                  {f.name}
+                </span>
+                <Icon name="arrow" size={13} className="menu-arrow shrink-0 text-[var(--brand)]" />
+              </Link>
             ))}
           </div>
         </div>
