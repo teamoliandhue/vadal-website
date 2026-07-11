@@ -10,6 +10,7 @@ import { FaqAccordion } from "@/components/FaqAccordion";
 import { getProductPage, productPages } from "@/lib/product-pages";
 import { getProduct, products } from "@/lib/products";
 import { ProductV2, type RelatedMeta } from "@/components/ProductV2";
+import { ProductShot, PRODUCT_SHOTS } from "@/components/ProductShot";
 import { ILLUSTRATIVE } from "@/lib/content";
 
 // Two registries share this route: the 24-product v2 set (master doc) takes
@@ -110,7 +111,11 @@ export default async function ProductPage({
           </div>
           <div className="reveal relative flex justify-center" style={{ animationDelay: "0.12s" }}>
             <div className="aurora-wash pointer-events-none absolute -inset-6 -z-10 rounded-[var(--r-2xl)] opacity-70" />
-            <Mock kind={p.mock} />
+            {PRODUCT_SHOTS[p.slug] ? (
+              <ProductShot shot={PRODUCT_SHOTS[p.slug]} priority />
+            ) : (
+              <Mock kind={p.mock} />
+            )}
           </div>
         </Container>
       </section>

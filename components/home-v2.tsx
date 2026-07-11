@@ -107,8 +107,16 @@ export function AnalyticsSection() {
             </span>
           </div>
           <div className="relative mt-4 flex flex-1 items-end justify-center px-5">
-            <div className="w-full max-w-[440px] translate-y-4 transition-transform duration-500 hover:translate-y-1">
-              <DashboardMock />
+            <div className="w-full max-w-[520px] translate-y-4 transition-transform duration-500 hover:translate-y-1">
+              {/* the real Analytics screen from the product build */}
+              <img
+                src="/product/analytics.webp"
+                alt="The Analytics screen in the Vadal.ai product — engagement, participation and attrition-risk metrics with team breakdown"
+                width={1600}
+                height={1000}
+                loading="lazy"
+                className="block h-auto w-full rounded-t-[var(--r-lg)] border border-b-0 border-[var(--line)] shadow-[var(--shadow-lg)]"
+              />
             </div>
           </div>
         </div>

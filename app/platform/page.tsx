@@ -4,6 +4,7 @@ import { Button, Container, Eyebrow, Pill, Section, SectionHead } from "@/compon
 import { Icon } from "@/components/Icon";
 import { SparkMark } from "@/components/Brand";
 import { DashboardMock, PhoneMock } from "@/components/ProductMocks";
+import { ProductShot } from "@/components/ProductShot";
 import { LogoMarquee, StatBand } from "@/components/sections";
 import { homeStats, ILLUSTRATIVE, portfolioGroups, type IconName } from "@/lib/content";
 
@@ -38,8 +39,9 @@ export default function PlatformPage() {
               <Button href="#ai" variant="ghost" size="lg">Meet Vadal AI</Button>
             </div>
           </div>
-          <div className="mx-auto mt-14 max-w-4xl">
-            <DashboardMock />
+          <div className="mx-auto mt-14 flex max-w-4xl justify-center">
+            {/* the real product home — AI briefing, team health, Ask Vadal */}
+            <ProductShot shot={{ file: "home", label: "Home" }} priority className="!max-w-[880px]" />
           </div>
         </Container>
       </section>
