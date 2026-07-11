@@ -476,26 +476,17 @@ html.lenis body {
   border-radius: var(--r-xl);
   box-shadow: var(--shadow-menu);
 }
-/* a hairline aurora gradient riding the very top edge */
-.menu-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 2px;
-  background: var(--aurora);
-  opacity: 0.9;
-  z-index: 2;
-}
-/* a soft aurora bloom in the top-right, behind content */
+/* a whisper of aurora bloom in the top-right — the only brand tint on an
+   otherwise clean, minimal panel (Maze-style editorial restraint) */
 .menu-panel::after {
   content: "";
   position: absolute;
-  top: -30%;
-  right: -12%;
-  width: 46%;
-  height: 90%;
-  background: radial-gradient(circle, rgba(124, 92, 248, 0.1), transparent 68%);
-  filter: blur(8px);
+  top: -34%;
+  right: -14%;
+  width: 42%;
+  height: 88%;
+  background: radial-gradient(circle, rgba(124, 92, 248, 0.07), transparent 68%);
+  filter: blur(10px);
   pointer-events: none;
   z-index: 0;
 }

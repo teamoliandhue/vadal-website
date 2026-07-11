@@ -7,7 +7,6 @@ import { Icon } from "./Icon";
 import { Button, Container } from "./ui";
 import {
   headerNav,
-  platformFeatured,
   portfolioGroups,
   resourcesMenu,
   scienceMenu,
@@ -198,34 +197,106 @@ export function SiteHeader() {
 
 /* ------------------------------------------------------------ shared bits */
 
-function MenuLink({ item, onNavigate, compact = false }: { item: MenuItem; onNavigate: () => void; compact?: boolean }) {
+/* ---------- Maze-style editorial menu building blocks ----------
+   The look: one color-tinted featured card with an illustration, then clean
+   grouped text-link columns — no per-link icons or bullets, generous rhythm. */
+
+/* aurora "halftone globe" — a gradient sphere with a dot texture + inner shade */
+function AuroraOrb({ size = 104 }: { size?: number }) {
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }} aria-hidden="true">
+      <div className="absolute inset-0 rounded-full" style={{ background: "var(--aurora)" }} />
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{
+          backgroundImage: "radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1.5px)",
+          backgroundSize: "7px 7px",
+          WebkitMaskImage: "radial-gradient(circle at 50% 50%, #000 58%, transparent 72%)",
+          maskImage: "radial-gradient(circle at 50% 50%, #000 58%, transparent 72%)",
+          opacity: 0.85,
+          mixBlendMode: "soft-light",
+        }}
+      />
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{ boxShadow: "inset 0 -10px 22px rgba(13,11,22,0.22), inset 0 8px 16px rgba(255,255,255,0.45)" }}
+      />
+    </div>
+  );
+}
+
+function MenuFeatureCard({
+  title,
+  href,
+  desc,
+  onNavigate,
+}: {
+  title: string;
+  href: string;
+  desc: string;
+  onNavigate: () => void;
+}) {
   return (
     <Link
-      href={item.href}
+      href={href}
       onClick={onNavigate}
-      className="menu-row group flex items-center gap-3 rounded-[var(--r-md)] p-2.5 hover:bg-[var(--surface)]"
+      className="group relative flex min-h-[210px] flex-col justify-between overflow-hidden rounded-[var(--r-lg)] p-5 transition-shadow hover:shadow-[var(--shadow-md)]"
+      style={{ background: "var(--aurora-soft)" }}
     >
-      {item.icon && (
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-[var(--brand-tint)] text-[var(--brand)] transition-colors group-hover:bg-[var(--brand)] group-hover:text-white">
-          <Icon name={item.icon} size={16} />
+      <div className="relative flex items-start justify-between gap-3">
+        <span className="inline-flex items-center gap-1.5 text-[15.5px] font-extrabold text-[var(--ink-deep)]">
+          {title}
+          <Icon name="arrow" size={16} className="text-[var(--brand)] transition-transform group-hover:translate-x-0.5" />
         </span>
-      )}
-      <span className="min-w-0 flex-1">
-        <span className="block text-[13.5px] font-bold leading-snug text-[var(--foreground)]">{item.name}</span>
-        {!compact && item.blurb && (
-          <span className="mt-0.5 block text-[12.5px] leading-snug text-[var(--muted)]">{item.blurb}</span>
-        )}
-      </span>
-      <Icon name="arrow" size={14} className="menu-arrow shrink-0 self-center text-[var(--brand)]" />
+        <span className="-mr-1.5 -mt-1.5">
+          <AuroraOrb />
+        </span>
+      </div>
+      <p className="relative max-w-[15rem] text-[13px] leading-relaxed text-[var(--foreground)]/75">
+        {desc}
+      </p>
     </Link>
   );
 }
 
-function GroupLabel({ children }: { children: React.ReactNode }) {
+function MenuGroup({ label, children }: { label: React.ReactNode; children: React.ReactNode }) {
   return (
-    <p className="eyebrow-mark px-2.5 pb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
-      {children}
-    </p>
+    <div>
+      <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted-2)]">{label}</p>
+      <div>{children}</div>
+    </div>
+  );
+}
+
+function MenuTextLink({
+  name,
+  href,
+  tag,
+  onNavigate,
+}: {
+  name: string;
+  href: string;
+  tag?: string;
+  onNavigate: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      className="group flex items-center gap-2 py-[7px] text-[14.5px] font-medium text-[var(--foreground)] transition-colors hover:text-[var(--brand)]"
+    >
+      <span>{name}</span>
+      {tag && (
+        <span className="rounded-[5px] bg-[var(--brand-tint)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.06em] text-[var(--brand)]">
+          {tag}
+        </span>
+      )}
+      <Icon
+        name="arrow"
+        size={13}
+        className="-translate-x-1 text-[var(--brand)] opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
+      />
+    </Link>
   );
 }
 
@@ -284,151 +355,63 @@ function MegaPanel({ id, onNavigate }: { id: MegaId; onNavigate: () => void }) {
 }
 
 function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
-  // Interactive per the founder's amendment doc: selecting a key offering on
-  // the left reveals its description + modules in the middle; the survey-type
-  // and featured columns stay as they were.
-  const [active, setActive] = useState(0);
-  const cloud = portfolioGroups[active];
-  const modules = cloud.items.filter(
-    (it): it is typeof it & { slug: string } => Boolean(it.slug)
-  );
+  // Editorial layout: a featured card + survey types on the left, then the six
+  // platform clouds as clean grouped text-link columns (two clouds per column).
+  const columns: number[][] = [
+    [0, 3], // Workforce Experience · Engagement & Listening
+    [1, 2], // Workforce Intelligence · Talent Intelligence
+    [4, 5], // Digital Workplace · Enterprise AI Platform
+  ];
+  const renderCloud = (i: number) => {
+    const g = portfolioGroups[i];
+    const mods = g.items.filter((it): it is typeof it & { slug: string } => Boolean(it.slug));
+    return (
+      <MenuGroup key={g.id} label={g.name}>
+        {mods.map((it) => (
+          <MenuTextLink
+            key={it.slug}
+            name={it.name}
+            href={`/platform/${it.slug}`}
+            tag={it.slug === "ai-workforce-assistant" ? "New" : undefined}
+            onNavigate={onNavigate}
+          />
+        ))}
+      </MenuGroup>
+    );
+  };
 
   return (
     <PanelShell
-      width="w-[min(980px,92vw)]"
+      width="w-[min(1060px,94vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
           links={[
             { label: "Explore the whole platform", href: "/platform", spark: true },
-            { label: "Decision Intelligence Copilot", href: "/platform/decision-intelligence-copilot" },
+            { label: "Book a personalized demo", href: "/demo" },
           ]}
         />
       }
     >
-      <div className="grid grid-cols-[1.05fr_1.35fr_1.05fr] gap-3 p-3.5">
-        {/* key offerings — interactive rail */}
-        <div className="border-r border-[var(--line)] pr-3">
-          <GroupLabel>Key offerings</GroupLabel>
-          <div className="space-y-0.5">
-            {portfolioGroups.map((g, i) => (
-              <button
-                key={g.id}
-                onMouseEnter={() => setActive(i)}
-                onFocus={() => setActive(i)}
-                onClick={() => setActive(i)}
-                aria-expanded={i === active}
-                className={`group relative flex w-full items-center gap-2.5 rounded-[var(--r-md)] p-2.5 text-left transition-all duration-200 ${
-                  i === active
-                    ? "bg-gradient-to-r from-[var(--brand-tint)] to-transparent"
-                    : "hover:bg-[var(--surface)]"
-                }`}
-              >
-                {/* left accent bar on the active item */}
-                <span
-                  className={`absolute left-0 top-1/2 h-6 w-[3px] -translate-y-1/2 rounded-full transition-opacity duration-200 ${
-                    i === active ? "opacity-100" : "opacity-0"
-                  }`}
-                  style={{ background: "var(--aurora)" }}
-                  aria-hidden="true"
-                />
-                <span
-                  className={`grid h-8 w-8 shrink-0 place-items-center rounded-[10px] transition-all duration-200 ${
-                    i === active
-                      ? "text-white shadow-[var(--shadow-sm)]"
-                      : "bg-[var(--brand-tint)] text-[var(--brand)]"
-                  }`}
-                  style={i === active ? { background: "var(--aurora)" } : undefined}
-                >
-                  <Icon name={g.icon} size={16} />
-                </span>
-                <span className="min-w-0 flex-1 text-[13.5px] font-bold leading-snug text-[var(--foreground)]">
-                  {g.name}
-                </span>
-                <Icon
-                  name="arrow"
-                  size={14}
-                  className={`shrink-0 text-[var(--brand)] transition-all duration-200 ${
-                    i === active ? "translate-x-0 opacity-100" : "-translate-x-1 opacity-0"
-                  }`}
-                />
-              </button>
+      <div className="grid grid-cols-[248px_1fr_1fr_1fr] gap-6 p-5">
+        <div className="flex flex-col gap-5">
+          <MenuFeatureCard
+            title="The Vadal Platform"
+            href="/platform"
+            desc="One AI-powered platform for engagement, intelligence and action across your whole workforce."
+            onNavigate={onNavigate}
+          />
+          <MenuGroup label="Survey types">
+            {surveyTypes.slice(1).map((s) => (
+              <MenuTextLink key={s.name} name={s.name} href={s.href} onNavigate={onNavigate} />
             ))}
-          </div>
+          </MenuGroup>
         </div>
-
-        {/* selected offering — description card + module grid */}
-        <div className="flex min-h-[366px] flex-col border-r border-[var(--line)] pr-3">
-          <div className="rounded-[var(--r-md)] border border-[var(--line)] bg-gradient-to-br from-[var(--surface)] to-[var(--card)] p-3.5">
-            <div className="flex items-center gap-2">
-              <span className="grid h-6 w-6 place-items-center rounded-[8px] text-white" style={{ background: "var(--aurora)" }}>
-                <Icon name={cloud.icon} size={13} />
-              </span>
-              <p className="text-[13px] font-extrabold text-[var(--foreground)]">{cloud.name}</p>
-            </div>
-            <p className="mt-2 text-[12.5px] leading-relaxed text-[var(--muted)]">{cloud.description}</p>
+        {columns.map((pair, ci) => (
+          <div key={ci} className="flex flex-col gap-6 border-l border-[var(--line)] pl-6">
+            {pair.map(renderCloud)}
           </div>
-          <GroupLabel>
-            <span className="mt-3.5 inline-block">Modules</span>
-          </GroupLabel>
-          <div className="space-y-0.5">
-            {modules.map((it) => (
-              <Link
-                key={it.slug}
-                href={`/platform/${it.slug}`}
-                onClick={onNavigate}
-                className="menu-row group flex items-center gap-2 rounded-[var(--r-md)] px-2.5 py-2 hover:bg-[var(--surface)]"
-              >
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--brand-tint-2)] transition-colors group-hover:bg-[var(--brand)]" />
-                <span className="min-w-0 flex-1 text-[13px] font-semibold text-[var(--foreground)]">
-                  {it.name}
-                </span>
-                <Icon name="arrow" size={13} className="menu-arrow shrink-0 text-[var(--brand)]" />
-              </Link>
-            ))}
-          </div>
-          <Link
-            href={`/platform#${cloud.id}`}
-            onClick={onNavigate}
-            className="group mt-auto inline-flex items-center gap-1.5 px-2 pt-3 text-[12.5px] font-bold text-[var(--brand)]"
-          >
-            Explore {cloud.name}
-            <Icon name="arrow" size={13} className="transition-transform group-hover:translate-x-0.5" />
-          </Link>
-        </div>
-
-        {/* survey types + featured */}
-        <div>
-          <GroupLabel>Survey types</GroupLabel>
-          <div className="space-y-0.5">
-            {surveyTypes.map((s) => (
-              <MenuLink key={s.name} item={s} onNavigate={onNavigate} compact />
-            ))}
-          </div>
-          <GroupLabel>
-            <span className="mt-3.5 inline-block">Featured</span>
-          </GroupLabel>
-          <div className="space-y-1">
-            {platformFeatured.map((f) => (
-              <Link
-                key={f.name}
-                href={f.href}
-                onClick={onNavigate}
-                className="menu-row group flex items-center gap-2.5 rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--card)] p-2.5 shadow-[var(--shadow-sm)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)]"
-              >
-                {f.icon && (
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] text-white" style={{ background: "var(--aurora)" }}>
-                    <Icon name={f.icon} size={15} />
-                  </span>
-                )}
-                <span className="min-w-0 flex-1 text-[12.5px] font-bold leading-snug text-[var(--foreground)]">
-                  {f.name}
-                </span>
-                <Icon name="arrow" size={13} className="menu-arrow shrink-0 text-[var(--brand)]" />
-              </Link>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
     </PanelShell>
   );
@@ -437,7 +420,7 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
 function SolutionsMega({ onNavigate }: { onNavigate: () => void }) {
   return (
     <PanelShell
-      width="w-[min(720px,92vw)]"
+      width="w-[min(780px,94vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
@@ -445,22 +428,26 @@ function SolutionsMega({ onNavigate }: { onNavigate: () => void }) {
         />
       }
     >
-      <div className="grid grid-cols-[1.2fr_1fr] gap-2 p-4">
-        <div className="border-r border-[var(--line)] pr-3">
-          <GroupLabel>By outcome</GroupLabel>
-          <div className="space-y-0.5">
+      <div className="grid grid-cols-[248px_1fr_1fr] gap-6 p-5">
+        <MenuFeatureCard
+          title="Solutions"
+          href="/solutions"
+          desc="Workforce intelligence tuned to the outcomes you're accountable for and the workforce you run."
+          onNavigate={onNavigate}
+        />
+        <div className="border-l border-[var(--line)] pl-6">
+          <MenuGroup label="By outcome">
             {solutionsByOutcome.map((s) => (
-              <MenuLink key={s.name} item={s} onNavigate={onNavigate} />
+              <MenuTextLink key={s.name} name={s.name} href={s.href} onNavigate={onNavigate} />
             ))}
-          </div>
+          </MenuGroup>
         </div>
-        <div>
-          <GroupLabel>By workforce</GroupLabel>
-          <div className="space-y-0.5">
+        <div className="border-l border-[var(--line)] pl-6">
+          <MenuGroup label="By workforce">
             {solutionsByWorkforce.map((s) => (
-              <MenuLink key={s.name} item={s} onNavigate={onNavigate} />
+              <MenuTextLink key={s.name} name={s.name} href={s.href} onNavigate={onNavigate} />
             ))}
-          </div>
+          </MenuGroup>
         </div>
       </div>
     </PanelShell>
@@ -470,7 +457,7 @@ function SolutionsMega({ onNavigate }: { onNavigate: () => void }) {
 function ResourcesMega({ onNavigate }: { onNavigate: () => void }) {
   return (
     <PanelShell
-      width="w-[min(900px,92vw)]"
+      width="w-[min(960px,94vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
@@ -478,15 +465,20 @@ function ResourcesMega({ onNavigate }: { onNavigate: () => void }) {
         />
       }
     >
-      <div className="grid grid-cols-3 gap-2 p-4">
-        {resourcesMenu.map((group, gi) => (
-          <div key={group.label} className={gi < resourcesMenu.length - 1 ? "border-r border-[var(--line)] pr-3" : ""}>
-            <GroupLabel>{group.label}</GroupLabel>
-            <div className="space-y-0.5">
+      <div className="grid grid-cols-[248px_1fr_1fr_1fr] gap-6 p-5">
+        <MenuFeatureCard
+          title="Resources"
+          href="/resources"
+          desc="Guides, benchmarks and community for leaders turning employee feedback into decisions."
+          onNavigate={onNavigate}
+        />
+        {resourcesMenu.map((group) => (
+          <div key={group.label} className="border-l border-[var(--line)] pl-6">
+            <MenuGroup label={group.label}>
               {group.items.map((item) => (
-                <MenuLink key={item.name} item={item} onNavigate={onNavigate} />
+                <MenuTextLink key={item.name} name={item.name} href={item.href} onNavigate={onNavigate} />
               ))}
-            </div>
+            </MenuGroup>
           </div>
         ))}
       </div>
@@ -495,9 +487,11 @@ function ResourcesMega({ onNavigate }: { onNavigate: () => void }) {
 }
 
 function ScienceMega({ onNavigate }: { onNavigate: () => void }) {
+  const first = scienceMenu.items.slice(0, 3);
+  const second = scienceMenu.items.slice(3);
   return (
     <PanelShell
-      width="w-[min(680px,92vw)]"
+      width="w-[min(740px,94vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
@@ -505,14 +499,26 @@ function ScienceMega({ onNavigate }: { onNavigate: () => void }) {
         />
       }
     >
-      <div className="p-4">
-        <p className="px-2.5 pb-2 text-[13px] font-bold text-[var(--foreground)]">
-          <span className="aurora-text">{scienceMenu.heading}</span>
-        </p>
-        <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
-          {scienceMenu.items.map((item) => (
-            <MenuLink key={item.name} item={item} onNavigate={onNavigate} />
-          ))}
+      <div className="grid grid-cols-[248px_1fr_1fr] gap-6 p-5">
+        <MenuFeatureCard
+          title="The Science"
+          href="/science"
+          desc={scienceMenu.heading}
+          onNavigate={onNavigate}
+        />
+        <div className="border-l border-[var(--line)] pl-6">
+          <MenuGroup label="People & method">
+            {first.map((item) => (
+              <MenuTextLink key={item.name} name={item.name} href={item.href} onNavigate={onNavigate} />
+            ))}
+          </MenuGroup>
+        </div>
+        <div className="border-l border-[var(--line)] pl-6">
+          <MenuGroup label="Platform & benchmarks">
+            {second.map((item) => (
+              <MenuTextLink key={item.name} name={item.name} href={item.href} onNavigate={onNavigate} />
+            ))}
+          </MenuGroup>
         </div>
       </div>
     </PanelShell>
