@@ -8,10 +8,27 @@ import { DashboardMock, PhoneMock, VoiceCard } from "@/components/ProductMocks";
 import { CrowdPanel, FeatureRow, IconChip, StatBand, TestimonialCard } from "@/components/sections";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { getProductPage, productPages } from "@/lib/product-pages";
+import { getProduct, products } from "@/lib/products";
+import { ProductV2, type RelatedMeta } from "@/components/ProductV2";
 import { ILLUSTRATIVE } from "@/lib/content";
 
+// Two registries share this route: the 24-product v2 set (master doc) takes
+// precedence; the legacy template still serves the survey-type pages.
 export function generateStaticParams() {
-  return productPages.map((p) => ({ slug: p.slug }));
+  const slugs = new Set([...products.map((p) => p.slug), ...productPages.map((p) => p.slug)]);
+  return [...slugs].map((slug) => ({ slug }));
+}
+
+function relatedMeta(slugs: string[]): RelatedMeta[] {
+  return slugs
+    .map((slug) => {
+      const v2 = getProduct(slug);
+      if (v2) return { slug, name: v2.name, icon: v2.icon };
+      const v1 = getProductPage(slug);
+      if (v1) return { slug, name: v1.name, icon: v1.icon };
+      return null;
+    })
+    .filter((x): x is RelatedMeta => Boolean(x));
 }
 
 export async function generateMetadata({
@@ -20,7 +37,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const p = getProductPage(slug);
+  const p = getProduct(slug) ?? getProductPage(slug);
   if (!p) return {};
   return {
     title: p.name,
@@ -48,12 +65,15 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
+  // v2 registry first — the 24 products from the master doc
+  const v2 = getProduct(slug);
+  if (v2) return <ProductV2 p={v2} related={relatedMeta(v2.related)} />;
+
   const p = getProductPage(slug);
   if (!p) notFound();
 
-  const related = p.related
-    .map((r) => getProductPage(r))
-    .filter((x): x is NonNullable<typeof x> => Boolean(x));
+  const related = relatedMeta(p.related);
 
   // second feature row varies its visual so the page never repeats itself
   const altMock = p.mock === "dashboard" ? "phone" : "dashboard";

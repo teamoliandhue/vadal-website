@@ -7,7 +7,6 @@ import { Icon } from "./Icon";
 import { Button, Container } from "./ui";
 import {
   headerNav,
-  platformPillars,
   platformFeatured,
   portfolioGroups,
   resourcesMenu,
@@ -281,43 +280,98 @@ function MegaPanel({ id, onNavigate }: { id: MegaId; onNavigate: () => void }) {
 }
 
 function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
+  // Interactive per the founder's amendment doc: selecting a key offering on
+  // the left reveals its description + modules in the middle; the survey-type
+  // and featured columns stay as they were.
+  const [active, setActive] = useState(0);
+  const cloud = portfolioGroups[active];
+  const modules = cloud.items.filter(
+    (it): it is typeof it & { slug: string } => Boolean(it.slug)
+  );
+
   return (
     <PanelShell
-      width="w-[min(960px,92vw)]"
+      width="w-[min(980px,92vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
           links={[
             { label: "Explore the whole platform", href: "/platform", spark: true },
-            { label: "Decision Intelligence Copilot", href: "/platform#enterprise-platform" },
+            { label: "Decision Intelligence Copilot", href: "/platform/decision-intelligence-copilot" },
           ]}
         />
       }
     >
-      <div className="grid grid-cols-[1.5fr_1.1fr_1.1fr] gap-2 p-4">
-        {/* pillars */}
-        <div className="border-r border-[var(--line)] pr-3">
-          <GroupLabel>Platform</GroupLabel>
-          <div className="space-y-0.5">
-            {platformPillars.map((p) => (
-              <MenuLink key={p.name} item={p} onNavigate={onNavigate} />
-            ))}
-          </div>
-        </div>
-        {/* key offerings (portfolio families) + survey types */}
+      <div className="grid grid-cols-[1.1fr_1.3fr_1.05fr] gap-2 p-4">
+        {/* key offerings — interactive list */}
         <div className="border-r border-[var(--line)] pr-3">
           <GroupLabel>Key offerings</GroupLabel>
           <div className="space-y-0.5">
-            {portfolioGroups.map((g) => (
-              <MenuLink
+            {portfolioGroups.map((g, i) => (
+              <button
                 key={g.id}
-                item={{ name: g.name, href: `/platform#${g.id}`, icon: g.icon }}
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                onClick={() => setActive(i)}
+                aria-expanded={i === active}
+                className={`flex w-full items-center gap-2.5 rounded-[var(--r-md)] p-2.5 text-left transition-colors ${
+                  i === active ? "bg-[var(--brand-tint)]" : "hover:bg-[var(--surface)]"
+                }`}
+              >
+                <span
+                  className={`grid h-8 w-8 shrink-0 place-items-center rounded-[10px] transition-colors ${
+                    i === active
+                      ? "bg-[var(--brand)] text-white"
+                      : "bg-[var(--brand-tint)] text-[var(--brand)]"
+                  }`}
+                >
+                  <Icon name={g.icon} size={16} />
+                </span>
+                <span className="min-w-0 flex-1 text-[13.5px] font-bold leading-snug text-[var(--foreground)]">
+                  {g.name}
+                </span>
+                <Icon
+                  name="arrow"
+                  size={14}
+                  className={`shrink-0 text-[var(--brand)] transition-opacity ${
+                    i === active ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* selected offering — description + modules */}
+        <div className="min-h-[350px] border-r border-[var(--line)] pr-3">
+          <GroupLabel>{cloud.name}</GroupLabel>
+          <p className="px-2.5 text-[12.5px] leading-snug text-[var(--muted)]">
+            {cloud.description}
+          </p>
+          <p className="mt-4 px-2.5 pb-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
+            Modules
+          </p>
+          <div className="space-y-0.5">
+            {modules.map((it) => (
+              <MenuLink
+                key={it.slug}
+                item={{ name: it.name, href: `/platform/${it.slug}` }}
                 onNavigate={onNavigate}
                 compact
               />
             ))}
           </div>
+          <Link
+            href={`/platform#${cloud.id}`}
+            onClick={onNavigate}
+            className="group mt-2 inline-flex items-center gap-1.5 px-2.5 text-[12.5px] font-bold text-[var(--brand)]"
+          >
+            Explore {cloud.name}
+            <Icon name="arrow" size={13} className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
         </div>
+
+        {/* survey types + featured — unchanged per the amendment */}
         <div>
           <GroupLabel>Survey types</GroupLabel>
           <div className="space-y-0.5">
@@ -430,10 +484,14 @@ type SearchEntry = { label: string; href: string; group: string };
 
 function buildSearchIndex(): SearchEntry[] {
   const entries: SearchEntry[] = [];
-  for (const p of platformPillars) entries.push({ label: p.name, href: p.href, group: "Platform" });
   for (const g of portfolioGroups) {
     entries.push({ label: g.name, href: `/platform#${g.id}`, group: "Platform" });
-    for (const it of g.items) entries.push({ label: it.name, href: `/platform#${g.id}`, group: g.name });
+    for (const it of g.items)
+      entries.push({
+        label: it.name,
+        href: it.slug ? `/platform/${it.slug}` : `/platform#${g.id}`,
+        group: g.name,
+      });
   }
   for (const s of surveyTypes) entries.push({ label: s.name, href: s.href, group: "Surveys" });
   for (const s of [...solutionsByOutcome, ...solutionsByWorkforce])
@@ -563,12 +621,12 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
     >
       <Container className="flex flex-col py-4">
         <MobileGroup label="Platform" defaultOpen>
-          {platformPillars.map((p) => (
-            <MobileLink key={p.name} item={p} onClose={onClose} />
-          ))}
-          <p className="mt-2 px-2 pb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">Key offerings</p>
           {portfolioGroups.map((g) => (
             <MobileLink key={g.id} item={{ name: g.name, href: `/platform#${g.id}`, icon: g.icon }} onClose={onClose} />
+          ))}
+          <p className="mt-2 px-2 pb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">Survey types</p>
+          {surveyTypes.map((s) => (
+            <MobileLink key={s.name} item={s} onClose={onClose} />
           ))}
         </MobileGroup>
         <MobileGroup label="Solutions">

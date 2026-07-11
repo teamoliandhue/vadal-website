@@ -88,16 +88,34 @@ export default function PlatformPage() {
                   </span>
                   <h3 className="text-[22px] font-extrabold tracking-[-0.02em]">{g.name}</h3>
                 </div>
+                <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[var(--muted)]">
+                  {g.description}
+                </p>
                 <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  {g.items.map((it) => (
-                    <div
-                      key={it.name}
-                      className="rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
-                    >
-                      <h4 className="text-[15px] font-bold">{it.name}</h4>
-                      <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--muted)]">{it.blurb}</p>
-                    </div>
-                  ))}
+                  {g.items.map((it) =>
+                    it.slug ? (
+                      <Link
+                        key={it.name}
+                        href={`/platform/${it.slug}`}
+                        className="group flex flex-col rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
+                      >
+                        <h4 className="text-[15px] font-bold">{it.name}</h4>
+                        <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--muted)]">{it.blurb}</p>
+                        <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-[13px] font-semibold text-[var(--brand)]">
+                          Explore
+                          <Icon name="arrow" size={13} className="transition-transform group-hover:translate-x-0.5" />
+                        </span>
+                      </Link>
+                    ) : (
+                      <div
+                        key={it.name}
+                        className="rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5"
+                      >
+                        <h4 className="text-[15px] font-bold">{it.name}</h4>
+                        <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--muted)]">{it.blurb}</p>
+                      </div>
+                    )
+                  )}
                 </div>
               </div>
             ))}

@@ -1502,13 +1502,15 @@ export const platformFeatured: MenuItem[] = [
   { name: "Frontline & Deskless Engagement", blurb: "Reach every employee via SMS, WhatsApp or QR — no email required.", href: "/solutions/frontline-deskless", icon: "phone" },
 ];
 
-// -- Portfolio (Portfolio for Vadal.docx) — the six product families. Anchors
-//    land on /platform#<id>; all 28 key offerings fold into these groups.
+// -- Portfolio (Portfolio for Vadal.docx + "All Product Pages" master doc) —
+//    the six platform clouds. Group ids double as /platform#<id> anchors; items
+//    with a `slug` are real products with dedicated pages at /platform/<slug>.
 export type PortfolioGroup = {
   id: string;
   name: string;
   icon: IconName;
-  items: { name: string; blurb: string }[];
+  description: string;
+  items: { name: string; blurb: string; slug?: string }[];
 };
 
 export const portfolioGroups: PortfolioGroup[] = [
@@ -1516,22 +1518,26 @@ export const portfolioGroups: PortfolioGroup[] = [
     id: "workforce-experience",
     name: "Workforce Experience",
     icon: "heart",
+    description:
+      "Create exceptional employee experiences by connecting communication, engagement, wellbeing and recognition to improve productivity, collaboration and organizational culture.",
     items: [
-      { name: "Employee Communication", blurb: "AI-powered announcements, targeted campaigns, digital noticeboards and multi-channel messaging." },
-      { name: "Employee Experience", blurb: "Measure and improve every stage of the lifecycle with AI-powered listening and journey analytics." },
-      { name: "Employee Wellbeing & Culture", blurb: "Continuous listening, wellbeing assessments and recognition that foster a healthy workplace." },
-      { name: "Recognition & Rewards", blurb: "AI-enabled peer recognition, milestone celebrations and performance-based rewards." },
+      { name: "Employee Communication", slug: "employee-communication", blurb: "AI-powered announcements, targeted campaigns, digital noticeboards and multi-channel messaging." },
+      { name: "Employee Experience", slug: "employee-experience", blurb: "Measure and improve every stage of the lifecycle with AI-powered listening and journey analytics." },
+      { name: "Employee Wellbeing & Culture", slug: "employee-wellbeing-culture", blurb: "Continuous listening, wellbeing assessments and recognition that foster a healthy workplace." },
+      { name: "Recognition & Rewards", slug: "recognition-rewards", blurb: "AI-enabled peer recognition, milestone celebrations and performance-based rewards." },
     ],
   },
   {
     id: "workforce-intelligence",
     name: "Workforce Intelligence",
     icon: "chart",
+    description:
+      "Transform workforce data into AI-powered insights that help leaders measure organizational health, predict risks and make informed business decisions.",
     items: [
-      { name: "People Analytics", blurb: "Predictive analytics, AI dashboards and BI to uncover trends and identify risks." },
-      { name: "Sentiment Intelligence", blurb: "NLP-driven analysis of emotions, workplace trends and engagement drivers." },
-      { name: "Benchmark Intelligence", blurb: "Compare engagement and performance across units, locations and industry benchmarks." },
-      { name: "Executive Reports", blurb: "Executive-ready dashboards, board reports and AI-powered workforce summaries." },
+      { name: "People Analytics", slug: "people-analytics", blurb: "Predictive analytics, AI dashboards and BI to uncover trends and identify risks." },
+      { name: "Sentiment Intelligence", slug: "sentiment-intelligence", blurb: "NLP-driven analysis of emotions, workplace trends and engagement drivers." },
+      { name: "Benchmark Intelligence", slug: "benchmark-intelligence", blurb: "Compare engagement and performance across units, locations and industry benchmarks." },
+      { name: "Executive Reports", slug: "executive-reports", blurb: "Executive-ready dashboards, board reports and AI-powered workforce summaries." },
       { name: "Attrition Prediction", blurb: "AI models that flag employees at risk of leaving, so you can retain top talent." },
       { name: "Manager Intelligence", blurb: "AI coaching, team health dashboards and recommendations for every manager." },
     ],
@@ -1540,44 +1546,53 @@ export const portfolioGroups: PortfolioGroup[] = [
     id: "talent-intelligence",
     name: "Talent Intelligence",
     icon: "rocket",
+    description:
+      "Attract, develop and retain future-ready talent through intelligent onboarding, skills development, leadership growth and strategic workforce planning.",
     items: [
-      { name: "Pre- & Onboarding", blurb: "Personalized journeys, digital documentation and AI-guided onboarding." },
-      { name: "Skills Intelligence", blurb: "Map capabilities, spot skill gaps and recommend personalized learning paths." },
-      { name: "Leadership Intelligence", blurb: "Assess leadership effectiveness, strengthen succession and coach future leaders." },
-      { name: "Workforce Planning", blurb: "Optimize capacity, hiring plans and org design with predictive analytics." },
+      { name: "Pre- & Onboarding", slug: "pre-onboarding", blurb: "Personalized journeys, digital documentation and AI-guided onboarding." },
+      { name: "Skills Intelligence", slug: "skills-intelligence", blurb: "Map capabilities, spot skill gaps and recommend personalized learning paths." },
+      { name: "Leadership Intelligence", slug: "leadership-intelligence", blurb: "Assess leadership effectiveness, strengthen succession and coach future leaders." },
+      { name: "Workforce Planning", slug: "workforce-planning", blurb: "Optimize capacity, hiring plans and org design with predictive analytics." },
     ],
   },
   {
     id: "ai-engagement",
-    name: "AI Engagement",
+    name: "Employee Engagement & Listening",
     icon: "pulse",
+    description:
+      "Continuously listen, engage and act on employee feedback using AI-powered surveys, predictive insights and personalized action planning.",
     items: [
-      { name: "Engagement Surveys", blurb: "AI-powered engagement, pulse and lifecycle surveys that capture meaningful feedback." },
-      { name: "Continuous Listening", blurb: "Multi-channel listening — surveys, portals, recognition and AI conversations." },
-      { name: "Feedback Intelligence", blurb: "AI that organizes and prioritizes feedback into recurring themes and actions." },
-      { name: "Action Planning", blurb: "AI-generated action plans with ownership tracking and progress monitoring." },
+      { name: "Engagement Surveys", slug: "engagement-surveys", blurb: "AI-powered engagement, pulse and lifecycle surveys that capture meaningful feedback." },
+      { name: "Continuous Employee Listening", slug: "employee-listening", blurb: "Multi-channel listening — surveys, portals, recognition and AI conversations." },
+      { name: "Feedback Intelligence", slug: "feedback-intelligence", blurb: "AI that organizes and prioritizes feedback into recurring themes and actions." },
+      { name: "Action Planning", slug: "action-planning", blurb: "AI-generated action plans with ownership tracking and progress monitoring." },
     ],
   },
   {
     id: "digital-workplace",
     name: "Digital Workplace",
     icon: "phone",
+    description:
+      "Empower employees with an intelligent digital workplace that simplifies communication, collaboration, learning and everyday work through AI-powered experiences.",
     items: [
-      { name: "AI Employee Chat", blurb: "An intelligent assistant for HR support, policy guidance and knowledge discovery." },
-      { name: "Tasks & Workflow", blurb: "Digitize, assign and monitor tasks with intelligent workflow automation." },
-      { name: "Mobile & E-Learning", blurb: "Mobile-first learning journeys, microlearning and AI content recommendations." },
+      { name: "AI Employee Chat", slug: "ai-employee-chat", blurb: "An intelligent assistant for HR support, policy guidance and knowledge discovery." },
+      { name: "Tasks & Workflow", slug: "tasks-workflow", blurb: "Digitize, assign and monitor tasks with intelligent workflow automation." },
+      { name: "Mobile & E-Learning", slug: "mobile-e-learning", blurb: "Mobile-first learning journeys, microlearning and AI content recommendations." },
       { name: "Employee Productivity", blurb: "Intelligent task prioritization, automated workflows and performance insights." },
     ],
   },
   {
     id: "enterprise-platform",
-    name: "Enterprise Platform",
+    name: "Enterprise AI Platform",
     icon: "shield",
+    description:
+      "Deliver a secure, scalable and enterprise-ready AI platform that integrates seamlessly with existing systems while enabling intelligent automation and workforce decision-making.",
     items: [
-      { name: "Integrations", blurb: "Connect HRIS, HCM, ERP, ATS, payroll, collaboration and analytics platforms." },
-      { name: "Security & Compliance", blurb: "Enterprise-grade security, GDPR-ready privacy and responsible AI governance." },
-      { name: "Implementation", blurb: "Structured implementation, free data migration and dedicated customer success." },
-      { name: "Decision Intelligence Copilot", blurb: "Ask workforce questions in natural language, get AI-powered predictive guidance." },
+      { name: "Enterprise Integrations", slug: "enterprise-integrations", blurb: "Connect HRIS, HCM, ERP, ATS, payroll, collaboration and analytics platforms." },
+      { name: "Security & Compliance", slug: "security-compliance", blurb: "Enterprise-grade security, GDPR-ready privacy and responsible AI governance." },
+      { name: "Implementation & Customer Success", slug: "implementation", blurb: "Structured implementation, free data migration and dedicated customer success." },
+      { name: "Decision Intelligence Copilot", slug: "decision-intelligence-copilot", blurb: "Ask workforce questions in natural language, get AI-powered predictive guidance." },
+      { name: "AI Workforce Assistant", slug: "ai-workforce-assistant", blurb: "A proactive AI teammate that surfaces what needs attention before anyone asks." },
     ],
   },
 ];
@@ -1638,25 +1653,51 @@ export const scienceMenu = {
 };
 
 // ---------------------------------------------------------------- home FAQs
+// Master FAQ set from the founder's content doc (Jul 2026) — the questions he
+// flagged "can be kept in the first home page", plus the core identity Qs.
 export const homeFaqsV2 = [
   {
     q: "What is Vadal.ai?",
-    a: "Vadal.ai is an AI-powered workforce engagement and decision intelligence platform. It unifies employee engagement, workforce analytics, talent insights and organizational data into one system — so CEOs, CHROs, managers and HR teams can predict risks, uncover opportunities and act with confidence.",
+    a: "Vadal.ai is an AI-powered Workforce Decision Intelligence Platform that helps organizations improve employee engagement, workforce communication, talent management and organizational performance. By combining employee feedback, workforce analytics, AI-powered recommendations and intelligent automation, Vadal.ai enables leaders to make faster, smarter and more informed workforce decisions.",
   },
   {
-    q: "How is Vadal.ai different from a survey tool?",
-    a: "Surveys are the starting point, not the destination. Vadal.ai carries you from Score → Insight → Action → Impact: AI-powered surveys capture the signal, sentiment intelligence and people analytics explain it, and AI-generated action plans with ownership tracking make sure something actually changes.",
+    q: "What is Workforce Decision Intelligence?",
+    a: "The ability to transform workforce, talent, leadership and organizational data into actionable business decisions using AI, predictive analytics and automation. Vadal.ai combines engagement, continuous listening, workforce analytics and AI-powered recommendations to help organizations anticipate risks, identify opportunities and make faster, data-driven decisions across the employee lifecycle.",
   },
   {
-    q: "Is employee feedback really anonymous?",
-    a: "Yes. Anonymity is protected with configurable thresholds and intelligent aggregation, so individual identities are never exposed. GDPR-ready privacy controls, role-based access and AI-powered PII masking are built in — and two-way anonymous conversations let you follow up without breaking trust.",
+    q: "How is Vadal.ai different from traditional engagement platforms or HRIS?",
+    a: "HRIS platforms manage employee records; engagement platforms primarily collect feedback. Vadal.ai bridges both — combining employee engagement, communication, workforce intelligence, predictive analytics, AI automation and executive decision support in a single platform. You see not just what is happening across your workforce, but why — and what to do next.",
+  },
+  {
+    q: "Can Vadal.ai predict employee attrition and engagement risks?",
+    a: "Yes. Vadal.ai uses predictive analytics and AI models to identify early indicators of disengagement, burnout and attrition. By analyzing engagement, feedback, communication patterns and workforce trends, the platform lets HR and business leaders address risks proactively — before they impact productivity, retention or performance.",
+  },
+  {
+    q: "How does Vadal.ai use Generative AI responsibly?",
+    a: "Generative AI summarizes workforce insights, generates recommendations, automates communication and assists managers — while maintaining strict security and governance standards. Our AI augments human decision-making, never replaces it: every AI-generated recommendation is explainable, transparent and backed by enterprise-grade privacy controls and responsible AI governance.",
+  },
+  {
+    q: "Is employee feedback anonymous and secure?",
+    a: "Yes. Vadal.ai is built with enterprise-grade security and privacy controls — anonymous surveys, confidential feedback channels, role-based access, configurable anonymity thresholds and AI-powered privacy safeguards, in line with global data protection and governance standards such as GDPR.",
   },
   {
     q: "Does Vadal.ai integrate with our existing systems?",
-    a: "Yes. Vadal.ai connects with Workday, SAP SuccessFactors, Oracle HCM, Microsoft Teams, Slack, Entra ID, Okta, Power BI, Tableau and more — plus REST APIs and webhooks for anything custom. People data flows in automatically; intelligence flows back out.",
+    a: "Yes. Vadal.ai integrates seamlessly with leading enterprise platforms including Workday, SAP SuccessFactors, Oracle HCM, Darwinbox, Microsoft Teams, Slack, Microsoft 365, Google Workspace, Power BI and Tableau — plus REST APIs and webhooks for anything custom.",
   },
   {
-    q: "How long does implementation take?",
-    a: "A structured 5-week implementation, with onboarding and data migration at no extra cost. A dedicated customer success manager partners with you from kickoff through launch — and for life after it.",
+    q: "Can Vadal.ai be deployed for frontline and deskless employees?",
+    a: "Yes. Vadal.ai is designed for every employee — frontline, deskless, remote and hybrid. People can securely access the platform through mobile, web, QR codes, SMS, WhatsApp and collaboration tools, so everyone stays connected and informed regardless of where they work.",
+  },
+  {
+    q: "Is Vadal.ai suitable for Global Capability Centres (GCCs)?",
+    a: "Yes. Vadal.ai includes dedicated capabilities for GCCs — workforce planning, talent intelligence, leadership insights, engagement, productivity analytics and GCC-specific dashboards that help global organizations scale efficiently.",
+  },
+  {
+    q: "Who uses Vadal.ai?",
+    a: "Every stakeholder across the enterprise: CEOs, CHROs, CXOs, GCC leaders, HR business partners, managers, talent acquisition teams, learning & development teams, HR operations and employees. Each role receives personalized dashboards, AI-powered insights and recommendations relevant to their responsibilities.",
+  },
+  {
+    q: "How long does it take to implement Vadal.ai?",
+    a: "Most organizations are onboarded within 4–6 weeks on our structured implementation plan, with data migration at no extra cost. Our team manages enterprise integrations, platform configuration, user training and AI model setup — with a dedicated customer success manager throughout.",
   },
 ];

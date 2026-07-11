@@ -372,26 +372,39 @@ export function ScrollHero() {
         )}
 
         {/* --------------------------------------------------------- reveal */}
+        {/* In animated mode the reveal must fit inside the bottom ~44% of the
+            pinned viewport — cap type by viewport HEIGHT too (min of the width
+            clamp and a vh cap) so nothing clips on short laptop screens. */}
         <div
           ref={revealRef}
           className={
             enabled
-              ? "absolute inset-x-0 bottom-0 top-[58%] z-30 flex items-start justify-center opacity-0"
+              ? "absolute inset-x-0 bottom-0 top-[56%] z-30 flex items-start justify-center opacity-0"
               : "relative z-10 flex items-center justify-center border-t border-[var(--line)] py-16 sm:py-24"
           }
           style={enabled ? { pointerEvents: "none" } : undefined}
         >
           <Container className="text-center">
-            <h2 className="display-lg font-semibold">
+            <h2
+              className={
+                enabled
+                  ? "text-[min(clamp(2.2rem,4.4vw,4.2rem),7.2vh)] font-semibold leading-[1.06] tracking-[-0.025em]"
+                  : "display-lg font-semibold"
+              }
+            >
               One platform.
               <br />
               <span className="aurora-text">Every decision.</span>
             </h2>
-            <p className="mx-auto mt-5 max-w-xl text-[18px] leading-relaxed text-[var(--muted)]">
+            <p
+              className={`mx-auto max-w-xl leading-relaxed text-[var(--muted)] ${
+                enabled ? "mt-[min(1.25rem,2vh)] text-[min(18px,2.2vh)]" : "mt-5 text-[18px]"
+              }`}
+            >
               Vadal.ai unifies engagement, workforce intelligence and action planning in one
               place — so every people decision is a confident one.
             </p>
-            <div className="mt-8 flex justify-center">
+            <div className={`flex justify-center ${enabled ? "mt-[min(2rem,3vh)]" : "mt-8"}`}>
               <Button href="/platform" size="lg" icon>
                 Explore the platform
               </Button>

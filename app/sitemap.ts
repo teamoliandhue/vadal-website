@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { solutions } from "@/lib/content";
 import { productPages } from "@/lib/product-pages";
+import { products } from "@/lib/products";
 
 const BASE = "https://vadal.ai";
 
@@ -26,8 +27,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === "" ? 1 : path === "/demo" || path === "/platform" ? 0.9 : 0.7,
   }));
 
-  const productRoutes = productPages.map((p) => ({
-    url: `${BASE}/platform/${p.slug}`,
+  const productSlugs = new Set([...products.map((p) => p.slug), ...productPages.map((p) => p.slug)]);
+  const productRoutes = [...productSlugs].map((slug) => ({
+    url: `${BASE}/platform/${slug}`,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
