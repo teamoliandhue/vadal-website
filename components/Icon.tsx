@@ -117,6 +117,12 @@ const paths: Record<IconName, React.ReactNode> = {
       <path d="M10.5 17.5h3" />
     </>
   ),
+  refresh: (
+    <>
+      <path d="M4.5 12a7.5 7.5 0 0 1 12.6-5.5M19.5 12a7.5 7.5 0 0 1-12.6 5.5" />
+      <path d="M17 3.8v3.2h-3.2M7 20.2V17h3.2" />
+    </>
+  ),
 };
 
 export function Icon({
@@ -124,11 +130,13 @@ export function Icon({
   className = "",
   size = 24,
   strokeWidth = 1.6,
+  style,
 }: {
   name: IconName;
   className?: string;
   size?: number;
   strokeWidth?: number;
+  style?: React.CSSProperties;
 }) {
   const filled = name === "spark" || name === "play";
   return (
@@ -142,6 +150,7 @@ export function Icon({
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      style={style}
       aria-hidden="true"
     >
       {paths[name]}

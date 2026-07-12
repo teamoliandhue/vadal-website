@@ -191,7 +191,8 @@ export type IconName =
   | "check"
   | "globe"
   | "lock"
-  | "phone";
+  | "phone"
+  | "refresh";
 
 // =========================================================================
 // SOLUTIONS — full page content (Actimo proof replaced; Vadal voice)

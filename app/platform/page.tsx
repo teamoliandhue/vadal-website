@@ -14,6 +14,39 @@ export const metadata: Metadata = {
     "The AI-powered workforce engagement & decision intelligence platform — surveys, continuous listening, people analytics and action planning, with the Vadal.ai copilot throughout.",
 };
 
+// The spine's four stages each carry a stop of the Aurora gradient — teal and
+// blue (the "signal" stages), violet (Action — the brand's own "user acts"
+// color, a deliberate callback to the golden rule), and spark apricot
+// (Impact — the AI-driven payoff). Same tokens as globals.css, no new colors.
+const SPINE_STEPS: { t: string; d: string; i: IconName; color: string }[] = [
+  { t: "Score", d: "Measure how engaged every team really is, continuously.", i: "pulse", color: "#23D7BE" },
+  { t: "Insight", d: "Understand why — drivers, drill-downs and AI explanations.", i: "chart", color: "#3B9EFF" },
+  { t: "Action", d: "Give managers concrete plays: campaigns, recognition, nudges.", i: "checks", color: "#7C5CF8" },
+  { t: "Impact", d: "See it land — engagement moving the business, side by side.", i: "spark", color: "#FF8A5B" },
+];
+
+function SpineCard({ step: s, index }: { step: (typeof SPINE_STEPS)[number]; index: number }) {
+  return (
+    <div className="card-lift group relative flex flex-col overflow-hidden rounded-[var(--r-lg)] p-6">
+      {/* ghost numeral — a large, barely-there background numeral (editorial device) */}
+      <span
+        className="pointer-events-none absolute -top-3 right-3 select-none text-[76px] font-black leading-none text-[var(--line)] transition-colors duration-300 group-hover:text-[var(--surface-2)]"
+        aria-hidden="true"
+      >
+        0{index + 1}
+      </span>
+      <span
+        className="relative grid h-12 w-12 place-items-center rounded-[14px] text-white shadow-[0_8px_20px_-8px_rgba(13,11,22,0.35)] transition-transform duration-300 group-hover:-translate-y-0.5"
+        style={{ background: s.color, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.4), 0 8px 18px -8px ${s.color}80` }}
+      >
+        <Icon name={s.i} size={24} />
+      </span>
+      <h3 className="relative mt-4 text-[18px] font-bold">{s.t}</h3>
+      <p className="relative mt-1.5 text-[14px] leading-relaxed text-[var(--muted)]">{s.d}</p>
+    </div>
+  );
+}
+
 export default function PlatformPage() {
   return (
     <>
@@ -46,28 +79,70 @@ export default function PlatformPage() {
         </Container>
       </section>
 
-      {/* the spine */}
-      <Section tone="surface">
+      {/* the spine — Vadal's core loop, given its own signature visual system:
+          each stage carries a stop of the Aurora gradient (teal→blue→violet,
+          + spark for Impact), connected by a colored rail on desktop, closing
+          with an explicit "loops back" beat so the cycle — not a funnel —
+          reads at a glance. */}
+      <Section tone="surface" glow="top">
         <Container>
           <SectionHead
             eyebrow="The spine"
-            title={<>Score <span className="text-[var(--muted-2)]">→</span> Insight <span className="text-[var(--muted-2)]">→</span> Action <span className="text-[var(--muted-2)]">→</span> Impact</>}
+            title={
+              <span className="inline-flex flex-wrap items-baseline justify-center gap-x-2.5 gap-y-1.5 sm:gap-x-3.5">
+                {SPINE_STEPS.map((s, i) => (
+                  <span key={s.t} className="inline-flex items-baseline gap-2.5 sm:gap-3.5">
+                    {i > 0 && (
+                      <span className="text-[var(--muted-2)]" aria-hidden="true">
+                        →
+                      </span>
+                    )}
+                    <span style={{ color: s.color }}>{s.t}</span>
+                  </span>
+                ))}
+              </span>
+            }
             lede="Most tools stop at the score. Vadal carries you all the way to impact — and loops back."
           />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { t: "Score", d: "Measure how engaged every team really is, continuously.", i: "pulse" },
-              { t: "Insight", d: "Understand why — drivers, drill-downs and AI explanations.", i: "chart" },
-              { t: "Action", d: "Give managers concrete plays: campaigns, recognition, nudges.", i: "checks" },
-              { t: "Impact", d: "See it land — engagement moving the business, side by side.", i: "spark" },
-            ].map((s, idx) => (
-              <div key={s.t} className="relative rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6">
-                <span className="text-[12px] font-bold text-[var(--muted-2)]">0{idx + 1}</span>
-                <Icon name={s.i as IconName} size={24} className="mt-2 text-[var(--brand)]" />
-                <h3 className="mt-3 text-[18px] font-bold">{s.t}</h3>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-[var(--muted)]">{s.d}</p>
-              </div>
-            ))}
+
+          <div className="relative mt-16">
+            {/* desktop: connected rail, colored per stage, chevrons between */}
+            <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] lg:items-start lg:gap-3">
+              {SPINE_STEPS.map((s, i) => (
+                <div key={s.t} className="contents">
+                  {i > 0 && (
+                    <div className="flex items-center justify-center pt-9" aria-hidden="true">
+                      <span
+                        className="grid h-8 w-8 shrink-0 place-items-center rounded-full"
+                        style={{ background: `${s.color}17` }}
+                      >
+                        <Icon name="arrow" size={15} style={{ color: s.color }} />
+                      </span>
+                    </div>
+                  )}
+                  <SpineCard step={s} index={i} />
+                </div>
+              ))}
+            </div>
+
+            {/* mobile / tablet: simple stacked cards, same visual language */}
+            <div className="grid gap-4 sm:grid-cols-2 lg:hidden">
+              {SPINE_STEPS.map((s, i) => (
+                <SpineCard key={s.t} step={s} index={i} />
+              ))}
+            </div>
+          </div>
+
+          {/* the loop, made explicit */}
+          <div className="mt-8 flex justify-center">
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-dashed border-[var(--line-strong)] bg-[var(--card)] py-2 pl-2 pr-4 shadow-[var(--shadow-sm)]">
+              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full" style={{ background: "var(--aurora)" }}>
+                <Icon name="refresh" size={13} className="text-white" />
+              </span>
+              <span className="text-[13px] font-semibold text-[var(--foreground)]">
+                Then Impact becomes tomorrow&apos;s Score — a loop, not a report.
+              </span>
+            </div>
           </div>
         </Container>
       </Section>
