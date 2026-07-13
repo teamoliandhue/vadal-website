@@ -28,7 +28,7 @@ export function HeroEmailForm() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your work email"
           aria-label="Work email"
-          className="h-12 flex-1 rounded-full border border-[var(--line)] bg-[var(--card)] px-5 text-[15px] shadow-[var(--shadow-sm)] transition-colors focus:border-[var(--brand)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--brand)]"
+          className="h-12 min-h-12 flex-1 rounded-full border border-[var(--line)] bg-[var(--card)] px-5 text-[16px] shadow-[var(--shadow-sm)] transition-colors focus:border-[var(--brand)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--brand)] sm:text-[15px]"
         />
         <Button type="submit" size="lg" className="justify-center" icon>
           {heroV2.emailCta}

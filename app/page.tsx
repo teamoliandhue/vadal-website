@@ -32,7 +32,7 @@ export default function HomePage() {
       <ScrollHero />
 
       {/* ==================================================== LOGO MARQUEE */}
-      <Section tone="base" className="!py-14">
+      <Section tone="surface" className="!py-14">
         <Container>
           <LogoMarquee label="Trusted by HR, people and business leaders across industries" />
         </Container>
@@ -53,7 +53,7 @@ export default function HomePage() {
       </Section>
 
       {/* ========================================================= SURVEYS */}
-      <Section tone="base" id="surveys" reveal glow="right" className="scroll-mt-20">
+      <Section tone="surface" id="surveys" reveal glow="right" className="scroll-mt-20">
         <SurveysSection />
       </Section>
 
@@ -63,12 +63,12 @@ export default function HomePage() {
       </Section>
 
       {/* ======================================================== FEEDBACK */}
-      <Section tone="base" id="feedback" reveal className="scroll-mt-20">
+      <Section tone="surface" id="feedback" reveal className="scroll-mt-20">
         <FeedbackSection />
       </Section>
 
       {/* ===================================================== ACTION BAND */}
-      <Section tone="base" id="action" reveal className="scroll-mt-20 !pt-0">
+      <Section tone="surface" id="action" reveal className="scroll-mt-20">
         <ActionBand />
       </Section>
 
@@ -78,7 +78,7 @@ export default function HomePage() {
       </Section>
 
       {/* ==================================================== INTEGRATIONS */}
-      <Section tone="base" id="integrations" reveal glow="right" className="scroll-mt-20">
+      <Section tone="surface" id="integrations" reveal glow="right" className="scroll-mt-20">
         <IntegrationsSection />
       </Section>
 
@@ -94,7 +94,7 @@ export default function HomePage() {
       </Section>
 
       {/* ================================================== IMPLEMENTATION */}
-      <Section tone="base" id="implementation" reveal className="scroll-mt-20">
+      <Section tone="surface" id="implementation" reveal className="scroll-mt-20">
         <ImplementationSection />
       </Section>
 

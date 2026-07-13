@@ -13,8 +13,12 @@
      areas + small fills; `--card` is the only pure white, so cards and the
      colored brand panels always pop. No section is plain white. */
   --background: #f3f4f8;    /* the canvas — body + default sections */
-  --surface: #e9ebf1;       /* one step deeper — surface sections + fills */
+  --surface: #e9ebf1;       /* one step deeper — surface fills (inputs, chips) */
   --surface-2: #dfe2ea;     /* deepest fills (tracks, chips) */
+  /* Alternating-section background — a soft vertical gradient (canvas → one
+     step deeper). Applied to every other <Section> so sections read as
+     separated bands without the old jarring white↔grey flip. */
+  --section-alt: linear-gradient(180deg, #eef0f6 0%, #e4e7f0 100%);
   --card: #ffffff;          /* pure white — cards & panels lift off the canvas */
   --foreground: #1a1b1f;    /* ink */
   --ink-deep: #0d0b16;      /* deepest */
@@ -102,6 +106,7 @@
   --background: #0d0d11;
   --surface: #17171d;
   --surface-2: #1f1f27;
+  --section-alt: linear-gradient(180deg, #141419 0%, #1b1b23 100%);
   --card: #17171d;
   --foreground: #ecedf1;
   --ink-deep: #ffffff;
@@ -189,6 +194,17 @@ body {
    defaults — unlayered rules would otherwise beat layered utilities, which
    silently breaks e.g. white button text on <a> Links and white headings. */
 @layer base {
+  /* iOS Safari renders text fields with native appearance (inner shadow,
+     forced radius/height quirks) unless explicitly disabled — this kept the
+     hero email field from honouring its h-12 rounded-full styling on iPhone.
+     Checkboxes/radios keep native appearance (they style via accent-color). */
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
   h1, h2, h3, h4 {
     letter-spacing: -0.02em;
     line-height: 1.08;
@@ -315,12 +331,17 @@ html.lenis body {
     radial-gradient(50% 45% at 50% 100%, rgba(35, 215, 190, 0.12) 0%, transparent 60%);
 }
 
-.eyebrow {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
+/* In @layer base so text-colour utilities (text-white, text-[...]) can override
+   the default muted colour — needed for eyebrows on coloured/dark panels, which
+   would otherwise render dark-on-dark (unlayered rules beat layered utilities). */
+@layer base {
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
 }
 
 .dotgrid {

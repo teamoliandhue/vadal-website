@@ -234,7 +234,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
               </div>
             ))}
           </div>
-          <p className="mt-6 text-center text-[12.5px] text-[var(--ink-deep)]/60">
+          <p className="mt-6 text-center text-[12.5px] text-[var(--ink-deep)]/75">
             Illustrative scenario — named customer stories coming soon.
           </p>
         </CrowdPanel>

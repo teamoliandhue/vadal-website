@@ -149,7 +149,7 @@ export default function PlatformPage() {
 
       {/* portfolio — the six product families (Portfolio for Vadal.docx).
           Anchor ids are shared with the header mega-menu. */}
-      <Section tone="surface" id="portfolio" className="scroll-mt-20">
+      <Section tone="base" id="portfolio" className="scroll-mt-20">
         <Container>
           <SectionHead
             eyebrow="The full portfolio"
@@ -226,7 +226,7 @@ export default function PlatformPage() {
       </section>
 
       {/* App */}
-      <Section tone="surface" id="app" className="scroll-mt-20">
+      <Section tone="base" id="app" className="scroll-mt-20">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
           <div className="order-2 flex justify-center lg:order-1"><PhoneMock /></div>
           <div className="order-1 lg:order-2">
@@ -248,14 +248,14 @@ export default function PlatformPage() {
       </Section>
 
       {/* results */}
-      <Section tone="base">
+      <Section tone="surface">
         <Container>
           <SectionHead eyebrow="Business results" title="What changes when everyone’s in" />
           <div className="mt-12"><StatBand stats={homeStats} note={ILLUSTRATIVE} /></div>
         </Container>
       </Section>
 
-      <Section tone="surface" className="!py-16">
+      <Section tone="base" className="!py-16">
         <Container><LogoMarquee label="Trusted by HR, people and business leaders across industries" /></Container>
       </Section>
     </>

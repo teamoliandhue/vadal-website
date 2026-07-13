@@ -122,7 +122,7 @@ export default async function ProductPage({
 
       {/* ------------------------------------------------------ how it works */}
       {/* Maze-style blue crowd panel — the four steps float as white cards */}
-      <Section tone="base">
+      <Section tone="surface">
         <CrowdPanel
           tone="blue"
           eyebrow="How it works"

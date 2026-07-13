@@ -67,9 +67,9 @@ export function DemoForm() {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {fields.map((f) => (
-          <label key={f.name} className={f.half ? "col-span-1" : "col-span-2"}>
+          <label key={f.name} className={f.half ? "sm:col-span-1" : "sm:col-span-2"}>
             <span className="mb-1.5 block text-[13px] font-semibold text-[var(--foreground)]">
               {f.label} {f.required && <span className="text-[var(--brand)]">*</span>}
             </span>
@@ -77,12 +77,12 @@ export function DemoForm() {
               type={f.type}
               name={f.name}
               required={f.required}
-              className="w-full rounded-[var(--r-sm)] border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] transition-colors focus:border-[var(--brand)] focus:bg-[var(--card)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--brand)]"
+              className="w-full rounded-[var(--r-sm)] border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[16px] transition-colors focus:border-[var(--brand)] focus:bg-[var(--card)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--brand)] sm:text-[15px]"
             />
           </label>
         ))}
 
-        <div className="col-span-2">
+        <div className="sm:col-span-2">
           <span className="mb-1.5 block text-[13px] font-semibold text-[var(--foreground)]">
             Company size <span className="text-[var(--brand)]">*</span>
           </span>
@@ -106,7 +106,7 @@ export function DemoForm() {
           </div>
         </div>
 
-        <label className="col-span-2 mt-1 flex items-start gap-2.5 text-[13px] leading-snug text-[var(--muted)]">
+        <label className="mt-1 flex sm:col-span-2 items-start gap-2.5 text-[13px] leading-snug text-[var(--muted)]">
           <input type="checkbox" required className="mt-0.5 h-4 w-4 accent-[var(--brand)]" />
           <span>
             I agree to Vadal&apos;s{" "}
@@ -115,7 +115,7 @@ export function DemoForm() {
             <a href="/privacy" className="font-semibold text-[var(--brand)] underline-offset-2 hover:underline">Privacy Policy</a>.
           </span>
         </label>
-        <label className="col-span-2 flex items-start gap-2.5 text-[13px] leading-snug text-[var(--muted)]">
+        <label className="flex sm:col-span-2 items-start gap-2.5 text-[13px] leading-snug text-[var(--muted)]">
           <input type="checkbox" className="mt-0.5 h-4 w-4 accent-[var(--brand)]" />
           <span>Keep me posted with occasional product news and engagement insights from Vadal.</span>
         </label>

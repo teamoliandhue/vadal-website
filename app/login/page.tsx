@@ -21,11 +21,11 @@ export default function LoginPage() {
           <form className="mt-7 space-y-4">
             <label className="block">
               <span className="mb-1.5 block text-[13px] font-semibold">Work email</span>
-              <input type="email" className="w-full rounded-[var(--r-sm)] border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] transition-colors focus:border-[var(--brand)] focus:bg-[var(--card)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--brand)]" placeholder="you@company.com" />
+              <input type="email" className="w-full rounded-[var(--r-sm)] border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[16px] sm:text-[15px] transition-colors focus:border-[var(--brand)] focus:bg-[var(--card)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--brand)]" placeholder="you@company.com" />
             </label>
             <label className="block">
               <span className="mb-1.5 block text-[13px] font-semibold">Password</span>
-              <input type="password" className="w-full rounded-[var(--r-sm)] border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] transition-colors focus:border-[var(--brand)] focus:bg-[var(--card)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--brand)]" placeholder="••••••••" />
+              <input type="password" className="w-full rounded-[var(--r-sm)] border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[16px] sm:text-[15px] transition-colors focus:border-[var(--brand)] focus:bg-[var(--card)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--brand)]" placeholder="••••••••" />
             </label>
             <Button type="submit" size="lg" icon className="w-full">
               Sign in

@@ -49,7 +49,7 @@ export function HeroBento() {
       <Tile area="photo" delay={0.05} shadow="lg" className="min-h-[230px]">
         <figure className={`${card} group relative h-full`}>
           <img
-            src="/people/frontline-portrait.jpg"
+            src="/people/frontline-feedback.webp"
             alt="A frontline colleague sharing feedback on the Vadal app"
             className="h-full w-full object-cover"
             loading="eager"

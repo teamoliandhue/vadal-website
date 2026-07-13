@@ -38,6 +38,18 @@ export default function AboutPage() {
         </Container>
       </section>
 
+      {/* team photo band */}
+      <Container className="pb-6">
+        <figure className="overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line)] shadow-[var(--shadow-lg)]">
+          <img
+            src="/people/team-collab.webp"
+            alt="The Vadal.ai team collaborating in the office"
+            className="aspect-[16/10] w-full object-cover sm:aspect-[2.4/1]"
+            loading="lazy"
+          />
+        </figure>
+      </Container>
+
       {/* mission */}
       <Section tone="surface">
         <Container size="narrow">

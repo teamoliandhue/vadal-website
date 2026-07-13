@@ -45,6 +45,18 @@ export default function CustomersPage() {
         </Container>
       </section>
 
+      {/* hero photo band */}
+      <Container className="pb-6">
+        <figure className="overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line)] shadow-[var(--shadow-lg)]">
+          <img
+            src="/people/customers-celebrate.webp"
+            alt="A customer team celebrating a win together"
+            className="aspect-[16/10] w-full object-cover sm:aspect-[2.6/1]"
+            loading="lazy"
+          />
+        </figure>
+      </Container>
+
       {/* featured */}
       <Section tone="surface" className="!pt-10">
         <Container>

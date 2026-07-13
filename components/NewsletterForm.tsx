@@ -29,7 +29,7 @@ export function NewsletterForm() {
         required
         placeholder="Work email"
         aria-label="Work email"
-        className="h-12 flex-1 rounded-full border border-[var(--line)] bg-[var(--surface)] px-5 text-[15px] transition-colors focus:border-[var(--brand)] focus:bg-[var(--card)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--brand)]"
+        className="h-12 min-h-12 flex-1 rounded-full border border-[var(--line)] bg-[var(--surface)] px-5 text-[16px] transition-colors focus:border-[var(--brand)] focus:bg-[var(--card)] focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--brand)] sm:text-[15px]"
       />
       <Button type="submit" size="lg" className="justify-center">
         Subscribe

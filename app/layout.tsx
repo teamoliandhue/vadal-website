@@ -36,6 +36,21 @@ export const metadata: Metadata = {
       "Go beyond engagement — lead with intelligence. AI-powered surveys, workforce analytics, action planning and enterprise-grade security, on one platform.",
     type: "website",
     siteName: "Vadal.ai",
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Vadal.ai — Lead your workforce with intelligence",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vadal.ai — Lead your workforce with intelligence",
+    description:
+      "Go beyond engagement — lead with intelligence. AI-powered surveys, workforce analytics, action planning and enterprise-grade security, on one platform.",
+    images: ["/og.jpg"],
   },
   icons: {
     // brand assets were renamed (2e5b539) — the mark lives at /brand/mark.svg

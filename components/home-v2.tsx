@@ -214,7 +214,7 @@ export function ActionBand() {
   return (
     <Container>
       <PanelStage tone="violet" className="text-center">
-        <div className="mx-auto max-w-2xl py-6 sm:py-10">
+        <div className="mx-auto max-w-2xl py-10 sm:py-14">
           <p className="eyebrow text-white/80">{actionSection.eyebrow}</p>
           <h2 className="mt-4 text-[clamp(1.9rem,1.2rem+2.2vw,2.9rem)] font-extrabold leading-[1.1] tracking-[-0.025em] text-white">
             {actionSection.title}

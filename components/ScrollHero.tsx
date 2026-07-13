@@ -14,7 +14,7 @@ import { heroV2 } from "@/lib/content";
    The screen is filled with a hidden field of card-sized rectangles. As you
    scroll they fade in and shrink in place; the four real product cards fade out
    and "become" four of those rectangles. Then every rectangle shrinks and
-   travels inward, gathering into a glowing Aurora circle — revealing the next
+   travels inward, gathering into the Vadal "V" mark — revealing the next
    headline, "One platform. Every decision."
 
    Runs on a <canvas> driven by scroll progress (0→1). Enabled only on large
@@ -25,14 +25,19 @@ import { heroV2 } from "@/lib/content";
 type Particle = {
   hx: number; hy: number; // born-from-card position
   sx: number; sy: number; // spread (full-screen field) position
-  phi: number; theta: number; // position on the globe (latitude, longitude)
+  mx: number; my: number; pz: number; // centered 3D position within the "V" volume
+  pidx: number; // aurora palette index (teal → violet across the mark)
   size: number;
-  spark: boolean;
   rot: number; // per-particle rotation (radians)
 };
 
-// Vadal AI spark (sparkle) — same path as <SparkMark>, viewBox 0 0 24 24.
-const SPARK_PATH = "M12 1.5c.5 5.6 2.4 7.9 8 8.5-5.6.6-7.5 2.9-8 8.5-.5-5.6-2.4-7.9-8-8.5 5.6-.6 7.5-2.9 8-8.5Z";
+// A solid downward triangle (inverted "V"): a flat top edge with the two sides
+// converging to a single point at the bottom (viewBox 0 0 100 100). Built as a
+// Path2D in the effect; particles fill the whole silhouette (extruded into 3D)
+// so the field resolves into a bold, solid mark.
+const V_SHAPE: [number, number][] = [
+  [2, 4], [98, 4], [50, 99],
+];
 
 
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
@@ -59,7 +64,18 @@ function aurora(t: number) {
 }
 // precomputed aurora wash, indexed by horizontal screen position
 const PALETTE = Array.from({ length: 33 }, (_, i) => aurora(i / 32));
-const SPARK = "#FF8A5B";
+
+// Key features that fly in and dock around the "V" as it forms. Order matches
+// FEATURE_DOCK below (upper-L, upper-R, mid-L, mid-R, lower-L, lower-R).
+const HERO_FEATURES = ["Surveys", "Analytics", "Listening", "Action planning", "Recognition", "AI copilot"];
+// dock positions around the V, as fractions of (markW, markH) from its centre
+const FEATURE_DOCK: [number, number][] = [
+  [-0.94, -0.5], [0.94, -0.5],
+  [-1.16, 0.0], [1.16, 0.0],
+  [-0.82, 0.46], [0.82, 0.46],
+];
+// dot colour per chip — aurora spread so left reads teal, right reads violet
+const FEATURE_DOT = FEATURE_DOCK.map(([dx]) => aurora((dx + 1.2) / 2.4));
 
 export function ScrollHero() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -70,6 +86,7 @@ export function ScrollHero() {
   const bentoColRef = useRef<HTMLDivElement>(null);
   const revealRef = useRef<HTMLDivElement>(null);
   const cueRef = useRef<HTMLDivElement>(null);
+  const chipRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [enabled, setEnabled] = useState(false);
 
   // decide whether to run the animation (robust across mount/resize timing)
@@ -101,13 +118,21 @@ export function ScrollHero() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Vadal "V" mark as a client-only Path2D (body + tip). Particles hit-test
+    // against this to settle inside the logo silhouette.
+    const vMarkPath = new Path2D();
+    V_SHAPE.forEach(([x, y], i) => (i ? vMarkPath.lineTo(x, y) : vMarkPath.moveTo(x, y)));
+    vMarkPath.closePath();
+
     let W = 0;
     let H = 0;
     let dpr = 1;
     let particles: Particle[] = [];
     let ocx = 0;
     let ocy = 0;
-    let R = 0;
+    let markSpan = 1; // horizontal span of the mark — depth-shading scale
+    let chipDock: { x: number; y: number }[] = [];    // docked target per feature chip
+    let chipScatter: { x: number; y: number }[] = []; // scattered start per feature chip
 
     function build() {
       W = window.innerWidth;
@@ -140,13 +165,28 @@ export function ScrollHero() {
       const totalArea = useRects.reduce((a, r) => a + r.width * r.height, 0);
 
       ocx = W * 0.5;
-      ocy = H * 0.34;
-      R = Math.min(W, H) * 0.18;
+      ocy = H * 0.33;                  // lower start → clear breathing room up top
       const minWH = Math.min(W, H);
 
+      // ---- "V" letter, extruded into a shallow 3D slab that slowly turns ----
+      const markH = minWH * 0.38;      // on-screen height of the V
+      const markScale = markH / 100;   // V viewBox is 100 x 100
+      const markW = 100 * markScale;
+      const halfDepth = markW * 0.16;  // slab thickness (front ↔ back)
+      markSpan = markW;                // depth-shading scale, read in draw()
+
+      // feature chips: docked around the V, scattered across the upper screen
+      chipDock = FEATURE_DOCK.map(([dx, dy]) => ({ x: ocx + dx * markW, y: ocy + dy * markH }));
+      chipScatter = FEATURE_DOCK.map(() => ({
+        x: W * (0.12 + 0.76 * Math.random()),
+        y: H * (0.08 + 0.46 * Math.random()),
+      }));
+
       // particles are born across the cards, fan out across the whole screen as
-      // a SPARSE field of distinct squares, then gather into the circle.
+      // a SPARSE field, then gather into the 3D Vadal "V".
       const N = 1100;
+      const prevT = ctx!.getTransform();
+      ctx!.setTransform(1, 0, 0, 1, 0, 0); // identity — hit-test in viewBox space
       particles = new Array(N).fill(0).map(() => {
         let pick = Math.random() * totalArea;
         let rr = useRects[0];
@@ -154,26 +194,34 @@ export function ScrollHero() {
           pick -= r.width * r.height;
           if (pick <= 0) { rr = r; break; }
         }
-        // uniform point on the unit sphere (for the spinning globe)
-        const sphereU = Math.random();
-        const sphereV = Math.random();
+        // rejection-sample a point that lands inside the "V" letter
+        let vx = 50;
+        let vy = 50;
+        for (let t = 0; t < 80; t++) {
+          const cx = Math.random() * 100;
+          const cy = Math.random() * 100;
+          if (ctx!.isPointInPath(vMarkPath, cx, cy)) { vx = cx; vy = cy; break; }
+          vx = cx; vy = cy;
+        }
         return {
           hx: rr.left + Math.random() * rr.width,
           hy: rr.top + Math.random() * rr.height,
           sx: -0.05 * W + Math.random() * 1.1 * W,
           sy: -0.05 * H + Math.random() * 1.1 * H,
-          phi: Math.acos(2 * sphereV - 1),
-          theta: 2 * Math.PI * sphereU,
+          // centred on the V's middle (50,50), extruded to a random depth
+          mx: (vx - 50) * markScale,
+          my: (vy - 50) * markScale,
+          pz: (Math.random() * 2 - 1) * halfDepth,
+          pidx: clamp(Math.round((vx / 100) * 32), 0, 32),
           size: minWH * (0.006 + Math.pow(Math.random(), 1.7) * 0.014),
-          spark: Math.random() < 0.05,
           rot: Math.random() * Math.PI * 2,
         };
       });
+      ctx!.setTransform(prevT);         // restore the dpr transform
     }
 
     let progress = 0;
     let lastDrawn = -1;
-    const sparkPath = new Path2D(SPARK_PATH); // client-only (Path2D not on server)
 
     function draw() {
       const p = progress;
@@ -203,63 +251,74 @@ export function ScrollHero() {
 
       ctx!.clearRect(0, 0, W, H);
 
-      // PARTICLES — emerge from the card positions as the cards dissolve, fan
-      // out across the screen as a sparse field, then gather into the globe.
+      // PARTICLES — emerge from the cards, fan out across the screen, then gather
+      // into the Vadal "V": a shallow 3D slab that slowly turns on its vertical
+      // axis so the particles appear to circulate, front ones larger & brighter.
       const partA = smooth(0.05, 0.18, p);
       if (partA > 0.001) {
         const shrink = Math.pow(clamp((p - 0.06) / 0.5, 0, 1), 1.25);
         const sizeFactor = lerp(1.5, 0.85, shrink);
-        const spin = nowMs * 0.00025; // time-based, smooth globe rotation (~25s/turn)
+        // gentle 3D yaw — swings ±~35°, so the mark never turns fully edge-on
+        const yaw = Math.sin(nowMs * 0.00035) * 0.62;
+        const ca = Math.cos(yaw);
+        const sa = Math.sin(yaw);
         for (let i = 0; i < particles.length; i++) {
           const pt = particles[i];
           let x: number;
           let y: number;
-          let depthT = 1; // 0 = far side of the globe, 1 = near side
-          let gphase = 0; // 0 = scattered field, 1 = settled on the globe
+          let depthT = 1; // 0 = back of the slab, 1 = front
+          let gphase = 0; // 0 = scattered field, 1 = settled into the "V"
           if (p <= 0.46) {
             // hold at the card position while emerging, then fan out
             const u = easeInOut(clamp((p - 0.18) / 0.28, 0, 1));
             x = lerp(pt.hx, pt.sx, u);
             y = lerp(pt.hy, pt.sy, u);
           } else {
-            // project the particle's sphere point, rotated around the Y axis
+            // rotate the particle's (mx, pz) around the vertical axis, project
             gphase = easeInOut(clamp((p - 0.46) / 0.22, 0, 1));
-            const a = pt.theta + spin;
-            const sinPhi = Math.sin(pt.phi);
-            const gx = ocx + sinPhi * Math.cos(a) * R;
-            const gy = ocy - Math.cos(pt.phi) * R;
-            depthT = (sinPhi * Math.sin(a) + 1) / 2;
-            x = lerp(pt.sx, gx, gphase);
-            y = lerp(pt.sy, gy, gphase);
+            const rx = pt.mx * ca + pt.pz * sa;
+            const rz = -pt.mx * sa + pt.pz * ca;
+            depthT = clamp(0.5 + rz / markSpan, 0, 1);
+            x = lerp(pt.sx, ocx + rx, gphase);
+            y = lerp(pt.sy, ocy + pt.my, gphase);
           }
-          const idx = clamp(Math.round(((x - (ocx - R)) / (2 * R)) * 32), 0, 32);
-          ctx!.fillStyle = pt.spark ? SPARK : PALETTE[idx];
-          // depth cues ramp in as the globe forms: near particles bigger & brighter
-          const depthSize = lerp(1, 0.5 + 0.5 * depthT, gphase);
-          ctx!.globalAlpha = partA * lerp(1, 0.32 + 0.68 * depthT, gphase);
+          ctx!.fillStyle = PALETTE[pt.pidx];
+          // depth cues ramp in as the mark forms: near particles bigger & brighter
+          const depthSize = lerp(1, 0.55 + 0.45 * depthT, gphase);
+          ctx!.globalAlpha = partA * lerp(1, 0.35 + 0.65 * depthT, gphase);
           const s = pt.size * sizeFactor * depthSize;
           ctx!.save();
           ctx!.translate(x, y);
           ctx!.rotate(pt.rot);
-          if (pt.spark) {
-            // orange → the AI spark (sparkle). Path is 24u, centred at (12,12).
-            const k = (s * 1.9) / 24;
-            ctx!.scale(k, k);
-            ctx!.translate(-12, -12);
-            ctx!.fill(sparkPath);
-          } else {
-            // teal / violet → an equilateral triangle pointing down
-            const r = s * 0.66;
-            ctx!.beginPath();
-            ctx!.moveTo(0, r);
-            ctx!.lineTo(r * 0.866, -r * 0.5);
-            ctx!.lineTo(-r * 0.866, -r * 0.5);
-            ctx!.closePath();
-            ctx!.fill();
-          }
+          // teal / violet → an equilateral triangle pointing down
+          const r = s * 0.66;
+          ctx!.beginPath();
+          ctx!.moveTo(0, r);
+          ctx!.lineTo(r * 0.866, -r * 0.5);
+          ctx!.lineTo(-r * 0.866, -r * 0.5);
+          ctx!.closePath();
+          ctx!.fill();
           ctx!.restore();
         }
         ctx!.globalAlpha = 1;
+      }
+
+      // FEATURE CHIPS — fade in scattered, then fly in and dock around the V,
+      // where they stay through the reveal ("every capability, one platform").
+      const chipEls = chipRefs.current;
+      if (chipEls.length && chipDock.length) {
+        const chipOp = smooth(0.3, 0.44, p);
+        const dockPhase = easeInOut(clamp((p - 0.46) / 0.26, 0, 1));
+        for (let i = 0; i < chipEls.length; i++) {
+          const el = chipEls[i];
+          const sc = chipScatter[i];
+          const dk = chipDock[i];
+          if (!el || !sc || !dk) continue;
+          const cx = lerp(sc.x, dk.x, dockPhase);
+          const cy = lerp(sc.y, dk.y, dockPhase);
+          el.style.opacity = String(chipOp);
+          el.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%) scale(${lerp(0.9, 1, dockPhase)})`;
+        }
       }
     }
 
@@ -273,8 +332,8 @@ export function ScrollHero() {
     let running = false;
     function loop() {
       compute();
-      // redraw on scroll change, and every frame once the globe is forming so
-      // its continuous spin stays smooth even when the page isn't scrolling
+      // redraw on scroll change, and every frame once the "V" is forming so
+      // its subtle idle shimmer stays smooth even when the page isn't scrolling
       if (Math.abs(progress - lastDrawn) > 0.0005 || progress > 0.42) {
         draw();
         lastDrawn = progress;
@@ -326,6 +385,9 @@ export function ScrollHero() {
           r.current.style.filter = "";
         }
       }
+      for (const el of chipRefs.current) {
+        if (el) { el.style.opacity = "0"; el.style.transform = ""; }
+      }
     };
   }, [enabled]);
 
@@ -369,6 +431,23 @@ export function ScrollHero() {
 
         {enabled && (
           <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-20" aria-hidden="true" />
+        )}
+
+        {/* --------------------------- feature chips (converge into the V) */}
+        {enabled && (
+          <div className="pointer-events-none absolute inset-0 z-[25]" aria-hidden="true">
+            {HERO_FEATURES.map((f, i) => (
+              <div
+                key={f}
+                ref={(el) => { chipRefs.current[i] = el; }}
+                className="absolute left-0 top-0 inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-[var(--line)] bg-[var(--card)] px-3.5 py-2 text-[13px] font-semibold text-[var(--foreground)] shadow-[var(--shadow-md)] will-change-transform"
+                style={{ opacity: 0 }}
+              >
+                <span className="h-2 w-2 rounded-full" style={{ background: FEATURE_DOT[i] }} />
+                {f}
+              </div>
+            ))}
+          </div>
         )}
 
         {/* --------------------------------------------------------- reveal */}

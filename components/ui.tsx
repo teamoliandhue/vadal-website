@@ -159,7 +159,7 @@ export function Section({
 }) {
   const tones: Record<string, string> = {
     base: "bg-[var(--background)]",
-    surface: "bg-[var(--surface)]",
+    surface: "bg-[image:var(--section-alt)]",
     dark: "on-dark bg-[var(--background)] text-[var(--foreground)]",
   };
   // corner blooms — teal/blue/violet, kept low-opacity so the canvas stays calm

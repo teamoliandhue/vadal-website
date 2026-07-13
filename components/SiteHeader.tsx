@@ -584,7 +584,7 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search the platform, solutions, resources…"
               aria-label="Search"
-              className="h-11 w-full bg-transparent text-[15px] outline-none placeholder:text-[var(--muted-2)]"
+              className="h-11 w-full bg-transparent text-[16px] outline-none placeholder:text-[var(--muted-2)] sm:text-[15px]"
             />
             <button onClick={onClose} aria-label="Close search" className="text-[13px] font-semibold text-[var(--muted)] hover:text-[var(--foreground)]">
               Esc
