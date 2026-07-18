@@ -1532,6 +1532,139 @@ export const products: Product[] = [
     "footerCta": "Ready to plan your workforce with real data, not guesswork?"
   },
   {
+    "slug": "alumni-management",
+    "name": "Alumni Management",
+    "cloud": "talent-intelligence",
+    "icon": "users",
+    "mock": "phone",
+    "heroTitle": "Stay Connected After Goodbye",
+    "heroLede": "Turn every departure into a lasting relationship — lifelong portal access, exit documents in one place, and an alumni network that brings back proven talent, referrals and revenue.",
+    "challengesTitle": "Why Alumni Deserve a Programme, Not a Farewell Email",
+    "challenges": [
+      "Access is switched off on the last day, and the relationship ends with it.",
+      "Leavers chase HR for months afterwards for certificates and references.",
+      "Exit paperwork sits across email, drives and HR systems with no single home.",
+      "Proven former employees are re-sourced through agencies at full cost.",
+      "Nobody knows where alumni went, or which ones would come back.",
+      "Referrals from former employees are informal, untracked and unrewarded.",
+      "Employer brand is shaped by alumni stories the company never hears.",
+      "There's no measure of what the alumni community is actually worth."
+    ],
+    "pillars": [
+      "Lifelong Portal Access",
+      "Exit & Document Hub",
+      "Employer Brand & Boomerang Hiring",
+      "Alumni Network & Revenue"
+    ],
+    "capabilities": [
+      {
+        "title": "Lifelong Portal Access",
+        "body": "Departing employees keep an account rather than losing everything at the door — a private alumni identity that holds their exit documents, service history and a live link back to the organization.",
+        "bullets": [
+          "Accounts convert to alumni status instead of being switched off",
+          "Former employees self-serve documents without emailing HR",
+          "One verified identity keeps the relationship open for years"
+        ],
+        "screen": "Alumni Portal"
+      },
+      {
+        "title": "Exit & Document Hub",
+        "body": "Certificates, references, payslips, tax forms and exit paperwork live in one governed place, issued automatically at offboarding and available whenever an alumnus needs them.",
+        "bullets": [
+          "Experience letters and references issued automatically at exit",
+          "Every document in one place, no manual retrieval requests",
+          "Retention and access rules applied to each document type"
+        ],
+        "screen": "Exit Document Hub"
+      },
+      {
+        "title": "Employer Branding & Boomerang Hiring",
+        "body": "Publish roles, news and milestones straight to the alumni community, and rehire people who already know the business — the fastest, lowest-risk source of proven talent you have.",
+        "bullets": [
+          "Post open roles and company news directly to alumni",
+          "Rehire proven returnees who need no cultural ramp-up",
+          "Alumni advocacy strengthens employer brand in your market"
+        ],
+        "screen": "Boomerang Talent Pool"
+      },
+      {
+        "title": "Alumni Network & Revenue",
+        "body": "Run a real community — events, groups, mentoring and introductions — and track what it returns in referrals, client work and rehires rather than treating it as goodwill.",
+        "bullets": [
+          "Communities, events and mentoring keep alumni engaged",
+          "Referrals and introductions captured, attributed and rewarded",
+          "See the revenue and hires the network actually generates"
+        ],
+        "screen": "Alumni Network Analytics"
+      }
+    ],
+    "aiCapabilities": [
+      "AI Boomerang & Rehire Pipeline Scoring",
+      "AI Alumni-to-Role Matching",
+      "AI Workforce Planning (external ready-talent pool)",
+      "AI Alumni Engagement & Attrition Analytics",
+      "AI Referral & Employer-Brand Analytics",
+      "AI Exit Document Automation",
+      "AI Executive Reports on Alumni-Driven Revenue",
+      "AI Benchmark Intelligence (alumni programme vs peers)"
+    ],
+    "outcomes": [
+      "Faster, Lower-Cost Rehiring Through Boomerangs",
+      "Reduced Agency and Sourcing Spend",
+      "Stronger Employer Brand and Advocacy",
+      "A Ready External Talent Pool for Workforce Planning",
+      "Measurable Alumni-Driven Referrals and Revenue"
+    ],
+    "story": {
+      "challenge": "A professional services group lost contact with hundreds of skilled leavers each year, then paid agency fees to rehire people it had already trained.",
+      "solution": "Deployed Vadal.ai's Alumni Management product to keep leavers on a lifelong portal, automate exit documents and open a boomerang pipeline into open roles.",
+      "outcomes": "More rehires from the alumni pool, less agency spend, and a measurable referral pipeline from former employees."
+    },
+    "integrations": [
+      "Workday",
+      "SAP SuccessFactors",
+      "Oracle HCM",
+      "Greenhouse",
+      "Lever",
+      "LinkedIn",
+      "Microsoft Teams",
+      "Slack",
+      "Outlook",
+      "Google Workspace",
+      "DocuSign",
+      "Salesforce"
+    ],
+    "faqs": [
+      {
+        "q": "What happens to an employee's account when they leave?",
+        "a": "It converts to an alumni account at offboarding rather than being deleted. Corporate systems and internal data are revoked as usual; the alumnus keeps a separate, permission-scoped portal holding their own exit documents and community access."
+      },
+      {
+        "q": "Which documents are issued automatically?",
+        "a": "Experience and service certificates, reference letters, final payslips, tax forms and any exit paperwork you configure. They're generated at offboarding and stay available in the alumni portal, so HR stops fielding retrieval requests years later."
+      },
+      {
+        "q": "How does boomerang hiring actually work?",
+        "a": "Open roles are published to the alumni community, and AI scores former employees against them using role history, skills, performance signals and reason for leaving — so recruiters see proven candidates first instead of starting cold with an agency."
+      },
+      {
+        "q": "Is alumni data handled differently from employee data?",
+        "a": "Yes. Alumni records are kept separate from your active employee data, with their own consent settings and retention rules, and alumni manage their own profile and communication preferences. Retention, export and erasure are configurable so you can map them to the obligations that apply in your regions — our team will walk through your specific requirements."
+      },
+      {
+        "q": "Can we measure what the alumni programme returns?",
+        "a": "Yes — rehires, referrals, introductions and alumni-sourced revenue are tracked and reported, with benchmark comparisons against peer alumni programmes and executive-ready summaries."
+      }
+    ],
+    "related": [
+      "pre-onboarding",
+      "workforce-planning",
+      "skills-intelligence",
+      "employee-experience"
+    ],
+    "footerCta": "Ready to turn every goodbye into a lasting relationship?"
+  },
+  {
     "slug": "engagement-surveys",
     "name": "Engagement Surveys",
     "cloud": "ai-engagement",

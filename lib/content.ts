@@ -1554,6 +1554,7 @@ export const portfolioGroups: PortfolioGroup[] = [
       { name: "Skills Intelligence", slug: "skills-intelligence", blurb: "Map capabilities, spot skill gaps and recommend personalized learning paths." },
       { name: "Leadership Intelligence", slug: "leadership-intelligence", blurb: "Assess leadership effectiveness, strengthen succession and coach future leaders." },
       { name: "Workforce Planning", slug: "workforce-planning", blurb: "Optimize capacity, hiring plans and org design with predictive analytics." },
+      { name: "Alumni Management", slug: "alumni-management", blurb: "Lifelong portal access, exit documents and a boomerang pipeline of proven talent." },
     ],
   },
   {
