@@ -61,7 +61,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={jakarta.variable}>
-      <body>
+      {/* room for the fixed mobile tab bar so it never covers the footer */}
+      <body className="pb-[calc(72px+env(safe-area-inset-bottom))] lg:pb-0">
         <SmoothScroll />
         <a
           href="#main"

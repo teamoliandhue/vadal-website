@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Logo, SparkMark } from "./Brand";
 import { Icon } from "./Icon";
 import { Button, Container } from "./ui";
+import { MobileTabBar } from "./MobileTabBar";
 import {
   headerNav,
   portfolioGroups,
@@ -164,33 +165,27 @@ export function SiteHeader() {
                 Login
               </Link>
             )}
-            <Button href="/demo" size="md">
+            {/* on phones the demo CTA lives in the bottom bar's raised centre
+                action, so the header one would be a duplicate */}
+            <Button href="/demo" size="md" className="max-lg:hidden">
               Book a demo
             </Button>
           </div>
-
-          {/* mobile toggle — hidden in landing-only stage (no nav to open) */}
-          {!LANDING_ONLY && (
-            <button
-              ref={mobileBtnRef}
-              className="grid h-10 w-10 place-items-center rounded-full border border-[var(--line)] lg:hidden"
-              onClick={() => setMobileOpen((v) => !v)}
-              aria-label="Toggle menu"
-              aria-expanded={mobileOpen}
-              aria-controls={mobileOpen ? "mobile-menu" : undefined}
-            >
-              <div className="flex flex-col gap-[5px]">
-                <span className={`h-[1.6px] w-4 bg-[var(--foreground)] transition-all ${mobileOpen ? "translate-y-[6.6px] rotate-45" : ""}`} />
-                <span className={`h-[1.6px] w-4 bg-[var(--foreground)] transition-all ${mobileOpen ? "opacity-0" : ""}`} />
-                <span className={`h-[1.6px] w-4 bg-[var(--foreground)] transition-all ${mobileOpen ? "-translate-y-[6.6px] -rotate-45" : ""}`} />
-              </div>
-            </button>
-          )}
         </Container>
       </div>
 
       {!LANDING_ONLY && searchOpen && <SearchPanel onClose={closeSearch} />}
       {!LANDING_ONLY && mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} />}
+
+      {/* app-shell bottom navigation — phones only. Its "More" tab replaces the
+          header hamburger and drives the same MobileMenu. */}
+      {!LANDING_ONLY && (
+        <MobileTabBar
+          moreOpen={mobileOpen}
+          onMoreToggle={() => setMobileOpen((v) => !v)}
+          moreBtnRef={mobileBtnRef}
+        />
+      )}
     </header>
   );
 }
@@ -666,7 +661,8 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       aria-label="Mobile menu"
       className="fixed inset-x-0 top-[68px] bottom-0 z-40 overflow-y-auto bg-[var(--background)] lg:hidden"
     >
-      <Container className="flex flex-col py-4">
+      {/* pb clears the fixed bottom tab bar so the last links stay reachable */}
+      <Container className="flex flex-col py-4 pb-[calc(88px+env(safe-area-inset-bottom))]">
         <MobileGroup label="Platform" defaultOpen>
           {portfolioGroups.map((g) => (
             <MobileLink key={g.id} item={{ name: g.name, href: `/platform#${g.id}`, icon: g.icon }} onClose={onClose} />
