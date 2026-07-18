@@ -667,22 +667,113 @@ function MobileLink({ item, onClose }: { item: MenuItem; onClose: () => void }) 
 
 function MobileMenu({ onClose }: { onClose: () => void }) {
   const panelRef = useRef<HTMLElement>(null);
+  const [q, setQ] = useState("");
+  const [dragY, setDragY] = useState(0);
+  const dragging = useRef(false);
+  const startY = useRef(0);
+  const index = useMemo(buildSearchIndex, []);
 
   useEffect(() => {
     panelRef.current?.querySelector<HTMLElement>("a, button, summary")?.focus();
   }, []);
 
-  // A full-screen disclosure, not a modal — the header above stays usable,
-  // so no aria-modal/dialog role (there's no focus trap to back it up).
+  const query = q.trim().toLowerCase();
+  const results = query ? index.filter((e) => e.label.toLowerCase().includes(query)).slice(0, 10) : [];
+
+  // drag the grabber down to dismiss — past ~110px it closes, else it springs back
+  const onDown = (e: React.PointerEvent) => {
+    dragging.current = true;
+    startY.current = e.clientY;
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+  };
+  const onMove = (e: React.PointerEvent) => {
+    if (!dragging.current) return;
+    setDragY(Math.max(0, e.clientY - startY.current));
+  };
+  const onUp = () => {
+    if (!dragging.current) return;
+    dragging.current = false;
+    if (dragY > 110) onClose();
+    setDragY(0);
+  };
+
+  // A bottom sheet, not a modal — the page stays visible behind it and the
+  // island above stays usable, so no aria-modal (there's no focus trap).
   return (
-    <nav
-      ref={panelRef}
-      id="mobile-menu"
-      aria-label="Mobile menu"
-      className="fixed inset-x-0 top-[52px] bottom-0 z-40 overflow-y-auto bg-[var(--background)] lg:top-[68px] lg:hidden"
-    >
-      {/* pb clears the fixed bottom tab bar so the last links stay reachable */}
-      <Container className="flex flex-col py-4 pb-[calc(88px+env(safe-area-inset-bottom))]">
+    <>
+      <div
+        onClick={onClose}
+        aria-hidden="true"
+        className="fixed inset-0 z-30 bg-[rgba(13,11,22,0.32)] backdrop-blur-[2px] lg:hidden"
+      />
+      <nav
+        ref={panelRef}
+        id="mobile-menu"
+        aria-label="Mobile menu"
+        style={{ transform: `translateY(${dragY}px)`, transition: dragging.current ? "none" : "transform 260ms cubic-bezier(0.22,1,0.36,1)" }}
+        className="fixed inset-x-0 bottom-0 z-40 flex max-h-[86vh] flex-col overflow-hidden rounded-t-[26px] border-t border-white/70 bg-[rgba(255,255,255,0.96)] shadow-[0_-12px_40px_-12px_rgba(13,11,22,0.3)] backdrop-blur-2xl lg:hidden"
+      >
+        {/* grabber */}
+        <div
+          onPointerDown={onDown}
+          onPointerMove={onMove}
+          onPointerUp={onUp}
+          onPointerCancel={onUp}
+          className="flex shrink-0 cursor-grab touch-none justify-center pb-1 pt-3 active:cursor-grabbing"
+        >
+          <span className="h-1.5 w-11 rounded-full bg-[var(--line-strong)]" />
+        </div>
+
+        {/* search — mobile had no way to search the 40-page site until now */}
+        <div className="shrink-0 px-5 pb-3 pt-1">
+          <div className="flex items-center gap-2.5 rounded-full border border-[var(--line)] bg-[var(--surface)] px-4">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true" className="shrink-0 text-[var(--muted)]">
+              <circle cx="9" cy="9" r="6.2" stroke="currentColor" strokeWidth="1.8" />
+              <path d="m13.8 13.8 3.4 3.4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Search products, solutions…"
+              aria-label="Search"
+              className="h-11 w-full bg-transparent text-[16px] outline-none placeholder:text-[var(--muted-2)]"
+            />
+            {q && (
+              <button onClick={() => setQ("")} aria-label="Clear search" className="shrink-0 text-[13px] font-semibold text-[var(--muted)]">
+                Clear
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+          {query ? (
+            <Container className="flex flex-col pb-[calc(96px+env(safe-area-inset-bottom))]">
+              {results.length > 0 ? (
+                results.map((r) => (
+                  <Link
+                    key={r.group + r.href + r.label}
+                    href={r.href}
+                    onClick={onClose}
+                    className="flex items-center justify-between gap-3 border-b border-[var(--line)] px-2 py-3.5 text-[15.5px] font-semibold"
+                  >
+                    {r.label}
+                    <span className="shrink-0 text-[12px] font-medium text-[var(--muted-2)]">{r.group}</span>
+                  </Link>
+                ))
+              ) : (
+                <p className="px-2 py-8 text-center text-[14px] text-[var(--muted)]">
+                  No matches for “{q.trim()}”. Try the{" "}
+                  <Link href="/platform" onClick={onClose} className="font-semibold text-[var(--brand)]">
+                    platform overview
+                  </Link>
+                  .
+                </p>
+              )}
+            </Container>
+          ) : (
+            // pb clears the floating island so the last links stay reachable
+            <Container className="flex flex-col pb-[calc(96px+env(safe-area-inset-bottom))]">
         <MobileGroup label="Platform" defaultOpen>
           {portfolioGroups.map((g) => (
             <MobileLink key={g.id} item={{ name: g.name, href: `/platform#${g.id}`, icon: g.icon }} onClose={onClose} />
@@ -717,6 +808,9 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
           Book a demo
         </Button>
       </Container>
-    </nav>
+          )}
+        </div>
+      </nav>
+    </>
   );
 }
