@@ -2,27 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { RefObject } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 
 /* ============================================================================
-   MobileTabBar — app-shell bottom navigation for phones.
+   MobileTabBar — a floating glass "island" nav for phones.
 
-   The founders wanted mobile to feel like an app rather than a shrunken
-   desktop site, which is on-brand here: Vadal itself is a mobile-first
-   employee app, so the marketing site previews the product's own shell.
+   Hypelist-style: the bar doesn't span the screen edge-to-edge, it floats as a
+   rounded pill inset from all three edges, frosted so the page reads through
+   it. Nothing is elevated above the bar — the demo action is made special by
+   being the one solid, brand-filled pill inside it, the way the reference's
+   "+" is the one solid dark pill.
 
-   Five slots, with the highest-value action raised in the centre:
+       ( ⌂ )   ⌸    [ ▣ demo ]    $    ≡
 
-       Home · Platform · ( Book a demo ) · Pricing · More
-
-   The centre action is the demo — deliberately NOT an "Ask AI" button: a
-   marketing site can't answer workforce questions, so that would promise
-   something we don't deliver. "Book a demo" is the honest, highest-intent tap,
-   and it satisfies the mobile-first brief's "make the demo CTA sticky".
-
-   "More" opens the existing mobile menu (Solutions, Resources, Science,
-   Pricing, Login, legal) — the brief moves those to a menu rather than the
-   primary scroll. It replaces the header hamburger, which is hidden on mobile.
+   The island auto-hides on scroll-down and returns the instant you scroll up,
+   so it never sits on top of what you're reading, and it rides above the
+   home indicator via env(safe-area-inset-bottom).
    ========================================================================== */
 
 type Props = {
@@ -30,9 +25,6 @@ type Props = {
   onMoreToggle: () => void;
   moreBtnRef?: RefObject<HTMLButtonElement | null>;
 };
-
-const tabCls =
-  "flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[10.5px] font-semibold transition-colors";
 
 function HomeIcon() {
   return (
@@ -63,71 +55,103 @@ function MoreIcon() {
     </svg>
   );
 }
+function DemoIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3.5" y="5" width="17" height="15.5" rx="3" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M3.5 9.8h17M8.5 3.5V6m7-2.5V6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="m9.4 14.6 1.9 1.9 3.5-3.6" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export function MobileTabBar({ moreOpen, onMoreToggle, moreBtnRef }: Props) {
   const pathname = usePathname();
-  const on = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
 
-  // while the More sheet is open it owns the highlight, so route tabs go quiet
-  const tint = (active: boolean) =>
-    active && !moreOpen ? "text-[var(--brand)]" : "text-[var(--muted)]";
+  // hide going down, reveal going up — never while the More sheet is open
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      const dy = y - lastY.current;
+      if (Math.abs(dy) > 6) {
+        setHidden(y > 240 && dy > 0);
+        lastY.current = y;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const on = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const active = (isOn: boolean) => isOn && !moreOpen;
+
+  // each tab is a circle that fills with a soft tint when it's the current page
+  const tab = (isOn: boolean) =>
+    `grid h-11 w-11 place-items-center rounded-full transition-colors duration-200 ${
+      active(isOn)
+        ? "bg-[rgba(13,11,22,0.06)] text-[var(--foreground)]"
+        : "text-[var(--muted)] active:bg-[rgba(13,11,22,0.04)]"
+    }`;
 
   return (
-    <nav
-      aria-label="Primary"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--line)] bg-[rgba(255,255,255,0.94)] backdrop-blur-xl lg:hidden"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    <div
+      className={`pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 transition-all duration-300 ease-out lg:hidden ${
+        hidden && !moreOpen ? "translate-y-[130%] opacity-0" : "translate-y-0 opacity-100"
+      }`}
+      style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 14px)" }}
     >
-      <div className="mx-auto flex max-w-lg items-end px-1">
-        <Link href="/" aria-current={on("/") ? "page" : undefined} className={`${tabCls} ${tint(on("/"))}`}>
+      <nav
+        aria-label="Primary"
+        className="pointer-events-auto flex w-full max-w-[380px] items-center justify-between gap-1 rounded-full border border-white/70 bg-[rgba(255,255,255,0.72)] p-1.5 shadow-[0_10px_36px_-10px_rgba(13,11,22,0.28),0_2px_10px_-3px_rgba(13,11,22,0.12)] backdrop-blur-2xl backdrop-saturate-150"
+      >
+        <Link href="/" aria-label="Home" aria-current={on("/") ? "page" : undefined} className={tab(on("/"))}>
           <HomeIcon />
-          Home
         </Link>
         <Link
           href="/platform"
+          aria-label="Platform"
           aria-current={on("/platform") ? "page" : undefined}
-          className={`${tabCls} ${tint(on("/platform"))}`}
+          className={tab(on("/platform"))}
         >
           <LayersIcon />
-          Platform
         </Link>
 
-        {/* raised centre action — the highest-intent tap on the whole site */}
-        <div className="flex w-[74px] shrink-0 flex-col items-center">
-          <Link
-            href="/demo"
-            aria-label="Book a demo"
-            className="-mt-6 grid h-14 w-14 place-items-center rounded-full bg-[var(--brand)] text-white shadow-[0_10px_24px_-8px_rgba(124,92,248,0.75)] transition-transform active:scale-95"
-          >
-            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect x="3.5" y="5" width="17" height="15.5" rx="3" stroke="currentColor" strokeWidth="1.7" />
-              <path d="M3.5 9.8h17M8.5 3.5V6m7-2.5V6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-              <path d="m9.4 14.6 1.9 1.9 3.5-3.6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
-          <span className="pb-2 pt-1 text-[10.5px] font-bold text-[var(--brand)]">Demo</span>
-        </div>
+        {/* the one solid pill — special without being elevated */}
+        <Link
+          href="/demo"
+          aria-label="Book a demo"
+          className="flex h-11 items-center gap-1.5 rounded-full bg-[var(--brand)] px-4 text-white shadow-[0_6px_16px_-6px_rgba(124,92,248,0.9)] transition-transform duration-200 active:scale-95"
+        >
+          <DemoIcon />
+          <span className="text-[13.5px] font-bold tracking-[-0.01em]">Demo</span>
+        </Link>
 
         <Link
           href="/pricing"
+          aria-label="Pricing"
           aria-current={on("/pricing") ? "page" : undefined}
-          className={`${tabCls} ${tint(on("/pricing"))}`}
+          className={tab(on("/pricing"))}
         >
           <PriceIcon />
-          Pricing
         </Link>
         <button
           ref={moreBtnRef}
           type="button"
           onClick={onMoreToggle}
+          aria-label="More"
           aria-expanded={moreOpen}
           aria-controls={moreOpen ? "mobile-menu" : undefined}
-          className={`${tabCls} ${moreOpen ? "text-[var(--brand)]" : "text-[var(--muted)]"}`}
+          className={`grid h-11 w-11 place-items-center rounded-full transition-colors duration-200 ${
+            moreOpen
+              ? "bg-[rgba(13,11,22,0.06)] text-[var(--foreground)]"
+              : "text-[var(--muted)] active:bg-[rgba(13,11,22,0.04)]"
+          }`}
         >
           <MoreIcon />
-          More
         </button>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }

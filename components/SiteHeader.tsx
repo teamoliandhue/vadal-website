@@ -22,6 +22,8 @@ type MegaId = "platform" | "solutions" | "resources" | "science";
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const [hideBar, setHideBar] = useState(false);
+  const lastY = useRef(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState<MegaId | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -29,7 +31,17 @@ export function SiteHeader() {
   const mobileBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 12);
+      // phones: retract the bar going down, bring it back the moment you go up,
+      // so reading gets the whole screen (desktop keeps it pinned)
+      const dy = y - lastY.current;
+      if (Math.abs(dy) > 6) {
+        setHideBar(y > 240 && dy > 0);
+        lastY.current = y;
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -75,6 +87,10 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, [mobileOpen, megaOpen, searchOpen]);
 
+  // NOTE: the retract transform below lives on the inner bar, never on
+  // <header> itself. A transform on <header> would make it the containing
+  // block for the position:fixed nav island nested inside it, pinning the
+  // island to the header instead of the viewport.
   const closeSearch = () => {
     setSearchOpen(false);
     searchBtnRef.current?.focus();
@@ -83,14 +99,18 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50">
       <div
-        className={`transition-all duration-300 ${
+        className={`transition-all duration-300 ease-out ${
+          hideBar && !mobileOpen && !searchOpen ? "max-lg:-translate-y-full" : ""
+        } ${
           scrolled || megaOpen || searchOpen
             ? "border-b border-[var(--line)] bg-[rgba(255,255,255,0.88)] backdrop-blur-xl"
             : "border-b border-transparent bg-transparent"
         }`}
       >
-        <Container className="flex h-[68px] items-center justify-between gap-4">
-          <Logo size={29} />
+        {/* phones get a slimmer bar — it holds only the logo, so 68px was pure
+            dead space above the fold */}
+        <Container className="flex h-[52px] items-center justify-between gap-4 lg:h-[68px]">
+          <Logo size={29} className="origin-left max-lg:scale-[0.8]" />
 
           {/* desktop nav — hidden in landing-only (beginning) stage */}
           {/* nav is the positioning context — mega panels center under the
@@ -659,7 +679,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       ref={panelRef}
       id="mobile-menu"
       aria-label="Mobile menu"
-      className="fixed inset-x-0 top-[68px] bottom-0 z-40 overflow-y-auto bg-[var(--background)] lg:hidden"
+      className="fixed inset-x-0 top-[52px] bottom-0 z-40 overflow-y-auto bg-[var(--background)] lg:top-[68px] lg:hidden"
     >
       {/* pb clears the fixed bottom tab bar so the last links stay reachable */}
       <Container className="flex flex-col py-4 pb-[calc(88px+env(safe-area-inset-bottom))]">
