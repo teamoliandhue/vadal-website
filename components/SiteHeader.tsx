@@ -8,6 +8,7 @@ import { Button, Container } from "./ui";
 import { MobileTabBar } from "./MobileTabBar";
 import {
   headerNav,
+  mobileProductNav,
   portfolioGroups,
   resourcesMenu,
   scienceMenu,
@@ -775,12 +776,8 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
             // pb clears the floating island so the last links stay reachable
             <Container className="flex flex-col pb-[calc(96px+env(safe-area-inset-bottom))]">
         <MobileGroup label="Platform" defaultOpen>
-          {portfolioGroups.map((g) => (
-            <MobileLink key={g.id} item={{ name: g.name, href: `/platform#${g.id}`, icon: g.icon }} onClose={onClose} />
-          ))}
-          <p className="mt-2 px-2 pb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">Survey types</p>
-          {surveyTypes.map((s) => (
-            <MobileLink key={s.name} item={s} onClose={onClose} />
+          {mobileProductNav.map((p) => (
+            <MobileLink key={p.name} item={p} onClose={onClose} />
           ))}
         </MobileGroup>
         <MobileGroup label="Solutions">

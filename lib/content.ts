@@ -1514,6 +1514,25 @@ export type PortfolioGroup = {
   items: { name: string; blurb: string; slug?: string }[];
 };
 
+/* The mobile menu's product index — a flat, deliberately ordered list rather
+   than the six families, so phones get one tap to the thing they came for.
+   Order is the founder's and is intentional: do not re-sort alphabetically or
+   regroup by family. Ten resolve to product pages; Enterprise AI Platform is a
+   family, so it targets its section anchor on /platform. */
+export const mobileProductNav: MenuItem[] = [
+  { name: "AI Chatbot", href: "/platform/ai-employee-chat", icon: "chat" },
+  { name: "Employee Experience", href: "/platform/employee-experience", icon: "compass" },
+  { name: "Employee Communication", href: "/platform/employee-communication", icon: "broadcast" },
+  { name: "Continuous Employee Listening", href: "/platform/employee-listening", icon: "pulse" },
+  { name: "Engagement Surveys", href: "/platform/engagement-surveys", icon: "checks" },
+  { name: "Employee Wellbeing & Culture", href: "/platform/employee-wellbeing-culture", icon: "heart" },
+  { name: "Mobile & E-Learning", href: "/platform/mobile-e-learning", icon: "phone" },
+  { name: "Recognition & Rewards", href: "/platform/recognition-rewards", icon: "bell" },
+  { name: "Feedback Intelligence", href: "/platform/feedback-intelligence", icon: "spark" },
+  { name: "AI-powered Action Planning", href: "/platform/action-planning", icon: "rocket" },
+  { name: "Enterprise AI Platform", href: "/platform#enterprise-platform", icon: "shield" },
+];
+
 export const portfolioGroups: PortfolioGroup[] = [
   {
     id: "workforce-experience",
