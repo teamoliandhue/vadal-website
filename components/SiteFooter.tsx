@@ -2,19 +2,20 @@ import Link from "next/link";
 import { Logo, SparkMark } from "./Brand";
 import { Button, Container } from "./ui";
 import { Icon } from "./Icon";
-import { solutionsByOutcome, solutionsByWorkforce } from "@/lib/content";
+import { mobileProductNav, solutionsByOutcome, solutionsByWorkforce } from "@/lib/content";
 import { LANDING_ONLY } from "@/lib/flags";
 
 const columns = [
   {
+    // Driven off the canonical product list rather than hand-written labels:
+    // the old hardcoded version had drifted out of sync with the rest of the
+    // site ("Continuous listening" vs "Continuous Employee Listening", sentence
+    // case vs Title Case) and filed /security under Platform, though it's a
+    // trust page rather than a product. It now lives under Company.
     title: "Platform",
     links: [
       { label: "Platform overview", href: "/platform" },
-      { label: "Engagement surveys", href: "/platform/engagement-surveys" },
-      { label: "Continuous listening", href: "/platform/employee-listening" },
-      { label: "Workforce intelligence", href: "/platform/workforce-intelligence" },
-      { label: "People analytics", href: "/platform/people-analytics" },
-      { label: "Security", href: "/security" },
+      ...mobileProductNav.map((p) => ({ label: p.name, href: p.href })),
     ],
   },
   {
@@ -29,6 +30,7 @@ const columns = [
       { label: "About us", href: "/about" },
       { label: "Customers", href: "/customers" },
       { label: "Pricing", href: "/pricing" },
+      { label: "Security", href: "/security" },
       { label: "Careers", href: "/about#careers" },
       { label: "Contact", href: "/contact" },
     ],
