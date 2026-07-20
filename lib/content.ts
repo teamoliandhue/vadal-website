@@ -1148,8 +1148,16 @@ export const heroV2 = {
 export type PersonaTab = {
   id: string;
   tab: string;
+  /** one-word chip label on the tab, e.g. "Employees" */
+  short: string;
   title: string;
+  /** short lede — the single lead sentence shown in the redesigned card */
+  lede: string;
   body: string[];
+  /** three faithful benefit highlights with icons */
+  benefits: { icon: IconName; label: string }[];
+  /** hero photo for the persona card */
+  photo: string;
   links: { label: string; href: string }[];
   icon: IconName;
   stat: { value: string; label: string };
@@ -1166,11 +1174,19 @@ export const personaTabs: PersonaTab[] = [
   {
     id: "employees",
     tab: "For Employees",
+    short: "Employees",
     title: "Create a workplace where every employee feels heard, valued and engaged",
+    lede: "A safe, intelligent place to share feedback, celebrate wins and grow, where AI turns what you say into real change.",
     body: [
       "Employee engagement starts with trust, transparency and meaningful conversations. Vadal.ai empowers employees with a safe, intelligent platform to share feedback, celebrate achievements, access personalized growth opportunities and actively contribute to a culture of continuous improvement.",
       "Powered by AI, Vadal.ai transforms employee feedback into meaningful actions, strengthening engagement, improving wellbeing and creating exceptional employee experiences where every individual can grow and succeed.",
     ],
+    benefits: [
+      { icon: "chat", label: "Share feedback safely" },
+      { icon: "bell", label: "Celebrate achievements" },
+      { icon: "rocket", label: "Personalized growth" },
+    ],
+    photo: "/people/persona-employees.webp",
     links: [
       { label: "Employee Engagement & Experience", href: "/solutions/employee-experience" },
       { label: "Continuous Listening & Feedback", href: "/platform#ai-engagement" },
@@ -1181,11 +1197,19 @@ export const personaTabs: PersonaTab[] = [
   {
     id: "managers",
     tab: "For Managers",
+    short: "Managers",
     title: "Empower managers to build engaged teams and deliver exceptional performance",
+    lede: "Real-time team sentiment, retention-risk signals and AI recommendations, so you can act before it's too late.",
     body: [
       "Every team has unique goals, challenges and engagement drivers. Vadal.ai equips managers with real-time engagement insights, workforce intelligence and AI-powered recommendations to understand team sentiment, recognize achievements, identify performance and retention risks, and take timely action.",
       "Transform everyday people decisions into measurable outcomes with one intelligent platform.",
     ],
+    benefits: [
+      { icon: "pulse", label: "Real-time team sentiment" },
+      { icon: "shield", label: "Spot retention risks" },
+      { icon: "spark", label: "AI recommendations" },
+    ],
+    photo: "/people/persona-managers.webp",
     links: [
       { label: "Manager Intelligence", href: "/platform#workforce-intelligence" },
       { label: "Engagement & Performance", href: "/solutions" },
@@ -1196,11 +1220,19 @@ export const personaTabs: PersonaTab[] = [
   {
     id: "hrs",
     tab: "For HRs",
+    short: "HRs",
     title: "AI-powered intelligence for modern HR teams",
+    lede: "Predictive workforce analytics and talent intelligence that turn HR from a support function into a strategic partner.",
     body: [
       "Transform HR from a support function into a strategic business partner. Vadal.ai gives HR leaders predictive workforce analytics, talent intelligence, leadership insights and AI-powered recommendations to improve workforce planning, employee experience, succession readiness and organizational effectiveness.",
       "Monitor workforce health, anticipate future talent needs and make confident decisions backed by real-time intelligence.",
     ],
+    benefits: [
+      { icon: "chart", label: "Predictive analytics" },
+      { icon: "rocket", label: "Talent & succession" },
+      { icon: "checks", label: "Plan with confidence" },
+    ],
+    photo: "/people/persona-hrs.webp",
     links: [
       { label: "Explore HR Intelligence", href: "/platform" },
       { label: "Experience the AI Copilot", href: "/platform#ai" },
@@ -1211,11 +1243,19 @@ export const personaTabs: PersonaTab[] = [
   {
     id: "chros",
     tab: "For CHROs",
+    short: "CHROs",
     title: "Empower HR to drive business impact",
+    lede: "Workforce, talent and leadership insight in one platform, so people decisions align with business goals.",
     body: [
       "Today's HR leaders need more than surveys and dashboards, they need intelligence that enables better decisions. Vadal.ai brings workforce, talent, leadership and organizational insights into one AI-powered platform.",
       "Predict workforce risks, optimize talent strategies, strengthen leadership and align people decisions with business goals.",
     ],
+    benefits: [
+      { icon: "pulse", label: "Predict workforce risks" },
+      { icon: "rocket", label: "Strengthen leadership" },
+      { icon: "globe", label: "Align to business goals" },
+    ],
+    photo: "/people/persona-chros.webp",
     links: [
       { label: "Workforce Intelligence", href: "/platform#workforce-intelligence" },
       { label: "Talent Intelligence", href: "/platform#talent-intelligence" },
@@ -1226,11 +1266,19 @@ export const personaTabs: PersonaTab[] = [
   {
     id: "company",
     tab: "For Company",
+    short: "Company",
     title: "Transform employee engagement into enterprise performance",
+    lede: "Engagement, workforce, talent and org analytics unified, turning people data into enterprise performance.",
     body: [
       "Employee engagement is more than a metric, it is a driver of innovation, productivity and sustainable business success. Vadal.ai unifies engagement, workforce intelligence, talent insights and organizational analytics into one intelligent platform.",
       "Measure workforce health, predict future challenges and align people strategies with business priorities, with AI-driven recommendations for every leader.",
     ],
+    benefits: [
+      { icon: "globe", label: "Unified people data" },
+      { icon: "chart", label: "Predict challenges" },
+      { icon: "spark", label: "Every leader, AI-guided" },
+    ],
+    photo: "/people/persona-company.webp",
     links: [
       { label: "Workforce Intelligence Platform", href: "/platform" },
       { label: "Organizational Analytics", href: "/platform#workforce-intelligence" },
