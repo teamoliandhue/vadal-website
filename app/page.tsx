@@ -75,7 +75,7 @@ export default function HomePage() {
           <SectionHead
             eyebrow="The platform"
             title="Everything your workforce needs, in five layers"
-            lede="Tap a layer to see its modules — and any module to see what you get."
+            lede="Tap a layer to see its modules, and any module to see what you get."
           />
           <div className="mt-10">
             <MobilePlatformLayers />
@@ -146,7 +146,7 @@ export default function HomePage() {
           <SectionHead
             eyebrow="Customer stories"
             title="What our customers love about us"
-            lede="From head office to the frontline — intelligence people can feel."
+            lede="From head office to the frontline, intelligence people can feel."
           />
           <div className="mt-14">
             <TestimonialCarousel />

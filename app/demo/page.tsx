@@ -8,7 +8,7 @@ import { sampleCustomers } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Book a demo",
   description:
-    "See Vadal.ai on your own use case. Book a personalised demo and we'll tailor it to your industry — retail, facilities, finance, hospitality, manufacturing or logistics.",
+    "See Vadal.ai on your own use case. Book a personalised demo and we'll tailor it to your industry, retail, facilities, finance, hospitality, manufacturing or logistics.",
 };
 
 const points = [
@@ -31,7 +31,7 @@ export default function DemoPage() {
             See your workforce intelligence, live on a real demo
           </h1>
           <p className="mt-5 max-w-md text-[18px] leading-relaxed text-[var(--muted)]">
-            AI-powered surveys, predictive analytics and action planning — the whole loop, on
+            AI-powered surveys, predictive analytics and action planning, the whole loop, on
             your use case. Fill out the form and we&apos;ll get in touch within 24 hours.
           </p>
 

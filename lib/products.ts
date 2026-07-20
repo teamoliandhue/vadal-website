@@ -44,7 +44,7 @@ export const products: Product[] = [
     "icon": "broadcast",
     "mock": "broadcast",
     "heroTitle": "Intelligent Employee Communication Powered by AI",
-    "heroLede": "Deliver personalized communication, strengthen employee engagement, and transform every interaction into actionable workforce intelligence — reaching every employee, desk-based or frontline, wherever they are.",
+    "heroLede": "Deliver personalized communication, strengthen employee engagement, and transform every interaction into actionable workforce intelligence, reaching every employee, desk-based or frontline, wherever they are.",
     "challengesTitle": "Why Modern Employee Communication Needs AI",
     "challenges": [
       "Employees miss critical announcements buried in email or scattered across tools.",
@@ -65,7 +65,7 @@ export const products: Product[] = [
     "capabilities": [
       {
         "title": "Personalized Communication",
-        "body": "Deliver the right communication to the right employee at the right time using AI-powered audience segmentation and intelligent targeting — no more one-size-fits-all broadcasts.",
+        "body": "Deliver the right communication to the right employee at the right time using AI-powered audience segmentation and intelligent targeting, no more one-size-fits-all broadcasts.",
         "bullets": [
           "Reach every employee with messages relevant to their role and location",
           "Let AI recommend the best audience for each announcement",
@@ -146,19 +146,19 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How does Vadal.ai reach frontline employees who don't have a company email?",
-        "a": "Communication can be delivered via mobile app, SMS, WhatsApp and push notifications, so frontline and deskless workers are reached in seconds without needing a corporate inbox — the same way modern consumer apps reach people on their phones."
+        "a": "Communication can be delivered via mobile app, SMS, WhatsApp and push notifications, so frontline and deskless workers are reached in seconds without needing a corporate inbox, the same way modern consumer apps reach people on their phones."
       },
       {
         "q": "How is this different from just sending company-wide emails?",
-        "a": "Email is one-way and easily missed. Vadal.ai delivers targeted, two-way communication with AI-powered audience segmentation, read/engagement tracking, and built-in feedback channels — so you know who saw what, and employees can respond rather than just receive."
+        "a": "Email is one-way and easily missed. Vadal.ai delivers targeted, two-way communication with AI-powered audience segmentation, read/engagement tracking, and built-in feedback channels, so you know who saw what, and employees can respond rather than just receive."
       },
       {
         "q": "Can we measure whether communication is actually working?",
-        "a": "Yes. Real-time open rates, engagement metrics and sentiment analysis show whether messages are being read and understood — not just sent — closing the loop between publishing content and confirming the workforce is informed."
+        "a": "Yes. Real-time open rates, engagement metrics and sentiment analysis show whether messages are being read and understood, not just sent, closing the loop between publishing content and confirming the workforce is informed."
       },
       {
         "q": "What does the AI Writing Assistant actually do?",
-        "a": "It helps communicators draft, refine and optimize messages — improving tone, suggesting clearer phrasing, generating campaign variations, and translating content — so even non-specialist managers can produce clear, on-brand communication quickly."
+        "a": "It helps communicators draft, refine and optimize messages, improving tone, suggesting clearer phrasing, generating campaign variations, and translating content, so even non-specialist managers can produce clear, on-brand communication quickly."
       },
       {
         "q": "Can we target messages to specific teams, locations or roles?",
@@ -166,7 +166,7 @@ export const products: Product[] = [
       },
       {
         "q": "Does communication data connect to the rest of the platform?",
-        "a": "Yes — communication engagement and sentiment feed into Vadal.ai's shared intelligence layer, so what you learn from communication informs analytics, listening and the wider workforce picture, rather than living in a silo."
+        "a": "Yes, communication engagement and sentiment feed into Vadal.ai's shared intelligence layer, so what you learn from communication informs analytics, listening and the wider workforce picture, rather than living in a silo."
       }
     ],
     "related": [
@@ -186,13 +186,13 @@ export const products: Product[] = [
     "icon": "compass",
     "mock": "phone",
     "heroTitle": "Reimagine Every Employee Moment with AI",
-    "heroLede": "Design personalized employee journeys, act on the moments that matter, and turn every interaction into a connected, measurable experience — from hire to retire.",
+    "heroLede": "Design personalized employee journeys, act on the moments that matter, and turn every interaction into a connected, measurable experience, from hire to retire.",
     "challengesTitle": "Why Modern Employee Experience Needs AI",
     "challenges": [
       "Employee journeys are fragmented across disconnected systems and tools.",
       "Onboarding feels generic instead of personal to the role, team or location.",
       "Employees don't know where to find people, policies or resources.",
-      "Key life-cycle moments — promotions, anniversaries, transfers — go unnoticed.",
+      "Key life-cycle moments, promotions, anniversaries, transfers, go unnoticed.",
       "Managers have no visibility into how an employee's journey is actually going.",
       "Experience quality varies wildly by geography, role and manager.",
       "HR teams spend more time administering processes than designing experiences.",
@@ -217,7 +217,7 @@ export const products: Product[] = [
       },
       {
         "title": "Moments That Matter",
-        "body": "Recognize and act on key life-cycle events — anniversaries, promotions, relocations, life events — with automated, personalized touchpoints that make employees feel seen.",
+        "body": "Recognize and act on key life-cycle events, anniversaries, promotions, relocations, life events, with automated, personalized touchpoints that make employees feel seen.",
         "bullets": [
           "Never let anniversaries, promotions or milestones go unnoticed",
           "Trigger personalized touchpoints automatically at key moments",
@@ -286,23 +286,23 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How is Employee Experience different from Employee Communication?",
-        "a": "Employee Communication focuses on delivering and measuring messages — news, updates, campaigns. Employee Experience is broader: it orchestrates the entire employee journey (onboarding, milestones, transitions, offboarding) and gives employees a single hub for people, policies and resources. Communication is one input into the experience; Experience is the end-to-end journey itself."
+        "a": "Employee Communication focuses on delivering and measuring messages, news, updates, campaigns. Employee Experience is broader: it orchestrates the entire employee journey (onboarding, milestones, transitions, offboarding) and gives employees a single hub for people, policies and resources. Communication is one input into the experience; Experience is the end-to-end journey itself."
       },
       {
         "q": "Can journeys be customized per department, region or role?",
-        "a": "Yes. Journeys can be configured by role, department, location, seniority level or any custom employee attribute, so a frontline retail hire and a corporate new manager each get a journey tailored to their context — not a single generic onboarding flow."
+        "a": "Yes. Journeys can be configured by role, department, location, seniority level or any custom employee attribute, so a frontline retail hire and a corporate new manager each get a journey tailored to their context, not a single generic onboarding flow."
       },
       {
         "q": "Does this integrate with our existing HRIS?",
-        "a": "Yes. The platform integrates with major HRIS and HCM systems (e.g. Workday, SAP SuccessFactors, Oracle HCM) to pull employee data — role, start date, location, reporting line — that powers journey personalization and moment triggers automatically."
+        "a": "Yes. The platform integrates with major HRIS and HCM systems (e.g. Workday, SAP SuccessFactors, Oracle HCM) to pull employee data, role, start date, location, reporting line, that powers journey personalization and moment triggers automatically."
       },
       {
         "q": "How does the AI detect \"moments that matter\"?",
-        "a": "The AI cross-references HRIS data (tenure, role changes, promotions) with configurable rules and behavioral signals to identify life-cycle events worth acting on, then automatically triggers a personalized touchpoint — without HR needing to manually track dates or milestones."
+        "a": "The AI cross-references HRIS data (tenure, role changes, promotions) with configurable rules and behavioral signals to identify life-cycle events worth acting on, then automatically triggers a personalized touchpoint, without HR needing to manually track dates or milestones."
       },
       {
         "q": "Is employee data used for personalization kept secure and compliant?",
-        "a": "Yes — data used for journey personalization is handled under enterprise-grade security and compliance controls, including role-based access, encryption, and regional data residency where required."
+        "a": "Yes, data used for journey personalization is handled under enterprise-grade security and compliance controls, including role-based access, encryption, and regional data residency where required."
       },
       {
         "q": "Can managers see their team's journey health?",
@@ -326,7 +326,7 @@ export const products: Product[] = [
     "icon": "heart",
     "mock": "voice",
     "heroTitle": "Build a Culture of Wellbeing with AI",
-    "heroLede": "Detect burnout before it happens, strengthen culture at scale, and give every employee the support they need — powered by continuous listening and AI-driven insight.",
+    "heroLede": "Detect burnout before it happens, strengthen culture at scale, and give every employee the support they need, powered by continuous listening and AI-driven insight.",
     "challengesTitle": "Why Modern Wellbeing & Culture Needs AI",
     "challenges": [
       "Burnout is discovered only after an employee resigns or disengages.",
@@ -357,7 +357,7 @@ export const products: Product[] = [
       },
       {
         "title": "Personalized Wellbeing Journeys",
-        "body": "Surface the right benefit, resource or check-in to the right employee at the right moment — from mental health support to flexible work options.",
+        "body": "Surface the right benefit, resource or check-in to the right employee at the right moment, from mental health support to flexible work options.",
         "bullets": [
           "Match employees to the support they actually need",
           "Boost usage of benefits employees didn't know existed",
@@ -428,7 +428,7 @@ export const products: Product[] = [
       },
       {
         "q": "Is individual-level wellbeing data visible to managers, or only aggregated?",
-        "a": "By default, managers see aggregated, team-level trends rather than individual scores, to protect psychological safety and encourage honest participation. Named-individual alerts, where enabled, should be scoped narrowly and disclosed clearly to employees — this is a configuration and policy decision your legal and HR teams should set deliberately."
+        "a": "By default, managers see aggregated, team-level trends rather than individual scores, to protect psychological safety and encourage honest participation. Named-individual alerts, where enabled, should be scoped narrowly and disclosed clearly to employees, this is a configuration and policy decision your legal and HR teams should set deliberately."
       },
       {
         "q": "Can we plug in our existing EAP or benefits provider?",
@@ -436,7 +436,7 @@ export const products: Product[] = [
       },
       {
         "q": "How is this different from a standard engagement survey?",
-        "a": "A standard survey measures sentiment at a point in time. This module continuously monitors signals between surveys, flags risk earlier, and recommends specific next steps to managers and HR — turning measurement into an ongoing action loop rather than a periodic report."
+        "a": "A standard survey measures sentiment at a point in time. This module continuously monitors signals between surveys, flags risk earlier, and recommends specific next steps to managers and HR, turning measurement into an ongoing action loop rather than a periodic report."
       },
       {
         "q": "What actions can a manager take directly from an alert?",
@@ -463,10 +463,10 @@ export const products: Product[] = [
     "icon": "bell",
     "mock": "phone",
     "heroTitle": "Make Every Employee Feel Valued with AI-Powered Recognition",
-    "heroLede": "Turn everyday moments into meaningful recognition — powered by AI-driven suggestions, peer-to-peer appreciation, and rewards that actually motivate.",
+    "heroLede": "Turn everyday moments into meaningful recognition, powered by AI-driven suggestions, peer-to-peer appreciation, and rewards that actually motivate.",
     "challengesTitle": "Why Modern Recognition Needs AI",
     "challenges": [
-      "Recognition happens inconsistently — often only top-down, rarely peer-to-peer.",
+      "Recognition happens inconsistently, often only top-down, rarely peer-to-peer.",
       "Great work goes unnoticed because managers don't have time to track it.",
       "Recognition programs feel like a checkbox, not a genuine culture practice.",
       "Rewards catalogs are generic and don't reflect what employees actually value.",
@@ -484,7 +484,7 @@ export const products: Product[] = [
     "capabilities": [
       {
         "title": "AI-Suggested Recognition Moments",
-        "body": "Automatically surface milestones, achievements and everyday wins worth recognizing — so nothing meaningful goes unnoticed.",
+        "body": "Automatically surface milestones, achievements and everyday wins worth recognizing, so nothing meaningful goes unnoticed.",
         "bullets": [
           "Surface wins and milestones managers would otherwise miss",
           "Nudge managers when recognition is overdue",
@@ -504,7 +504,7 @@ export const products: Product[] = [
       },
       {
         "title": "Personalized Rewards Catalog",
-        "body": "Let employees redeem points for rewards that matter to them — from gift cards to experiences to time off, tailored by role, location and preference.",
+        "body": "Let employees redeem points for rewards that matter to them, from gift cards to experiences to time off, tailored by role, location and preference.",
         "bullets": [
           "Offer rewards employees genuinely want, not generic swag",
           "Personalize the catalog by role, location and preference",
@@ -560,7 +560,7 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "Can employees recognize each other, not just managers recognizing employees?",
-        "a": "Yes. Peer-to-peer recognition is core to the module — any employee can give recognition to any colleague, not just top-down from managers, through shout-outs and values-based badges visible on a shared feed."
+        "a": "Yes. Peer-to-peer recognition is core to the module, any employee can give recognition to any colleague, not just top-down from managers, through shout-outs and values-based badges visible on a shared feed."
       },
       {
         "q": "How does the rewards catalog get personalized per employee?",
@@ -576,7 +576,7 @@ export const products: Product[] = [
       },
       {
         "q": "Does this integrate with our existing HRIS and comms tools?",
-        "a": "Yes — the module integrates with major HRIS platforms (Workday, SAP SuccessFactors, Oracle HCM) and communication tools (Microsoft Teams, Slack) so recognition can happen in the tools employees already use daily."
+        "a": "Yes, the module integrates with major HRIS platforms (Workday, SAP SuccessFactors, Oracle HCM) and communication tools (Microsoft Teams, Slack) so recognition can happen in the tools employees already use daily."
       },
       {
         "q": "Can recognition be tied to specific company values?",
@@ -599,7 +599,7 @@ export const products: Product[] = [
     "icon": "chart",
     "mock": "dashboard",
     "heroTitle": "Understand Your Workforce with AI-Powered People Analytics",
-    "heroLede": "Turn scattered HR data into a single, real-time view of organizational health — segmented by team, location, role and demographic, and ready for action.",
+    "heroLede": "Turn scattered HR data into a single, real-time view of organizational health, segmented by team, location, role and demographic, and ready for action.",
     "challengesTitle": null,
     "challenges": [
       "Workforce data lives in silos across HRIS, survey tools and spreadsheets.",
@@ -694,15 +694,15 @@ export const products: Product[] = [
       },
       {
         "q": "Can managers see only their own team's data?",
-        "a": "Yes. Role-based access ensures managers see their own team's analytics, while HR and executives see organization-wide views — protecting confidentiality while still enabling action at every level."
+        "a": "Yes. Role-based access ensures managers see their own team's analytics, while HR and executives see organization-wide views, protecting confidentiality while still enabling action at every level."
       },
       {
         "q": "Does this require a data science team to set up?",
-        "a": "No. Dashboards and AI insights are pre-built and configure to your org structure automatically once connected to your HRIS — no custom data modeling required to get started."
+        "a": "No. Dashboards and AI insights are pre-built and configure to your org structure automatically once connected to your HRIS, no custom data modeling required to get started."
       },
       {
         "q": "Can we combine engagement, performance and attrition data in one view?",
-        "a": "Yes — this cross-data view is a core differentiator. Most engagement tools only show survey data; this product connects it to performance and attrition signals for a fuller picture."
+        "a": "Yes, this cross-data view is a core differentiator. Most engagement tools only show survey data; this product connects it to performance and attrition signals for a fuller picture."
       }
     ],
     "related": [
@@ -808,7 +808,7 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How does sentiment analysis work without reading private messages?",
-        "a": "The AI analyzes sentiment from feedback explicitly submitted through surveys, pulse checks, and opt-in conversational channels — not private personal communications outside the platform."
+        "a": "The AI analyzes sentiment from feedback explicitly submitted through surveys, pulse checks, and opt-in conversational channels, not private personal communications outside the platform."
       },
       {
         "q": "Is sentiment data reported at the individual or aggregate level?",
@@ -820,7 +820,7 @@ export const products: Product[] = [
       },
       {
         "q": "Can this replace our annual engagement survey?",
-        "a": "It's designed to complement, not replace, formal surveys — continuous sentiment tracking catches shifts between survey cycles, while structured surveys still provide statistically robust benchmarking."
+        "a": "It's designed to complement, not replace, formal surveys, continuous sentiment tracking catches shifts between survey cycles, while structured surveys still provide statistically robust benchmarking."
       }
     ],
     "related": [
@@ -829,7 +829,7 @@ export const products: Product[] = [
       "employee-listening",
       "executive-reports"
     ],
-    "footerCta": "Ready to know how your people really feel — before it's too late?"
+    "footerCta": "Ready to know how your people really feel, before it's too late?"
   },
   {
     "slug": "benchmark-intelligence",
@@ -837,7 +837,7 @@ export const products: Product[] = [
     "cloud": "workforce-intelligence",
     "icon": "globe",
     "mock": "dashboard",
-    "heroTitle": "See How Your Workforce Compares — and What to Do About It",
+    "heroTitle": "See How Your Workforce Compares, and What to Do About It",
     "heroLede": "Compare engagement, culture and performance metrics against industry, region and company-size benchmarks to know where you truly stand.",
     "challengesTitle": null,
     "challenges": [
@@ -930,11 +930,11 @@ export const products: Product[] = [
       },
       {
         "q": "Can we compare against a specific industry or region only?",
-        "a": "Yes — comparisons can be filtered to specific industry, region, or company-size segments so you're compared against genuinely relevant peers, not a generic global average."
+        "a": "Yes, comparisons can be filtered to specific industry, region, or company-size segments so you're compared against genuinely relevant peers, not a generic global average."
       },
       {
         "q": "Is our data included in benchmarks shown to other companies?",
-        "a": "Yes, in anonymized and aggregated form only — no company-identifiable data is ever shared in benchmark comparisons shown to other customers."
+        "a": "Yes, in anonymized and aggregated form only, no company-identifiable data is ever shared in benchmark comparisons shown to other customers."
       }
     ],
     "related": [
@@ -943,7 +943,7 @@ export const products: Product[] = [
       "engagement-surveys",
       "sentiment-intelligence"
     ],
-    "footerCta": "Ready to see exactly where you stand — and what to fix first?"
+    "footerCta": "Ready to see exactly where you stand, and what to fix first?"
   },
   {
     "slug": "executive-reports",
@@ -952,7 +952,7 @@ export const products: Product[] = [
     "icon": "checks",
     "mock": "dashboard",
     "heroTitle": "Turn Workforce Data Into Board-Ready Insight, Instantly",
-    "heroLede": "Give executives and boards a clear, automated view of workforce health — without HR teams spending days building slides.",
+    "heroLede": "Give executives and boards a clear, automated view of workforce health, without HR teams spending days building slides.",
     "challengesTitle": null,
     "challenges": [
       "Building executive reports manually takes days each cycle.",
@@ -1037,7 +1037,7 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "Can reports be customized for different audiences?",
-        "a": "Yes — the same underlying data can generate a board-level summary, a CHRO-level deep dive, or a business-unit-specific report, each tailored to what that audience needs to see."
+        "a": "Yes, the same underlying data can generate a board-level summary, a CHRO-level deep dive, or a business-unit-specific report, each tailored to what that audience needs to see."
       },
       {
         "q": "How current is the data in each report?",
@@ -1045,11 +1045,11 @@ export const products: Product[] = [
       },
       {
         "q": "Can reports be scheduled to generate automatically?",
-        "a": "Yes — reports can be scheduled on a recurring cadence (weekly, monthly, quarterly) and distributed automatically to designated stakeholders."
+        "a": "Yes, reports can be scheduled on a recurring cadence (weekly, monthly, quarterly) and distributed automatically to designated stakeholders."
       },
       {
         "q": "Does the AI summary replace the need for HR to interpret the data?",
-        "a": "No — the AI summary is designed to accelerate interpretation and highlight priorities, not replace HR judgment on strategic decisions. It's a starting point for the conversation, not the final word."
+        "a": "No, the AI summary is designed to accelerate interpretation and highlight priorities, not replace HR judgment on strategic decisions. It's a starting point for the conversation, not the final word."
       }
     ],
     "related": [
@@ -1066,7 +1066,7 @@ export const products: Product[] = [
     "icon": "rocket",
     "mock": "phone",
     "heroTitle": "Turn New Hires Into Productive Team Members, Faster",
-    "heroLede": "Deliver personalized, AI-guided onboarding journeys from offer acceptance through the first 90 days — reducing early attrition and accelerating time-to-productivity.",
+    "heroLede": "Deliver personalized, AI-guided onboarding journeys from offer acceptance through the first 90 days, reducing early attrition and accelerating time-to-productivity.",
     "challengesTitle": null,
     "challenges": [
       "Candidates go quiet or drop off between offer and start date.",
@@ -1159,11 +1159,11 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "Can onboarding journeys differ by role or location?",
-        "a": "Yes — journeys are configured by role, department, location and seniority, so a frontline hire and a corporate new manager each get a relevant, tailored path rather than one generic checklist."
+        "a": "Yes, journeys are configured by role, department, location and seniority, so a frontline hire and a corporate new manager each get a relevant, tailored path rather than one generic checklist."
       },
       {
         "q": "Does this help before day one, or only after?",
-        "a": "Both — the product engages candidates from offer acceptance through their first 90 days, addressing the critical pre-start period where drop-off risk is highest."
+        "a": "Both, the product engages candidates from offer acceptance through their first 90 days, addressing the critical pre-start period where drop-off risk is highest."
       },
       {
         "q": "Can managers see if a new hire is struggling?",
@@ -1171,7 +1171,7 @@ export const products: Product[] = [
       },
       {
         "q": "Does it integrate with our ATS and HRIS?",
-        "a": "Yes — it's designed to integrate with common applicant tracking systems (e.g. Greenhouse, Lever) and HRIS platforms (Workday, SAP SuccessFactors, Oracle HCM) to pull candidate and employee data automatically."
+        "a": "Yes, it's designed to integrate with common applicant tracking systems (e.g. Greenhouse, Lever) and HRIS platforms (Workday, SAP SuccessFactors, Oracle HCM) to pull candidate and employee data automatically."
       }
     ],
     "related": [
@@ -1188,7 +1188,7 @@ export const products: Product[] = [
     "cloud": "talent-intelligence",
     "icon": "graduation",
     "mock": "dashboard",
-    "heroTitle": "Know the Skills You Have — and the Skills You Need",
+    "heroTitle": "Know the Skills You Have, and the Skills You Need",
     "heroLede": "Map, track and develop workforce skills with AI, so you always know your organization's capability gaps before they become business risks.",
     "challengesTitle": null,
     "challenges": [
@@ -1276,19 +1276,19 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How does the AI know what skills employees actually have?",
-        "a": "Skills data is built from a combination of role history, completed training/certifications, and structured self- and manager-assessments — not just inferred from a job title or resume."
+        "a": "Skills data is built from a combination of role history, completed training/certifications, and structured self- and manager-assessments, not just inferred from a job title or resume."
       },
       {
         "q": "Can this tell us if we have the skills to execute a specific strategic initiative?",
-        "a": "Yes — that's a core use case. You can define the capability requirements for an initiative and compare them against current organizational skills to surface exactly where the gaps are."
+        "a": "Yes, that's a core use case. You can define the capability requirements for an initiative and compare them against current organizational skills to surface exactly where the gaps are."
       },
       {
         "q": "Do employees see their own skills profile?",
-        "a": "Yes — employees can see their own skills profile and recommended development paths, which helps drive engagement with growth opportunities rather than treating skills data as HR-only."
+        "a": "Yes, employees can see their own skills profile and recommended development paths, which helps drive engagement with growth opportunities rather than treating skills data as HR-only."
       },
       {
         "q": "How is this different from a standard LMS?",
-        "a": "An LMS tracks what training was completed. Skills Intelligence goes further — mapping actual capability against business needs and recommending what to develop next, not just tracking course completion."
+        "a": "An LMS tracks what training was completed. Skills Intelligence goes further, mapping actual capability against business needs and recommending what to develop next, not just tracking course completion."
       }
     ],
     "related": [
@@ -1296,7 +1296,7 @@ export const products: Product[] = [
       "workforce-planning",
       "pre-onboarding"
     ],
-    "footerCta": "Ready to know your organization's real capability — and close the gaps that matter?"
+    "footerCta": "Ready to know your organization's real capability, and close the gaps that matter?"
   },
   {
     "slug": "leadership-intelligence",
@@ -1392,11 +1392,11 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How is leadership impact measured?",
-        "a": "By correlating each manager's team-level engagement, retention and performance trends with that manager specifically — over time, not from a single survey snapshot."
+        "a": "By correlating each manager's team-level engagement, retention and performance trends with that manager specifically, over time, not from a single survey snapshot."
       },
       {
         "q": "Is this used for punitive performance management?",
-        "a": "It's designed as a development tool to guide coaching and support, not as a standalone disciplinary mechanism — how it's used in performance decisions is a policy choice your organization should set deliberately."
+        "a": "It's designed as a development tool to guide coaching and support, not as a standalone disciplinary mechanism, how it's used in performance decisions is a policy choice your organization should set deliberately."
       },
       {
         "q": "How often does 360 feedback happen?",
@@ -1404,7 +1404,7 @@ export const products: Product[] = [
       },
       {
         "q": "Can this help us identify future leaders?",
-        "a": "Yes — high-potential identification draws on real engagement and impact data to surface emerging leaders who might otherwise be overlooked by tenure-based or self-nomination processes."
+        "a": "Yes, high-potential identification draws on real engagement and impact data to surface emerging leaders who might otherwise be overlooked by tenure-based or self-nomination processes."
       }
     ],
     "related": [
@@ -1412,7 +1412,7 @@ export const products: Product[] = [
       "workforce-planning",
       "people-analytics"
     ],
-    "footerCta": "Ready to know which leaders actually drive engagement — and develop the rest?"
+    "footerCta": "Ready to know which leaders actually drive engagement, and develop the rest?"
   },
   {
     "slug": "workforce-planning",
@@ -1421,7 +1421,7 @@ export const products: Product[] = [
     "icon": "compass",
     "mock": "dashboard",
     "heroTitle": "Plan Your Workforce with the Same Rigor as Your Budget",
-    "heroLede": "Use AI-powered forecasting to align headcount, skills and org design with business strategy — before gaps become crises.",
+    "heroLede": "Use AI-powered forecasting to align headcount, skills and org design with business strategy, before gaps become crises.",
     "challengesTitle": null,
     "challenges": [
       "Workforce planning happens in spreadsheets, disconnected from real skills or engagement data.",
@@ -1508,11 +1508,11 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "Can we model different growth or restructuring scenarios?",
-        "a": "Yes — scenario modeling lets you compare the headcount, cost and skills impact of different strategic paths side by side before committing to one."
+        "a": "Yes, scenario modeling lets you compare the headcount, cost and skills impact of different strategic paths side by side before committing to one."
       },
       {
         "q": "Does this replace our Finance headcount planning process?",
-        "a": "It's designed to complement Finance's process by giving HR and Finance a shared, data-grounded view of workforce assumptions — not to replace Finance's ownership of budget decisions."
+        "a": "It's designed to complement Finance's process by giving HR and Finance a shared, data-grounded view of workforce assumptions, not to replace Finance's ownership of budget decisions."
       },
       {
         "q": "How does skills data factor into workforce plans?",
@@ -1538,7 +1538,7 @@ export const products: Product[] = [
     "icon": "users",
     "mock": "phone",
     "heroTitle": "Stay Connected After Goodbye",
-    "heroLede": "Turn every departure into a lasting relationship — lifelong portal access, exit documents in one place, and an alumni network that brings back proven talent, referrals and revenue.",
+    "heroLede": "Turn every departure into a lasting relationship, lifelong portal access, exit documents in one place, and an alumni network that brings back proven talent, referrals and revenue.",
     "challengesTitle": "Why Alumni Deserve a Programme, Not a Farewell Email",
     "challenges": [
       "Access is switched off on the last day, and the relationship ends with it.",
@@ -1559,7 +1559,7 @@ export const products: Product[] = [
     "capabilities": [
       {
         "title": "Lifelong Portal Access",
-        "body": "Departing employees keep an account rather than losing everything at the door — a private alumni identity that holds their exit documents, service history and a live link back to the organization.",
+        "body": "Departing employees keep an account rather than losing everything at the door, a private alumni identity that holds their exit documents, service history and a live link back to the organization.",
         "bullets": [
           "Accounts convert to alumni status instead of being switched off",
           "Former employees self-serve documents without emailing HR",
@@ -1579,7 +1579,7 @@ export const products: Product[] = [
       },
       {
         "title": "Employer Branding & Boomerang Hiring",
-        "body": "Publish roles, news and milestones straight to the alumni community, and rehire people who already know the business — the fastest, lowest-risk source of proven talent you have.",
+        "body": "Publish roles, news and milestones straight to the alumni community, and rehire people who already know the business, the fastest, lowest-risk source of proven talent you have.",
         "bullets": [
           "Post open roles and company news directly to alumni",
           "Rehire proven returnees who need no cultural ramp-up",
@@ -1589,7 +1589,7 @@ export const products: Product[] = [
       },
       {
         "title": "Alumni Network & Revenue",
-        "body": "Run a real community — events, groups, mentoring and introductions — and track what it returns in referrals, client work and rehires rather than treating it as goodwill.",
+        "body": "Run a real community, events, groups, mentoring and introductions, and track what it returns in referrals, client work and rehires rather than treating it as goodwill.",
         "bullets": [
           "Communities, events and mentoring keep alumni engaged",
           "Referrals and introductions captured, attributed and rewarded",
@@ -1645,15 +1645,15 @@ export const products: Product[] = [
       },
       {
         "q": "How does boomerang hiring actually work?",
-        "a": "Open roles are published to the alumni community, and AI scores former employees against them using role history, skills, performance signals and reason for leaving — so recruiters see proven candidates first instead of starting cold with an agency."
+        "a": "Open roles are published to the alumni community, and AI scores former employees against them using role history, skills, performance signals and reason for leaving, so recruiters see proven candidates first instead of starting cold with an agency."
       },
       {
         "q": "Is alumni data handled differently from employee data?",
-        "a": "Yes. Alumni records are kept separate from your active employee data, with their own consent settings and retention rules, and alumni manage their own profile and communication preferences. Retention, export and erasure are configurable so you can map them to the obligations that apply in your regions — our team will walk through your specific requirements."
+        "a": "Yes. Alumni records are kept separate from your active employee data, with their own consent settings and retention rules, and alumni manage their own profile and communication preferences. Retention, export and erasure are configurable so you can map them to the obligations that apply in your regions, our team will walk through your specific requirements."
       },
       {
         "q": "Can we measure what the alumni programme returns?",
-        "a": "Yes — rehires, referrals, introductions and alumni-sourced revenue are tracked and reported, with benchmark comparisons against peer alumni programmes and executive-ready summaries."
+        "a": "Yes, rehires, referrals, introductions and alumni-sourced revenue are tracked and reported, with benchmark comparisons against peer alumni programmes and executive-ready summaries."
       }
     ],
     "related": [
@@ -1671,7 +1671,7 @@ export const products: Product[] = [
     "icon": "pulse",
     "mock": "dashboard",
     "heroTitle": "Listen to Your Workforce, Continuously and Intelligently",
-    "heroLede": "Run AI-powered engagement, pulse and lifecycle surveys that adapt to your organization and turn feedback into action — not just a report.",
+    "heroLede": "Run AI-powered engagement, pulse and lifecycle surveys that adapt to your organization and turn feedback into action, not just a report.",
     "challengesTitle": null,
     "challenges": [
       "Annual surveys are too infrequent to catch problems as they happen.",
@@ -1700,7 +1700,7 @@ export const products: Product[] = [
       },
       {
         "title": "Omnichannel Distribution",
-        "body": "Reach every employee — desk-based or frontline — via email, SMS, WhatsApp, Teams, Slack, or QR code, no company email required.",
+        "body": "Reach every employee, desk-based or frontline, via email, SMS, WhatsApp, Teams, Slack, or QR code, no company email required.",
         "bullets": [
           "Include frontline and deskless workers without a corporate inbox",
           "Meet employees on the channels they already use daily",
@@ -1712,7 +1712,7 @@ export const products: Product[] = [
         "title": "AI-Powered Feedback Analysis",
         "body": "Automatically cluster open-text responses into themes and sentiment, surfacing what employees are really saying without manual review.",
         "bullets": [
-          "Themes emerge automatically — no manual reading of comments",
+          "Themes emerge automatically, no manual reading of comments",
           "Sentiment scoring shows how strongly employees feel",
           "Spot what matters most in minutes, not weeks"
         ],
@@ -1720,7 +1720,7 @@ export const products: Product[] = [
       },
       {
         "title": "Connected Action Planning",
-        "body": "Turn survey insights directly into assigned, trackable action plans — closing the loop between feedback and follow-through.",
+        "body": "Turn survey insights directly into assigned, trackable action plans, closing the loop between feedback and follow-through.",
         "bullets": [
           "Every insight becomes an owned, trackable action item",
           "Employees see feedback lead to visible change",
@@ -1763,7 +1763,7 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "Can surveys reach frontline employees without a company email address?",
-        "a": "Yes — surveys can be distributed via SMS, WhatsApp, QR code or kiosk, in addition to email and workplace chat tools, so frontline and deskless employees are included without needing a corporate inbox."
+        "a": "Yes, surveys can be distributed via SMS, WhatsApp, QR code or kiosk, in addition to email and workplace chat tools, so frontline and deskless employees are included without needing a corporate inbox."
       },
       {
         "q": "How does AI reduce survey fatigue?",
@@ -1771,15 +1771,15 @@ export const products: Product[] = [
       },
       {
         "q": "Does open-text feedback get analyzed automatically?",
-        "a": "Yes — open-text responses are automatically clustered into themes and scored for sentiment, so HR doesn't need to manually read through thousands of comments to find patterns."
+        "a": "Yes, open-text responses are automatically clustered into themes and scored for sentiment, so HR doesn't need to manually read through thousands of comments to find patterns."
       },
       {
-        "q": "What happens after a survey closes — does it just produce a report?",
-        "a": "No — results feed directly into connected action planning, where specific action items can be assigned to owners and tracked, closing the loop between feedback and real follow-through rather than ending at a static report."
+        "q": "What happens after a survey closes, does it just produce a report?",
+        "a": "No, results feed directly into connected action planning, where specific action items can be assigned to owners and tracked, closing the loop between feedback and real follow-through rather than ending at a static report."
       },
       {
         "q": "Can we run different survey types (annual, pulse, lifecycle, eNPS) from the same platform?",
-        "a": "Yes — annual engagement, pulse, lifecycle (onboarding-to-exit) and eNPS surveys all run from the same platform and template library, so you're not managing multiple disconnected survey tools."
+        "a": "Yes, annual engagement, pulse, lifecycle (onboarding-to-exit) and eNPS surveys all run from the same platform and template library, so you're not managing multiple disconnected survey tools."
       }
     ],
     "related": [
@@ -1816,7 +1816,7 @@ export const products: Product[] = [
     "capabilities": [
       {
         "title": "Always-On Listening Channels",
-        "body": "Capture employee voice continuously through pulses, conversations, open feedback and lifecycle touchpoints — not just scheduled surveys.",
+        "body": "Capture employee voice continuously through pulses, conversations, open feedback and lifecycle touchpoints, not just scheduled surveys.",
         "bullets": [
           "Employee voice flows in continuously, not on a survey calendar",
           "Pulses, conversations and open feedback all feed one system",
@@ -1885,11 +1885,11 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How is continuous listening different from just running more surveys?",
-        "a": "It combines lightweight pulses, conversational feedback and lifecycle-triggered check-ins into one always-on stream, rather than repeatedly sending full-length surveys — which reduces fatigue while increasing signal."
+        "a": "It combines lightweight pulses, conversational feedback and lifecycle-triggered check-ins into one always-on stream, rather than repeatedly sending full-length surveys, which reduces fatigue while increasing signal."
       },
       {
         "q": "Won't listening this often overwhelm employees?",
-        "a": "No — the system is designed to vary channel, length and frequency intelligently, so employees experience relevant, occasional touchpoints rather than constant survey requests."
+        "a": "No, the system is designed to vary channel, length and frequency intelligently, so employees experience relevant, occasional touchpoints rather than constant survey requests."
       },
       {
         "q": "Does this replace the annual engagement survey?",
@@ -1897,7 +1897,7 @@ export const products: Product[] = [
       },
       {
         "q": "Can we listen differently at different lifecycle stages?",
-        "a": "Yes — onboarding, post-promotion, and pre-exit moments each trigger stage-appropriate listening, so feedback reflects where each employee actually is in their journey."
+        "a": "Yes, onboarding, post-promotion, and pre-exit moments each trigger stage-appropriate listening, so feedback reflects where each employee actually is in their journey."
       }
     ],
     "related": [
@@ -2004,15 +2004,15 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How does the AI categorize open-text feedback?",
-        "a": "It uses natural-language processing to cluster comments by underlying theme and meaning — grouping differently-worded comments about the same issue together rather than relying on keyword matching or manual tags."
+        "a": "It uses natural-language processing to cluster comments by underlying theme and meaning, grouping differently-worded comments about the same issue together rather than relying on keyword matching or manual tags."
       },
       {
         "q": "Can it handle feedback in multiple languages?",
-        "a": "Yes — feedback is analyzed consistently across languages so global organizations get one comparable view rather than separate, incomparable analyses per region."
+        "a": "Yes, feedback is analyzed consistently across languages so global organizations get one comparable view rather than separate, incomparable analyses per region."
       },
       {
         "q": "How does it decide which themes are most important?",
-        "a": "Themes are ranked using a combination of how often they appear, how strong the sentiment is, and their likely business impact — so a small number of intense comments isn't drowned out by routine volume."
+        "a": "Themes are ranked using a combination of how often they appear, how strong the sentiment is, and their likely business impact, so a small number of intense comments isn't drowned out by routine volume."
       },
       {
         "q": "Is the analysis a black box, or can we see why a theme was flagged?",
@@ -2120,19 +2120,19 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How does the AI know what actions to recommend?",
-        "a": "Recommendations are generated from each team's specific feedback themes and drivers, drawing on a library of proven actions — so suggestions are contextual to that team, not generic advice."
+        "a": "Recommendations are generated from each team's specific feedback themes and drivers, drawing on a library of proven actions, so suggestions are contextual to that team, not generic advice."
       },
       {
         "q": "Can we assign actions to specific owners and track them?",
-        "a": "Yes — actions become owned items with due dates, tracked to completion on a shared board, so accountability is clear and progress is visible."
+        "a": "Yes, actions become owned items with due dates, tracked to completion on a shared board, so accountability is clear and progress is visible."
       },
       {
         "q": "Can HR see which teams are acting on feedback?",
-        "a": "Yes — an accountability view shows which managers and teams are following through and which need a nudge, without HR having to chase manually."
+        "a": "Yes, an accountability view shows which managers and teams are following through and which need a nudge, without HR having to chase manually."
       },
       {
         "q": "Can we tell whether an action actually worked?",
-        "a": "Yes — the product tracks whether completed actions correlate with subsequent engagement improvement, so you can learn which interventions genuinely move the needle."
+        "a": "Yes, the product tracks whether completed actions correlate with subsequent engagement improvement, so you can learn which interventions genuinely move the needle."
       }
     ],
     "related": [
@@ -2241,7 +2241,7 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How much of our HR/IT query volume can it actually handle?",
-        "a": "A significant share of routine, repetitive queries can be automated — the exact proportion depends on how well your knowledge base is set up."
+        "a": "A significant share of routine, repetitive queries can be automated, the exact proportion depends on how well your knowledge base is set up."
       },
       {
         "q": "How does it avoid giving wrong answers?",
@@ -2253,7 +2253,7 @@ export const products: Product[] = [
       },
       {
         "q": "Can employees use it in their own language?",
-        "a": "Yes — the chat supports multilingual interaction, which is especially valuable for global and frontline workforces."
+        "a": "Yes, the chat supports multilingual interaction, which is especially valuable for global and frontline workforces."
       }
     ],
     "related": [
@@ -2271,7 +2271,7 @@ export const products: Product[] = [
     "icon": "checks",
     "mock": "phone",
     "heroTitle": "Get Everyday Work Done, Right Inside the Flow of Work",
-    "heroLede": "Assign, track and automate the tasks, approvals and workflows employees deal with daily — with AI handling the routine steps.",
+    "heroLede": "Assign, track and automate the tasks, approvals and workflows employees deal with daily, with AI handling the routine steps.",
     "challengesTitle": null,
     "challenges": [
       "Everyday tasks and approvals are scattered across email, chat and paper.",
@@ -2358,19 +2358,19 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "Can frontline employees use this without a desk or computer?",
-        "a": "Yes — the product is mobile-first, so deskless and frontline employees can receive and complete tasks directly from their phones."
+        "a": "Yes, the product is mobile-first, so deskless and frontline employees can receive and complete tasks directly from their phones."
       },
       {
         "q": "Can we automate multi-step approval workflows?",
-        "a": "Yes — a workflow builder lets you automate routine multi-step processes like requests, approvals and checklists without custom development."
+        "a": "Yes, a workflow builder lets you automate routine multi-step processes like requests, approvals and checklists without custom development."
       },
       {
         "q": "Can managers see what's overdue across their team?",
-        "a": "Yes — a manager oversight view shows completed, pending and overdue tasks at a glance, so nothing gets missed."
+        "a": "Yes, a manager oversight view shows completed, pending and overdue tasks at a glance, so nothing gets missed."
       },
       {
         "q": "Does this connect to the rest of the platform?",
-        "a": "Yes — tasks and workflows connect with communication, learning and the AI assistant, so work happens in the same environment rather than a disconnected silo."
+        "a": "Yes, tasks and workflows connect with communication, learning and the AI assistant, so work happens in the same environment rather than a disconnected silo."
       }
     ],
     "related": [
@@ -2475,15 +2475,15 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "Can frontline employees access learning without a company computer?",
-        "a": "Yes — learning is mobile-first, designed specifically so deskless and frontline workers can learn from their own phones."
+        "a": "Yes, learning is mobile-first, designed specifically so deskless and frontline workers can learn from their own phones."
       },
       {
         "q": "Do we need specialist tools to create content?",
-        "a": "No — content can be built without coding or design expertise, with AI assistance to help create and structure learning material quickly."
+        "a": "No, content can be built without coding or design expertise, with AI assistance to help create and structure learning material quickly."
       },
       {
         "q": "Can managers track training completion and compliance?",
-        "a": "Yes — managers get real-time visibility into who has completed what, supporting both development and compliance readiness."
+        "a": "Yes, managers get real-time visibility into who has completed what, supporting both development and compliance readiness."
       },
       {
         "q": "How does learning connect to skills development?",
@@ -2604,7 +2604,7 @@ export const products: Product[] = [
       },
       {
         "q": "Can we connect systems that aren't pre-built connectors?",
-        "a": "Yes — an open, documented API and webhooks allow integration with custom or niche systems beyond the pre-built connector list."
+        "a": "Yes, an open, documented API and webhooks allow integration with custom or niche systems beyond the pre-built connector list."
       },
       {
         "q": "How much IT effort does integration require?",
@@ -2716,7 +2716,7 @@ export const products: Product[] = [
       },
       {
         "q": "Can we control who sees what data?",
-        "a": "Yes — role-based access controls ensure managers, HR and executives each see only the data appropriate to their role, protecting employee confidentiality."
+        "a": "Yes, role-based access controls ensure managers, HR and executives each see only the data appropriate to their role, protecting employee confidentiality."
       },
       {
         "q": "Does Vadal.ai support data residency for global operations?",
@@ -2831,11 +2831,11 @@ export const products: Product[] = [
       },
       {
         "q": "Do we get a dedicated point of contact after go-live?",
-        "a": "Yes — a dedicated customer success partner focuses on adoption and ongoing value, so support doesn't end at deployment."
+        "a": "Yes, a dedicated customer success partner focuses on adoption and ongoing value, so support doesn't end at deployment."
       },
       {
         "q": "Do you help with employee adoption, not just technical setup?",
-        "a": "Yes — change-management guidance and resources are part of the engagement, since adoption (not just deployment) determines whether the platform delivers value."
+        "a": "Yes, change-management guidance and resources are part of the engagement, since adoption (not just deployment) determines whether the platform delivers value."
       }
     ],
     "related": [
@@ -2938,7 +2938,7 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "What kinds of questions can I ask the Copilot?",
-        "a": "Plain-language questions about your workforce — attrition risk, engagement drivers, skills gaps, sentiment trends — and it draws on data across the platform to answer, rather than requiring you to know which report to open."
+        "a": "Plain-language questions about your workforce, attrition risk, engagement drivers, skills gaps, sentiment trends, and it draws on data across the platform to answer, rather than requiring you to know which report to open."
       },
       {
         "q": "Can I trust the answers, or is it a black box?",
@@ -2946,11 +2946,11 @@ export const products: Product[] = [
       },
       {
         "q": "Do I need to be a data analyst to use it?",
-        "a": "No — the whole point is to make workforce data accessible to any leader through natural conversation, without needing analyst skills or dashboard expertise."
+        "a": "No, the whole point is to make workforce data accessible to any leader through natural conversation, without needing analyst skills or dashboard expertise."
       },
       {
         "q": "How is this different from People Analytics dashboards?",
-        "a": "Dashboards show you data to interpret; the Copilot answers your specific question directly, synthesizes across multiple data sources, and recommends next steps — interpretation and recommendation, not just display."
+        "a": "Dashboards show you data to interpret; the Copilot answers your specific question directly, synthesizes across multiple data sources, and recommends next steps, interpretation and recommendation, not just display."
       }
     ],
     "related": [
@@ -2968,7 +2968,7 @@ export const products: Product[] = [
     "icon": "bell",
     "mock": "phone",
     "heroTitle": "An AI Teammate for Every Employee and Manager",
-    "heroLede": "A proactive AI assistant that helps employees get work done and helps managers lead — surfacing what needs attention before they even ask.",
+    "heroLede": "A proactive AI assistant that helps employees get work done and helps managers lead, surfacing what needs attention before they even ask.",
     "challengesTitle": null,
     "challenges": [
       "Employees and managers are overloaded and miss what matters.",
@@ -2976,7 +2976,7 @@ export const products: Product[] = [
       "Managers lack time to analyze data and decide what to act on.",
       "Employees don't know what to prioritize day to day.",
       "Support and guidance aren't personalized or proactive.",
-      "AI in most tools is reactive — it waits to be asked."
+      "AI in most tools is reactive, it waits to be asked."
     ],
     "pillars": [
       "Proactive Assistance",
@@ -2987,7 +2987,7 @@ export const products: Product[] = [
     "capabilities": [
       {
         "title": "Proactive Nudges",
-        "body": "Surface what needs attention — an at-risk team member, an overdue action, an unrecognized win — before the user has to look.",
+        "body": "Surface what needs attention, an at-risk team member, an overdue action, an unrecognized win, before the user has to look.",
         "bullets": [
           "Important signals surfaced before anyone has to look",
           "Catch at-risk team members and overdue actions early",
@@ -3055,7 +3055,7 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How is this different from the AI Employee Chat?",
-        "a": "AI Employee Chat is reactive — it answers questions when asked. The AI Workforce Assistant is proactive — it surfaces what needs attention and guides employees and managers before they ask."
+        "a": "AI Employee Chat is reactive, it answers questions when asked. The AI Workforce Assistant is proactive, it surfaces what needs attention and guides employees and managers before they ask."
       },
       {
         "q": "What does it actually do for a manager?",
@@ -3063,11 +3063,11 @@ export const products: Product[] = [
       },
       {
         "q": "Does it work for regular employees too, not just managers?",
-        "a": "Yes — for employees it helps prioritize tasks, find information and navigate the workday; for managers it adds team-focused guidance and coaching prompts."
+        "a": "Yes, for employees it helps prioritize tasks, find information and navigate the workday; for managers it adds team-focused guidance and coaching prompts."
       },
       {
         "q": "Where does its awareness come from?",
-        "a": "It draws on context across communication, tasks, learning, engagement and sentiment — the breadth of the platform — which is what lets it be genuinely helpful rather than generic."
+        "a": "It draws on context across communication, tasks, learning, engagement and sentiment, the breadth of the platform, which is what lets it be genuinely helpful rather than generic."
       }
     ],
     "related": [

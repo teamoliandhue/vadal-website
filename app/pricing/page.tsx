@@ -8,7 +8,7 @@ import { type IconName } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Pricing tailored to your organization's size and scope — every plan includes AI-powered surveys, analytics, action planning and enterprise-grade security. Talk to sales for a quote.",
+    "Pricing tailored to your organization's size and scope, every plan includes AI-powered surveys, analytics, action planning and enterprise-grade security. Talk to sales for a quote.",
 };
 
 // Enterprise-style pricing (category norm: quote-based, segmented by size)
@@ -60,7 +60,7 @@ const INCLUDED = [
 const PRICING_FAQS = [
   {
     q: "How is Vadal.ai priced?",
-    a: "Per employee, per month — shaped by your organization's size, the modules you need and the depth of intelligence you want. Talk to sales for a quote tailored to your workforce; most teams have one within 48 hours.",
+    a: "Per employee, per month, shaped by your organization's size, the modules you need and the depth of intelligence you want. Talk to sales for a quote tailored to your workforce; most teams have one within 48 hours.",
   },
   {
     q: "Is there a minimum contract?",
@@ -86,7 +86,7 @@ export default function PricingPage() {
             eyebrow="Pricing"
             as="h1"
             title="Pricing that fits your workforce"
-            lede="Every organization's workforce — and ambition — is different. Tell us yours and we'll shape a plan around it, with a quote in 48 hours."
+            lede="Every organization's workforce, and ambition, is different. Tell us yours and we'll shape a plan around it, with a quote in 48 hours."
           />
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button href="/demo" size="lg" icon>

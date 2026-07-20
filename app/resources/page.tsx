@@ -24,7 +24,7 @@ const featured = [
 ];
 
 const posts = [
-  "Why engagement surveys fail — and 5 ways to fix them",
+  "Why engagement surveys fail, and 5 ways to fix them",
   "Continuous listening: beyond the annual survey",
   "Pulse surveys vs. annual surveys: what modern teams need",
   "What your eNPS is really telling you",
@@ -90,7 +90,7 @@ export default function ResourcesPage() {
         <Container>
           <div className="overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line)] bg-[var(--card)] p-8 text-center sm:p-12">
             <h2 className="display-md mx-auto max-w-lg font-extrabold">Get engagement ideas in your inbox</h2>
-            <p className="mx-auto mt-3 max-w-md text-[15px] text-[var(--muted)]">No spam — just the occasional useful thing for people teams.</p>
+            <p className="mx-auto mt-3 max-w-md text-[15px] text-[var(--muted)]">No spam, just the occasional useful thing for people teams.</p>
             <NewsletterForm />
           </div>
         </Container>

@@ -19,7 +19,7 @@ export default function TermsPage() {
         { heading: "Intellectual property", body: ["Vadal and its licensors own the platform, brand and content we provide. You retain ownership of the content your organisation creates within the platform."] },
         { heading: "Availability & changes", body: ["We work to keep the service available and may update features over time. We may modify these Terms; material changes will be communicated."] },
         { heading: "Disclaimers & liability", body: ["The website is provided on an \"as is\" basis to the extent permitted by law. Commercial warranties and liability are set out in your organisation's agreement with Vadal."] },
-        { heading: "Governing law", body: ["These Terms are governed by the laws stated in your organisation's agreement, or otherwise by the laws applicable to Vadal's place of business. (Placeholder for this build — confirm with counsel.)"] },
+        { heading: "Governing law", body: ["These Terms are governed by the laws stated in your organisation's agreement, or otherwise by the laws applicable to Vadal's place of business. (Placeholder for this build, confirm with counsel.)"] },
       ]}
     />
   );

@@ -111,7 +111,7 @@ export function AnalyticsSection() {
               {/* the real Analytics screen from the product build */}
               <img
                 src="/product/analytics.webp"
-                alt="The Analytics screen in the Vadal.ai product — engagement, participation and attrition-risk metrics with team breakdown"
+                alt="The Analytics screen in the Vadal.ai product, engagement, participation and attrition-risk metrics with team breakdown"
                 width={1600}
                 height={1000}
                 loading="lazy"

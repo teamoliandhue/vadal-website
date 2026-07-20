@@ -7,7 +7,7 @@ import { scienceMenu } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Science",
   description:
-    "Feedback grounded in AI-powered intelligence — the people science, methodology, workforce intelligence, technology platform and predictive benchmarks behind Vadal.ai.",
+    "Feedback grounded in AI-powered intelligence, the people science, methodology, workforce intelligence, technology platform and predictive benchmarks behind Vadal.ai.",
 };
 
 // Fuller narratives behind each science pillar (anchors match the mega-menu)
@@ -15,31 +15,31 @@ const SECTIONS = [
   {
     id: "people-science",
     name: "People Science & AI",
-    body: "Great workforce decisions start with rigorous people science — validated constructs, tested question design and organizational psychology. Vadal.ai pairs that foundation with modern AI, so the models don't just describe how your people feel today: they predict how engagement, wellbeing and performance will move, and what will move them.",
+    body: "Great workforce decisions start with rigorous people science, validated constructs, tested question design and organizational psychology. Vadal.ai pairs that foundation with modern AI, so the models don't just describe how your people feel today: they predict how engagement, wellbeing and performance will move, and what will move them.",
     icon: "users",
   },
   {
     id: "methodology",
     name: "AI-Driven Methodology",
-    body: "Behind every insight is an intelligent framework: continuous listening feeds predictive models; models generate explainable recommendations; recommendations become owned, tracked actions. Score → Insight → Action → Impact — a loop, not a report.",
+    body: "Behind every insight is an intelligent framework: continuous listening feeds predictive models; models generate explainable recommendations; recommendations become owned, tracked actions. Score → Insight → Action → Impact, a loop, not a report.",
     icon: "checks",
   },
   {
     id: "workforce-intelligence",
     name: "Workforce Intelligence",
-    body: "Employee feedback, performance data and organizational metrics are noisy on their own. Vadal.ai fuses them into clear, predictive workforce insights — engagement drivers, attrition risk, leadership effectiveness and team health — quantified, benchmarked and ranked by business impact.",
+    body: "Employee feedback, performance data and organizational metrics are noisy on their own. Vadal.ai fuses them into clear, predictive workforce insights, engagement drivers, attrition risk, leadership effectiveness and team health, quantified, benchmarked and ranked by business impact.",
     icon: "chart",
   },
   {
     id: "platform",
     name: "AI Technology Platform",
-    body: "One unified platform integrates workforce data, AI analytics and predictive decision intelligence — with enterprise-grade security, responsible AI governance and explainability built in. No black boxes: every recommendation can show its work.",
+    body: "One unified platform integrates workforce data, AI analytics and predictive decision intelligence, with enterprise-grade security, responsible AI governance and explainability built in. No black boxes: every recommendation can show its work.",
     icon: "spark",
   },
   {
     id: "benchmarks",
     name: "Predictive Industry Benchmarks",
-    body: "Static annual benchmarks age fast. Vadal.ai builds dynamic, AI-powered benchmarks across industries, functions and regions — so you always know where you stand, where you're heading, and how the leaders in your category got there.",
+    body: "Static annual benchmarks age fast. Vadal.ai builds dynamic, AI-powered benchmarks across industries, functions and regions, so you always know where you stand, where you're heading, and how the leaders in your category got there.",
     icon: "globe",
   },
 ] as const;
@@ -60,7 +60,7 @@ export default function SciencePage() {
               <span className="aurora-text">AI-powered intelligence</span>
             </h1>
             <p className="max-w-xl text-[18px] leading-relaxed text-[var(--muted)]">
-              {scienceMenu.items.map((i) => i.name).join(" · ")} — the thinking that turns
+              {scienceMenu.items.map((i) => i.name).join(" · ")}, the thinking that turns
               employee feedback into confident business decisions.
             </p>
             <Button href="/demo" size="lg" icon>
@@ -98,7 +98,7 @@ export default function SciencePage() {
           <SectionHead
             eyebrow="Put it to work"
             title="Science is only useful when it changes a decision"
-            lede="Bring your questions — we'll show you the models, the methodology and what they'd say about your workforce."
+            lede="Bring your questions, we'll show you the models, the methodology and what they'd say about your workforce."
           />
           <div className="mt-8 flex justify-center">
             <Button href="/demo" size="lg" icon>

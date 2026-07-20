@@ -45,7 +45,7 @@ export const productPages: ProductPage[] = [
     heroEyebrow: "Intelligent Workforce Engagement Surveys",
     heroTitle: "Engagement surveys that end in decisions, not dashboards",
     heroLede:
-      "Design, deploy and measure AI-powered engagement surveys that turn honest employee feedback into actionable workforce intelligence — tailored to your culture, your priorities and the decisions you actually need to make.",
+      "Design, deploy and measure AI-powered engagement surveys that turn honest employee feedback into actionable workforce intelligence, tailored to your culture, your priorities and the decisions you actually need to make.",
     heroChecks: [
       "Research-backed template library",
       "AI-assisted survey design & targeting",
@@ -53,26 +53,26 @@ export const productPages: ProductPage[] = [
       "Insights ranked by business impact",
     ],
     steps: [
-      { title: "Design", body: "Start from expert templates covering engagement, wellbeing, leadership, DEI and more — or let AI draft questions around your priorities." },
+      { title: "Design", body: "Start from expert templates covering engagement, wellbeing, leadership, DEI and more, or let AI draft questions around your priorities." },
       { title: "Listen", body: "Launch across web, mobile, email, SMS and QR, in 150+ languages, with anonymity protection built in." },
-      { title: "Analyze", body: "AI reads every response — scores, drivers, sentiment and verbatims — and ranks what matters most." },
+      { title: "Analyze", body: "AI reads every response, scores, drivers, sentiment and verbatims, and ranks what matters most." },
       { title: "Act", body: "Every insight becomes an owned action plan with progress tracking, so surveys change things." },
     ],
     features: [
       {
         eyebrow: "Intelligent programs",
         title: "Programs tailored to your culture",
-        body: "Design engagement, pulse and lifecycle surveys around your organization's unique culture and business priorities — not a vendor's fixed questionnaire.",
+        body: "Design engagement, pulse and lifecycle surveys around your organization's unique culture and business priorities, not a vendor's fixed questionnaire.",
         bullets: [
           "Customize every template to your goals and language",
           "Target by team, site, tenure, role or any segment",
-          "Schedule once — AI handles reminders and follow-ups",
+          "Schedule once, AI handles reminders and follow-ups",
         ],
       },
       {
         eyebrow: "Signal, not noise",
         title: "From responses to ranked priorities",
-        body: "Vadal.ai doesn't stop at a score. Driver analysis, AI sentiment and benchmark context show which levers will move engagement — and which can wait.",
+        body: "Vadal.ai doesn't stop at a score. Driver analysis, AI sentiment and benchmark context show which levers will move engagement, and which can wait.",
         bullets: [
           "Driver analysis tied to retention and performance",
           "AI summaries of thousands of open-text comments",
@@ -87,7 +87,7 @@ export const productPages: ProductPage[] = [
     ],
     testimonial: {
       quote:
-        "Our first Vadal.ai engagement survey hit 84% participation across 4,000 employees in five languages — and for the first time, every manager left with an action plan, not just a PDF.",
+        "Our first Vadal.ai engagement survey hit 84% participation across 4,000 employees in five languages, and for the first time, every manager left with an action plan, not just a PDF.",
       name: "Priya Raman",
       role: "Head of People Analytics",
       company: "Cobalt Finance",
@@ -96,11 +96,11 @@ export const productPages: ProductPage[] = [
     faqs: [
       {
         q: "How is this different from a free survey tool?",
-        a: "Free tools collect answers; Vadal.ai produces decisions. Research-backed question design, driver analysis, AI sentiment, benchmarks and action planning are built in — so the output isn't a spreadsheet of responses, it's a ranked list of what to do next, with owners and progress tracking.",
+        a: "Free tools collect answers; Vadal.ai produces decisions. Research-backed question design, driver analysis, AI sentiment, benchmarks and action planning are built in, so the output isn't a spreadsheet of responses, it's a ranked list of what to do next, with owners and progress tracking.",
       },
       {
         q: "Can we customize the survey templates?",
-        a: "Fully. Start from the expert library — engagement, wellbeing, onboarding, leadership, DEI, culture, learning and lifecycle events — then adapt questions, scales, languages and targeting to your organization. AI can also draft questions around a specific priority.",
+        a: "Fully. Start from the expert library, engagement, wellbeing, onboarding, leadership, DEI, culture, learning and lifecycle events, then adapt questions, scales, languages and targeting to your organization. AI can also draft questions around a specific priority.",
       },
       {
         q: "How do you keep responses honest?",
@@ -120,7 +120,7 @@ export const productPages: ProductPage[] = [
     heroEyebrow: "Continuous Employee Listening",
     heroTitle: "Listening that never stops at the annual survey",
     heroLede:
-      "Gather employee feedback continuously across every channel — surveys, pulse checks, feedback portals, recognition and AI conversations — and understand workforce sentiment as it changes, not twelve months later.",
+      "Gather employee feedback continuously across every channel, surveys, pulse checks, feedback portals, recognition and AI conversations, and understand workforce sentiment as it changes, not twelve months later.",
     heroChecks: [
       "Always-on, multi-channel listening",
       "Lifecycle triggers on employee milestones",
@@ -128,8 +128,8 @@ export const productPages: ProductPage[] = [
       "Anonymous channels employees trust",
     ],
     steps: [
-      { title: "Connect", body: "Turn on listening channels across the moments that matter — scheduled, triggered and always-on." },
-      { title: "Capture", body: "Feedback flows in from surveys, portals, recognition and AI conversations — every voice, every format." },
+      { title: "Connect", body: "Turn on listening channels across the moments that matter, scheduled, triggered and always-on." },
+      { title: "Capture", body: "Feedback flows in from surveys, portals, recognition and AI conversations, every voice, every format." },
       { title: "Understand", body: "AI sentiment and theme detection turn a stream of signals into a live picture of workforce health." },
       { title: "Respond", body: "Close the loop with two-way (even anonymous) conversations, so people see their voice lands." },
     ],
@@ -162,7 +162,7 @@ export const productPages: ProductPage[] = [
     ],
     testimonial: {
       quote:
-        "We went from one survey a year to listening at every milestone. Exit-interview surprises basically ended — by the time someone's at risk, we've usually already heard it and acted.",
+        "We went from one survey a year to listening at every milestone. Exit-interview surprises basically ended, by the time someone's at risk, we've usually already heard it and acted.",
       name: "Elena Vasquez",
       role: "VP Employee Experience",
       company: "Verdant Hospitality",
@@ -171,11 +171,11 @@ export const productPages: ProductPage[] = [
     faqs: [
       {
         q: "Won't continuous listening cause survey fatigue?",
-        a: "The opposite, when done right. Instead of one 60-question annual survey, employees get short, relevant check-ins at moments that matter to them — and AI throttles frequency per person, so nobody is over-asked. Fatigue comes from being asked and ignored; closing the loop is the cure.",
+        a: "The opposite, when done right. Instead of one 60-question annual survey, employees get short, relevant check-ins at moments that matter to them, and AI throttles frequency per person, so nobody is over-asked. Fatigue comes from being asked and ignored; closing the loop is the cure.",
       },
       {
         q: "Which channels can feedback come from?",
-        a: "Scheduled and triggered surveys, always-on feedback portals, recognition signals, lifecycle touchpoints and AI-assisted conversations — across web, mobile, email, SMS and QR. Everything lands in one sentiment picture.",
+        a: "Scheduled and triggered surveys, always-on feedback portals, recognition signals, lifecycle touchpoints and AI-assisted conversations, across web, mobile, email, SMS and QR. Everything lands in one sentiment picture.",
       },
       {
         q: "How do anonymous conversations work?",
@@ -193,9 +193,9 @@ export const productPages: ProductPage[] = [
     icon: "spark",
     mock: "dashboard",
     heroEyebrow: "Actionable Workforce Intelligence",
-    heroTitle: "From feedback to AI-driven action — with owners and outcomes",
+    heroTitle: "From feedback to AI-driven action, with owners and outcomes",
     heroLede:
-      "Turn feedback, workforce data and organizational insight into AI-powered recommendations. Prioritize the actions that improve engagement and performance, assign ownership, and watch impact land — Score → Insight → Action → Impact.",
+      "Turn feedback, workforce data and organizational insight into AI-powered recommendations. Prioritize the actions that improve engagement and performance, assign ownership, and watch impact land, Score → Insight → Action → Impact.",
     heroChecks: [
       "AI-generated action recommendations",
       "Ownership, deadlines & progress tracking",
@@ -204,7 +204,7 @@ export const productPages: ProductPage[] = [
     ],
     steps: [
       { title: "Score", body: "Engagement, sentiment and workforce health quantified continuously across every team." },
-      { title: "Insight", body: "AI explains the why — drivers, risks and opportunities, ranked by business impact." },
+      { title: "Insight", body: "AI explains the why, drivers, risks and opportunities, ranked by business impact." },
       { title: "Action", body: "Recommended plays become owned action plans with deadlines and collaboration built in." },
       { title: "Impact", body: "Scores are re-measured against the actions taken, so you know what actually worked." },
     ],
@@ -212,7 +212,7 @@ export const productPages: ProductPage[] = [
       {
         eyebrow: "AI action planning",
         title: "Recommendations, not homework",
-        body: "Every insight arrives with suggested actions drawn from what has worked in comparable teams — managers pick, adapt and commit rather than starting from a blank page.",
+        body: "Every insight arrives with suggested actions drawn from what has worked in comparable teams, managers pick, adapt and commit rather than starting from a blank page.",
         bullets: [
           "AI-generated plans tuned to each team's drivers",
           "Ownership and accountability at every level",
@@ -222,7 +222,7 @@ export const productPages: ProductPage[] = [
       {
         eyebrow: "Decision intelligence",
         title: "Ask the copilot, decide with confidence",
-        body: "Leaders ask workforce questions in natural language and get AI-powered answers, predictions and scenario guidance — grounded in your own organization's data.",
+        body: "Leaders ask workforce questions in natural language and get AI-powered answers, predictions and scenario guidance, grounded in your own organization's data.",
         bullets: [
           "Natural-language Q&A over workforce data",
           "Predictive recommendations and scenario guidance",
@@ -248,11 +248,11 @@ export const productPages: ProductPage[] = [
     faqs: [
       {
         q: "Where do the AI recommendations come from?",
-        a: "From your own data first — each team's drivers, history and context — combined with patterns from comparable teams and validated people-science interventions. Every recommendation is explainable: you can always see why it was suggested.",
+        a: "From your own data first, each team's drivers, history and context, combined with patterns from comparable teams and validated people-science interventions. Every recommendation is explainable: you can always see why it was suggested.",
       },
       {
         q: "Who owns an action plan?",
-        a: "Whoever should — a manager, an HR partner, a site lead or an executive sponsor. Plans carry owners, deadlines, collaborators and progress states, and roll up so leadership sees execution across the whole organization.",
+        a: "Whoever should, a manager, an HR partner, a site lead or an executive sponsor. Plans carry owners, deadlines, collaborators and progress states, and roll up so leadership sees execution across the whole organization.",
       },
       {
         q: "How do you measure whether actions worked?",
@@ -272,7 +272,7 @@ export const productPages: ProductPage[] = [
     heroEyebrow: "AI-Driven People Analytics",
     heroTitle: "People analytics your board can act on",
     heroLede:
-      "Leverage predictive workforce analytics, AI-powered dashboards and business intelligence to uncover trends, identify risks and align workforce strategies with organizational goals — from team heatmaps to executive-ready reports.",
+      "Leverage predictive workforce analytics, AI-powered dashboards and business intelligence to uncover trends, identify risks and align workforce strategies with organizational goals, from team heatmaps to executive-ready reports.",
     heroChecks: [
       "Predictive attrition & risk models",
       "Benchmarks across teams and industry",
@@ -299,7 +299,7 @@ export const productPages: ProductPage[] = [
       {
         eyebrow: "Enterprise reporting",
         title: "From heatmap to boardroom in one click",
-        body: "Generate presentation-ready reports covering engagement, workforce analytics and talent trends — customized for CEOs, CHROs, managers and business leaders.",
+        body: "Generate presentation-ready reports covering engagement, workforce analytics and talent trends, customized for CEOs, CHROs, managers and business leaders.",
         bullets: [
           "AI-written executive summaries of any view",
           "Excel, CSV and PDF exports on demand",
@@ -349,7 +349,7 @@ export const productPages: ProductPage[] = [
     heroEyebrow: "AI-Powered Pulse Engagement Surveys",
     heroTitle: "Pulse surveys that predict, not just poll",
     heroLede:
-      "Frequent, intelligent pulse checks that track engagement in real time and predict emerging workforce trends — two minutes for the employee, an early-warning system for you.",
+      "Frequent, intelligent pulse checks that track engagement in real time and predict emerging workforce trends, two minutes for the employee, an early-warning system for you.",
     heroChecks: [
       "2-minute, mobile-first check-ins",
       "AI-tuned frequency per person",
@@ -357,10 +357,10 @@ export const productPages: ProductPage[] = [
       "Manager alerts on meaningful shifts",
     ],
     steps: [
-      { title: "Schedule", body: "Set the cadence — weekly, biweekly, monthly — or let AI adapt per team and person." },
+      { title: "Schedule", body: "Set the cadence, weekly, biweekly, monthly, or let AI adapt per team and person." },
       { title: "Check in", body: "Short, rotating question sets on mobile, in 150+ languages, closed in under two minutes." },
       { title: "Track", body: "Live trendlines per team and driver, with anomalies flagged as they emerge." },
-      { title: "Intervene", body: "Managers get alerts and suggested plays when a trend needs attention — before it becomes attrition." },
+      { title: "Intervene", body: "Managers get alerts and suggested plays when a trend needs attention, before it becomes attrition." },
     ],
     features: [
       {
@@ -376,7 +376,7 @@ export const productPages: ProductPage[] = [
       {
         eyebrow: "Predictive pulse",
         title: "An early-warning system for engagement risk",
-        body: "Vadal.ai's models read pulse patterns to flag disengagement, attrition risk and emerging challenges early — so managers act proactively, not post-mortem.",
+        body: "Vadal.ai's models read pulse patterns to flag disengagement, attrition risk and emerging challenges early, so managers act proactively, not post-mortem.",
         bullets: [
           "Risk flags with contributing drivers",
           "Suggested actions matched to the pattern",
@@ -402,11 +402,11 @@ export const productPages: ProductPage[] = [
     faqs: [
       {
         q: "How often should we pulse?",
-        a: "Most organizations land on biweekly or monthly. Vadal.ai's AI can also adapt frequency per team — pulsing more during change, less during stable periods — and throttles per person so no one is over-surveyed.",
+        a: "Most organizations land on biweekly or monthly. Vadal.ai's AI can also adapt frequency per team, pulsing more during change, less during stable periods, and throttles per person so no one is over-surveyed.",
       },
       {
         q: "Are pulse results comparable to our annual survey?",
-        a: "Yes — pulse items are drawn from the same validated constructs, so trendlines and annual deep-dives speak the same language. Many customers keep one annual survey and let pulses carry the rest of the year.",
+        a: "Yes, pulse items are drawn from the same validated constructs, so trendlines and annual deep-dives speak the same language. Many customers keep one annual survey and let pulses carry the rest of the year.",
       },
       {
         q: "Can employees answer anonymously?",
@@ -426,7 +426,7 @@ export const productPages: ProductPage[] = [
     heroEyebrow: "Lifecycle Intelligence Engagement Surveys",
     heroTitle: "Feedback at every milestone, onboarding to offboarding",
     heroLede:
-      "Gather feedback at the moments that shape the employee experience — day one, week six, promotion, manager change, exit — and optimize the entire lifecycle with journey analytics.",
+      "Gather feedback at the moments that shape the employee experience, day one, week six, promotion, manager change, exit, and optimize the entire lifecycle with journey analytics.",
     heroChecks: [
       "Automated milestone triggers",
       "Onboarding, stay & exit templates",
@@ -434,16 +434,16 @@ export const productPages: ProductPage[] = [
       "Cohort comparisons over time",
     ],
     steps: [
-      { title: "Map", body: "Choose the milestones that matter — from pre-boarding to exit — with templates for each." },
+      { title: "Map", body: "Choose the milestones that matter, from pre-boarding to exit, with templates for each." },
       { title: "Trigger", body: "HRIS-driven automation sends the right survey to the right person at exactly the right moment." },
-      { title: "Compare", body: "Journey analytics show where experience dips — by stage, cohort, site or manager." },
+      { title: "Compare", body: "Journey analytics show where experience dips, by stage, cohort, site or manager." },
       { title: "Fix", body: "Turn stage-level insight into owned improvements, and watch the next cohort score higher." },
     ],
     features: [
       {
         eyebrow: "The journey, measured",
         title: "Find exactly where experience breaks",
-        body: "Aggregate lifecycle feedback reveals the stage where sentiment dips — the week-six cliff, the post-promotion slump, the pre-exit drift — so you fix the journey, not just the symptom.",
+        body: "Aggregate lifecycle feedback reveals the stage where sentiment dips, the week-six cliff, the post-promotion slump, the pre-exit drift, so you fix the journey, not just the symptom.",
         bullets: [
           "Stage-by-stage experience scoring",
           "Cohort and location comparisons",
@@ -453,7 +453,7 @@ export const productPages: ProductPage[] = [
       {
         eyebrow: "Exit intelligence",
         title: "Learn from every goodbye",
-        body: "Structured exit surveys plus AI theme analysis turn departures into a clear picture of why people really leave — and which exits were preventable.",
+        body: "Structured exit surveys plus AI theme analysis turn departures into a clear picture of why people really leave, and which exits were preventable.",
         bullets: [
           "Preventable-exit classification",
           "Regrettable-loss tracking by team",
@@ -479,7 +479,7 @@ export const productPages: ProductPage[] = [
     faqs: [
       {
         q: "Which milestones can trigger a survey?",
-        a: "Any event your HRIS knows about: offer acceptance, day one, week six, probation end, promotion, manager change, parental leave return, work anniversaries and exit — plus custom events via API.",
+        a: "Any event your HRIS knows about: offer acceptance, day one, week six, probation end, promotion, manager change, parental leave return, work anniversaries and exit, plus custom events via API.",
       },
       {
         q: "Do lifecycle surveys replace engagement surveys?",
@@ -487,7 +487,7 @@ export const productPages: ProductPage[] = [
       },
       {
         q: "How does exit feedback stay honest?",
-        a: "Exit surveys can be answered anonymously with publication delayed and aggregated, so departing employees can be candid without burning bridges — which is exactly when you learn the most.",
+        a: "Exit surveys can be answered anonymously with publication delayed and aggregated, so departing employees can be candid without burning bridges, which is exactly when you learn the most.",
       },
     ],
     related: ["engagement-surveys", "pulse-surveys", "employee-listening"],
@@ -501,7 +501,7 @@ export const productPages: ProductPage[] = [
     icon: "heart",
     mock: "dashboard",
     heroEyebrow: "Predictive eNPS Analytics",
-    heroTitle: "eNPS that explains itself — and predicts what's next",
+    heroTitle: "eNPS that explains itself, and predicts what's next",
     heroLede:
       "Track employee loyalty with AI that goes beyond the score: understand the drivers behind your eNPS, benchmark it across teams and time, and predict where advocacy is heading before it moves.",
     heroChecks: [
@@ -512,7 +512,7 @@ export const productPages: ProductPage[] = [
     ],
     steps: [
       { title: "Ask", body: "The classic question plus AI-chosen follow-ups that capture the why behind the number." },
-      { title: "Segment", body: "Scores by team, site, tenure and role — with anonymity thresholds protecting every cut." },
+      { title: "Segment", body: "Scores by team, site, tenure and role, with anonymity thresholds protecting every cut." },
       { title: "Explain", body: "AI clusters promoter and detractor themes so you know exactly what creates or kills advocacy." },
       { title: "Predict", body: "Trend models forecast where eNPS is heading per segment, and what would change the trajectory." },
     ],
@@ -520,7 +520,7 @@ export const productPages: ProductPage[] = [
       {
         eyebrow: "Beyond the number",
         title: "The why behind every score",
-        body: "An eNPS without drivers is a mood ring. Vadal.ai combines the score with engagement, recognition and feedback signals to show what's actually driving loyalty — and what to do about it.",
+        body: "An eNPS without drivers is a mood ring. Vadal.ai combines the score with engagement, recognition and feedback signals to show what's actually driving loyalty, and what to do about it.",
         bullets: [
           "Driver correlation with engagement factors",
           "AI theme clustering of open-text comments",
@@ -545,7 +545,7 @@ export const productPages: ProductPage[] = [
     ],
     testimonial: {
       quote:
-        "Our eNPS was 'fine' until the driver analysis showed detractors were all about scheduling. We fixed rotas in two regions and the score jumped 24 points — referrals followed.",
+        "Our eNPS was 'fine' until the driver analysis showed detractors were all about scheduling. We fixed rotas in two regions and the score jumped 24 points, referrals followed.",
       name: "Thomas Byfield",
       role: "HR Business Partner",
       company: "Harbor & Co.",
@@ -554,11 +554,11 @@ export const productPages: ProductPage[] = [
     faqs: [
       {
         q: "How often should we measure eNPS?",
-        a: "Quarterly is the sweet spot for most organizations — frequent enough to see movement, spaced enough to act between reads. Vadal.ai can also run it continuously on a rolling sample so you get a live score without over-asking.",
+        a: "Quarterly is the sweet spot for most organizations, frequent enough to see movement, spaced enough to act between reads. Vadal.ai can also run it continuously on a rolling sample so you get a live score without over-asking.",
       },
       {
         q: "What's a good eNPS?",
-        a: "It varies by industry and workforce mix, which is why the number alone misleads. Vadal.ai benchmarks your score against comparable organizations and — more importantly — tracks your own trajectory and its drivers.",
+        a: "It varies by industry and workforce mix, which is why the number alone misleads. Vadal.ai benchmarks your score against comparable organizations and, more importantly, tracks your own trajectory and its drivers.",
       },
       {
         q: "Can detractors be followed up without breaking anonymity?",
@@ -578,7 +578,7 @@ export const productPages: ProductPage[] = [
     heroEyebrow: "Confidential Feedback Channels",
     heroTitle: "Honest feedback needs a safe front door",
     heroLede:
-      "Offer anonymous, secure channels for the feedback that never reaches a named survey — with enterprise-grade privacy, configurable anonymity thresholds and two-way conversations that keep trust intact.",
+      "Offer anonymous, secure channels for the feedback that never reaches a named survey, with enterprise-grade privacy, configurable anonymity thresholds and two-way conversations that keep trust intact.",
     heroChecks: [
       "Always-on anonymous feedback portal",
       "Configurable anonymity thresholds",
@@ -586,16 +586,16 @@ export const productPages: ProductPage[] = [
       "Two-way anonymous conversations",
     ],
     steps: [
-      { title: "Open", body: "An always-on, branded channel where anyone can raise anything — ideas, concerns, questions." },
+      { title: "Open", body: "An always-on, branded channel where anyone can raise anything, ideas, concerns, questions." },
       { title: "Protect", body: "Anonymity thresholds, intelligent aggregation and PII masking enforce privacy by architecture." },
-      { title: "Triage", body: "AI classifies and routes submissions — praise, ideas, grievances, safety — to the right owner." },
+      { title: "Triage", body: "AI classifies and routes submissions, praise, ideas, grievances, safety, to the right owner." },
       { title: "Resolve", body: "Owners respond through anonymous two-way threads; employees see action, trust compounds." },
     ],
     features: [
       {
         eyebrow: "Privacy by architecture",
         title: "Protection employees can verify",
-        body: "Anonymity isn't a promise in a policy document — it's enforced by the platform. Thresholds, aggregation and AI-powered PII masking make identification impossible, and employees can see it.",
+        body: "Anonymity isn't a promise in a policy document, it's enforced by the platform. Thresholds, aggregation and AI-powered PII masking make identification impossible, and employees can see it.",
         bullets: [
           "Min-N thresholds on every report and cut",
           "AI detection and masking of identifying details",
@@ -605,7 +605,7 @@ export const productPages: ProductPage[] = [
       {
         eyebrow: "From vent to fixed",
         title: "Feedback that goes somewhere",
-        body: "Anonymous doesn't mean unanswerable. Routed ownership, SLAs and two-way threads mean every submission gets a response — the single biggest driver of psychological safety.",
+        body: "Anonymous doesn't mean unanswerable. Routed ownership, SLAs and two-way threads mean every submission gets a response, the single biggest driver of psychological safety.",
         bullets: [
           "Automatic routing by topic and severity",
           "Response SLAs with escalation paths",
@@ -620,7 +620,7 @@ export const productPages: ProductPage[] = [
     ],
     testimonial: {
       quote:
-        "The things that matter most were exactly the things nobody would put their name to. Within a quarter we'd surfaced three times more issues — and answered 9 in 10 of them.",
+        "The things that matter most were exactly the things nobody would put their name to. Within a quarter we'd surfaced three times more issues, and answered 9 in 10 of them.",
       name: "Rebecca Stone",
       role: "Internal Communications Coordinator",
       company: "Summit Health",
@@ -629,15 +629,15 @@ export const productPages: ProductPage[] = [
     faqs: [
       {
         q: "Can managers ever see who said what?",
-        a: "No. Anonymity is enforced by the platform's architecture — thresholds, aggregation and masking — not by trust in an admin. Even Vadal.ai support cannot de-anonymize a submission.",
+        a: "No. Anonymity is enforced by the platform's architecture, thresholds, aggregation and masking, not by trust in an admin. Even Vadal.ai support cannot de-anonymize a submission.",
       },
       {
         q: "What stops abuse of an anonymous channel?",
-        a: "AI moderation flags abusive content before routing, and structured categories nudge feedback toward specifics. In practice, organizations see overwhelmingly constructive use — people want problems fixed, and this is the safest way to say them.",
+        a: "AI moderation flags abusive content before routing, and structured categories nudge feedback toward specifics. In practice, organizations see overwhelmingly constructive use, people want problems fixed, and this is the safest way to say them.",
       },
       {
         q: "How does two-way anonymous conversation work?",
-        a: "Responders reply into the thread without ever seeing the author. The employee gets notified privately, can continue the conversation, and can choose to identify themselves at any point — it's always their call.",
+        a: "Responders reply into the thread without ever seeing the author. The employee gets notified privately, can continue the conversation, and can choose to identify themselves at any point, it's always their call.",
       },
     ],
     related: ["employee-listening", "engagement-surveys", "pulse-surveys"],

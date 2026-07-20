@@ -15,11 +15,11 @@ export const metadata: Metadata = {
   // apex is canonical — www 308-redirects to it
   metadataBase: new URL("https://vadal.ai"),
   title: {
-    default: "Vadal.ai — AI-powered workforce engagement & decision intelligence",
+    default: "Vadal.ai, AI-powered workforce engagement & decision intelligence",
     template: "%s · Vadal.ai",
   },
   description:
-    "Vadal.ai unifies workforce engagement, talent, leadership and organizational data into AI-powered decision intelligence — so CEOs, CHROs and business leaders can predict risks, uncover opportunities and act with confidence. Score → Insight → Action → Impact.",
+    "Vadal.ai unifies workforce engagement, talent, leadership and organizational data into AI-powered decision intelligence, so CEOs, CHROs and business leaders can predict risks, uncover opportunities and act with confidence. Score → Insight → Action → Impact.",
   keywords: [
     "employee engagement platform",
     "workforce intelligence",
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     "attrition prediction",
   ],
   openGraph: {
-    title: "Vadal.ai — transform workforce experiences across the employee lifecycle",
+    title: "Vadal.ai, transform workforce experiences across the employee lifecycle",
     description:
-      "Go beyond engagement — lead with intelligence. AI-powered surveys, workforce analytics, action planning and enterprise-grade security, on one platform.",
+      "Go beyond engagement, lead with intelligence. AI-powered surveys, workforce analytics, action planning and enterprise-grade security, on one platform.",
     type: "website",
     siteName: "Vadal.ai",
     images: [
@@ -41,15 +41,15 @@ export const metadata: Metadata = {
         url: "/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Vadal.ai — Lead your workforce with intelligence",
+        alt: "Vadal.ai, Lead your workforce with intelligence",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vadal.ai — Lead your workforce with intelligence",
+    title: "Vadal.ai, Lead your workforce with intelligence",
     description:
-      "Go beyond engagement — lead with intelligence. AI-powered surveys, workforce analytics, action planning and enterprise-grade security, on one platform.",
+      "Go beyond engagement, lead with intelligence. AI-powered surveys, workforce analytics, action planning and enterprise-grade security, on one platform.",
     images: ["/og.jpg"],
   },
   icons: {

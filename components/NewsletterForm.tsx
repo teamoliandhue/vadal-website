@@ -10,7 +10,7 @@ export function NewsletterForm() {
   if (sent) {
     return (
       <p className="mx-auto mt-7 inline-flex items-center gap-2 rounded-full bg-[var(--brand-tint)] px-5 py-3 text-[15px] font-semibold text-[var(--brand)]">
-        <Icon name="check" size={16} strokeWidth={2.4} /> You’re subscribed — thanks!
+        <Icon name="check" size={16} strokeWidth={2.4} /> You’re subscribed, thanks!
       </p>
     );
   }

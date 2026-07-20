@@ -11,7 +11,7 @@ import { homeStats, ILLUSTRATIVE, portfolioGroups, type IconName } from "@/lib/c
 export const metadata: Metadata = {
   title: "Platform",
   description:
-    "The AI-powered workforce engagement & decision intelligence platform — surveys, continuous listening, people analytics and action planning, with the Vadal.ai copilot throughout.",
+    "The AI-powered workforce engagement & decision intelligence platform, surveys, continuous listening, people analytics and action planning, with the Vadal.ai copilot throughout.",
 };
 
 // The spine's four stages each carry a stop of the Aurora gradient — teal and
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
 // (Impact — the AI-driven payoff). Same tokens as globals.css, no new colors.
 const SPINE_STEPS: { t: string; d: string; i: IconName; color: string }[] = [
   { t: "Score", d: "Measure how engaged every team really is, continuously.", i: "pulse", color: "#23D7BE" },
-  { t: "Insight", d: "Understand why — drivers, drill-downs and AI explanations.", i: "chart", color: "#3B9EFF" },
+  { t: "Insight", d: "Understand why, drivers, drill-downs and AI explanations.", i: "chart", color: "#3B9EFF" },
   { t: "Action", d: "Give managers concrete plays: campaigns, recognition, nudges.", i: "checks", color: "#7C5CF8" },
-  { t: "Impact", d: "See it land — engagement moving the business, side by side.", i: "spark", color: "#FF8A5B" },
+  { t: "Impact", d: "See it land, engagement moving the business, side by side.", i: "spark", color: "#FF8A5B" },
 ];
 
 function SpineCard({ step: s, index }: { step: (typeof SPINE_STEPS)[number]; index: number }) {
@@ -64,7 +64,7 @@ export default function PlatformPage() {
             </h1>
             <p className="max-w-xl text-[18px] leading-relaxed text-[var(--muted)]">
               Surveys, continuous listening, people analytics and action planning in one
-              AI-powered system — built on one idea: don&apos;t just measure your workforce,
+              AI-powered system, built on one idea: don&apos;t just measure your workforce,
               lead it with intelligence.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -102,7 +102,7 @@ export default function PlatformPage() {
                 ))}
               </span>
             }
-            lede="Most tools stop at the score. Vadal carries you all the way to impact — and loops back."
+            lede="Most tools stop at the score. Vadal carries you all the way to impact, and loops back."
           />
 
           <div className="relative mt-16">
@@ -140,7 +140,7 @@ export default function PlatformPage() {
                 <Icon name="refresh" size={13} className="text-white" />
               </span>
               <span className="text-[13px] font-semibold text-[var(--foreground)]">
-                Then Impact becomes tomorrow&apos;s Score — a loop, not a report.
+                Then Impact becomes tomorrow&apos;s Score, a loop, not a report.
               </span>
             </div>
           </div>
@@ -154,7 +154,7 @@ export default function PlatformPage() {
           <SectionHead
             eyebrow="The full portfolio"
             title="Every capability, six product families"
-            lede="From workforce experience to decision intelligence — the complete Vadal.ai portfolio, unified on one AI-powered platform."
+            lede="From workforce experience to decision intelligence, the complete Vadal.ai portfolio, unified on one AI-powered platform."
           />
           <div className="mt-14 space-y-14">
             {portfolioGroups.map((g) => (
@@ -233,7 +233,7 @@ export default function PlatformPage() {
             <Eyebrow>The branded app</Eyebrow>
             <h2 className="display-md mt-3 font-extrabold">The home screen of the workday</h2>
             <p className="mt-4 max-w-lg text-[17px] leading-relaxed text-[var(--muted)]">
-              A warm, human app your people open every day — greeting and mood check, what&apos;s
+              A warm, human app your people open every day, greeting and mood check, what&apos;s
               up next, a quick poll, recognition, communities and an Ask Vadal card. Every
               interaction feeds the intelligence; every insight makes the day better.
             </p>

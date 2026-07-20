@@ -62,7 +62,7 @@ export function Logo({ className = "", size = 32 }: { className?: string; size?:
   return (
     <Link
       href="/"
-      aria-label="Vadal — home"
+      aria-label="Vadal, home"
       className={`inline-flex items-center ${className}`}
     >
       <Image

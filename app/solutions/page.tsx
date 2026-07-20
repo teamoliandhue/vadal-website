@@ -8,7 +8,7 @@ import { solutionsByOutcome, solutionsByWorkforce } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Solutions",
   description:
-    "AI-powered solutions by outcome — retention, manager effectiveness, wellbeing, DEI, hybrid work — and by workforce: frontline & deskless, global & multilingual, enterprise.",
+    "AI-powered solutions by outcome, retention, manager effectiveness, wellbeing, DEI, hybrid work, and by workforce: frontline & deskless, global & multilingual, enterprise.",
 };
 
 export default function SolutionsIndex() {
@@ -21,7 +21,7 @@ export default function SolutionsIndex() {
             eyebrow="Solutions"
             as="h1"
             title="Intelligence for every outcome, every workforce"
-            lede="Vadal.ai goes horizontal where others go narrow — AI-powered workforce intelligence tuned to the outcomes you're accountable for and the workforce you run."
+            lede="Vadal.ai goes horizontal where others go narrow, AI-powered workforce intelligence tuned to the outcomes you're accountable for and the workforce you run."
           />
         </Container>
       </section>
@@ -56,7 +56,7 @@ export default function SolutionsIndex() {
           <SectionHead
             eyebrow="By workforce"
             title="Built for how your people actually work"
-            lede="In-office, remote, hybrid or on the frontline — reach and understand every employee, in 150+ languages, at enterprise scale."
+            lede="In-office, remote, hybrid or on the frontline, reach and understand every employee, in 150+ languages, at enterprise scale."
           />
           <div className="mt-12 grid gap-4 sm:grid-cols-3">
             {solutionsByWorkforce.map((s, i) => (

@@ -6,12 +6,12 @@ import { type IconName } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Security",
   description:
-    "How Vadal.ai protects your people data — encryption, SSO/SCIM, role-based access, anonymity min-N gating and privacy by design.",
+    "How Vadal.ai protects your people data, encryption, SSO/SCIM, role-based access, anonymity min-N gating and privacy by design.",
 };
 
 const controls: { t: string; d: string; icon: IconName }[] = [
   { t: "Encrypted in transit & at rest", d: "TLS everywhere and encryption at rest, so data is protected on the wire and on disk.", icon: "lock" },
-  { t: "SSO & SCIM", d: "Single sign-on and automated provisioning with your identity provider — joiners and leavers handled for you.", icon: "users" },
+  { t: "SSO & SCIM", d: "Single sign-on and automated provisioning with your identity provider, joiners and leavers handled for you.", icon: "users" },
   { t: "Role-based access", d: "Granular roles and permissions, with audit trails on sensitive actions.", icon: "shield" },
   { t: "Anonymity by design", d: "Survey and sentiment results are min-N gated, so individuals can never be identified. People speak freely.", icon: "heart" },
   { t: "Data residency options", d: "Choose where your data lives to meet regional and contractual requirements.", icon: "globe" },
@@ -29,7 +29,7 @@ export default function SecurityPage() {
             <h1 className="display-lg font-extrabold">Security your people can count on</h1>
             <p className="max-w-xl text-[18px] leading-relaxed text-[var(--muted)]">
               Engagement only works when people trust the platform. Vadal is built to enterprise
-              standards — and anonymity is protected by design, so honesty is safe.
+              standards, and anonymity is protected by design, so honesty is safe.
             </p>
             <p className="text-[12px] text-[var(--muted-2)]">
               Specific certifications and standards below are illustrative; confirm Vadal&apos;s

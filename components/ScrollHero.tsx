@@ -481,7 +481,7 @@ export function ScrollHero() {
               }`}
             >
               Vadal.ai unifies engagement, workforce intelligence and action planning in one
-              place — so every people decision is a confident one.
+              place, so every people decision is a confident one.
             </p>
             <div className={`flex justify-center ${enabled ? "mt-[min(2rem,3vh)]" : "mt-8"}`}>
               <Button href="/platform" size="lg" icon>

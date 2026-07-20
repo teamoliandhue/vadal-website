@@ -106,7 +106,7 @@ export function SiteFooter() {
               Go beyond engagement. Lead with intelligence.
             </h2>
             <p className="text-[17px] leading-relaxed text-[var(--foreground)]">
-              See your workforce clearly, predict what&apos;s coming and act with confidence —
+              See your workforce clearly, predict what&apos;s coming and act with confidence,
               on one AI-powered platform. Book a personalised demo and we&apos;ll tailor it to
               your industry.
             </p>
@@ -130,7 +130,7 @@ export function SiteFooter() {
             <div className="max-w-sm">
               <Logo size={32} />
               <p className="mt-5 text-[15px] leading-relaxed text-[var(--muted)]">
-                The AI-powered workforce engagement &amp; decision intelligence platform —
+                The AI-powered workforce engagement &amp; decision intelligence platform,
                 for every leader, every employee, every decision.
               </p>
               <p className="mt-5 flex items-center gap-2 text-[13px] text-[var(--muted)]">

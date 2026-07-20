@@ -5,13 +5,13 @@ import { type IconName } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Talk to the Vadal.ai team — sales, support, partnerships or press.",
+  description: "Talk to the Vadal.ai team, sales, support, partnerships or press.",
 };
 
 const channels: { t: string; d: string; cta: string; href: string; icon: IconName }[] = [
   { t: "Talk to sales", d: "See Vadal on your use case with a tailored walkthrough.", cta: "Book a demo", href: "/demo", icon: "broadcast" },
   { t: "Get support", d: "Already a customer? Reach our team or browse 200+ help articles.", cta: "Visit help centre", href: "/resources", icon: "lifebuoy" },
-  { t: "Partnerships", d: "Consultancies, resellers and HRMS platforms — let's talk.", cta: "Become a partner", href: "/about#partners", icon: "plug" },
+  { t: "Partnerships", d: "Consultancies, resellers and HRMS platforms, let's talk.", cta: "Become a partner", href: "/about#partners", icon: "plug" },
 ];
 
 export default function ContactPage() {
@@ -23,7 +23,7 @@ export default function ContactPage() {
           <SectionHead
             eyebrow="Contact"
             title="Let's talk"
-            lede="Whatever you need — a demo, a hand, or a partnership — we'll point you to the right person fast."
+            lede="Whatever you need, a demo, a hand, or a partnership, we'll point you to the right person fast."
           />
         </Container>
       </section>

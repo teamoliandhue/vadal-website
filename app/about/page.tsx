@@ -7,13 +7,13 @@ import { type IconName } from "@/lib/content";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Vadal.ai exists so every workforce decision is a confident one — AI-powered engagement, intelligence and action for every leader and every employee.",
+    "Vadal.ai exists so every workforce decision is a confident one, AI-powered engagement, intelligence and action for every leader and every employee.",
 };
 
 const values: { t: string; d: string; icon: IconName }[] = [
   { t: "Every voice counts", d: "We design for the cleaner, the cashier and the CHRO alike. If a voice can't reach the platform, the intelligence is incomplete.", icon: "heart" },
   { t: "Decisions over dashboards", d: "We measure ourselves by the decisions our intelligence improves, not by the length of a feature list.", icon: "chart" },
-  { t: "Clarity, always", d: "Plain language, honest metrics, explainable AI. Intelligence everyone can use — and verify.", icon: "spark" },
+  { t: "Clarity, always", d: "Plain language, honest metrics, explainable AI. Intelligence everyone can use, and verify.", icon: "spark" },
   { t: "Earned trust", d: "Security and anonymity aren't add-ons. People speak freely because we protect them by design.", icon: "shield" },
 ];
 
@@ -30,7 +30,7 @@ export default function AboutPage() {
               <br />Every decision <span className="aurora-text">confident</span>.
             </h1>
             <p className="max-w-xl text-[18px] leading-relaxed text-[var(--muted)]">
-              Most tools stop at measuring how people feel. We built Vadal.ai to go further —
+              Most tools stop at measuring how people feel. We built Vadal.ai to go further,
               unifying workforce, talent and organizational data into intelligence that leaders
               can actually act on, for every employee from the frontline to the boardroom.
             </p>
@@ -55,14 +55,14 @@ export default function AboutPage() {
         <Container size="narrow">
           <div className="space-y-6 text-[18px] leading-relaxed text-[var(--foreground)]">
             <p>
-              When people feel informed, recognised and heard, they do their best work — and
+              When people feel informed, recognised and heard, they do their best work, and
               they stay. But in most organizations, feedback disappears into annual reports,
               analytics live in silos, and by the time leaders see a problem, it has already
               become attrition.
             </p>
             <p className="text-[var(--muted)]">
               Vadal.ai closes that gap. One AI-powered platform brings engagement surveys,
-              continuous listening, people analytics and action planning together — and turns
+              continuous listening, people analytics and action planning together, and turns
               what your workforce is telling you into decisions leaders can stand behind. We
               don&apos;t just help you <i>measure</i> engagement. We help you <b>lead</b> with it.
             </p>
@@ -116,7 +116,7 @@ export default function AboutPage() {
             <Eyebrow>Partners</Eyebrow>
             <h2 className="mt-3 text-[24px] font-extrabold">Grow with Vadal.ai</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-[var(--muted)]">
-              Consultancies, resellers and HRMS platforms — let&apos;s bring workforce
+              Consultancies, resellers and HRMS platforms, let&apos;s bring workforce
               intelligence to more organizations together.
             </p>
             <div className="mt-6"><Button href="/contact" variant="ghost" icon>Become a partner</Button></div>

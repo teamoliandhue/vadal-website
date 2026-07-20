@@ -11,7 +11,7 @@ export default function PrivacyPage() {
     <LegalPage
       title="Privacy Policy"
       updated="June 2026"
-      intro="This Privacy Policy explains how Vadal collects, uses, shares and protects personal data when you use our website and platform. We design for privacy first — especially because much of the data we handle belongs to employees who trust their employer's platform."
+      intro="This Privacy Policy explains how Vadal collects, uses, shares and protects personal data when you use our website and platform. We design for privacy first, especially because much of the data we handle belongs to employees who trust their employer's platform."
       sections={[
         { heading: "Who we are", body: ["Vadal.ai provides an AI-powered workforce engagement and decision intelligence platform. For data submitted by an organisation's employees, that organisation is the data controller and Vadal acts as the data processor on its behalf."] },
         { heading: "Data we collect", body: ["Account and contact details you provide (for example when you book a demo), usage data about how the website and app are used, and content created within the platform by your organisation and its people."] },

@@ -9,7 +9,7 @@ import { homeStats, ILLUSTRATIVE, testimonials, type IconName } from "@/lib/cont
 export const metadata: Metadata = {
   title: "Customers",
   description:
-    "How HR, people and business leaders use Vadal.ai to understand, predict and improve their workforce — across retail, facilities, logistics, hospitality, finance and manufacturing.",
+    "How HR, people and business leaders use Vadal.ai to understand, predict and improve their workforce, across retail, facilities, logistics, hospitality, finance and manufacturing.",
 };
 
 type Story = {
@@ -22,7 +22,7 @@ type Story = {
 };
 
 const stories: Story[] = [
-  { company: "Northwind Retail", industry: "Retail · 6,000 staff", icon: "broadcast", headline: "One voice across 240 stores — and a way for the floor to talk back.", metric: "94%", metricLabel: "weekly active reach" },
+  { company: "Northwind Retail", industry: "Retail · 6,000 staff", icon: "broadcast", headline: "One voice across 240 stores, and a way for the floor to talk back.", metric: "94%", metricLabel: "weekly active reach" },
   { company: "Meridian Facilities", industry: "Facilities · 9,000 staff", icon: "rocket", headline: "Onboarding that starts the moment a cleaner signs, not on day one.", metric: "2×", metricLabel: "faster time-to-productivity" },
   { company: "Rivermark Logistics", industry: "Logistics · 4,200 staff", icon: "chart", headline: "Depot-by-depot insight leadership never had before.", metric: "28%", metricLabel: "lower first-year attrition" },
   { company: "Verdant Hospitality", industry: "Hospitality · 3,500 staff", icon: "graduation", headline: "Micro-learning that seasonal joiners actually finish.", metric: "55%", metricLabel: "higher guest satisfaction" },
@@ -40,7 +40,7 @@ export default function CustomersPage() {
             eyebrow="Customer stories"
             as="h1"
             title="Intelligence people can feel"
-            lede="From the retail floor to the boardroom — see how teams put Vadal.ai to work. Every story below is an illustrative sample pending verified case studies."
+            lede="From the retail floor to the boardroom, see how teams put Vadal.ai to work. Every story below is an illustrative sample pending verified case studies."
           />
         </Container>
       </section>

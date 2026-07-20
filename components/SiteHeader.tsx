@@ -623,7 +623,7 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
           )}
           {q.trim() && results.length === 0 && (
             <p className="mt-3 text-center text-[13px] text-[var(--muted)]">
-              No matches — try the <Link href="/platform" onClick={onClose} className="font-semibold text-[var(--brand)]">platform overview</Link>.
+              No matches, try the <Link href="/platform" onClick={onClose} className="font-semibold text-[var(--brand)]">platform overview</Link>.
             </p>
           )}
         </div>
