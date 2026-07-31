@@ -1630,7 +1630,7 @@ export const portfolioGroups: PortfolioGroup[] = [
       "Empower employees with an intelligent digital workplace that simplifies communication, collaboration, learning and everyday work through AI-powered experiences.",
     items: [
       { name: "AI Employee Chat", slug: "ai-employee-chat", blurb: "An intelligent assistant for HR support, policy guidance and knowledge discovery." },
-      { name: "Tasks & Workflow", slug: "tasks-workflow", blurb: "Digitize, assign and monitor tasks with intelligent workflow automation." },
+      { name: "Case Management, Tasks & Workflow", slug: "tasks-workflow", blurb: "Log, route and resolve requests, and digitize tasks with intelligent workflow automation." },
       { name: "Mobile & E-Learning", slug: "mobile-e-learning", blurb: "Mobile-first learning journeys, microlearning and AI content recommendations." },
       { name: "Employee Productivity", blurb: "Intelligent task prioritization, automated workflows and performance insights." },
     ],

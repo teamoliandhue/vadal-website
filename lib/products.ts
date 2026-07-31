@@ -2266,7 +2266,7 @@ export const products: Product[] = [
   },
   {
     "slug": "tasks-workflow",
-    "name": "Tasks & Workflow",
+    "name": "Case Management, Tasks & Workflow",
     "cloud": "digital-workplace",
     "icon": "checks",
     "mock": "phone",
@@ -2288,6 +2288,16 @@ export const products: Product[] = [
       "Manager Oversight"
     ],
     "capabilities": [
+      {
+        "title": "Case Management",
+        "body": "Log, route and resolve employee requests, HR, IT or facilities, in one place, with ownership, status and full history, so nothing falls through the cracks.",
+        "bullets": [
+          "Log and route requests to the right owner automatically",
+          "Track ownership, status and SLAs on every case",
+          "Keep the full history so nothing falls through the cracks"
+        ],
+        "screen": "Case Inbox"
+      },
       {
         "title": "Task Assignment & Tracking",
         "body": "Assign tasks to individuals, teams or locations and track completion in real time.",
@@ -2450,14 +2460,17 @@ export const products: Product[] = [
       "AI Learning Recommendations",
       "AI Content Generation Assistance",
       "AI Skills-Gap-Based Learning Paths",
-      "AI Learning Nudges"
+      "AI Learning Nudges",
+      "AI Leadership-Readiness Paths",
+      "AI Successor-Development Tracking"
     ],
     "outcomes": [
       "Higher Training Completion Rates",
       "Faster, More Consistent Onboarding",
       "Improved Compliance Readiness",
       "Better Frontline Learning Access",
-      "Stronger Link Between Learning and Skills"
+      "Stronger Link Between Learning and Skills",
+      "Grow & Retain Key Talent"
     ],
     "story": {
       "challenge": "A large hospitality group's frontline workforce had poor access to training, leading to inconsistent onboarding and compliance gaps.",
@@ -2519,7 +2532,8 @@ export const products: Product[] = [
       "Pre-Built Connectors",
       "Automatic Data Sync",
       "Open API",
-      "Low-Maintenance Integration"
+      "Low-Maintenance Integration",
+      "Single Sign-On (SSO)"
     ],
     "capabilities": [
       {
@@ -2561,6 +2575,16 @@ export const products: Product[] = [
           "Configure and monitor integrations from one panel"
         ],
         "screen": "Connector Configuration Panel"
+      },
+      {
+        "title": "Single Sign-On (SSO)",
+        "body": "One-click, secure access through your existing identity provider, Okta, Azure AD or Google, with role-based access control.",
+        "bullets": [
+          "One-click access via Okta, Azure AD or Google",
+          "Role-based access control from day one",
+          "No separate passwords for IT to manage"
+        ],
+        "screen": "SSO & Access Settings"
       }
     ],
     "aiCapabilities": [
