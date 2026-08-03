@@ -6,7 +6,8 @@ import { DashboardMock, PhoneMock, VoiceCard, BroadcastCard } from "./ProductMoc
 import { CrowdPanel, FeatureRow, IconChip, type PanelTone } from "./sections";
 import { FaqAccordion } from "./FaqAccordion";
 import { ProductShot, PRODUCT_SHOTS } from "./ProductShot";
-import { portfolioGroups } from "@/lib/content";
+import { platformLayers } from "@/lib/platform-nav";
+import { surveyTypes } from "@/lib/content";
 import type { Product } from "@/lib/products";
 
 /* ============================================================================
@@ -39,7 +40,7 @@ function Mock({ kind, scale = false }: { kind: string; scale?: boolean }) {
 const CAP_TONES: PanelTone[] = ["violet", "aurora", "blue", "spark"];
 
 export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }) {
-  const cloud = portfolioGroups.find((g) => g.id === p.cloud);
+  const cloud = platformLayers.find((g) => g.id === p.cloud);
   const altMock = p.mock === "dashboard" ? "phone" : "dashboard";
 
   return (
@@ -180,6 +181,35 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
         </Container>
       </Section>
 
+      {/* --------------------------------------------------- survey types */}
+      {/* The brief: "MERGE Survey Types (Pulse / Lifecycle / eNPS /
+          Confidential) into Engagement Surveys, don't give it a separate
+          block." They used to be their own mega-menu column; the pages stay
+          live and are surfaced here, on their parent product. */}
+      {p.slug === "engagement-surveys" && (
+        <Section tone="base" className="!pt-0">
+          <Container>
+            <SectionHead eyebrow="Survey types" title="Every kind of survey, one engine" />
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {surveyTypes.slice(1).map((s) => (
+                <Link
+                  key={s.name}
+                  href={s.href}
+                  className="group flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] px-5 py-4 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
+                >
+                  <span className="text-[15px] font-bold">{s.name}</span>
+                  <Icon
+                    name="arrow"
+                    size={15}
+                    className="shrink-0 text-[var(--brand)] transition-transform group-hover:translate-x-0.5"
+                  />
+                </Link>
+              ))}
+            </div>
+          </Container>
+        </Section>
+      )}
+
       {/* -------------------------------------------------------- AI inside */}
       <Section tone="surface" glow="top">
         <Container>
@@ -250,7 +280,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
             ))}
           </div>
           <p className="mt-8 text-center text-[14px] text-[var(--muted)]">
-            <Link href="/#integrations" className="font-bold text-[var(--brand)] underline-offset-4 hover:underline">
+            <Link href="/platform/enterprise-integrations" className="font-bold text-[var(--brand)] underline-offset-4 hover:underline">
               See the full integration ecosystem →
             </Link>
           </p>

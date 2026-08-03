@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Icon } from "./Icon";
-import { platformLayers } from "@/lib/mobile-layers";
+import { landingLayers } from "@/lib/platform-nav";
 
 /* ============================================================================
    MobilePlatformLayers — the phone-sized product catalog.
@@ -25,7 +25,7 @@ export function MobilePlatformLayers() {
 
   return (
     <div className="flex flex-col gap-3">
-      {platformLayers.map((l) => {
+      {landingLayers.map((l) => {
         const open = layer === l.id;
         return (
           <div
@@ -110,7 +110,7 @@ export function MobilePlatformLayers() {
                       {mOpen && (
                         <div id={`mod-${key}`} className="px-4 pb-4">
                           <ul className="flex flex-col gap-2.5 border-l-2 border-[var(--brand-tint-2)] pl-3.5">
-                            {m.lines.map((line) => (
+                            {(m.lines ?? []).map((line) => (
                               <li
                                 key={line}
                                 className="text-[13.5px] leading-relaxed text-[var(--muted)]"

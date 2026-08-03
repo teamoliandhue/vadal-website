@@ -6,7 +6,8 @@ import { SparkMark } from "@/components/Brand";
 import { DashboardMock, PhoneMock } from "@/components/ProductMocks";
 import { ProductShot } from "@/components/ProductShot";
 import { LogoMarquee, StatBand } from "@/components/sections";
-import { homeStats, ILLUSTRATIVE, portfolioGroups, type IconName } from "@/lib/content";
+import { homeStats, ILLUSTRATIVE, type IconName } from "@/lib/content";
+import { platformLayers } from "@/lib/platform-nav";
 
 export const metadata: Metadata = {
   title: "Platform",
@@ -157,7 +158,7 @@ export default function PlatformPage() {
             lede="From workforce experience to decision intelligence, the complete Vadal.ai portfolio, unified on one AI-powered platform."
           />
           <div className="mt-14 space-y-14">
-            {portfolioGroups.map((g) => (
+            {platformLayers.map((g) => (
               <div key={g.id} id={g.id} className="scroll-mt-24">
                 <div className="flex items-center gap-3">
                   <span className="grid h-10 w-10 place-items-center rounded-[12px] bg-[var(--brand-tint)] text-[var(--brand)]">
@@ -166,10 +167,10 @@ export default function PlatformPage() {
                   <h3 className="text-[22px] font-extrabold tracking-[-0.02em]">{g.name}</h3>
                 </div>
                 <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[var(--muted)]">
-                  {g.description}
+                  {g.description ?? g.lede}
                 </p>
                 <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  {g.items.map((it) =>
+                  {g.modules.map((it) =>
                     it.slug ? (
                       <Link
                         key={it.name}
@@ -177,7 +178,9 @@ export default function PlatformPage() {
                         className="group flex flex-col rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
                       >
                         <h4 className="text-[15px] font-bold">{it.name}</h4>
-                        <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--muted)]">{it.blurb}</p>
+                        <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--muted)]">
+                          {it.blurb ?? it.hook}
+                        </p>
                         <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-[13px] font-semibold text-[var(--brand)]">
                           Explore
                           <Icon name="arrow" size={13} className="transition-transform group-hover:translate-x-0.5" />
@@ -189,7 +192,9 @@ export default function PlatformPage() {
                         className="rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5"
                       >
                         <h4 className="text-[15px] font-bold">{it.name}</h4>
-                        <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--muted)]">{it.blurb}</p>
+                        <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--muted)]">
+                          {it.blurb ?? it.hook}
+                        </p>
                       </div>
                     )
                   )}

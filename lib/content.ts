@@ -1567,6 +1567,9 @@ export type PortfolioGroup = {
    Order is the founder's and is intentional: do not re-sort alphabetically or
    regroup by family. Ten resolve to product pages; Enterprise AI Platform is a
    family, so it targets its section anchor on /platform. */
+/* Curated footer shortlist, in the exact order and wording the founder asked
+   for. NOT a taxonomy — the catalog lives in lib/platform-nav.ts. Every href
+   here is checked by scripts/check-nav-links.mjs. */
 export const mobileProductNav: MenuItem[] = [
   { name: "AI Chatbot", href: "/platform/ai-employee-chat", icon: "chat" },
   { name: "Employee Experience", href: "/platform/employee-experience", icon: "compass" },
@@ -1581,90 +1584,9 @@ export const mobileProductNav: MenuItem[] = [
   { name: "Enterprise AI Platform", href: "/platform#enterprise-platform", icon: "shield" },
 ];
 
-export const portfolioGroups: PortfolioGroup[] = [
-  {
-    id: "workforce-experience",
-    name: "Workforce Experience",
-    icon: "heart",
-    description:
-      "Create exceptional employee experiences by connecting communication, engagement, wellbeing and recognition to improve productivity, collaboration and organizational culture.",
-    items: [
-      { name: "Employee Communication", slug: "employee-communication", blurb: "AI-powered announcements, targeted campaigns, digital noticeboards and multi-channel messaging." },
-      { name: "Employee Experience", slug: "employee-experience", blurb: "Measure and improve every stage of the lifecycle with AI-powered listening and journey analytics." },
-      { name: "Employee Wellbeing & Culture", slug: "employee-wellbeing-culture", blurb: "Continuous listening, wellbeing assessments and recognition that foster a healthy workplace." },
-      { name: "Recognition & Rewards", slug: "recognition-rewards", blurb: "AI-enabled peer recognition, milestone celebrations and performance-based rewards." },
-    ],
-  },
-  {
-    id: "talent-intelligence",
-    name: "Talent Intelligence",
-    icon: "rocket",
-    description:
-      "Attract, develop and retain future-ready talent through intelligent onboarding, skills development, leadership growth and strategic workforce planning.",
-    items: [
-      { name: "Pre- & Onboarding", slug: "pre-onboarding", blurb: "Personalized journeys, digital documentation and AI-guided onboarding." },
-      { name: "Skills Intelligence", slug: "skills-intelligence", blurb: "Map capabilities, spot skill gaps and recommend personalized learning paths." },
-      { name: "Leadership Intelligence", slug: "leadership-intelligence", blurb: "Assess leadership effectiveness, strengthen succession and coach future leaders." },
-      { name: "Workforce Planning", slug: "workforce-planning", blurb: "Optimize capacity, hiring plans and org design with predictive analytics." },
-      { name: "Alumni Management", slug: "alumni-management", blurb: "Lifelong portal access, exit documents and a boomerang pipeline of proven talent." },
-    ],
-  },
-  {
-    id: "ai-engagement",
-    name: "Employee Engagement & Listening",
-    icon: "pulse",
-    description:
-      "Continuously listen, engage and act on employee feedback using AI-powered surveys, predictive insights and personalized action planning.",
-    items: [
-      { name: "Engagement Surveys", slug: "engagement-surveys", blurb: "AI-powered engagement, pulse and lifecycle surveys that capture meaningful feedback." },
-      { name: "Continuous Employee Listening", slug: "employee-listening", blurb: "Multi-channel listening, surveys, portals, recognition and AI conversations." },
-      { name: "Feedback Intelligence", slug: "feedback-intelligence", blurb: "AI that organizes and prioritizes feedback into recurring themes and actions." },
-      { name: "Action Planning", slug: "action-planning", blurb: "AI-generated action plans with ownership tracking and progress monitoring." },
-    ],
-  },
-  {
-    id: "digital-workplace",
-    name: "Digital Workplace",
-    icon: "phone",
-    description:
-      "Empower employees with an intelligent digital workplace that simplifies communication, collaboration, learning and everyday work through AI-powered experiences.",
-    items: [
-      { name: "AI Employee Chat", slug: "ai-employee-chat", blurb: "An intelligent assistant for HR support, policy guidance and knowledge discovery." },
-      { name: "Case Management, Tasks & Workflow", slug: "tasks-workflow", blurb: "Log, route and resolve requests, and digitize tasks with intelligent workflow automation." },
-      { name: "Mobile & E-Learning", slug: "mobile-e-learning", blurb: "Mobile-first learning journeys, microlearning and AI content recommendations." },
-      { name: "Employee Productivity", blurb: "Intelligent task prioritization, automated workflows and performance insights." },
-    ],
-  },
-  {
-    id: "enterprise-platform",
-    name: "Enterprise AI Platform",
-    icon: "shield",
-    description:
-      "Deliver a secure, scalable and enterprise-ready AI platform that integrates seamlessly with existing systems while enabling intelligent automation and workforce decision-making.",
-    items: [
-      { name: "Enterprise Integrations", slug: "enterprise-integrations", blurb: "Connect HRIS, HCM, ERP, ATS, payroll, collaboration and analytics platforms." },
-      { name: "Security & Compliance", slug: "security-compliance", blurb: "Enterprise-grade security, GDPR-ready privacy and responsible AI governance." },
-      { name: "Implementation & Customer Success", slug: "implementation", blurb: "Structured implementation, free data migration and dedicated customer success." },
-      { name: "Decision Intelligence Copilot", slug: "decision-intelligence-copilot", blurb: "Ask workforce questions in natural language, get AI-powered predictive guidance." },
-      { name: "AI Workforce Assistant", slug: "ai-workforce-assistant", blurb: "A proactive AI teammate that surfaces what needs attention before anyone asks." },
-    ],
-  },
-  {
-    id: "workforce-intelligence",
-    name: "Workforce Intelligence",
-    icon: "chart",
-    description:
-      "Transform workforce data into AI-powered insights that help leaders measure organizational health, predict risks and make informed business decisions.",
-    items: [
-      { name: "People Analytics", slug: "people-analytics", blurb: "Predictive analytics, AI dashboards and BI to uncover trends and identify risks." },
-      { name: "Sentiment Intelligence", slug: "sentiment-intelligence", blurb: "NLP-driven analysis of emotions, workplace trends and engagement drivers." },
-      { name: "Benchmark Intelligence", slug: "benchmark-intelligence", blurb: "Compare engagement and performance across units, locations and industry benchmarks." },
-      { name: "Executive Reports", slug: "executive-reports", blurb: "Executive-ready dashboards, board reports and AI-powered workforce summaries." },
-      { name: "Attrition Prediction", blurb: "AI models that flag employees at risk of leaving, so you can retain top talent." },
-      { name: "Manager Intelligence", blurb: "AI coaching, team health dashboards and recommendations for every manager." },
-    ],
-  },
-];
+/* portfolioGroups retired — the product catalog now lives in
+   lib/platform-nav.ts as the single source of truth (see its header).
+   The `PortfolioGroup` type is kept only if something still imports it. */
 
 // -- Solutions mega
 export const solutionsByOutcome: MenuItem[] = [

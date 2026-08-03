@@ -8,15 +8,15 @@ import { Button, Container } from "./ui";
 import { MobileTabBar } from "./MobileTabBar";
 import {
   headerNav,
-  mobileProductNav,
-  portfolioGroups,
   resourcesMenu,
   scienceMenu,
   solutionsByOutcome,
   solutionsByWorkforce,
+  solutionsNav,
   surveyTypes,
   type MenuItem,
 } from "@/lib/content";
+import { platformLayers } from "@/lib/platform-nav";
 import { LANDING_ONLY } from "@/lib/flags";
 
 type MegaId = "platform" | "solutions" | "resources" | "science";
@@ -370,35 +370,34 @@ function MegaPanel({ id, onNavigate }: { id: MegaId; onNavigate: () => void }) {
   return <ScienceMega onNavigate={onNavigate} />;
 }
 
+/* Two-pane platform mega: a rail of the platform layers on the left, the
+   hovered/focused layer's modules on the right. The catalog is far too big for
+   a flat grid (25 modules), and this is the only shape that gives every module
+   room for its benefit hook — which is how the brief describes the taxonomy.
+   Rail items are real links to /platform#<layer>, so the menu stays navigable
+   and keyboard-accessible without bespoke key handling: focus swaps the pane. */
 function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
-  // Editorial layout: a featured card + survey types on the left, then the six
-  // platform clouds as clean grouped text-link columns (two clouds per column).
-  const columns: number[][] = [
-    [0, 3], // Workforce Experience · Engagement & Listening
-    [1, 2], // Workforce Intelligence · Talent Intelligence
-    [4, 5], // Digital Workplace · Enterprise AI Platform
-  ];
-  const renderCloud = (i: number) => {
-    const g = portfolioGroups[i];
-    const mods = g.items.filter((it): it is typeof it & { slug: string } => Boolean(it.slug));
-    return (
-      <MenuGroup key={g.id} label={g.name}>
-        {mods.map((it) => (
-          <MenuTextLink
-            key={it.slug}
-            name={it.name}
-            href={`/platform/${it.slug}`}
-            tag={it.slug === "ai-workforce-assistant" ? "New" : undefined}
-            onNavigate={onNavigate}
-          />
-        ))}
-      </MenuGroup>
-    );
+  const [active, setActive] = useState(0);
+  const intent = useRef<number | null>(null);
+
+  // small delay so a diagonal mouse path across the rail doesn't strobe the pane
+  const point = (i: number) => {
+    if (intent.current) window.clearTimeout(intent.current);
+    intent.current = window.setTimeout(() => setActive(i), 70);
   };
+  const pointNow = (i: number) => {
+    if (intent.current) window.clearTimeout(intent.current);
+    setActive(i);
+  };
+  useEffect(() => () => {
+    if (intent.current) window.clearTimeout(intent.current);
+  }, []);
+
+  const layer = platformLayers[active];
 
   return (
     <PanelShell
-      width="w-[min(1060px,94vw)]"
+      width="w-[min(1080px,94vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
@@ -409,25 +408,97 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
         />
       }
     >
-      <div className="grid grid-cols-[248px_1fr_1fr_1fr] gap-6 p-5">
-        <div className="flex flex-col gap-5">
-          <MenuFeatureCard
-            title="The Vadal Platform"
-            href="/platform"
-            desc="One AI-powered platform for engagement, intelligence and action across your whole workforce."
-            onNavigate={onNavigate}
-          />
-          <MenuGroup label="Survey types">
-            {surveyTypes.slice(1).map((s) => (
-              <MenuTextLink key={s.name} name={s.name} href={s.href} onNavigate={onNavigate} />
-            ))}
-          </MenuGroup>
+      <div className="grid grid-cols-[292px_1fr]">
+        {/* ------------------------------------------------------- layer rail */}
+        <div
+          className="flex flex-col gap-0.5 border-r border-[var(--line)] bg-[var(--surface)]/50 p-3"
+          onMouseLeave={() => {
+            if (intent.current) window.clearTimeout(intent.current);
+          }}
+        >
+          {platformLayers.map((l, i) => {
+            const on = i === active;
+            return (
+              <Link
+                key={l.id}
+                href={`/platform#${l.id}`}
+                onClick={onNavigate}
+                onMouseEnter={() => point(i)}
+                onFocus={() => pointNow(i)}
+                aria-current={on ? "true" : undefined}
+                className={`group flex items-center gap-3 rounded-[var(--r-md)] px-3 py-2.5 text-left transition-colors ${
+                  on ? "bg-[var(--card)] shadow-[var(--shadow-sm)]" : "hover:bg-[var(--card)]/70"
+                }`}
+              >
+                <span
+                  className={`grid h-8 w-8 shrink-0 place-items-center rounded-[9px] transition-colors ${
+                    on ? "bg-[var(--brand)] text-white" : "bg-[var(--brand-tint)] text-[var(--brand)]"
+                  }`}
+                >
+                  <Icon name={l.icon} size={16} />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span
+                    className={`block text-[14px] font-semibold leading-tight ${
+                      on ? "text-[var(--brand)]" : "text-[var(--foreground)]"
+                    }`}
+                  >
+                    {l.name}
+                  </span>
+                </span>
+                <Icon
+                  name="arrow"
+                  size={14}
+                  className={`shrink-0 transition-all ${
+                    on ? "text-[var(--brand)] opacity-100" : "text-[var(--muted-2)] opacity-0 group-hover:opacity-100"
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </div>
-        {columns.map((pair, ci) => (
-          <div key={ci} className="flex flex-col gap-6 border-l border-[var(--line)] pl-6">
-            {pair.map(renderCloud)}
+
+        {/* ------------------------------------------------------ module pane */}
+        <div className="min-w-0 p-5">
+          <div className="flex items-baseline justify-between gap-4">
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted-2)]">
+              {layer.name}
+            </p>
+            <Link
+              href={`/platform#${layer.id}`}
+              onClick={onNavigate}
+              className="shrink-0 text-[12.5px] font-bold text-[var(--brand)] hover:underline"
+            >
+              View layer
+            </Link>
           </div>
-        ))}
+          <p className="mt-1 text-[13.5px] text-[var(--muted)]">{layer.lede}</p>
+
+          <div className="mt-4 grid grid-cols-2 gap-x-5 gap-y-0.5">
+            {layer.modules.map((m) => (
+              <Link
+                key={m.slug ?? m.name}
+                href={m.slug ? `/platform/${m.slug}` : `/platform#${layer.id}`}
+                onClick={onNavigate}
+                className="group rounded-[var(--r-md)] px-3 py-2.5 transition-colors hover:bg-[var(--surface)]"
+              >
+                <span className="flex items-center gap-2">
+                  <span className="text-[14.5px] font-semibold text-[var(--foreground)] transition-colors group-hover:text-[var(--brand)]">
+                    {m.name}
+                  </span>
+                  {m.isNew && (
+                    <span className="rounded-[5px] bg-[var(--brand-tint)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.06em] text-[var(--brand)]">
+                      New
+                    </span>
+                  )}
+                </span>
+                <span className="mt-0.5 block text-[12.5px] leading-snug text-[var(--muted)]">
+                  {m.hook}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </PanelShell>
   );
@@ -436,7 +507,7 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
 function SolutionsMega({ onNavigate }: { onNavigate: () => void }) {
   return (
     <PanelShell
-      width="w-[min(780px,94vw)]"
+      width="w-[min(980px,94vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
@@ -444,24 +515,38 @@ function SolutionsMega({ onNavigate }: { onNavigate: () => void }) {
         />
       }
     >
-      <div className="grid grid-cols-[248px_1fr_1fr] gap-6 p-5">
+      <div className="grid grid-cols-[240px_1fr_1fr_1fr] gap-5 p-5">
         <MenuFeatureCard
           title="Solutions"
           href="/solutions"
           desc="Workforce intelligence tuned to the outcomes you're accountable for and the workforce you run."
           onNavigate={onNavigate}
         />
-        <div className="border-l border-[var(--line)] pl-6">
+        <div className="border-l border-[var(--line)] pl-5">
           <MenuGroup label="By outcome">
             {solutionsByOutcome.map((s) => (
               <MenuTextLink key={s.name} name={s.name} href={s.href} onNavigate={onNavigate} />
             ))}
           </MenuGroup>
         </div>
-        <div className="border-l border-[var(--line)] pl-6">
+        <div className="border-l border-[var(--line)] pl-5">
           <MenuGroup label="By workforce">
             {solutionsByWorkforce.map((s) => (
               <MenuTextLink key={s.name} name={s.name} href={s.href} onNavigate={onNavigate} />
+            ))}
+          </MenuGroup>
+        </div>
+        {/* "By need" surfaces the six solution pages that were previously in no
+            menu at all — reachable only from the /solutions page body. */}
+        <div className="border-l border-[var(--line)] pl-5">
+          <MenuGroup label="By need">
+            {solutionsNav.map((s) => (
+              <MenuTextLink
+                key={s.slug}
+                name={s.name}
+                href={`/solutions/${s.slug}`}
+                onNavigate={onNavigate}
+              />
             ))}
           </MenuGroup>
         </div>
@@ -547,18 +632,20 @@ type SearchEntry = { label: string; href: string; group: string };
 
 function buildSearchIndex(): SearchEntry[] {
   const entries: SearchEntry[] = [];
-  for (const g of portfolioGroups) {
-    entries.push({ label: g.name, href: `/platform#${g.id}`, group: "Platform" });
-    for (const it of g.items)
+  for (const l of platformLayers) {
+    entries.push({ label: l.name, href: `/platform#${l.id}`, group: "Platform" });
+    for (const m of l.modules)
       entries.push({
-        label: it.name,
-        href: it.slug ? `/platform/${it.slug}` : `/platform#${g.id}`,
-        group: g.name,
+        label: m.name,
+        href: m.slug ? `/platform/${m.slug}` : `/platform#${l.id}`,
+        group: l.name,
       });
   }
   for (const s of surveyTypes) entries.push({ label: s.name, href: s.href, group: "Surveys" });
   for (const s of [...solutionsByOutcome, ...solutionsByWorkforce])
     entries.push({ label: s.name, href: s.href, group: "Solutions" });
+  for (const s of solutionsNav)
+    entries.push({ label: s.name, href: `/solutions/${s.slug}`, group: "Solutions" });
   for (const g of resourcesMenu) for (const it of g.items) entries.push({ label: it.name, href: it.href, group: "Resources" });
   for (const it of scienceMenu.items) entries.push({ label: it.name, href: it.href, group: "Science" });
   entries.push(
@@ -663,6 +750,89 @@ function MobileLink({ item, onClose }: { item: MenuItem; onClose: () => void }) 
       )}
       {item.name}
     </Link>
+  );
+}
+
+/* The brief: "hamburger opens full module menu". A nested accordion — layer,
+   then its modules as name + hook — is the only way 25 modules stay scannable
+   on a phone. Rows navigate straight to the product page; the four benefit
+   lines belong to the landing-page accordion, not to the menu. */
+function MobileLayerGroup({ onClose }: { onClose: () => void }) {
+  const [open, setOpen] = useState<string | null>(platformLayers[0].id);
+  return (
+    <div className="flex flex-col gap-1.5 pb-1">
+      {platformLayers.map((l) => {
+        const on = open === l.id;
+        return (
+          <div key={l.id} className="overflow-hidden rounded-[var(--r-md)] border border-[var(--line)]">
+            <button
+              type="button"
+              onClick={() => setOpen(on ? null : l.id)}
+              aria-expanded={on}
+              className={`flex w-full items-center gap-2.5 px-3 py-2.5 text-left transition-colors ${
+                on ? "bg-[var(--surface)]" : ""
+              }`}
+            >
+              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-[8px] bg-[var(--brand-tint)] text-[var(--brand)]">
+                <Icon name={l.icon} size={14} />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-[14.5px] font-semibold leading-tight text-[var(--foreground)]">
+                  {l.name}
+                </span>
+                <span className="mt-0.5 block truncate text-[12px] text-[var(--muted)]">{l.lede}</span>
+              </span>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                aria-hidden="true"
+                className={`shrink-0 text-[var(--muted-2)] transition-transform ${on ? "rotate-180" : ""}`}
+              >
+                <path d="M2.5 4.5 6 8l3.5-3.5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            {on && (
+              <div className="border-t border-[var(--line)]">
+                {l.modules.map((m) => (
+                  <Link
+                    key={m.slug ?? m.name}
+                    href={m.slug ? `/platform/${m.slug}` : `/platform#${l.id}`}
+                    onClick={onClose}
+                    className="flex items-center gap-2 border-b border-[var(--line)] px-3 py-2.5 last:border-b-0"
+                  >
+                    <span className="min-w-0 flex-1">
+                      <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <span className="text-[14px] font-semibold leading-tight text-[var(--foreground)]">
+                          {m.name}
+                        </span>
+                        {m.isNew && (
+                          <span className="rounded-full bg-[var(--brand-tint)] px-1.5 py-0.5 text-[9.5px] font-bold uppercase tracking-[0.06em] text-[var(--brand)]">
+                            New
+                          </span>
+                        )}
+                      </span>
+                      <span className="mt-0.5 block text-[12px] leading-snug text-[var(--muted)]">
+                        {m.hook}
+                      </span>
+                    </span>
+                    <Icon name="arrow" size={14} className="shrink-0 text-[var(--muted-2)]" />
+                  </Link>
+                ))}
+                <Link
+                  href={`/platform#${l.id}`}
+                  onClick={onClose}
+                  className="flex items-center gap-1.5 px-3 py-2.5 text-[13px] font-bold text-[var(--brand)]"
+                >
+                  View {l.name}
+                  <Icon name="arrow" size={13} />
+                </Link>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
   );
 }
 
@@ -776,13 +946,24 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
             // pb clears the floating island so the last links stay reachable
             <Container className="flex flex-col pb-[calc(96px+env(safe-area-inset-bottom))]">
         <MobileGroup label="Platform" defaultOpen>
-          {mobileProductNav.map((p) => (
-            <MobileLink key={p.name} item={p} onClose={onClose} />
-          ))}
+          <MobileLayerGroup onClose={onClose} />
         </MobileGroup>
         <MobileGroup label="Solutions">
-          {[...solutionsByOutcome, ...solutionsByWorkforce].map((s) => (
+          <p className="px-2 pb-1 pt-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">By outcome</p>
+          {solutionsByOutcome.map((s) => (
             <MobileLink key={s.name} item={s} onClose={onClose} />
+          ))}
+          <p className="px-2 pb-1 pt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">By workforce</p>
+          {solutionsByWorkforce.map((s) => (
+            <MobileLink key={s.name} item={s} onClose={onClose} />
+          ))}
+          <p className="px-2 pb-1 pt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">By need</p>
+          {solutionsNav.map((s) => (
+            <MobileLink
+              key={s.slug}
+              item={{ name: s.name, href: `/solutions/${s.slug}`, icon: s.icon }}
+              onClose={onClose}
+            />
           ))}
         </MobileGroup>
         <MobileGroup label="Resources">
