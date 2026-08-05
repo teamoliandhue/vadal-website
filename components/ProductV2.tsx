@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button, Container, Pill, Section, SectionHead, CheckItem } from "./ui";
 import { Icon } from "./Icon";
+import { LayerSubNav } from "./LayerSubNav";
 import { SparkMark } from "./Brand";
 import { DashboardMock, PhoneMock, VoiceCard, BroadcastCard } from "./ProductMocks";
 import { CrowdPanel, FeatureRow, IconChip, type PanelTone } from "./sections";
@@ -41,7 +42,6 @@ const CAP_TONES: PanelTone[] = ["violet", "aurora", "blue", "spark"];
 
 export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }) {
   const cloud = platformLayers.find((g) => g.id === p.cloud);
-  const siblings = (cloud?.modules ?? []).filter((m) => m.slug && m.slug !== p.slug);
   const altMock = p.mock === "dashboard" ? "phone" : "dashboard";
 
   return (
@@ -89,30 +89,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
       </section>
 
       {/* ------------------------------------------------- sibling switcher */}
-      {/* Landing on a product, the only way to a neighbouring module was back
-          up through the menu. This moves you sideways within the layer. */}
-      {cloud && siblings.length > 0 && (
-        <div className="border-y border-[var(--line)] bg-[var(--card)]">
-          <Container>
-            <div className="flex items-center gap-4 overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <span className="shrink-0 text-[12px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
-                More in {cloud.name}
-              </span>
-              <div className="flex shrink-0 items-center gap-2">
-                {siblings.map((m) => (
-                  <Link
-                    key={m.slug}
-                    href={`/platform/${m.slug}`}
-                    className="whitespace-nowrap rounded-full border border-[var(--line)] px-3.5 py-1.5 text-[13.5px] font-semibold text-[var(--muted)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--brand)]"
-                  >
-                    {m.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </Container>
-        </div>
-      )}
+      {cloud && <LayerSubNav layer={cloud} slug={p.slug} />}
 
       {/* ---------------------------------------------- business challenges */}
       <Section tone="surface">
