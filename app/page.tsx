@@ -15,6 +15,7 @@ import {
 } from "@/components/home-v2";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { MobilePlatformLayers } from "@/components/MobilePlatformLayers";
+import { IntelligenceLoop } from "@/components/IntelligenceLoop";
 import { homeFaqsV2, platformOverview, securitySection } from "@/lib/content";
 
 /* ============================================================================
@@ -64,13 +65,32 @@ export default function HomePage() {
         </Container>
       </Section>
 
+      {/* =========================================== THE INTELLIGENCE LOOP */}
+      {/* MOBILE-FIRST BRIEF, priority 3: "Why Vadal / AI-Native — keep, elevate
+          above the product list… This is the wedge vs Actimo, CultureMonkey and
+          inFeedo. Surfacing it early answers 'why you, not them' before the
+          user browses the catalog." Score → Insight → Action → Impact was only
+          ever a line of text; this is it drawn. */}
+      <Section tone="surface" id="loop" reveal className="scroll-mt-20 max-lg:bg-none">
+        <Container>
+          <SectionHead
+            eyebrow="Why Vadal.ai"
+            title="A loop, not a report"
+            lede="Score, insight, action, impact. Four steps most tools treat as separate products, connected here so each one makes the next one smarter."
+          />
+          <div className="mt-14">
+            <IntelligenceLoop />
+          </div>
+        </Container>
+      </Section>
+
       {/* ==================================== PRODUCT LAYERS (MOBILE ONLY) */}
       {/* MOBILE-FIRST BRIEF: "Product Layers (5 accordion sections) — keep,
           accordions, collapsed by default… Accordions turn a huge desktop
           mega-menu into a compact, tappable index — the single biggest
           scroll-reducer on mobile." This replaces the four long feature
           narratives below, which are desktop-only from here down. */}
-      <Section tone="base" id="layers" className="scroll-mt-20 lg:hidden">
+      <Section tone="surface" id="layers" className="scroll-mt-20 lg:hidden">
         <Container>
           <SectionHead
             eyebrow="The platform"
@@ -85,23 +105,23 @@ export default function HomePage() {
 
       {/* ========================================================= SURVEYS */}
       {/* Desktop-only: superseded on mobile by the accordion index above. */}
-      <Section tone="surface" id="surveys" reveal glow="right" className="scroll-mt-20 max-lg:hidden">
+      <Section tone="base" id="surveys" reveal glow="right" className="scroll-mt-20 max-lg:hidden">
         <SurveysSection />
       </Section>
 
       {/* ======================================================= ANALYTICS */}
-      <Section tone="base" id="analytics" reveal glow="left" className="scroll-mt-20 max-lg:hidden">
+      <Section tone="surface" id="analytics" reveal glow="left" className="scroll-mt-20 max-lg:hidden">
         <AnalyticsSection />
       </Section>
 
       {/* ======================================================== FEEDBACK */}
-      <Section tone="surface" id="feedback" reveal className="scroll-mt-20 max-lg:hidden">
+      <Section tone="base" id="feedback" reveal className="scroll-mt-20 max-lg:hidden">
         <FeedbackSection />
       </Section>
 
       {/* ===================================================== ACTION BAND */}
       {/* Kept on mobile — the brief's mid-page conversion moment. */}
-      <Section tone="surface" id="action" reveal className="scroll-mt-20">
+      <Section tone="surface" id="action" reveal className="scroll-mt-20 max-lg:bg-none">
         <ActionBand />
       </Section>
 
