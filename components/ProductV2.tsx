@@ -89,7 +89,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
       </section>
 
       {/* ------------------------------------------------- sibling switcher */}
-      {cloud && <LayerSubNav layer={cloud} slug={p.slug} />}
+      {cloud && <LayerSubNav layer={cloud} slug={p.slug} placement="top" />}
 
       {/* ---------------------------------------------- business challenges */}
       <Section tone="surface">
@@ -346,6 +346,11 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
           </div>
         </Container>
       </Section>
+
+      {/* Desktop switcher. Must stay the LAST child of <main>: `sticky bottom-0`
+          rides the bottom of the viewport, then parks itself right above the
+          footer when <main> ends. */}
+      {cloud && <LayerSubNav layer={cloud} slug={p.slug} placement="bottom" />}
     </>
   );
 }

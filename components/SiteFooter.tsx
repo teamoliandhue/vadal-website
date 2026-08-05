@@ -2,20 +2,28 @@ import Link from "next/link";
 import { Logo, SparkMark } from "./Brand";
 import { Button, Container } from "./ui";
 import { Icon } from "./Icon";
-import { mobileProductNav, solutionsByOutcome, solutionsByWorkforce } from "@/lib/content";
+import { solutionsByOutcome, solutionsByWorkforce } from "@/lib/content";
+import { platformLayers } from "@/lib/platform-nav";
+import { FooterLink } from "./FooterLink";
 import { LANDING_ONLY } from "@/lib/flags";
 
 const columns = [
   {
-    // Driven off the canonical product list rather than hand-written labels:
-    // the old hardcoded version had drifted out of sync with the rest of the
-    // site ("Continuous listening" vs "Continuous Employee Listening", sentence
-    // case vs Title Case) and filed /security under Platform, though it's a
-    // trust page rather than a product. It now lives under Company.
+    // The six canonical layers rather than a hand-picked shortlist of modules.
+    // The shortlist only reached 10 of the 25 product pages, so on the other 15
+    // the footer could never show you where you were — and it had already
+    // drifted on labels once ("Continuous listening" vs the canonical
+    // "Continuous Employee Listening"). Every product belongs to exactly one
+    // layer, so this both stays in sync and always has something to highlight.
     title: "Platform",
     links: [
       { label: "Platform overview", href: "/platform" },
-      ...mobileProductNav.map((p) => ({ label: p.name, href: p.href })),
+      ...platformLayers.map((l) => ({
+        label: l.name,
+        href: `/platform#${l.id}`,
+        // you are "in" a layer whenever you're on one of its module pages
+        activeFor: l.modules.filter((m) => m.slug).map((m) => `/platform/${m.slug}`),
+      })),
     ],
   },
   {
@@ -167,12 +175,11 @@ export function SiteFooter() {
                     <ul className="mt-5 space-y-3.5">
                       {col.links.map((l) => (
                         <li key={l.label}>
-                          <Link
+                          <FooterLink
                             href={l.href}
-                            className="text-[15px] text-[var(--foreground)] transition-colors hover:text-[var(--brand)]"
-                          >
-                            {l.label}
-                          </Link>
+                            label={l.label}
+                            activeFor={"activeFor" in l ? l.activeFor : undefined}
+                          />
                         </li>
                       ))}
                     </ul>
