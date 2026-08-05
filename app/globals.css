@@ -311,6 +311,9 @@ html.lenis body {
   transform-origin: left;
   transition: transform 0.22s ease;
 }
+/* the current section keeps its underline drawn, so "you are here" uses the
+   same visual language as hover rather than a second one */
+.nav-underline[data-current="true"]::after,
 .nav-underline:hover::after,
 .nav-underline:focus-visible::after {
   transform: scaleX(1);

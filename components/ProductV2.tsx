@@ -41,6 +41,7 @@ const CAP_TONES: PanelTone[] = ["violet", "aurora", "blue", "spark"];
 
 export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }) {
   const cloud = platformLayers.find((g) => g.id === p.cloud);
+  const siblings = (cloud?.modules ?? []).filter((m) => m.slug && m.slug !== p.slug);
   const altMock = p.mock === "dashboard" ? "phone" : "dashboard";
 
   return (
@@ -50,10 +51,17 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
         <div className="aurora-wash animate-aurora pointer-events-none absolute inset-0 -z-10" />
         <Container className="grid items-center gap-12 pt-14 pb-12 sm:pt-20 lg:grid-cols-2">
           <div className="reveal">
-            <Pill aurora>
-              <Icon name={p.icon} size={14} />
-              Vadal.ai · {cloud?.name ?? "Platform"}
-            </Pill>
+            {/* the layer was shown but not clickable — every product page was a
+                dead end upward. It now walks back to its layer. */}
+            <Link
+              href={cloud ? `/platform#${cloud.id}` : "/platform"}
+              className="inline-block transition-opacity hover:opacity-80"
+            >
+              <Pill aurora>
+                <Icon name={p.icon} size={14} />
+                Vadal.ai · {cloud?.name ?? "Platform"}
+              </Pill>
+            </Link>
             <h1 className="display-lg mt-5 font-extrabold text-balance">{p.heroTitle}</h1>
             <p className="mt-5 max-w-xl text-[16.5px] leading-relaxed text-[var(--muted)] sm:text-[18px]">
               {p.heroLede}
@@ -79,6 +87,32 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
           </div>
         </Container>
       </section>
+
+      {/* ------------------------------------------------- sibling switcher */}
+      {/* Landing on a product, the only way to a neighbouring module was back
+          up through the menu. This moves you sideways within the layer. */}
+      {cloud && siblings.length > 0 && (
+        <div className="border-y border-[var(--line)] bg-[var(--card)]">
+          <Container>
+            <div className="flex items-center gap-4 overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <span className="shrink-0 text-[12px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
+                More in {cloud.name}
+              </span>
+              <div className="flex shrink-0 items-center gap-2">
+                {siblings.map((m) => (
+                  <Link
+                    key={m.slug}
+                    href={`/platform/${m.slug}`}
+                    className="whitespace-nowrap rounded-full border border-[var(--line)] px-3.5 py-1.5 text-[13.5px] font-semibold text-[var(--muted)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--brand)]"
+                  >
+                    {m.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </Container>
+        </div>
+      )}
 
       {/* ---------------------------------------------- business challenges */}
       <Section tone="surface">

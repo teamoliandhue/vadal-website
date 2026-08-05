@@ -23,8 +23,9 @@ import { useEffect, useRef, useState, type ReactNode, type RefObject } from "rea
    ========================================================================== */
 
 type Props = {
-  moreOpen: boolean;
-  onMoreToggle: () => void;
+  /** which bottom sheet is open, if any */
+  openSheet: "platform" | "more" | null;
+  onToggleSheet: (v: "platform" | "more") => void;
   moreBtnRef?: RefObject<HTMLButtonElement | null>;
 };
 
@@ -81,7 +82,7 @@ function TabLabel({ show, children }: { show: boolean; children: ReactNode }) {
   );
 }
 
-export function MobileTabBar({ moreOpen, onMoreToggle, moreBtnRef }: Props) {
+export function MobileTabBar({ openSheet, onToggleSheet, moreBtnRef }: Props) {
   const pathname = usePathname();
   const [hidden, setHidden] = useState(false);
   // the row fits its container exactly at 320px, so an expanding label would
@@ -121,6 +122,7 @@ export function MobileTabBar({ moreOpen, onMoreToggle, moreBtnRef }: Props) {
     };
   }, []);
 
+  const moreOpen = openSheet !== null;
   const on = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
   const isActive = (href: string) => on(href) && !moreOpen;
   const showLabel = (active: boolean) => active && !narrow;
@@ -162,15 +164,19 @@ export function MobileTabBar({ moreOpen, onMoreToggle, moreBtnRef }: Props) {
           <TabLabel show={showLabel(isActive("/"))}>Home</TabLabel>
         </Link>
 
-        <Link
-          href="/platform"
+        <button
+          type="button"
+          onClick={() => onToggleSheet("platform")}
           aria-label="Platform"
+          aria-expanded={openSheet === "platform"}
           aria-current={on("/platform") ? "page" : undefined}
-          className={tab(isActive("/platform"))}
+          className={tab(openSheet === "platform" || (isActive("/platform") && !openSheet))}
         >
           <LayersIcon />
-          <TabLabel show={showLabel(isActive("/platform"))}>Platform</TabLabel>
-        </Link>
+          <TabLabel show={showLabel(openSheet === "platform" || (isActive("/platform") && !openSheet))}>
+            Platform
+          </TabLabel>
+        </button>
 
         {/* the one solid pill — special without being elevated */}
         <Link
@@ -197,14 +203,14 @@ export function MobileTabBar({ moreOpen, onMoreToggle, moreBtnRef }: Props) {
         <button
           ref={moreBtnRef}
           type="button"
-          onClick={onMoreToggle}
+          onClick={() => onToggleSheet("more")}
           aria-label="More"
-          aria-expanded={moreOpen}
-          aria-controls={moreOpen ? "mobile-menu" : undefined}
-          className={tab(moreOpen)}
+          aria-expanded={openSheet === "more"}
+          aria-controls={openSheet === "more" ? "mobile-menu" : undefined}
+          className={tab(openSheet === "more")}
         >
           <MoreIcon />
-          <TabLabel show={showLabel(moreOpen)}>More</TabLabel>
+          <TabLabel show={showLabel(openSheet === "more")}>More</TabLabel>
         </button>
       </nav>
     </div>

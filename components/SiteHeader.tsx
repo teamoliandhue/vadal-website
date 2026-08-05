@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Logo, SparkMark } from "./Brand";
 import { Icon } from "./Icon";
 import { Button, Container } from "./ui";
@@ -22,10 +23,26 @@ import { LANDING_ONLY } from "@/lib/flags";
 type MegaId = "platform" | "solutions" | "resources" | "science";
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  // which top-level section the current URL belongs to, so the nav can say
+  // "you are here" instead of only reacting to hover
+  const currentSection = (() => {
+    if (pathname.startsWith("/platform")) return "/platform";
+    if (pathname.startsWith("/solutions")) return "/solutions";
+    if (pathname.startsWith("/resources")) return "/resources";
+    if (pathname.startsWith("/science")) return "/science";
+    if (pathname.startsWith("/pricing")) return "/pricing";
+    return null;
+  })();
+
   const [scrolled, setScrolled] = useState(false);
   const [hideBar, setHideBar] = useState(false);
   const lastY = useRef(0);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  // one bottom sheet, two scopes: the Platform tab opens the catalogue,
+  // More opens everything else. Previously both routed to the same sheet,
+  // so "Platform" and "More" overlapped confusingly.
+  const [sheet, setSheet] = useState<"platform" | "more" | null>(null);
+  const mobileOpen = sheet !== null;
   const [megaOpen, setMegaOpen] = useState<MegaId | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchBtnRef = useRef<HTMLButtonElement>(null);
@@ -62,7 +79,7 @@ export function SiteHeader() {
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
     const onChange = () => {
-      if (mq.matches) setMobileOpen(false);
+      if (mq.matches) setSheet(null);
     };
     mq.addEventListener("change", onChange);
     window.addEventListener("resize", onChange);
@@ -79,7 +96,7 @@ export function SiteHeader() {
       if (e.key === "Escape") {
         if (searchOpen) searchBtnRef.current?.focus();
         if (mobileOpen) mobileBtnRef.current?.focus();
-        setMobileOpen(false);
+        setSheet(null);
         setMegaOpen(null);
         setSearchOpen(false);
       }
@@ -131,6 +148,8 @@ export function SiteHeader() {
                   >
                     <Link
                       href={item.href}
+                      data-current={currentSection === item.href ? "true" : undefined}
+                      aria-current={currentSection === item.href ? "page" : undefined}
                       className="nav-underline flex items-center gap-1 rounded-full px-3.5 py-2 text-[14px] font-semibold text-[var(--foreground)] transition-colors hover:text-[var(--brand)]"
                       aria-expanded={megaOpen === item.mega}
                     >
@@ -153,6 +172,8 @@ export function SiteHeader() {
                   <Link
                     key={item.label}
                     href={item.href}
+                    data-current={currentSection === item.href ? "true" : undefined}
+                    aria-current={currentSection === item.href ? "page" : undefined}
                     className="nav-underline rounded-full px-3.5 py-2 text-[14px] font-semibold text-[var(--foreground)] transition-colors hover:text-[var(--brand)]"
                   >
                     {item.label}
@@ -196,14 +217,14 @@ export function SiteHeader() {
       </div>
 
       {!LANDING_ONLY && searchOpen && <SearchPanel onClose={closeSearch} />}
-      {!LANDING_ONLY && mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} />}
+      {!LANDING_ONLY && sheet && <MobileMenu view={sheet} onClose={() => setSheet(null)} />}
 
       {/* app-shell bottom navigation — phones only. Its "More" tab replaces the
           header hamburger and drives the same MobileMenu. */}
       {!LANDING_ONLY && (
         <MobileTabBar
-          moreOpen={mobileOpen}
-          onMoreToggle={() => setMobileOpen((v) => !v)}
+          openSheet={sheet}
+          onToggleSheet={(v) => setSheet((cur) => (cur === v ? null : v))}
           moreBtnRef={mobileBtnRef}
         />
       )}
@@ -377,7 +398,18 @@ function MegaPanel({ id, onNavigate }: { id: MegaId; onNavigate: () => void }) {
    Rail items are real links to /platform#<layer>, so the menu stays navigable
    and keyboard-accessible without bespoke key handling: focus swaps the pane. */
 function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
-  const [active, setActive] = useState(0);
+  // open on the layer the visitor is currently inside, so the menu picks up
+  // where the page left off rather than always resetting to the first layer
+  const pathname = usePathname();
+  const contextual = Math.max(
+    0,
+    platformLayers.findIndex(
+      (l) =>
+        pathname === `/platform#${l.id}` ||
+        l.modules.some((m) => m.slug && pathname === `/platform/${m.slug}`),
+    ),
+  );
+  const [active, setActive] = useState(contextual);
   const intent = useRef<number | null>(null);
 
   // small delay so a diagonal mouse path across the rail doesn't strobe the pane
@@ -836,7 +868,7 @@ function MobileLayerGroup({ onClose }: { onClose: () => void }) {
   );
 }
 
-function MobileMenu({ onClose }: { onClose: () => void }) {
+function MobileMenu({ view, onClose }: { view: "platform" | "more"; onClose: () => void }) {
   const panelRef = useRef<HTMLElement>(null);
   const [q, setQ] = useState("");
   const [dragY, setDragY] = useState(0);
@@ -945,9 +977,20 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
           ) : (
             // pb clears the floating island so the last links stay reachable
             <Container className="flex flex-col pb-[calc(96px+env(safe-area-inset-bottom))]">
-        <MobileGroup label="Platform" defaultOpen>
-          <MobileLayerGroup onClose={onClose} />
-        </MobileGroup>
+        {view === "platform" ? (
+          <>
+            <MobileLayerGroup onClose={onClose} />
+            <Link
+              href="/platform"
+              onClick={onClose}
+              className="mt-4 flex items-center justify-between rounded-[var(--r-md)] border border-[var(--line)] px-3.5 py-3 text-[14.5px] font-bold text-[var(--brand)]"
+            >
+              View the full platform
+              <Icon name="arrow" size={15} />
+            </Link>
+          </>
+        ) : (
+          <>
         <MobileGroup label="Solutions">
           <p className="px-2 pb-1 pt-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">By outcome</p>
           {solutionsByOutcome.map((s) => (
@@ -985,6 +1028,8 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         <Button href="/demo" size="lg" className="mt-3 w-full" icon>
           Book a demo
         </Button>
+          </>
+        )}
       </Container>
           )}
         </div>
