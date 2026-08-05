@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Link from "next/link";
 import { Icon } from "./Icon";
 import { landingLayers } from "@/lib/platform-nav";
@@ -10,26 +10,44 @@ import { landingLayers } from "@/lib/platform-nav";
 
    From the founder's mobile-first brief: "Accordions turn a huge desktop
    mega-menu into a compact, tappable index — the single biggest scroll-reducer
-   on mobile." Two levels, everything collapsed by default:
+   on mobile."
 
-     layer  → value-prop line + module rows (name + benefit hook)
-     module → up to four "what you get" lines (+ link to the product page)
+   Default state follows the brief's dev notes exactly:
+     "Always visible: layer name, layer value-prop line, and each module's
+      label + hook. Collapsed (tap to reveal): the four benefit lines under
+      each module. Whole layer collapsed by default: Enterprise AI Platform
+      only."
+   So every layer starts open showing its module rows, and only Enterprise AI
+   Platform starts closed — it serves IT/procurement, not first-time visitors.
 
-   Single-open at each level, so the page never balloons while browsing.
-   Mobile only — desktop keeps the full narrative sections and mega-menu.
+   "Accordion behaviour: one module open at a time per layer" — hence the
+   open-module map is keyed by layer rather than a single global value.
+
+   Mobile only; desktop keeps the full narrative sections and the mega-menu.
    ========================================================================== */
 
+const COLLAPSED_BY_DEFAULT = "enterprise-platform";
+
 export function MobilePlatformLayers() {
-  const [layer, setLayer] = useState<string | null>(null);
-  const [mod, setMod] = useState<string | null>(null);
+  const [closed, setClosed] = useState<Set<string>>(() => new Set([COLLAPSED_BY_DEFAULT]));
+  const [openMod, setOpenMod] = useState<Record<string, string | null>>({});
+
+  const toggleLayer = (id: string) =>
+    setClosed((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
 
   return (
     <div className="flex flex-col gap-3">
-      {landingLayers.map((l) => {
-        const open = layer === l.id;
+      {landingLayers.map((l, li) => {
+        const open = !closed.has(l.id);
+        const mod = openMod[l.id] ?? null;
         return (
+          <Fragment key={l.id}>
           <div
-            key={l.id}
             className={`overflow-hidden rounded-[var(--r-lg)] border transition-colors ${
               open
                 ? "border-[var(--line-strong)] bg-[var(--card)] shadow-[var(--shadow-md)]"
@@ -41,10 +59,7 @@ export function MobilePlatformLayers() {
               type="button"
               aria-expanded={open}
               aria-controls={`layer-${l.id}`}
-              onClick={() => {
-                setLayer(open ? null : l.id);
-                setMod(null);
-              }}
+              onClick={() => toggleLayer(l.id)}
               className="flex w-full items-center gap-3.5 p-4 text-left"
             >
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[12px] bg-[var(--brand-tint)] text-[var(--brand)]">
@@ -72,14 +87,16 @@ export function MobilePlatformLayers() {
               <div id={`layer-${l.id}`} className="border-t border-[var(--line)]">
                 {l.modules.map((m) => {
                   const key = `${l.id}:${m.name}`;
-                  const mOpen = mod === key;
+                  const mOpen = mod === m.name;
                   return (
                     <div key={m.name} className="border-b border-[var(--line)] last:border-b-0">
                       <button
                         type="button"
                         aria-expanded={mOpen}
                         aria-controls={`mod-${key}`}
-                        onClick={() => setMod(mOpen ? null : key)}
+                        onClick={() =>
+                          setOpenMod((prev) => ({ ...prev, [l.id]: mOpen ? null : m.name }))
+                        }
                         className="flex w-full items-start gap-3 px-4 py-3.5 text-left"
                       >
                         <span className="min-w-0 flex-1">
@@ -136,8 +153,31 @@ export function MobilePlatformLayers() {
               </div>
             )}
           </div>
+          {li === 2 && <MidCatalogCta />}
+          </Fragment>
         );
       })}
+    </div>
+  );
+}
+
+/* The brief: "Demo CTA repeats: hero, after the third layer, and in the
+   footer." This is the mid-catalog one — it sits after Digital Workplace,
+   where a visitor has seen enough to be interested but still has two layers
+   of scrolling ahead of them. */
+function MidCatalogCta() {
+  return (
+    <div className="my-1 rounded-[var(--r-lg)] border border-[var(--line)] bg-[image:var(--section-alt)] p-5 text-center">
+      <p className="text-[15.5px] font-bold leading-snug text-[var(--foreground)]">
+        Want to see it on your own workforce?
+      </p>
+      <Link
+        href="/demo"
+        className="mt-3.5 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-[var(--brand)] px-5 py-3 text-[14.5px] font-bold text-white shadow-[0_6px_16px_-6px_rgba(124,92,248,0.7)]"
+      >
+        Book a demo
+        <Icon name="arrow" size={15} />
+      </Link>
     </div>
   );
 }
