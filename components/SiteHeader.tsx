@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo, SparkMark } from "./Brand";
 import { Icon } from "./Icon";
+import { PRODUCT_SHOTS } from "./ProductShot";
 import { Button, Container } from "./ui";
 import { MobileTabBar } from "./MobileTabBar";
 import {
@@ -427,9 +428,22 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
 
   const layer = platformLayers[active];
 
+  // the preview follows the hovered module; scoped to a layer so switching rails
+  // can't leave a stale index pointing at the wrong (or a missing) module
+  const [hover, setHover] = useState<{ l: number; m: number } | null>(null);
+  const setHoverMod = (m: number) => setHover({ l: active, m });
+  const previewMod =
+    (hover?.l === active ? layer.modules[hover.m] : null) ??
+    layer.modules.find((m) => m.slug && PRODUCT_SHOTS[m.slug]) ??
+    layer.modules[0];
+  const preview = {
+    mod: previewMod,
+    shot: previewMod.slug ? PRODUCT_SHOTS[previewMod.slug] : undefined,
+  };
+
   return (
     <PanelShell
-      width="w-[min(1080px,94vw)]"
+      width="w-[min(1240px,95vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
@@ -440,7 +454,7 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
         />
       }
     >
-      <div className="grid grid-cols-[292px_1fr]">
+      <div className="grid grid-cols-[292px_minmax(0,1fr)] xl:grid-cols-[292px_minmax(0,1fr)_312px]">
         {/* ------------------------------------------------------- layer rail */}
         <div
           className="flex flex-col gap-0.5 border-r border-[var(--line)] bg-[var(--surface)]/50 p-3"
@@ -491,27 +505,20 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
         </div>
 
         {/* ------------------------------------------------------ module pane */}
-        <div className="min-w-0 p-5">
-          <div className="flex items-baseline justify-between gap-4">
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted-2)]">
-              {layer.name}
-            </p>
-            <Link
-              href={`/platform#${layer.id}`}
-              onClick={onNavigate}
-              className="shrink-0 text-[12.5px] font-bold text-[var(--brand)] hover:underline"
-            >
-              View layer
-            </Link>
-          </div>
+        <div className="flex min-w-0 flex-col p-5">
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted-2)]">
+            {layer.name}
+          </p>
           <p className="mt-1 text-[13.5px] text-[var(--muted)]">{layer.lede}</p>
 
           <div className="mt-4 grid grid-cols-2 gap-x-5 gap-y-0.5">
-            {layer.modules.map((m) => (
+            {layer.modules.map((m, mi) => (
               <Link
                 key={m.slug ?? m.name}
                 href={m.slug ? `/platform/${m.slug}` : `/platform#${layer.id}`}
                 onClick={onNavigate}
+                onMouseEnter={() => setHoverMod(mi)}
+                onFocus={() => setHoverMod(mi)}
                 className="group rounded-[var(--r-md)] px-3 py-2.5 transition-colors hover:bg-[var(--surface)]"
               >
                 <span className="flex items-center gap-2">
@@ -530,6 +537,57 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
               </Link>
             ))}
           </div>
+
+          <Link
+            href={`/platform#${layer.id}`}
+            onClick={onNavigate}
+            className="group mt-auto flex items-center justify-between gap-4 border-t border-[var(--line)] pt-4 text-[13px] font-bold text-[var(--brand)]"
+          >
+            <span>
+              See all {layer.modules.length} in {layer.name}
+            </span>
+            <Icon name="arrow" size={14} className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+
+        {/* ----------------------------------------------------- live preview */}
+        {/* The pane is as tall as the six-item rail, so a four-module layer left
+            roughly a third of the panel empty — and the menu showed none of the
+            product screenshots we already ship. This fills that space with the
+            actual screen behind whichever module is hovered. */}
+        <div className="hidden border-l border-[var(--line)] bg-[var(--surface)]/40 p-5 xl:block">
+          {preview.shot ? (
+            <figure className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] shadow-[var(--shadow-sm)]">
+              <img
+                key={preview.shot.file}
+                src={`/product/${preview.shot.file}.webp`}
+                alt=""
+                className="h-[168px] w-full object-cover object-left-top"
+                loading="lazy"
+              />
+              <figcaption className="border-t border-[var(--line)] px-3.5 py-2 text-[11.5px] font-semibold text-[var(--muted)]">
+                {preview.shot.label}
+              </figcaption>
+            </figure>
+          ) : (
+            <div className="grid h-[196px] place-items-center rounded-[var(--r-lg)] border border-dashed border-[var(--line-strong)] bg-[var(--card)]">
+              <span className="grid h-12 w-12 place-items-center rounded-[14px] bg-[var(--brand-tint)] text-[var(--brand)]">
+                <Icon name={layer.icon} size={22} />
+              </span>
+            </div>
+          )}
+          <p className="mt-3.5 text-[14px] font-bold text-[var(--foreground)]">{preview.mod.name}</p>
+          <p className="mt-1 text-[12.5px] leading-snug text-[var(--muted)]">{preview.mod.hook}</p>
+          {preview.mod.slug && (
+            <Link
+              href={`/platform/${preview.mod.slug}`}
+              onClick={onNavigate}
+              className="mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[var(--brand)]"
+            >
+              Explore {preview.mod.name}
+              <Icon name="arrow" size={13} />
+            </Link>
+          )}
         </div>
       </div>
     </PanelShell>
