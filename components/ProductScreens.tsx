@@ -46,12 +46,23 @@ function Frame({ label, slug }: { label: string; slug: string }) {
         </div>
 
         {shot ? (
-          <img
-            src={`/product/${shot.file}.webp`}
-            alt={label}
-            loading="lazy"
-            className="aspect-[16/10] w-full object-cover object-left-top"
-          />
+          // phone captures are portrait — contain them in the landscape tile
+          // rather than cropping the screen down to a 16:10 sliver
+          <div
+            className={phone ? "grid aspect-[16/10] place-items-center p-3" : ""}
+            style={phone ? { background: "var(--aurora-soft)" } : undefined}
+          >
+            <img
+              src={`/product/${shot.file}.webp`}
+              alt={label}
+              loading="lazy"
+              className={
+                phone
+                  ? "max-h-full w-auto rounded-[6px] shadow-[var(--shadow-sm)]"
+                  : "aspect-[16/10] w-full object-cover object-left-top"
+              }
+            />
+          </div>
         ) : (
           <div
             className="grid aspect-[16/10] place-items-center"
