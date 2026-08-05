@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo, SparkMark } from "./Brand";
 import { Icon } from "./Icon";
+import { MenuGlyph, type GlyphKind } from "./MenuGlyph";
 import { PRODUCT_SHOTS } from "./ProductShot";
 import { Button, Container } from "./ui";
 import { MobileTabBar } from "./MobileTabBar";
@@ -240,38 +241,17 @@ export function SiteHeader() {
    grouped text-link columns — no per-link icons or bullets, generous rhythm. */
 
 /* aurora "halftone globe" — a gradient sphere with a dot texture + inner shade */
-function AuroraOrb({ size = 104 }: { size?: number }) {
-  return (
-    <div className="relative shrink-0" style={{ width: size, height: size }} aria-hidden="true">
-      <div className="absolute inset-0 rounded-full" style={{ background: "var(--aurora)" }} />
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{
-          backgroundImage: "radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1.5px)",
-          backgroundSize: "7px 7px",
-          WebkitMaskImage: "radial-gradient(circle at 50% 50%, #000 58%, transparent 72%)",
-          maskImage: "radial-gradient(circle at 50% 50%, #000 58%, transparent 72%)",
-          opacity: 0.85,
-          mixBlendMode: "soft-light",
-        }}
-      />
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{ boxShadow: "inset 0 -10px 22px rgba(13,11,22,0.22), inset 0 8px 16px rgba(255,255,255,0.45)" }}
-      />
-    </div>
-  );
-}
-
 function MenuFeatureCard({
   title,
   href,
   desc,
+  glyph,
   onNavigate,
 }: {
   title: string;
   href: string;
   desc: string;
+  glyph: GlyphKind;
   onNavigate: () => void;
 }) {
   return (
@@ -287,7 +267,7 @@ function MenuFeatureCard({
           <Icon name="arrow" size={16} className="text-[var(--brand)] transition-transform group-hover:translate-x-0.5" />
         </span>
         <span className="-mr-1.5 -mt-1.5">
-          <AuroraOrb />
+          <MenuGlyph kind={glyph} />
         </span>
       </div>
       <p className="relative max-w-[15rem] text-[13px] leading-relaxed text-[var(--foreground)]/75">
@@ -637,6 +617,7 @@ function SolutionsMega({ onNavigate }: { onNavigate: () => void }) {
         <MenuFeatureCard
           title="Solutions"
           href="/solutions"
+          glyph="solutions"
           desc="Workforce intelligence tuned to the outcomes you're accountable for and the workforce you run."
           onNavigate={onNavigate}
         />
@@ -688,6 +669,7 @@ function ResourcesMega({ onNavigate }: { onNavigate: () => void }) {
         <MenuFeatureCard
           title="Resources"
           href="/resources"
+          glyph="resources"
           desc="Guides, benchmarks and community for leaders turning employee feedback into decisions."
           onNavigate={onNavigate}
         />
@@ -722,6 +704,7 @@ function ScienceMega({ onNavigate }: { onNavigate: () => void }) {
         <MenuFeatureCard
           title="The Science"
           href="/science"
+          glyph="science"
           desc={scienceMenu.heading}
           onNavigate={onNavigate}
         />
