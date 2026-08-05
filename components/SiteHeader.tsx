@@ -443,7 +443,7 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
 
   return (
     <PanelShell
-      width="w-[min(1240px,95vw)]"
+      width="w-[min(1060px,94vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
@@ -454,7 +454,7 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
         />
       }
     >
-      <div className="grid grid-cols-[292px_minmax(0,1fr)] xl:grid-cols-[292px_minmax(0,1fr)_312px]">
+      <div className="grid grid-cols-[292px_minmax(0,1fr)_300px]">
         {/* ------------------------------------------------------- layer rail */}
         <div
           className="flex flex-col gap-0.5 border-r border-[var(--line)] bg-[var(--surface)]/50 p-3"
@@ -511,31 +511,59 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
           </p>
           <p className="mt-1 text-[13.5px] text-[var(--muted)]">{layer.lede}</p>
 
-          <div className="mt-4 grid grid-cols-2 gap-x-5 gap-y-0.5">
-            {layer.modules.map((m, mi) => (
-              <Link
-                key={m.slug ?? m.name}
-                href={m.slug ? `/platform/${m.slug}` : `/platform#${layer.id}`}
-                onClick={onNavigate}
-                onMouseEnter={() => setHoverMod(mi)}
-                onFocus={() => setHoverMod(mi)}
-                className="group rounded-[var(--r-md)] px-3 py-2.5 transition-colors hover:bg-[var(--surface)]"
-              >
-                <span className="flex items-center gap-2">
-                  <span className="text-[14.5px] font-semibold text-[var(--foreground)] transition-colors group-hover:text-[var(--brand)]">
-                    {m.name}
+          {/* one column, not two: a layer holds 3–5 modules, so a 2-up grid made
+              two short rows and left the rest of the pane blank. Full-width rows
+              with a glyph fill the height the six-item rail sets. */}
+          <div className="mt-3 flex flex-col gap-0.5">
+            {layer.modules.map((m, mi) => {
+              const on = m === preview.mod;
+              return (
+                <Link
+                  key={m.slug ?? m.name}
+                  href={m.slug ? `/platform/${m.slug}` : `/platform#${layer.id}`}
+                  onClick={onNavigate}
+                  onMouseEnter={() => setHoverMod(mi)}
+                  onFocus={() => setHoverMod(mi)}
+                  className={`group flex items-center gap-3 rounded-[var(--r-md)] px-3 py-2.5 transition-colors ${
+                    on ? "bg-[var(--surface)]" : "hover:bg-[var(--surface)]"
+                  }`}
+                >
+                  <span
+                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-[10px] transition-colors ${
+                      on ? "bg-[var(--brand)] text-white" : "bg-[var(--brand-tint)] text-[var(--brand)]"
+                    }`}
+                  >
+                    <Icon name={m.icon} size={17} />
                   </span>
-                  {m.isNew && (
-                    <span className="rounded-[5px] bg-[var(--brand-tint)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.06em] text-[var(--brand)]">
-                      New
+                  <span className="min-w-0 flex-1">
+                    <span className="flex items-center gap-2">
+                      <span
+                        className={`text-[14.5px] font-semibold leading-tight ${
+                          on ? "text-[var(--brand)]" : "text-[var(--foreground)]"
+                        }`}
+                      >
+                        {m.name}
+                      </span>
+                      {m.isNew && (
+                        <span className="rounded-[5px] bg-[var(--brand-tint)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.06em] text-[var(--brand)]">
+                          New
+                        </span>
+                      )}
                     </span>
-                  )}
-                </span>
-                <span className="mt-0.5 block text-[12.5px] leading-snug text-[var(--muted)]">
-                  {m.hook}
-                </span>
-              </Link>
-            ))}
+                    <span className="mt-0.5 block text-[12.5px] leading-snug text-[var(--muted)]">
+                      {m.hook}
+                    </span>
+                  </span>
+                  <Icon
+                    name="arrow"
+                    size={14}
+                    className={`shrink-0 transition-opacity ${
+                      on ? "text-[var(--brand)] opacity-100" : "text-[var(--muted-2)] opacity-0 group-hover:opacity-100"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
           </div>
 
           <Link
@@ -555,14 +583,14 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
             roughly a third of the panel empty — and the menu showed none of the
             product screenshots we already ship. This fills that space with the
             actual screen behind whichever module is hovered. */}
-        <div className="hidden border-l border-[var(--line)] bg-[var(--surface)]/40 p-5 xl:block">
+        <div className="flex flex-col border-l border-[var(--line)] bg-[var(--surface)]/40 p-5">
           {preview.shot ? (
-            <figure className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] shadow-[var(--shadow-sm)]">
+            <figure className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] shadow-[var(--shadow-sm)]">
               <img
                 key={preview.shot.file}
                 src={`/product/${preview.shot.file}.webp`}
                 alt=""
-                className="h-[168px] w-full object-cover object-left-top"
+                className="min-h-[168px] w-full flex-1 object-cover object-left-top"
                 loading="lazy"
               />
               <figcaption className="border-t border-[var(--line)] px-3.5 py-2 text-[11.5px] font-semibold text-[var(--muted)]">
@@ -570,7 +598,7 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
               </figcaption>
             </figure>
           ) : (
-            <div className="grid h-[196px] place-items-center rounded-[var(--r-lg)] border border-dashed border-[var(--line-strong)] bg-[var(--card)]">
+            <div className="grid min-h-[196px] flex-1 place-items-center rounded-[var(--r-lg)] border border-dashed border-[var(--line-strong)] bg-[var(--card)]">
               <span className="grid h-12 w-12 place-items-center rounded-[14px] bg-[var(--brand-tint)] text-[var(--brand)]">
                 <Icon name={layer.icon} size={22} />
               </span>

@@ -37,6 +37,8 @@ export type PlatformModule = {
   lines?: string[];
   /** part of the brief's landing-page IA (drives `landingLayers`) */
   landing?: boolean;
+  /** glyph for the desktop mega's module rows */
+  icon: IconName;
 };
 
 export type PlatformLayer = {
@@ -61,6 +63,7 @@ export const platformLayers: PlatformLayer[] = [
     modules: [
       {
         name: "Employee Communication",
+        icon: "broadcast",
         hook: "Reach everyone, instantly",
         slug: "employee-communication",
         blurb: "AI-powered announcements, targeted campaigns, digital noticeboards and multi-channel messaging.",
@@ -74,6 +77,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Employee Experience",
+        icon: "compass",
         hook: "Every moment matters",
         slug: "employee-experience",
         blurb: "Measure and improve every stage of the lifecycle with AI-powered listening and journey analytics.",
@@ -87,6 +91,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Employee Wellbeing & Culture",
+        icon: "heart",
         hook: "Spot burnout early",
         slug: "employee-wellbeing-culture",
         blurb: "Continuous listening, wellbeing assessments and recognition that foster a healthy workplace.",
@@ -100,6 +105,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Recognition & Rewards",
+        icon: "users",
         hook: "Make people feel valued",
         slug: "recognition-rewards",
         blurb: "AI-enabled peer recognition, milestone celebrations and performance-based rewards.",
@@ -123,6 +129,7 @@ export const platformLayers: PlatformLayer[] = [
     modules: [
       {
         name: "Continuous Employee Listening",
+        icon: "bell",
         hook: "Listen every day",
         slug: "employee-listening",
         blurb: "Multi-channel listening, surveys, portals, recognition and AI conversations.",
@@ -136,6 +143,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Engagement Surveys",
+        icon: "pulse",
         hook: "Sentiment matters",
         slug: "engagement-surveys",
         blurb: "AI-powered engagement, pulse and lifecycle surveys that capture meaningful feedback.",
@@ -147,8 +155,10 @@ export const platformLayers: PlatformLayer[] = [
           "Connected Actions, feedback becomes assigned, tracked action plans.",
         ],
       },
-      { name: "Feedback Intelligence", hook: "See what feedback means", slug: "feedback-intelligence" , blurb: "AI that organizes and prioritizes feedback into recurring themes and actions." },
-      { name: "Action Planning", hook: "Feedback becomes action", slug: "action-planning" , blurb: "AI-generated action plans with ownership tracking and progress monitoring." },
+      { name: "Feedback Intelligence",
+ icon: "chat", hook: "See what feedback means", slug: "feedback-intelligence" , blurb: "AI that organizes and prioritizes feedback into recurring themes and actions." },
+      { name: "Action Planning",
+ icon: "checks", hook: "Feedback becomes action", slug: "action-planning" , blurb: "AI-generated action plans with ownership tracking and progress monitoring." },
     ],
   },
   {
@@ -161,6 +171,7 @@ export const platformLayers: PlatformLayer[] = [
     modules: [
       {
         name: "AI Employee Chat",
+        icon: "spark",
         hook: "Answers, 24/7",
         slug: "ai-employee-chat",
         blurb: "An intelligent assistant for HR support, policy guidance and knowledge discovery.",
@@ -174,6 +185,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Mobile & E-Learning",
+        icon: "graduation",
         hook: "Learn on the go",
         slug: "mobile-e-learning",
         blurb: "Mobile-first learning journeys, microlearning and AI content recommendations.",
@@ -187,6 +199,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Case Management, Tasks & Workflow",
+        icon: "lifebuoy",
         hook: "Get work done in flow",
         slug: "tasks-workflow",
         blurb: "Log, route and resolve requests, and digitize tasks with intelligent workflow automation.",
@@ -210,6 +223,7 @@ export const platformLayers: PlatformLayer[] = [
     modules: [
       {
         name: "Pre- & Onboarding",
+        icon: "rocket",
         hook: "Productive from day one",
         slug: "pre-onboarding",
         blurb: "Personalized journeys, digital documentation and AI-guided onboarding.",
@@ -223,6 +237,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Alumni Management",
+        icon: "globe",
         hook: "Stay connected after goodbye",
         slug: "alumni-management",
         blurb: "Lifelong portal access, exit documents and a boomerang pipeline of proven talent.",
@@ -235,9 +250,12 @@ export const platformLayers: PlatformLayer[] = [
           "Alumni Network & Revenue, a community that drives referrals and new revenue.",
         ],
       },
-      { name: "Skills Intelligence", hook: "Map skills and gaps", slug: "skills-intelligence" , blurb: "Map capabilities, spot skill gaps and recommend personalized learning paths." },
-      { name: "Leadership Intelligence", hook: "Coach better managers", slug: "leadership-intelligence" , blurb: "Assess leadership effectiveness, strengthen succession and coach future leaders." },
-      { name: "Workforce Planning", hook: "Plan capacity ahead", slug: "workforce-planning" , blurb: "Optimize capacity, hiring plans and org design with predictive analytics." },
+      { name: "Skills Intelligence",
+ icon: "palette", hook: "Map skills and gaps", slug: "skills-intelligence" , blurb: "Map capabilities, spot skill gaps and recommend personalized learning paths." },
+      { name: "Leadership Intelligence",
+ icon: "compass", hook: "Coach better managers", slug: "leadership-intelligence" , blurb: "Assess leadership effectiveness, strengthen succession and coach future leaders." },
+      { name: "Workforce Planning",
+ icon: "refresh", hook: "Plan capacity ahead", slug: "workforce-planning" , blurb: "Optimize capacity, hiring plans and org design with predictive analytics." },
     ],
   },
   {
@@ -251,6 +269,7 @@ export const platformLayers: PlatformLayer[] = [
     modules: [
       {
         name: "Enterprise Integrations",
+        icon: "plug",
         hook: "Connects to your stack",
         slug: "enterprise-integrations",
         blurb: "Connect HRIS, HCM, ERP, ATS, payroll, collaboration and analytics platforms.",
@@ -264,6 +283,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Security & Compliance",
+        icon: "lock",
         hook: "Enterprise-grade trust",
         slug: "security-compliance",
         blurb: "Enterprise-grade security, GDPR-ready privacy and responsible AI governance.",
@@ -277,6 +297,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Implementation & Customer Success",
+        icon: "lifebuoy",
         hook: "Live faster, stay supported",
         slug: "implementation",
         blurb: "Structured implementation, free data migration and dedicated customer success.",
@@ -290,6 +311,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Decision Intelligence Copilot",
+        icon: "spark",
         hook: "Ask your workforce anything",
         slug: "decision-intelligence-copilot",
         blurb: "Ask workforce questions in natural language, get AI-powered predictive guidance.",
@@ -303,6 +325,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "AI Workforce Assistant",
+        icon: "chat",
         hook: "A proactive AI teammate",
         slug: "ai-workforce-assistant",
         blurb: "A proactive AI teammate that surfaces what needs attention before anyone asks.",
@@ -328,10 +351,14 @@ export const platformLayers: PlatformLayer[] = [
       "Transform workforce data into AI-powered insights that help leaders measure organizational health, predict risks and make informed business decisions.",
     icon: "chart",
     modules: [
-      { name: "People Analytics", hook: "See the whole workforce", slug: "people-analytics" , blurb: "Predictive analytics, AI dashboards and BI to uncover trends and identify risks." },
-      { name: "Sentiment Intelligence", hook: "Read the mood", slug: "sentiment-intelligence" , blurb: "NLP-driven analysis of emotions, workplace trends and engagement drivers." },
-      { name: "Benchmark Intelligence", hook: "Compare with peers", slug: "benchmark-intelligence" , blurb: "Compare engagement and performance across units, locations and industry benchmarks." },
-      { name: "Executive Reports", hook: "Board-ready in minutes", slug: "executive-reports" , blurb: "Executive-ready dashboards, board reports and AI-powered workforce summaries." },
+      { name: "People Analytics",
+ icon: "chart", hook: "See the whole workforce", slug: "people-analytics" , blurb: "Predictive analytics, AI dashboards and BI to uncover trends and identify risks." },
+      { name: "Sentiment Intelligence",
+ icon: "pulse", hook: "Read the mood", slug: "sentiment-intelligence" , blurb: "NLP-driven analysis of emotions, workplace trends and engagement drivers." },
+      { name: "Benchmark Intelligence",
+ icon: "chart", hook: "Compare with peers", slug: "benchmark-intelligence" , blurb: "Compare engagement and performance across units, locations and industry benchmarks." },
+      { name: "Executive Reports",
+ icon: "shield", hook: "Board-ready in minutes", slug: "executive-reports" , blurb: "Executive-ready dashboards, board reports and AI-powered workforce summaries." },
     ],
   },
 ];
