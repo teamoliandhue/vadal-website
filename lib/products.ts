@@ -30,6 +30,8 @@ export type Product = {
   aiCapabilities: string[];
   outcomes: string[];
   story: { challenge: string; solution: string; outcomes: string };
+  /** §6 of the content spec: the named product screens for this page */
+  screens: string[];
   integrations: string[];
   faqs: { q: string; a: string }[];
   related: string[];
@@ -129,6 +131,14 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Employee Communication product to reach every employee via mobile, SMS and push, with AI-powered targeting and two-way feedback channels.",
       "outcomes": "Higher message reach across frontline teams, faster feedback loops between staff and leadership, and measurable communication effectiveness for the first time."
     },
+    "screens": [
+          "Campaign Dashboard",
+          "News Feed",
+          "Announcement Composer",
+          "Communication Analytics",
+          "AI Communication Copilot",
+          "Mobile Employee App"
+    ],
     "integrations": [
       "Microsoft Teams",
       "Slack",
@@ -270,6 +280,14 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Employee Experience product to orchestrate personalized onboarding journeys and surface key life-cycle moments automatically.",
       "outcomes": "Faster time-to-productivity, higher onboarding completion, and improved new-hire retention."
     },
+    "screens": [
+          "Employee Journey Map Dashboard",
+          "Onboarding Portal",
+          "Employee Hub / Homepage",
+          "Moments That Matter Feed",
+          "Experience Analytics Dashboard",
+          "Mobile Employee App"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -409,6 +427,14 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Wellbeing & Culture module to detect burnout risk and equip managers with proactive coaching guidance.",
       "outcomes": "Earlier intervention, reduced regrettable attrition, and higher manager confidence in supporting teams."
     },
+    "screens": [
+          "Wellbeing Risk Dashboard",
+          "Burnout Early-Warning Alerts",
+          "Culture Pulse Survey Interface",
+          "Wellbeing Resource Hub",
+          "Manager Coaching Panel",
+          "Mobile Wellbeing Check-in"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -545,6 +571,14 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Recognition & Rewards module to enable peer-to-peer recognition and AI-nudged manager participation.",
       "outcomes": "More frequent and equitable recognition, stronger frontline engagement, and improved retention among recognized employees."
     },
+    "screens": [
+          "Recognition Feed / Wall of Fame",
+          "Give Recognition Interface",
+          "Rewards Catalog & Redemption",
+          "Manager Recognition Dashboard",
+          "Recognition Analytics & Equity Report",
+          "Mobile Recognition App"
+    ],
     "integrations": [
       "Microsoft Teams",
       "Slack",
@@ -676,6 +710,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's People Analytics product to unify data into a single live dashboard with AI-generated insights.",
       "outcomes": "Faster reporting cycles, earlier risk detection, higher manager engagement with data."
     },
+    "screens": [
+          "Workforce Health Dashboard",
+          "Driver-Level Heatmap",
+          "Manager Team View",
+          "AI Insight Summary Panel"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -796,6 +836,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Sentiment Intelligence to track sentiment continuously and flag risk early.",
       "outcomes": "Earlier interventions, reduced regrettable attrition, improved manager response time."
     },
+    "screens": [
+          "Sentiment Trend Dashboard",
+          "Theme & Emotion Cluster View",
+          "Attrition Risk Alert Panel",
+          "Team-Level Sentiment Heatmap"
+    ],
     "integrations": [
       "Microsoft Teams",
       "Slack",
@@ -912,6 +958,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Benchmark Intelligence to compare scores against relevant industry peers, driver by driver.",
       "outcomes": "Clearer prioritization, stronger board confidence in the people strategy."
     },
+    "screens": [
+          "Benchmark Comparison Dashboard",
+          "Driver-Level Peer Gap View",
+          "Industry & Region Filter Panel",
+          "Board-Ready Benchmark Report"
+    ],
     "integrations": [
       "Power BI",
       "Tableau",
@@ -1026,6 +1078,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Executive Reports to auto-generate board-ready reports directly from live workforce data.",
       "outcomes": "Reporting time cut dramatically, more consistent executive visibility into workforce health."
     },
+    "screens": [
+          "Executive Report Builder",
+          "Board-Ready Report Template",
+          "AI-Generated Summary Panel",
+          "Report Scheduling & Distribution View"
+    ],
     "integrations": [
       "Power BI",
       "Tableau",
@@ -1143,6 +1201,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Pre- & Onboarding product to automate pre-start engagement and personalize the first 90 days.",
       "outcomes": "Reduced drop-off, faster ramp-up, improved new-hire retention."
     },
+    "screens": [
+          "Pre-Boarding Candidate Portal",
+          "Onboarding Journey Timeline",
+          "Document Collection Workflow",
+          "Manager Onboarding Dashboard"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -1265,6 +1329,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Skills Intelligence to map organizational capability and proactively flag gaps against future needs.",
       "outcomes": "Earlier gap detection, more targeted reskilling investment, improved internal mobility."
     },
+    "screens": [
+          "Organization Skills Map",
+          "Capability Gap Dashboard",
+          "Individual Development Path View",
+          "Skills-by-Team Heatmap"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -1381,6 +1451,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Leadership Intelligence to connect manager behavior directly to team outcomes and target coaching accordingly.",
       "outcomes": "More targeted development investment, measurable engagement improvement in coached teams."
     },
+    "screens": [
+          "Leadership Impact Dashboard",
+          "Continuous 360 Feedback Interface",
+          "Individual Leader Development Plan",
+          "High-Potential Talent View"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -1497,6 +1573,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Workforce Planning to model scenarios and keep plans continuously updated with live data.",
       "outcomes": "More strategic hiring decisions, reduced planning cycle time, improved HR-Finance alignment."
     },
+    "screens": [
+          "Scenario Modeling Dashboard",
+          "Skills-Aware Headcount Plan",
+          "Real-Time Plan Tracking View",
+          "HR-Finance Shared Planning Interface"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -1620,6 +1702,14 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Alumni Management product to keep leavers on a lifelong portal, automate exit documents and open a boomerang pipeline into open roles.",
       "outcomes": "More rehires from the alumni pool, less agency spend, and a measurable referral pipeline from former employees."
     },
+    "screens": [
+          "Alumni Portal Home",
+          "Exit & Document Hub",
+          "Job & News Feed for Alumni",
+          "Boomerang Candidate Pipeline",
+          "Alumni Network Directory",
+          "Alumni Engagement & Revenue Dashboard"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -1748,6 +1838,14 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Engagement Surveys with omnichannel distribution and connected action planning.",
       "outcomes": "Increased participation, faster action on feedback, improved frontline reach."
     },
+    "screens": [
+          "Survey Builder & Template Library",
+          "Omnichannel Distribution Panel",
+          "Omnichannel reach: email, SMS, WhatsApp, Microsoft Teams, Slack and QR, no company email required. [ADDED]",
+          "Real-Time Response Dashboard",
+          "AI Feedback Theme Analysis",
+          "Action Plan Tracker"
+    ],
     "integrations": [
       "Microsoft Teams",
       "Slack",
@@ -1873,6 +1971,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Continuous Employee Listening for always-on, lifecycle-based feedback.",
       "outcomes": "Faster issue detection, fewer surprises between cycles, richer employee voice."
     },
+    "screens": [
+          "Continuous Listening Dashboard",
+          "Lifecycle Listening Timeline",
+          "Real-Time Signal Feed",
+          "Channel Coverage View"
+    ],
     "integrations": [
       "Microsoft Teams",
       "Slack",
@@ -1992,6 +2096,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Feedback Intelligence to auto-cluster, score and prioritize feedback themes.",
       "outcomes": "Faster analysis, clearer priorities, earlier detection of rising issues."
     },
+    "screens": [
+          "Theme Cluster Dashboard",
+          "Sentiment Intensity Heatmap",
+          "Priority Themes Panel",
+          "Theme Trend-Over-Time View"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -2110,6 +2220,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Action Planning with AI-recommended actions and manager accountability tracking.",
       "outcomes": "Higher follow-through, improved manager ownership, recovering participation rates."
     },
+    "screens": [
+          "Action Plan Board (drag-and-drop)",
+          "AI Action Recommendation Panel",
+          "Manager Accountability Dashboard",
+          "Action Impact Tracker"
+    ],
     "integrations": [
       "Microsoft Teams",
       "Slack",
@@ -2227,6 +2343,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's AI Employee Chat to automate routine query resolution with intelligent escalation.",
       "outcomes": "Large reduction in routine ticket volume, faster answers, more HR capacity for strategic work."
     },
+    "screens": [
+          "Employee Chat Interface",
+          "Query Resolution Dashboard",
+          "Escalation & Ticketing View",
+          "Knowledge Source Management"
+    ],
     "integrations": [
       "Microsoft Teams",
       "Slack",
@@ -2357,6 +2479,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Tasks & Workflow for structured, mobile-first task assignment and automation.",
       "outcomes": "Higher completion rates, better compliance adherence, clearer operational visibility."
     },
+    "screens": [
+          "Task Dashboard",
+          "Workflow Builder",
+          "Mobile Task View",
+          "Manager Oversight Panel"
+    ],
     "integrations": [
       "Microsoft Teams",
       "Slack",
@@ -2477,6 +2605,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Mobile & E-Learning for mobile-first microlearning with progress tracking.",
       "outcomes": "Higher completion rates, more consistent onboarding, improved compliance readiness."
     },
+    "screens": [
+          "Mobile Learning Home",
+          "Learning Path Builder",
+          "Learning Recommendation Feed",
+          "Training Progress & Compliance Dashboard"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -2604,6 +2738,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Enterprise Integrations to sync data automatically across the stack.",
       "outcomes": "Eliminated manual syncing, faster time-to-value, and a single source of workforce truth."
     },
+    "screens": [
+          "Integration Directory",
+          "Connector Configuration Panel",
+          "Data Sync Status Dashboard",
+          "API & Webhook Management"
+    ],
     "integrations": [
       "Workday",
       "SAP SuccessFactors",
@@ -2728,6 +2868,12 @@ export const products: Product[] = [
       "solution": "Adopted Vadal.ai with enterprise security, role-based access, data-residency support and responsible-AI governance.",
       "outcomes": "Faster security approval, confident global rollout, and stronger employee trust."
     },
+    "screens": [
+          "Security Controls Dashboard",
+          "Role-Based Access Management",
+          "Audit Log Viewer",
+          "AI Governance & Transparency Panel"
+    ],
     "integrations": [
       "SSO / Identity providers (Okta, Azure AD)",
       "SIEM tools",
@@ -2841,6 +2987,12 @@ export const products: Product[] = [
       "solution": "Adopted Vadal.ai with guided, AI-accelerated implementation and a dedicated customer success partner.",
       "outcomes": "Faster go-live, higher adoption, and sustained value realization."
     },
+    "screens": [
+          "Implementation Roadmap View",
+          "Configuration & Template Library",
+          "Adoption Dashboard",
+          "Customer Success Portal"
+    ],
     "integrations": [
       "Works alongside all Vadal.ai products and existing enterprise systems"
     ],
@@ -2952,6 +3104,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's Decision Intelligence Copilot for natural-language, data-grounded decision support.",
       "outcomes": "Faster decisions, broader data access for non-analysts, and a more confident people strategy."
     },
+    "screens": [
+          "Copilot Conversation Interface",
+          "Data-Grounded Answer View",
+          "Recommendation Panel",
+          "Insight Drill-Down"
+    ],
     "integrations": [
       "Draws on all Vadal.ai products",
       "Power BI",
@@ -3068,6 +3226,12 @@ export const products: Product[] = [
       "solution": "Deployed Vadal.ai's AI Workforce Assistant to proactively surface priorities and guidance.",
       "outcomes": "More proactive management, fewer missed signals, and improved everyday productivity."
     },
+    "screens": [
+          "Assistant Home / Daily Brief",
+          "Proactive Nudge Feed",
+          "Manager Guidance Panel",
+          "Personalized Task & Info View"
+    ],
     "integrations": [
       "Microsoft Teams",
       "Slack",

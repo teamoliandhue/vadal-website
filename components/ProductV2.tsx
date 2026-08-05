@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button, Container, Pill, Section, SectionHead, CheckItem } from "./ui";
 import { Icon } from "./Icon";
 import { LayerSubNav } from "./LayerSubNav";
+import { ProductScreens } from "./ProductScreens";
 import { SparkMark } from "./Brand";
 import { DashboardMock, PhoneMock, VoiceCard, BroadcastCard } from "./ProductMocks";
 import { CrowdPanel, FeatureRow, IconChip, type PanelTone } from "./sections";
@@ -39,6 +40,15 @@ function Mock({ kind, scale = false }: { kind: string; scale?: boolean }) {
 }
 
 const CAP_TONES: PanelTone[] = ["violet", "aurora", "blue", "spark"];
+
+const norm = (v: string) => v.toLowerCase().replace(/[^a-z]/g, "");
+/** true only when our one real capture for this product IS the named screen.
+    Exact, not substring: short labels like "Recognition" otherwise match half
+    a page's screen names and caption the image as something it isn't. */
+function screenShot(slug: string, screen: string) {
+  const shot = PRODUCT_SHOTS[slug];
+  return shot ? norm(shot.label) === norm(screen) : false;
+}
 
 export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }) {
   const cloud = platformLayers.find((g) => g.id === p.cloud);
@@ -180,7 +190,11 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
                 panelTone={CAP_TONES[i % CAP_TONES.length]}
                 visual={
                   <div className="flex flex-col items-center gap-3">
-                    <Mock kind={i % 2 === 0 ? p.mock : altMock} scale />
+                    {screenShot(p.slug, c.screen) ? (
+                      <ProductShot shot={PRODUCT_SHOTS[p.slug]} />
+                    ) : (
+                      <Mock kind={i % 2 === 0 ? p.mock : altMock} scale />
+                    )}
                     <span className="rounded-full bg-white/90 px-3.5 py-1.5 text-[12px] font-bold text-[var(--ink-deep)] shadow-[var(--shadow-sm)]">
                       {c.screen}
                     </span>
@@ -220,6 +234,9 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
           </Container>
         </Section>
       )}
+
+      {/* -------------------------------------------------- product screens */}
+      <ProductScreens screens={p.screens} slug={p.slug} name={p.name} />
 
       {/* -------------------------------------------------------- AI inside */}
       <Section tone="surface" glow="top">
