@@ -88,34 +88,9 @@ export function SurveysSection() {
 export function AnalyticsSection() {
   const [enps, sentiment, benchmark, reports, exports_] = analyticsSection.features;
   // one stop of the brand ramp per feature — the same colour language as the
-  // persona switcher and the loop, instead of five identical white cards
+  // persona switcher and the loop
   const RAMP = ["#19c6b4", "#2bb0e6", "#3b9eff", "#5c7cf9", "#7c5cf8"];
-
-  const feature = (
-    f: (typeof analyticsSection.features)[number],
-    i: number,
-    span: string,
-  ) => (
-    <div
-      key={f.title}
-      className={`group flex flex-col rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)] ${span}`}
-      style={{ borderTop: `2.5px solid ${RAMP[i]}` }}
-    >
-      <div className="flex items-center justify-between">
-        <span
-          className="grid h-10 w-10 place-items-center rounded-[11px]"
-          style={{ background: `${RAMP[i]}1c`, color: RAMP[i] }}
-        >
-          <Icon name={f.icon} size={19} />
-        </span>
-        <span className="text-[12px] font-bold tabular-nums" style={{ color: RAMP[i] }}>
-          0{i + 1}
-        </span>
-      </div>
-      <h3 className="mt-4 text-[17px] font-bold leading-snug">{f.title}</h3>
-      <p className="mt-2 text-[14px] leading-relaxed text-[var(--muted)]">{f.body}</p>
-    </div>
-  );
+  const rail = [enps, sentiment, benchmark, reports];
 
   return (
     <Container>
@@ -125,94 +100,133 @@ export function AnalyticsSection() {
         lede={analyticsSection.lede}
         aurora
       />
-      <div className="mt-12 grid gap-4 lg:grid-cols-6" data-reveal-stagger>
-        {/* live product — two real screens layered: the dashboard you measure
-            with over the sentiment view that predicts, which is the section's
-            whole argument */}
-        <div className="group relative isolate flex min-h-[400px] flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] lg:col-span-3">
-          <div className="aurora-wash pointer-events-none absolute inset-0 opacity-80" aria-hidden="true" />
-          <div className="relative flex items-center justify-between p-5 pb-0">
-            <Pill aurora>
-              <SparkMark size={13} animate /> Live product
-            </Pill>
-            <span className="rounded-full bg-[var(--card)] px-3 py-1 text-[12px] font-semibold text-[var(--muted)] shadow-[var(--shadow-sm)]">
-              app.vadal.ai
-            </span>
-          </div>
-          <div className="relative mt-5 flex flex-1 items-end justify-center px-5">
-            <div className="relative w-full max-w-[520px]">
-              {/* the sentiment screen peeks from behind, and slides a little
-                  further out on hover */}
-              <img
-                src="/product/sentiment.webp"
-                alt="The Sentiment screen in the Vadal.ai product"
-                width={1600}
-                height={1000}
-                loading="lazy"
-                className="absolute -top-9 right-0 w-[78%] rotate-[2deg] rounded-[10px] border border-[var(--line)] opacity-95 shadow-[var(--shadow-md)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[2.8deg]"
-              />
-              <img
-                src="/product/analytics.webp"
-                alt="The Analytics screen in the Vadal.ai product, engagement, participation and attrition-risk metrics with team breakdown"
-                width={1600}
-                height={1000}
-                loading="lazy"
-                className="relative block h-auto w-[88%] translate-y-4 rounded-t-[var(--r-lg)] border border-b-0 border-[var(--line)] shadow-[var(--shadow-lg)] transition-transform duration-500 group-hover:translate-y-1"
-              />
-            </div>
-          </div>
-        </div>
 
-        {feature(enps, 0, "lg:col-span-3")}
-        {feature(sentiment, 1, "lg:col-span-2")}
-        {feature(benchmark, 2, "lg:col-span-2")}
-        {feature(reports, 3, "lg:col-span-2")}
-
-        {/* wide exports strip */}
+      {/* ------------------------------------------------ intelligence stage */}
+      {/* One photographic stage instead of a wall of white cards — the same
+          treatment as the FAQ and closing-CTA bands, so the three read as a
+          family. Real product screens anchor the left; the features ride the
+          right as frosted glass rows over the plate. */}
+      <div
+        className="relative isolate mt-12 overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line-strong)] shadow-[var(--shadow-lg)]"
+        style={{
+          backgroundImage: "url('/textures/analytics-stage.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 30%",
+        }}
+      >
         <div
-          className="group flex flex-col gap-5 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)] sm:flex-row sm:items-center lg:col-span-6"
-          style={{ borderTop: `2.5px solid ${RAMP[4]}` }}
-        >
-          <div className="flex items-start gap-4 sm:flex-1">
-            <span
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-[11px]"
-              style={{ background: `${RAMP[4]}1c`, color: RAMP[4] }}
-            >
-              <Icon name={exports_.icon} size={19} />
-            </span>
-            <div>
-              <h3 className="text-[17px] font-bold leading-snug">{exports_.title}</h3>
-              <p className="mt-1 max-w-xl text-[14px] leading-relaxed text-[var(--muted)]">{exports_.body}</p>
+          className="pointer-events-none absolute inset-0"
+          aria-hidden="true"
+          style={{
+            background:
+              "linear-gradient(105deg, rgba(243,244,248,0.55) 0%, rgba(243,244,248,0.22) 45%, rgba(243,244,248,0.05) 100%)",
+          }}
+        />
+
+        <div className="relative grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10 lg:p-10">
+          {/* ------------------------------------ the product, front and centre */}
+          <div className="group relative flex flex-col">
+            <div className="flex items-center gap-2.5">
+              <Pill aurora>
+                <SparkMark size={13} animate /> Live product
+              </Pill>
+              <span className="rounded-full bg-white/80 px-3 py-1 text-[12px] font-semibold text-[var(--muted)] shadow-[var(--shadow-sm)] backdrop-blur">
+                app.vadal.ai
+              </span>
+            </div>
+            <div className="relative mt-8 flex flex-1 items-center">
+              <div className="relative w-full">
+                {/* sentiment peeks from behind — measure AND predict */}
+                <img
+                  src="/product/sentiment.webp"
+                  alt="The Sentiment screen in the Vadal.ai product"
+                  width={1600}
+                  height={1000}
+                  loading="lazy"
+                  className="absolute -top-7 right-0 w-[76%] rotate-[2deg] rounded-[10px] border border-[var(--line)] shadow-[var(--shadow-md)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[2.8deg]"
+                />
+                <img
+                  src="/product/analytics.webp"
+                  alt="The Analytics screen in the Vadal.ai product, engagement, participation and attrition-risk metrics with team breakdown"
+                  width={1600}
+                  height={1000}
+                  loading="lazy"
+                  className="relative block h-auto w-[86%] rounded-[var(--r-lg)] border border-[var(--line)] shadow-[0_28px_60px_-24px_rgba(13,11,22,0.45)] transition-transform duration-500 group-hover:translate-y-1"
+                />
+              </div>
             </div>
           </div>
-          <div className="flex flex-wrap gap-2 sm:justify-end">
-            {["Excel", "CSV", "PDF", "Power BI", "Tableau", "Looker"].map((f) => (
-              <Pill key={f}>{f}</Pill>
+
+          {/* --------------------------------------- the features, as a rail */}
+          <div className="flex flex-col justify-center gap-3">
+            {rail.map((f, i) => (
+              <div
+                key={f.title}
+                className="group/row flex gap-4 rounded-[var(--r-lg)] border border-white/55 bg-white/70 p-5 backdrop-blur-md transition-all duration-300 hover:bg-white/85 hover:shadow-[var(--shadow-md)]"
+              >
+                <div className="flex flex-col items-center gap-2">
+                  <span
+                    className="grid h-10 w-10 shrink-0 place-items-center rounded-[11px]"
+                    style={{ background: `${RAMP[i]}1c`, color: RAMP[i] }}
+                  >
+                    <Icon name={f.icon} size={19} />
+                  </span>
+                  <span className="text-[11.5px] font-bold tabular-nums" style={{ color: RAMP[i] }}>
+                    0{i + 1}
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-[15.5px] font-bold leading-snug text-[var(--ink-deep)]">{f.title}</h3>
+                  <p className="mt-1.5 text-[13.5px] leading-relaxed text-[var(--foreground)]/75">{f.body}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* the intelligence indices, inside the composition rather than a loose
-            row of pills floating under it */}
-        <div className="rounded-[var(--r-lg)] border border-[var(--line)] p-6 lg:col-span-6" style={{ background: "var(--aurora-soft)" }}>
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-            <div className="flex items-center gap-2.5">
-              <SparkMark size={16} />
-              <span className="text-[13px] font-bold uppercase tracking-[0.1em] text-[var(--ink-deep)]">
-                Intelligence indices
+        {/* ------------------------------- exports, as the stage's baseboard */}
+        <div className="relative border-t border-white/55 bg-white/70 backdrop-blur-md">
+          <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:px-8">
+            <div className="flex items-center gap-3 sm:flex-1">
+              <span
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px]"
+                style={{ background: `${RAMP[4]}1c`, color: RAMP[4] }}
+              >
+                <Icon name={exports_.icon} size={17} />
               </span>
+              <div>
+                <h3 className="text-[14.5px] font-bold leading-snug">{exports_.title}</h3>
+                <p className="text-[12.5px] text-[var(--muted)]">Excel, CSV, PDF, or straight into your BI stack.</p>
+              </div>
             </div>
-            <div className="flex flex-wrap justify-center gap-2">
-              {analyticsSection.chips.map((c, i) => (
-                <span
-                  key={c}
-                  className="rounded-full border border-white/60 bg-white/80 px-3.5 py-1.5 text-[13px] font-semibold text-[var(--ink-deep)] backdrop-blur-sm"
-                  style={{ boxShadow: `inset 0 -2px 0 ${RAMP[i % RAMP.length]}55` }}
-                >
-                  {c}
-                </span>
+            <div className="flex flex-wrap gap-2 sm:justify-end">
+              {["Excel", "CSV", "PDF", "Power BI", "Tableau", "Looker"].map((f) => (
+                <Pill key={f}>{f}</Pill>
               ))}
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* the intelligence indices, closing the composition */}
+      <div className="mt-4 rounded-[var(--r-lg)] border border-[var(--line)] p-6" style={{ background: "var(--aurora-soft)" }}>
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+          <div className="flex items-center gap-2.5">
+            <SparkMark size={16} />
+            <span className="text-[13px] font-bold uppercase tracking-[0.1em] text-[var(--ink-deep)]">
+              Intelligence indices
+            </span>
+          </div>
+          <div className="flex flex-wrap justify-center gap-2">
+            {analyticsSection.chips.map((c, i) => (
+              <span
+                key={c}
+                className="rounded-full border border-white/60 bg-white/80 px-3.5 py-1.5 text-[13px] font-semibold text-[var(--ink-deep)] backdrop-blur-sm"
+                style={{ boxShadow: `inset 0 -2px 0 ${RAMP[i % RAMP.length]}55` }}
+              >
+                {c}
+              </span>
+            ))}
           </div>
         </div>
       </div>
