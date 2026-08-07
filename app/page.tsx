@@ -180,15 +180,17 @@ export default function HomePage() {
       </Section>
 
       {/* ============================================================= FAQ */}
-      {/* full-bleed watercolor-sky band — sky spans the whole viewport width,
-          content stays centred in a Container */}
+      {/* full-bleed photographic band — a bright, softly defocused office
+          conversation (the questions being asked), spanning the viewport with
+          content centred in a Container. Replaced the abstract watercolor sky,
+          which said nothing about the section. */}
       <Section tone="base" reveal className="!py-0">
         <div
           className="relative isolate overflow-hidden border-y border-[var(--line)] py-14 sm:py-20 lg:py-28"
           style={{
-            backgroundImage: "url('/textures/faq-sky.webp')",
+            backgroundImage: "url('/textures/faq-office.webp')",
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "center 72%",
           }}
         >
           {/* soft scrim — lift the heading while keeping the watercolor sky vivid */}
@@ -210,14 +212,18 @@ export default function HomePage() {
               <div className="mx-auto mt-10 max-w-3xl">
                 <FaqAccordion faqs={homeFaqsV2} variant="glass" />
               </div>
-              <p className="mt-8 text-center text-[15px] text-[var(--foreground)]/80">
-                Still curious?{" "}
-                <Link
-                  href="/demo"
-                  className="font-bold text-[var(--brand)] underline-offset-4 hover:underline"
-                >
-                  Talk to our team →
-                </Link>
+              {/* frosted like the cards — it sits on the busiest part of the
+                  photograph, where bare text loses contrast */}
+              <p className="mt-8 text-center">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/55 bg-white/65 px-4 py-2 text-[15px] text-[var(--foreground)] backdrop-blur-md">
+                  Still curious?{" "}
+                  <Link
+                    href="/demo"
+                    className="font-bold text-[var(--brand)] underline-offset-4 hover:underline"
+                  >
+                    Talk to our team →
+                  </Link>
+                </span>
               </p>
             </div>
           </Container>
