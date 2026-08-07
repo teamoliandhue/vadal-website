@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo, SparkMark } from "./Brand";
 import { Button, Container } from "./ui";
 import { Icon } from "./Icon";
-import { solutionsByOutcome, solutionsByWorkforce } from "@/lib/content";
+import { solutionsByOutcome, solutionsByWorkforce, surveyTypes } from "@/lib/content";
 import { platformLayers } from "@/lib/platform-nav";
 import { FooterLink } from "./FooterLink";
 import { LANDING_ONLY } from "@/lib/flags";
@@ -27,10 +27,27 @@ const columns = [
     ],
   },
   {
+    // the five survey types — CultureMonkey's footer gives surveys their own
+    // column, and ours are otherwise only discoverable via the Engagement
+    // Surveys page
+    title: "Surveys",
+    links: surveyTypes.map((t) => ({ label: t.name, href: t.href })),
+  },
+  {
     title: "Solutions",
     links: [...solutionsByOutcome, ...solutionsByWorkforce.filter((s) => s.name === "Enterprise")].map(
       (s) => ({ label: s.name, href: s.href })
     ),
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Blog", href: "/resources#learn" },
+      { label: "Guides & downloads", href: "/resources" },
+      { label: "The science", href: "/science" },
+      { label: "Benchmark reports", href: "/resources#proof" },
+      { label: "Book a demo", href: "/demo" },
+    ],
   },
   {
     title: "Company",
@@ -41,16 +58,6 @@ const columns = [
       { label: "Security", href: "/security" },
       { label: "Careers", href: "/about#careers" },
       { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { label: "Blog", href: "/resources#learn" },
-      { label: "Guides & downloads", href: "/resources" },
-      { label: "The science", href: "/science" },
-      { label: "Benchmark reports", href: "/resources#proof" },
-      { label: "Book a demo", href: "/demo" },
     ],
   },
 ];
@@ -137,17 +144,24 @@ export function SiteFooter() {
         <Container className="py-12 sm:py-16">
           <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
             {/* brand */}
-            <div className="max-w-sm">
+            <div className="max-w-xs lg:max-w-[280px]">
               <Logo size={32} />
-              <p className="mt-5 text-[15px] leading-relaxed text-[var(--muted)]">
+              <p className="mt-5 text-[14.5px] leading-relaxed text-[var(--muted)]">
                 The AI-powered workforce engagement &amp; decision intelligence platform,
                 for every leader, every employee, every decision.
               </p>
-              <p className="mt-5 flex items-center gap-2 text-[13px] text-[var(--muted)]">
+              <a
+                href="mailto:hello@vadal.ai"
+                className="mt-5 inline-block text-[15px] font-bold text-[var(--foreground)] transition-colors hover:text-[var(--brand)]"
+              >
+                hello@vadal.ai
+              </a>
+              <p className="mt-2 flex items-center gap-2 text-[13px] text-[var(--muted)]">
                 <Icon name="globe" size={15} />
                 Bengaluru · Mumbai · London
                 <span className="opacity-60">(sample)</span>
               </p>
+              {!LANDING_ONLY && <Socials className="mt-6" />}
             </div>
 
             {/* right side: contact cluster in landing-only, link columns on the full site */}
@@ -168,11 +182,14 @@ export function SiteFooter() {
                 <Socials className="mt-1 lg:justify-end" />
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-4">
+              <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
                 {columns.map((col) => (
                   <div key={col.title}>
-                    <h3 className="text-[14px] font-medium text-[var(--muted-2)]">{col.title}</h3>
-                    <ul className="mt-5 space-y-3.5">
+                    <h3 className="text-[12.5px] font-bold uppercase tracking-[0.12em] text-[var(--foreground)]">
+                      {col.title}
+                      <span className="mt-2 block h-[2px] w-6 rounded-full" style={{ background: "var(--aurora)" }} />
+                    </h3>
+                    <ul className="mt-4 space-y-3">
                       {col.links.map((l) => (
                         <li key={l.label}>
                           <FooterLink
@@ -191,7 +208,24 @@ export function SiteFooter() {
         </Container>
       </div>
 
-      {/* baseline — copyright · legal · trust */}
+      {/* trust strip — the three badges buyers scan for. Marked (sample) until
+          the certifications are verified: asserting one we don't hold is a
+          legal problem, not a design choice. */}
+      <div className="border-t border-[var(--line)] bg-[var(--surface)]/60">
+        <Container className="flex flex-wrap items-center justify-center gap-2.5 py-5 sm:gap-4">
+          {["ISO 27001", "SOC 2 Type II", "GDPR ready"].map((t) => (
+            <span
+              key={t}
+              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line)] bg-[var(--card)] px-3.5 py-1.5 text-[12.5px] font-semibold text-[var(--muted)]"
+            >
+              <Icon name="shield" size={13} className="text-[var(--brand)]" /> {t}
+              <span className="opacity-60">(sample)</span>
+            </span>
+          ))}
+        </Container>
+      </div>
+
+      {/* baseline — copyright · legal */}
       <div className="border-t border-[var(--line)]">
         <Container className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="order-3 text-[13px] text-[var(--muted)] sm:order-1">
@@ -202,13 +236,11 @@ export function SiteFooter() {
             <Link href="/privacy" className="transition-colors hover:text-[var(--foreground)]">Privacy policy</Link>
             <Link href="/gdpr" className="transition-colors hover:text-[var(--foreground)]">Your privacy choices</Link>
           </div>
-          <div className="order-2 flex items-center gap-3 sm:order-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--surface)] px-3 py-1.5 text-[12px] font-medium text-[var(--muted)]">
-              <Icon name="shield" size={13} /> SOC 2 Certified
-              <span className="opacity-60">(sample)</span>
-            </span>
-            {!LANDING_ONLY && <Socials />}
-          </div>
+          {LANDING_ONLY && (
+            <div className="order-2 sm:order-3">
+              <Socials />
+            </div>
+          )}
         </Container>
       </div>
     </footer>
