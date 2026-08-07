@@ -269,7 +269,13 @@ export function PanelStage({
       />
       {/* soft top sheen for depth */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-24 bg-gradient-to-b from-white/15 to-transparent" aria-hidden="true" />
-      <div className="flex justify-center">{children}</div>
+      {/* h-full + items-center only bite when the panel has a definite height,
+          i.e. when a caller stretches it to match a taller sibling column. The
+          feedback section did exactly that and left 310px of bare blue under
+          the card, because this wrapper centred horizontally but pinned the
+          content to the top. Everywhere else the panel is content-height, so
+          the percentage resolves to auto and nothing changes. */}
+      <div className="flex h-full items-center justify-center">{children}</div>
     </div>
   );
 }
