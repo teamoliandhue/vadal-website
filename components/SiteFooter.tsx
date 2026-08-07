@@ -93,6 +93,68 @@ function Socials({ className = "" }: { className?: string }) {
   );
 }
 
+
+/* Badge marks for the trust strip. The official AICPA SOC badge and the ISO
+   logo are licensed marks — usable only once certified — so these are drawn
+   badge forms instead: a rosette seal, a shield with a check, and the EU
+   twelve-star circle that universally signals GDPR. Swap in the licensed
+   artwork once the certifications are confirmed. */
+function SealISO() {
+  // rosette: 12 scallops around a solid core with a check
+  const petals = Array.from({ length: 12 }, (_, i) => {
+    const a = (i * 30 * Math.PI) / 180;
+    return `${10 + 8.1 * Math.cos(a)} ${10 + 8.1 * Math.sin(a)}`;
+  });
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+      {petals.map((c) => {
+        const [x, y] = c.split(" ").map(Number);
+        return <circle key={c} cx={x} cy={y} r="2.5" fill="#2f6fb7" />;
+      })}
+      <circle cx="10" cy="10" r="7" fill="#2f6fb7" />
+      <path d="m6.8 10.2 2.1 2.1 4.3-4.4" stroke="#fff" strokeWidth="1.7" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function SealSOC() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+      <circle cx="10" cy="10" r="9" fill="#1d3c6e" />
+      <path d="M10 4.2 15 6v4.1c0 3-2.1 5.1-5 6-2.9-.9-5-3-5-6V6l5-1.8Z" fill="#fff" opacity="0.16" />
+      <path d="M10 5.4 14 6.9v3.3c0 2.4-1.7 4.1-4 4.9-2.3-.8-4-2.5-4-4.9V6.9l4-1.5Z" fill="none" stroke="#fff" strokeWidth="1.2" strokeLinejoin="round" />
+      <path d="m8.2 10 1.4 1.4 2.6-2.7" stroke="#fff" strokeWidth="1.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function SealGDPR() {
+  // the EU twelve-star circle — the de-facto GDPR mark
+  const stars = Array.from({ length: 12 }, (_, i) => (i * 30 * Math.PI) / 180);
+  const star = (cx: number, cy: number) => {
+    const pts = Array.from({ length: 10 }, (_, k) => {
+      const r = k % 2 === 0 ? 1.5 : 0.62;
+      const a = (k * 36 - 90) * (Math.PI / 180);
+      return `${(cx + r * Math.cos(a)).toFixed(2)},${(cy + r * Math.sin(a)).toFixed(2)}`;
+    });
+    return pts.join(" ");
+  };
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+      <circle cx="10" cy="10" r="10" fill="#043c8f" />
+      {stars.map((a, i) => (
+        <polygon key={i} points={star(10 + 6.4 * Math.cos(a), 10 + 6.4 * Math.sin(a))} fill="#ffd617" />
+      ))}
+    </svg>
+  );
+}
+
+const TRUST_BADGES = [
+  { label: "ISO 27001 certified", Seal: SealISO },
+  { label: "SOC 2", Seal: SealSOC },
+  { label: "GDPR compliant", Seal: SealGDPR },
+];
+
 export function SiteFooter() {
   return (
     <footer className="bg-white">
@@ -213,12 +275,12 @@ export function SiteFooter() {
           legal problem, not a design choice. */}
       <div className="border-t border-[var(--line)] bg-[var(--surface)]/60">
         <Container className="flex flex-wrap items-center justify-center gap-2.5 py-5 sm:gap-4">
-          {["ISO 27001", "SOC 2 Type II", "GDPR ready"].map((t) => (
+          {TRUST_BADGES.map(({ label, Seal }) => (
             <span
-              key={t}
-              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line)] bg-[var(--card)] px-3.5 py-1.5 text-[12.5px] font-semibold text-[var(--muted)]"
+              key={label}
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--card)] py-1.5 pl-2 pr-3.5 text-[12.5px] font-semibold text-[var(--muted)]"
             >
-              <Icon name="shield" size={13} className="text-[var(--brand)]" /> {t}
+              <Seal /> {label}
               <span className="opacity-60">(sample)</span>
             </span>
           ))}
