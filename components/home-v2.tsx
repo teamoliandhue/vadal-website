@@ -3,6 +3,7 @@ import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import { Button, CheckItem, Container, Eyebrow, Pill, SectionHead } from "./ui";
 import { CrowdPanel, IconChip, PanelStage } from "./sections";
+import { BRAND_MARKS } from "@/lib/brand-marks";
 import { DashboardMock, VoiceCard } from "./ProductMocks";
 import {
   actionSection,
@@ -311,10 +312,12 @@ export function PrivacySection() {
 /* ------------------------------------------------------------ integrations */
 /* Two counter-scrolling rows of integration cards — motion sells the depth
    of the ecosystem better than a static grid. Pauses on hover. */
-/* Monogram stands in for the vendor logo. We hold no third-party brand assets,
-   and an approximated logo is worse than none — wrong marks read as careless
-   and are the kind of thing a trademark owner objects to. Drop a real file at
-   /integrations/<slug>.svg and it takes over. */
+/* Real brand marks where we legitimately have them (lib/brand-marks.ts), a
+   monogram tile where we don't. simple-icons has dropped many corporate marks
+   upstream after trademark requests, so Slack, Teams, Workday, Salesforce,
+   Oracle, Tableau, Power BI and Outlook still need licensed press-kit assets.
+   An approximated logo is worse than none, so those keep the monogram until a
+   real file lands — add a brand to BRAND_MARKS and it takes over here. */
 const LOGO_TINTS = ["#19c6b4", "#2bb0e6", "#3b9eff", "#5c7cf9", "#7c5cf8"];
 
 function monogram(name: string) {
@@ -335,15 +338,28 @@ function PlatformCard({
   tint: number;
 }) {
   const c = LOGO_TINTS[tint % LOGO_TINTS.length];
+  const mark = BRAND_MARKS[p.name];
   return (
     <div className="mx-2 flex w-[264px] shrink-0 items-center gap-3.5 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-4 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow-lg)]">
-      <span
-        className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] text-[14px] font-extrabold tracking-[-0.02em]"
-        style={{ background: `${c}1f`, color: c }}
-        aria-hidden="true"
-      >
-        {monogram(p.name)}
-      </span>
+      {mark ? (
+        <span
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px]"
+          style={{ background: `${mark.hex}14` }}
+          aria-hidden="true"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill={mark.hex} role="img">
+            <path d={mark.path} />
+          </svg>
+        </span>
+      ) : (
+        <span
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] text-[14px] font-extrabold tracking-[-0.02em]"
+          style={{ background: `${c}1f`, color: c }}
+          aria-hidden="true"
+        >
+          {monogram(p.name)}
+        </span>
+      )}
       <span className="min-w-0">
         <span className="block text-[14.5px] font-bold leading-snug text-[var(--foreground)]">{p.name}</span>
         <span className="mt-0.5 block text-[11.5px] font-semibold uppercase tracking-[0.07em] text-[var(--muted-2)]">
@@ -355,6 +371,15 @@ function PlatformCard({
 }
 
 export function IntegrationsSection() {
+  /* Durations are derived, not eyeballed. The keyframe travels -50%, which with
+     two copies is exactly one copy — that is what makes the loop seamless. But
+     a copy is now 17 platform cards where it used to be 5 category cards, so
+     reusing the old 46s/52s would have run the wall at ~153px/s instead of the
+     ~48px/s it read at before. These durations hold the original pace. */
+  const CARD = 264 + 16; // width + mx-2
+  const PX_PER_S_A = 48.3;
+  const PX_PER_S_B = 42.7;
+
   // split so each row carries a mix of groups rather than all the HR systems
   // scrolling past together
   const all = integrationsSection.platforms;
@@ -375,7 +400,7 @@ export function IntegrationsSection() {
       </Container>
       <div className="mt-12 space-y-4">
         <div className="relative overflow-hidden" style={mask}>
-          <div className="marquee-track flex animate-marquee hover:[animation-play-state:paused]" style={{ animationDuration: "46s" }}>
+          <div className="marquee-track flex animate-marquee hover:[animation-play-state:paused]" style={{ animationDuration: `${Math.round((rowA.length * CARD) / PX_PER_S_A)}s` }}>
             {[...rowA, ...rowA].map((c, i) => (
               <PlatformCard key={`${c.name}-${i}`} p={c} tint={i} />
             ))}
@@ -384,7 +409,10 @@ export function IntegrationsSection() {
         <div className="relative overflow-hidden" style={mask}>
           <div
             className="marquee-track flex animate-marquee hover:[animation-play-state:paused]"
-            style={{ animationDuration: "52s", animationDirection: "reverse" }}
+            style={{
+              animationDuration: `${Math.round((rowB.length * CARD) / PX_PER_S_B)}s`,
+              animationDirection: "reverse",
+            }}
           >
             {[...rowB, ...rowB].map((c, i) => (
               <PlatformCard key={`${c.name}-${i}`} p={c} tint={i + 2} />
