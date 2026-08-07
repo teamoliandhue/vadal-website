@@ -161,14 +161,7 @@ export function SiteFooter() {
       {/* closing CTA — a team at the glass looking out over a bright skyline;
           the luminous centre of the plate is where the headline sits */}
       <Container className="py-12 sm:py-16">
-        <div
-          className="relative isolate overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line-strong)] px-6 py-16 text-center shadow-[var(--shadow-lg)] sm:px-12 sm:py-28"
-          style={{
-            backgroundImage: "url('/textures/cta-office.webp')",
-            backgroundSize: "cover",
-            backgroundPosition: "center 38%",
-          }}
-        >
+        <div className="photo-band-cta relative isolate overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line-strong)] px-6 py-16 text-center shadow-[var(--shadow-lg)] sm:px-12 sm:py-28">
           {/* feather scrim — only a soft lift behind the text column; towers stay crisp at the edges */}
           <div
             className="pointer-events-none absolute inset-0"

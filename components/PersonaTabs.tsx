@@ -144,6 +144,18 @@ export function PersonaTabs() {
     return () => io.disconnect();
   }, []);
 
+  // on phones the track scrolls; keep the active tab (and its indicator) in
+  // view when the deck advances, or the change happens invisibly off-screen
+  useEffect(() => {
+    const el = tabRefs.current[active];
+    const track = trackRef.current;
+    if (!el || !track || track.scrollWidth <= track.clientWidth) return;
+    track.scrollTo({
+      left: el.offsetLeft - (track.clientWidth - el.offsetWidth) / 2,
+      behavior: motion ? "smooth" : "auto",
+    });
+  }, [active, motion]);
+
   // measure where the sliding indicator should sit
   useLayoutEffect(() => {
     const measure = () => {

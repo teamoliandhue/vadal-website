@@ -524,6 +524,23 @@ html.lenis body {
   border-color: var(--line-strong);
 }
 
+/* Photographic bands (FAQ, closing CTA) load their plates only from lg up.
+   A phone-width slice of a 16:9 plate is an unrecognizable smear — cover math
+   shows 13% of the image at 390px — and costs 70-100KB. Phones get the
+   aurora-soft canvas instead; the scrims work over both. */
+.photo-band-faq,
+.photo-band-cta {
+  background: var(--aurora-soft);
+}
+@media (min-width: 1024px) {
+  .photo-band-faq {
+    background: url('/textures/faq-office.webp') center 72% / cover no-repeat;
+  }
+  .photo-band-cta {
+    background: url('/textures/cta-office.webp') center 38% / cover no-repeat;
+  }
+}
+
 /* --- premium mega-menu shell --- */
 .menu-panel {
   position: relative;

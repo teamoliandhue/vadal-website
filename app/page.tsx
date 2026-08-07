@@ -185,14 +185,7 @@ export default function HomePage() {
           content centred in a Container. Replaced the abstract watercolor sky,
           which said nothing about the section. */}
       <Section tone="base" reveal className="!py-0">
-        <div
-          className="relative isolate overflow-hidden border-y border-[var(--line)] py-14 sm:py-20 lg:py-28"
-          style={{
-            backgroundImage: "url('/textures/faq-office.webp')",
-            backgroundSize: "cover",
-            backgroundPosition: "center 72%",
-          }}
-        >
+        <div className="photo-band-faq relative isolate overflow-hidden border-y border-[var(--line)] py-14 sm:py-20 lg:py-28">
           {/* soft scrim — lift the heading while keeping the watercolor sky vivid */}
           <div
             className="pointer-events-none absolute inset-0"
