@@ -1459,6 +1459,50 @@ export const integrationsSection = {
     { name: "CRM", vendors: "Salesforce, HubSpot", icon: "heart" as IconName },
     { name: "API & Automation", vendors: "REST APIs, Webhooks, Zapier, Power Automate", icon: "plug" as IconName },
   ],
+  /* The named platforms, flat. The section used to show ten category cards with
+     the vendors buried in a muted comma list, so the thing a buyer is actually
+     scanning for — "do you talk to Workday? to WhatsApp?" — was the least
+     visible text on the card. These are the same vendors as the categories
+     above, promoted to first-class items.
+
+     Messaging is new here: the product pages have listed WhatsApp, SMS and
+     Outlook as supported channels all along, but the homepage integrations
+     section never mentioned them. */
+  platforms: [
+    { name: "Workday", group: "HRIS & HCM" },
+    { name: "SAP SuccessFactors", group: "HRIS & HCM" },
+    { name: "Oracle HCM", group: "HRIS & HCM" },
+    { name: "Darwinbox", group: "HRIS & HCM" },
+    { name: "UKG", group: "HRIS & HCM" },
+    { name: "PeopleStrong", group: "HRIS & HCM" },
+    { name: "Microsoft Teams", group: "Collaboration" },
+    { name: "Slack", group: "Collaboration" },
+    { name: "Google Workspace", group: "Collaboration" },
+    { name: "Outlook", group: "Collaboration" },
+    { name: "WhatsApp", group: "Messaging" },
+    { name: "SMS", group: "Messaging" },
+    { name: "SAP", group: "ERP & Finance" },
+    { name: "Oracle ERP", group: "ERP & Finance" },
+    { name: "Microsoft Dynamics 365", group: "ERP & Finance" },
+    { name: "ADP", group: "Payroll" },
+    { name: "Ramco", group: "Payroll" },
+    { name: "SAP Payroll", group: "Payroll" },
+    { name: "Greenhouse", group: "ATS & Recruitment" },
+    { name: "Lever", group: "ATS & Recruitment" },
+    { name: "iCIMS", group: "ATS & Recruitment" },
+    { name: "SmartRecruiters", group: "ATS & Recruitment" },
+    { name: "Cornerstone", group: "Learning" },
+    { name: "Moodle", group: "Learning" },
+    { name: "Docebo", group: "Learning" },
+    { name: "Microsoft Entra ID", group: "Identity & Security" },
+    { name: "Okta", group: "Identity & Security" },
+    { name: "OneLogin", group: "Identity & Security" },
+    { name: "Power BI", group: "Analytics" },
+    { name: "Tableau", group: "Analytics" },
+    { name: "Looker", group: "Analytics" },
+    { name: "Salesforce", group: "CRM" },
+    { name: "HubSpot", group: "CRM" },
+  ],
 };
 
 // --------------------------------------------------------- security & trust

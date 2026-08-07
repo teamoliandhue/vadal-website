@@ -311,21 +311,55 @@ export function PrivacySection() {
 /* ------------------------------------------------------------ integrations */
 /* Two counter-scrolling rows of integration cards — motion sells the depth
    of the ecosystem better than a static grid. Pauses on hover. */
-function IntegrationCard({ c, tint }: { c: (typeof integrationsSection.categories)[number]; tint: number }) {
+/* Monogram stands in for the vendor logo. We hold no third-party brand assets,
+   and an approximated logo is worse than none — wrong marks read as careless
+   and are the kind of thing a trademark owner objects to. Drop a real file at
+   /integrations/<slug>.svg and it takes over. */
+const LOGO_TINTS = ["#19c6b4", "#2bb0e6", "#3b9eff", "#5c7cf9", "#7c5cf8"];
+
+function monogram(name: string) {
+  const words = name.split(/\s+/).filter(Boolean);
+  if (words[0].length <= 3 && words.length === 1) return words[0].toUpperCase();
+  return words
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+}
+
+function PlatformCard({
+  p,
+  tint,
+}: {
+  p: (typeof integrationsSection.platforms)[number];
+  tint: number;
+}) {
+  const c = LOGO_TINTS[tint % LOGO_TINTS.length];
   return (
-    <div className="mx-2 w-[280px] shrink-0 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow-lg)]">
-      <div className="flex items-center gap-3">
-        <IconChip icon={c.icon} tint={tint} size="sm" />
-        <h3 className="text-[14.5px] font-bold">{c.name}</h3>
-      </div>
-      <p className="mt-2.5 text-[12.5px] leading-relaxed text-[var(--muted)]">{c.vendors}</p>
+    <div className="mx-2 flex w-[264px] shrink-0 items-center gap-3.5 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-4 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow-lg)]">
+      <span
+        className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] text-[14px] font-extrabold tracking-[-0.02em]"
+        style={{ background: `${c}1f`, color: c }}
+        aria-hidden="true"
+      >
+        {monogram(p.name)}
+      </span>
+      <span className="min-w-0">
+        <span className="block text-[14.5px] font-bold leading-snug text-[var(--foreground)]">{p.name}</span>
+        <span className="mt-0.5 block text-[11.5px] font-semibold uppercase tracking-[0.07em] text-[var(--muted-2)]">
+          {p.group}
+        </span>
+      </span>
     </div>
   );
 }
 
 export function IntegrationsSection() {
-  const rowA = integrationsSection.categories.slice(0, 5);
-  const rowB = integrationsSection.categories.slice(5);
+  // split so each row carries a mix of groups rather than all the HR systems
+  // scrolling past together
+  const all = integrationsSection.platforms;
+  const rowA = all.filter((_, i) => i % 2 === 0);
+  const rowB = all.filter((_, i) => i % 2 === 1);
   const mask = {
     maskImage: "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
     WebkitMaskImage: "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
@@ -342,8 +376,8 @@ export function IntegrationsSection() {
       <div className="mt-12 space-y-4">
         <div className="relative overflow-hidden" style={mask}>
           <div className="marquee-track flex animate-marquee hover:[animation-play-state:paused]" style={{ animationDuration: "46s" }}>
-            {[...rowA, ...rowA, ...rowA].map((c, i) => (
-              <IntegrationCard key={`${c.name}-${i}`} c={c} tint={i} />
+            {[...rowA, ...rowA].map((c, i) => (
+              <PlatformCard key={`${c.name}-${i}`} p={c} tint={i} />
             ))}
           </div>
         </div>
@@ -352,8 +386,8 @@ export function IntegrationsSection() {
             className="marquee-track flex animate-marquee hover:[animation-play-state:paused]"
             style={{ animationDuration: "52s", animationDirection: "reverse" }}
           >
-            {[...rowB, ...rowB, ...rowB].map((c, i) => (
-              <IntegrationCard key={`${c.name}-${i}`} c={c} tint={i + 1} />
+            {[...rowB, ...rowB].map((c, i) => (
+              <PlatformCard key={`${c.name}-${i}`} p={c} tint={i + 2} />
             ))}
           </div>
         </div>
