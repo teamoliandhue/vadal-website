@@ -87,6 +87,36 @@ export function SurveysSection() {
 /* Bento with the live product front and centre — a Maze staple. */
 export function AnalyticsSection() {
   const [enps, sentiment, benchmark, reports, exports_] = analyticsSection.features;
+  // one stop of the brand ramp per feature — the same colour language as the
+  // persona switcher and the loop, instead of five identical white cards
+  const RAMP = ["#19c6b4", "#2bb0e6", "#3b9eff", "#5c7cf9", "#7c5cf8"];
+
+  const feature = (
+    f: (typeof analyticsSection.features)[number],
+    i: number,
+    span: string,
+  ) => (
+    <div
+      key={f.title}
+      className={`group flex flex-col rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)] ${span}`}
+      style={{ borderTop: `2.5px solid ${RAMP[i]}` }}
+    >
+      <div className="flex items-center justify-between">
+        <span
+          className="grid h-10 w-10 place-items-center rounded-[11px]"
+          style={{ background: `${RAMP[i]}1c`, color: RAMP[i] }}
+        >
+          <Icon name={f.icon} size={19} />
+        </span>
+        <span className="text-[12px] font-bold tabular-nums" style={{ color: RAMP[i] }}>
+          0{i + 1}
+        </span>
+      </div>
+      <h3 className="mt-4 text-[17px] font-bold leading-snug">{f.title}</h3>
+      <p className="mt-2 text-[14px] leading-relaxed text-[var(--muted)]">{f.body}</p>
+    </div>
+  );
+
   return (
     <Container>
       <SectionHead
@@ -96,8 +126,10 @@ export function AnalyticsSection() {
         aurora
       />
       <div className="mt-12 grid gap-4 lg:grid-cols-6" data-reveal-stagger>
-        {/* live product card */}
-        <div className="relative isolate flex min-h-[360px] flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] lg:col-span-3">
+        {/* live product — two real screens layered: the dashboard you measure
+            with over the sentiment view that predicts, which is the section's
+            whole argument */}
+        <div className="group relative isolate flex min-h-[400px] flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] lg:col-span-3">
           <div className="aurora-wash pointer-events-none absolute inset-0 opacity-80" aria-hidden="true" />
           <div className="relative flex items-center justify-between p-5 pb-0">
             <Pill aurora>
@@ -107,30 +139,47 @@ export function AnalyticsSection() {
               app.vadal.ai
             </span>
           </div>
-          <div className="relative mt-4 flex flex-1 items-end justify-center px-5">
-            <div className="w-full max-w-[520px] translate-y-4 transition-transform duration-500 hover:translate-y-1">
-              {/* the real Analytics screen from the product build */}
+          <div className="relative mt-5 flex flex-1 items-end justify-center px-5">
+            <div className="relative w-full max-w-[520px]">
+              {/* the sentiment screen peeks from behind, and slides a little
+                  further out on hover */}
+              <img
+                src="/product/sentiment.webp"
+                alt="The Sentiment screen in the Vadal.ai product"
+                width={1600}
+                height={1000}
+                loading="lazy"
+                className="absolute -top-9 right-0 w-[78%] rotate-[2deg] rounded-[10px] border border-[var(--line)] opacity-95 shadow-[var(--shadow-md)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[2.8deg]"
+              />
               <img
                 src="/product/analytics.webp"
                 alt="The Analytics screen in the Vadal.ai product, engagement, participation and attrition-risk metrics with team breakdown"
                 width={1600}
                 height={1000}
                 loading="lazy"
-                className="block h-auto w-full rounded-t-[var(--r-lg)] border border-b-0 border-[var(--line)] shadow-[var(--shadow-lg)]"
+                className="relative block h-auto w-[88%] translate-y-4 rounded-t-[var(--r-lg)] border border-b-0 border-[var(--line)] shadow-[var(--shadow-lg)] transition-transform duration-500 group-hover:translate-y-1"
               />
             </div>
           </div>
         </div>
 
-        <FeatureCard {...enps} tint={0} className="lg:col-span-3" />
-        <FeatureCard {...sentiment} tint={1} className="lg:col-span-2" />
-        <FeatureCard {...benchmark} tint={2} className="lg:col-span-2" />
-        <FeatureCard {...reports} tint={3} className="lg:col-span-2" />
+        {feature(enps, 0, "lg:col-span-3")}
+        {feature(sentiment, 1, "lg:col-span-2")}
+        {feature(benchmark, 2, "lg:col-span-2")}
+        {feature(reports, 3, "lg:col-span-2")}
 
         {/* wide exports strip */}
-        <div className="group flex flex-col gap-5 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)] sm:flex-row sm:items-center lg:col-span-6">
+        <div
+          className="group flex flex-col gap-5 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lg)] sm:flex-row sm:items-center lg:col-span-6"
+          style={{ borderTop: `2.5px solid ${RAMP[4]}` }}
+        >
           <div className="flex items-start gap-4 sm:flex-1">
-            <IconChip icon={exports_.icon} tint={1} />
+            <span
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-[11px]"
+              style={{ background: `${RAMP[4]}1c`, color: RAMP[4] }}
+            >
+              <Icon name={exports_.icon} size={19} />
+            </span>
             <div>
               <h3 className="text-[17px] font-bold leading-snug">{exports_.title}</h3>
               <p className="mt-1 max-w-xl text-[14px] leading-relaxed text-[var(--muted)]">{exports_.body}</p>
@@ -142,20 +191,33 @@ export function AnalyticsSection() {
             ))}
           </div>
         </div>
+
+        {/* the intelligence indices, inside the composition rather than a loose
+            row of pills floating under it */}
+        <div className="rounded-[var(--r-lg)] border border-[var(--line)] p-6 lg:col-span-6" style={{ background: "var(--aurora-soft)" }}>
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+            <div className="flex items-center gap-2.5">
+              <SparkMark size={16} />
+              <span className="text-[13px] font-bold uppercase tracking-[0.1em] text-[var(--ink-deep)]">
+                Intelligence indices
+              </span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2">
+              {analyticsSection.chips.map((c, i) => (
+                <span
+                  key={c}
+                  className="rounded-full border border-white/60 bg-white/80 px-3.5 py-1.5 text-[13px] font-semibold text-[var(--ink-deep)] backdrop-blur-sm"
+                  style={{ boxShadow: `inset 0 -2px 0 ${RAMP[i % RAMP.length]}55` }}
+                >
+                  {c}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
-        <span className="mr-1 text-[13px] font-semibold uppercase tracking-[0.1em] text-[var(--muted-2)]">
-          Additional insights
-        </span>
-        {analyticsSection.chips.map((c, i) => (
-          <Pill key={c} aurora={i === analyticsSection.chips.length - 1}>
-            {i === analyticsSection.chips.length - 1 && <SparkMark size={12} />}
-            {c}
-          </Pill>
-        ))}
-      </div>
-      <div className="mt-8 text-center">
+      <div className="mt-10 text-center">
         <Button href="/platform/people-analytics" variant="ghost" icon>
           Explore people analytics
         </Button>
