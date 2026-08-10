@@ -45,26 +45,26 @@ const card = "h-full overflow-hidden rounded-[var(--r-lg)] border border-[var(--
 export function HeroBento() {
   return (
     <div className="hero-bento">
-      {/* ------------------------------------ voice of the frontline (photo) */}
+      {/* --------------------------------------- voice of your people (photo) */}
       <Tile area="photo" delay={0.05} shadow="lg" className="min-h-[230px]">
         <figure className={`${card} group relative h-full`}>
           <img
-            src="/people/frontline-feedback.webp"
-            alt="A frontline colleague sharing feedback on the Vadal app"
+            src="/people/voice-of-your-people.webp"
+            alt="An engineer recording a short video answer in the Vadal.ai app"
             className="h-full w-full object-cover"
             loading="eager"
           />
           {/* top chip */}
           <span className="absolute left-3.5 top-3.5 inline-flex items-center gap-1.5 rounded-full bg-[rgba(255,255,255,0.92)] px-2.5 py-1 text-[12px] font-semibold text-[var(--foreground)] shadow-[var(--shadow-sm)] backdrop-blur">
             <span className="live-dot h-1.5 w-1.5 rounded-full bg-[var(--danger)]" aria-hidden="true" />
-            Voice of the frontline
+            Voice of your people
           </span>
           {/* caption */}
           <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[rgba(13,11,22,0.82)] via-[rgba(13,11,22,0.32)] to-transparent px-4 pb-4 pt-12">
             <div className="flex items-end justify-between gap-2">
               <div className="min-w-0">
-                <p className="truncate text-[14px] font-semibold text-white">Maya · Store 14</p>
-                <p className="truncate text-[12px] text-white/80">“Feedback on the new shift app”</p>
+                <p className="truncate text-[14px] font-semibold text-white">Priya · Engineering</p>
+                <p className="truncate text-[12px] text-white/80">“What I'd change about our sprint cadence”</p>
               </div>
               <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[rgba(255,255,255,0.96)] shadow-[var(--shadow-md)]" aria-hidden="true">
                 <Icon name="play" size={15} className="translate-x-[1px] text-[var(--ink-deep)]" />
