@@ -6,7 +6,7 @@ import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import { HeroBento } from "./HeroBento";
 import { HeroEmailForm } from "./HeroEmailForm";
-import { heroV2 } from "@/lib/content";
+import { heroV2, type IconName } from "@/lib/content";
 
 /* ============================================================================
    ScrollHero — a Maze-style scroll-driven transformation.
@@ -59,12 +59,30 @@ function aurora(t: number) {
   const b = STOPS[i + 1];
   return `rgb(${Math.round(lerp(a[0], b[0], f))},${Math.round(lerp(a[1], b[1], f))},${Math.round(lerp(a[2], b[2], f))})`;
 }
+/** same ramp with an alpha channel. aurora() returns `rgb(...)`, so appending
+    a hex alpha to it produces invalid CSS and silently renders nothing. */
+function auroraA(t: number, alpha: number) {
+  t = clamp(t, 0, 1) * 2;
+  const i = Math.min(1, Math.floor(t));
+  const f = t - i;
+  const a = STOPS[i];
+  const b = STOPS[i + 1];
+  const c = [0, 1, 2].map((k) => Math.round(lerp(a[k], b[k], f)));
+  return `rgba(${c[0]},${c[1]},${c[2]},${alpha})`;
+}
 // precomputed aurora wash, indexed by horizontal screen position
 const PALETTE = Array.from({ length: 33 }, (_, i) => aurora(i / 32));
 
 // Key features that fly in and dock around the "V" as it forms. Order matches
 // FEATURE_DOCK below (upper-L, upper-R, mid-L, mid-R, lower-L, lower-R).
-const HERO_FEATURES = ["Surveys", "Analytics", "Listening", "Action planning", "Recognition", "AI copilot"];
+const HERO_FEATURES: { name: string; icon: IconName }[] = [
+  { name: "Surveys", icon: "pulse" },
+  { name: "Analytics", icon: "chart" },
+  { name: "Listening", icon: "chat" },
+  { name: "Action planning", icon: "checks" },
+  { name: "Recognition", icon: "heart" },
+  { name: "AI copilot", icon: "spark" },
+];
 // dock positions around the V, as fractions of (markW, markH) from its centre
 const FEATURE_DOCK: [number, number][] = [
   [-0.94, -0.5], [0.94, -0.5],
@@ -73,6 +91,8 @@ const FEATURE_DOCK: [number, number][] = [
 ];
 // dot colour per chip — aurora spread so left reads teal, right reads violet
 const FEATURE_DOT = FEATURE_DOCK.map(([dx]) => aurora((dx + 1.2) / 2.4));
+/** the matching soft tint behind each chip's glyph */
+const FEATURE_TINT = FEATURE_DOCK.map(([dx]) => auroraA((dx + 1.2) / 2.4, 0.14));
 
 export function ScrollHero() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -423,13 +443,20 @@ export function ScrollHero() {
           <div className="pointer-events-none absolute inset-0 z-[25]" aria-hidden="true">
             {HERO_FEATURES.map((f, i) => (
               <div
-                key={f}
+                key={f.name}
                 ref={(el) => { chipRefs.current[i] = el; }}
-                className="absolute left-0 top-0 inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-[var(--line)] bg-[var(--card)] px-3.5 py-2 text-[13px] font-semibold text-[var(--foreground)] shadow-[var(--shadow-md)] will-change-transform"
+                className="absolute left-0 top-0 inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-[var(--line)] bg-[var(--card)] py-1.5 pl-1.5 pr-3.5 text-[13px] font-semibold text-[var(--foreground)] shadow-[var(--shadow-md)] will-change-transform"
                 style={{ opacity: 0 }}
               >
-                <span className="h-2 w-2 rounded-full" style={{ background: FEATURE_DOT[i] }} />
-                {f}
+                {/* the dot became a glyph: same aurora position along the ramp,
+                    but the chip now says what the capability IS */}
+                <span
+                  className="grid h-6 w-6 shrink-0 place-items-center rounded-full"
+                  style={{ background: FEATURE_TINT[i], color: FEATURE_DOT[i] }}
+                >
+                  <Icon name={f.icon} size={13} />
+                </span>
+                {f.name}
               </div>
             ))}
           </div>
