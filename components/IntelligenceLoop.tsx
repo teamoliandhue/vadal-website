@@ -7,30 +7,33 @@ import { SparkMark } from "./Brand";
 import type { IconName } from "@/lib/content";
 
 /* ============================================================================
-   IntelligenceLoop — Score → Insight → Action → Impact, drawn.
+   IntelligenceLoop — Score → Insight → Action → Impact, as an orbit.
 
-   This is the site's stated wedge ("a loop, not a report"), so the graphic has
-   to carry the argument: the fourth step feeds the first, which is what a
-   report can't do.
+   The site's stated wedge is "a loop, not a report", so the graphic has to
+   carry the argument: the fourth step feeds the first, which is what a report
+   can't do.
 
-   Rebuilt, because the previous version tied both the drawing AND the active
-   stage to scroll position. That read badly: you had to scroll at exactly the
-   right rate to finish a sentence, scrolling back rewound the stage you were
-   reading, and any stage you hadn't "reached" was greyed almost to invisible —
-   which looked broken rather than pending.
+   Rebuilt again. The flat ring read as a static diagram, its direction arrow
+   looked like a rendering glitch, and the progress rim floated outside the
+   node it belonged to. This version is a tilted orbit instead: the ellipse
+   gives it depth, a pulse of light runs the path continuously so the loop is
+   visibly RUNNING, and the active stage is a lifted, glowing node with its
+   colour bled into the orbit behind it.
 
-   Now the ring draws once when it comes into view, then the four stages cycle
-   on their own. The active node's rim is the clock: it fills, and when it
-   completes the loop moves on. Hovering holds it, clicking a node pins it and
-   stops the cycle for good.
+   Scroll drives the ENTRANCE, not the stage. That distinction matters: an
+   earlier version tied stage selection to scroll position, which meant you had
+   to scroll at exactly the right rate to finish a sentence and scrolling back
+   rewound what you were reading. Now scrolling in draws the orbit, staggers
+   the nodes and settles the centre, then the deck cycles on its own for
+   reading. Scrolling out and back replays the entrance.
 
    Each stage owns a stop on the brand ramp, teal → violet, matching the
-   persona switcher, so the colour tracks progress around the ring. Every node
-   stays legible whether or not it's active.
+   persona switcher.
 
-   Auto-advance is gated in JS on prefers-reduced-motion: the global reduce
-   rule clamps animations to 0.001ms, so a CSS-driven cycle would fire
-   animationend instantly and strobe all four.
+   Under prefers-reduced-motion the orbit renders complete and still, with all
+   four stages listed at once and no cycling. Auto-advance is gated in JS
+   because the global reduce rule clamps animations to 0.001ms, so a
+   CSS-driven cycle would strobe all four instantly.
    ========================================================================== */
 
 type Stage = {
@@ -96,40 +99,34 @@ const STAGES: Stage[] = [
 
 const CYCLE_MS = 5200;
 
-/* --- ring geometry ------------------------------------------------------- */
-const CX = 200;
-const CY = 200;
-const R = 148; // node orbit
-const NODE = 46; // node radius
-const RIM = NODE + 7; // progress rim radius
-const RIM_C = 2 * Math.PI * RIM;
-const TRACK_C = 2 * Math.PI * R;
+/* --- orbit geometry -------------------------------------------------------
+   An ellipse rather than a circle: the vertical squash reads as perspective,
+   so the loop looks like an orbit seen at an angle instead of a flat diagram. */
+const CX = 210;
+const CY = 205;
+const RX = 152;
+const RY = 134; // ~0.88 of RX — enough tilt to feel dimensional, not distorted
+const NODE = 44;
 
-const rad = (deg: number) => (deg * Math.PI) / 180;
+const rad = (d: number) => (d * Math.PI) / 180;
 const degOf = (i: number) => -90 + i * 90;
-const pt = (deg: number) => ({ x: CX + R * Math.cos(rad(deg)), y: CY + R * Math.sin(rad(deg)) });
+/** point on the orbit at a given angle */
+const pt = (deg: number) => ({ x: CX + RX * Math.cos(rad(deg)), y: CY + RY * Math.sin(rad(deg)) });
 
-/** the quarter arc that arrives at node i, swept clockwise */
-function arcInto(i: number) {
-  const a = pt(degOf(i) - 90);
-  const b = pt(degOf(i));
-  return `M ${a.x} ${a.y} A ${R} ${R} 0 0 1 ${b.x} ${b.y}`;
-}
+/** the orbit as a closed path, so pathLength can drive the draw-in */
+const ORBIT = `M ${CX} ${CY - RY} A ${RX} ${RY} 0 1 1 ${CX - 0.01} ${CY - RY} Z`;
 
-/** arrowhead sitting mid-arc, turned to the direction of travel */
-function midArrow(i: number) {
-  const d = degOf(i) - 45;
-  const p = pt(d);
-  return `translate(${p.x} ${p.y}) rotate(${d + 90})`;
-}
+const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
 
 export function IntelligenceLoop() {
   const [active, setActive] = useState(0);
   const [motion, setMotion] = useState(false);
   const [auto, setAuto] = useState(false);
-  const [drawn, setDrawn] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [onScreen, setOnScreen] = useState(false);
+  /** 0 → 1 as the section scrolls into view; drives the entrance only */
+  const [enter, setEnter] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
   const paused = hovered || !onScreen;
@@ -140,27 +137,52 @@ export function IntelligenceLoop() {
     const sync = () => {
       setMotion(!mq.matches);
       setAuto(!mq.matches);
-      if (mq.matches) setDrawn(true); // no draw-on-entry; just show it complete
+      if (mq.matches) setEnter(1); // no entrance; render it complete
     };
     sync();
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
   }, []);
 
-  // draw the ring once, the first time it's actually looked at
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        setOnScreen(e.isIntersecting);
-        if (e.isIntersecting) setDrawn(true);
-      },
-      { threshold: 0.3 },
-    );
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { threshold: 0.15 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
+
+  /* Scroll drives the ENTRANCE, never the stage. `enter` runs 0 → 1 as the
+     graphic travels the lower two thirds of the viewport, so the orbit draws
+     itself, the nodes stagger in and the centre settles as you arrive. Once
+     you're reading, the deck cycles on its own and scroll position no longer
+     touches it. */
+  useEffect(() => {
+    if (!motion) {
+      setEnter(1);
+      return;
+    }
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const el = ref.current;
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const vh = window.innerHeight;
+        // fully drawn by the time the graphic's middle reaches mid-viewport
+        setEnter(clamp01((vh * 0.92 - r.top) / (r.height * 0.55 + vh * 0.28)));
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [motion]);
 
   const pin = (i: number) => {
     setActive(i);
@@ -182,96 +204,105 @@ export function IntelligenceLoop() {
           : "grid items-center gap-10 lg:grid-cols-[minmax(0,440px)_1fr] lg:gap-16"
       }
     >
-      {/* ------------------------------------------------------------- ring */}
-      <div className={`relative mx-auto w-full ${still ? "max-w-[320px]" : "max-w-[380px] lg:max-w-none"}`}>
+      {/* ------------------------------------------------------------ orbit */}
+      <div className={`relative mx-auto w-full ${still ? "max-w-[330px]" : "max-w-[400px] lg:max-w-none"}`}>
         <svg
-          viewBox="0 0 400 400"
+          viewBox="0 0 420 410"
           className="w-full overflow-visible"
           role="img"
           aria-label="The Vadal.ai loop: score, insight, action, impact, feeding back into score"
         >
           <defs>
-            <linearGradient id="loop-track" x1="0" y1="0" x2="1" y2="1">
+            <linearGradient id="orbit-grad" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#19c6b4" />
-              <stop offset="50%" stopColor="#3b9eff" />
+              <stop offset="38%" stopColor="#2bb0e6" />
+              <stop offset="70%" stopColor="#4a8bfb" />
               <stop offset="100%" stopColor="#7c5cf8" />
             </linearGradient>
-            <filter id="loop-glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="7" result="b" />
-              <feMerge>
-                <feMergeNode in="b" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
+            <filter id="orbit-soft" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="9" />
             </filter>
+            <radialGradient id="orbit-core">
+              <stop offset="0%" stopColor={stage.accent} stopOpacity="0.20" />
+              <stop offset="100%" stopColor={stage.accent} stopOpacity="0" />
+            </radialGradient>
           </defs>
 
-          {/* the closed loop, always whole — it's the whole point of the graphic */}
-          <circle
+          {/* the active stage's colour bleeding into the middle of the orbit */}
+          <ellipse
             cx={CX}
             cy={CY}
-            r={R}
-            fill="none"
-            stroke="url(#loop-track)"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            opacity="0.28"
-            transform={`rotate(-90 ${CX} ${CY})`}
-            style={{
-              strokeDasharray: TRACK_C,
-              strokeDashoffset: drawn ? 0 : TRACK_C,
-              transition: still ? "none" : "stroke-dashoffset 1400ms cubic-bezier(0.22,1,0.36,1)",
-            }}
+            rx={RX * 0.92}
+            ry={RY * 0.92}
+            fill="url(#orbit-core)"
+            style={{ transition: still ? "none" : "opacity 600ms", opacity: enter }}
           />
 
-          {/* the quarter arriving at the active stage, in that stage's colour */}
-          {!still && drawn && (
+          {/* faint full orbit, so the loop reads as closed even mid-entrance */}
+          <path d={ORBIT} fill="none" stroke="var(--line-strong)" strokeWidth="1.5" opacity={0.5 * enter} />
+
+          {/* the drawn orbit — pathLength normalises the ellipse to 1, so the
+              dash offset is just the entrance progress */}
+          <path
+            d={ORBIT}
+            fill="none"
+            stroke="url(#orbit-grad)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            pathLength={1}
+            strokeDasharray={1}
+            strokeDashoffset={1 - ease(enter)}
+          />
+
+          {/* a pulse of light running the path: the loop is always RUNNING,
+              and it shows direction without an arrowhead that reads as a glitch */}
+          {!still && enter > 0.98 && (
             <>
-              <path
-                key={`arc-${active}`}
-                d={arcInto(active)}
-                fill="none"
-                stroke={stage.accent}
-                strokeWidth="4"
-                strokeLinecap="round"
-                filter="url(#loop-glow)"
-                style={{ animation: "loop-arc 700ms cubic-bezier(0.22,1,0.36,1) both" }}
-              />
-              <g transform={midArrow(active)} fill={stage.accent}>
-                <path d="M0 -7 L6 4 L-6 4 Z" />
-              </g>
+              <circle r="7" fill={stage.accent} filter="url(#orbit-soft)" opacity="0.9">
+                <animateMotion dur="7s" repeatCount="indefinite" path={ORBIT} />
+              </circle>
+              <circle r="3.5" fill="#fff">
+                <animateMotion dur="7s" repeatCount="indefinite" path={ORBIT} />
+              </circle>
             </>
           )}
 
-          {/* centre: which step of four, so the ring has a focal point */}
-          <g textAnchor="middle" pointerEvents="none">
-            <g transform={`translate(${CX} ${CY - 34})`} opacity="0.85">
-              <SparkMark size={20} />
-            </g>
+          {/* ------------------------------------------------------- centre */}
+          <g
+            textAnchor="middle"
+            pointerEvents="none"
+            style={{ opacity: clamp01((enter - 0.45) / 0.4), transition: still ? "none" : "opacity 300ms" }}
+          >
             <text
               x={CX}
-              y={CY + 14}
-              className="select-none text-[34px] font-extrabold tabular-nums"
+              y={CY - 6}
+              className="select-none text-[40px] font-extrabold tabular-nums"
               fill={stage.accent}
-              style={{ transition: still ? "none" : "fill 400ms" }}
+              style={{ transition: still ? "none" : "fill 420ms" }}
             >
               0{active + 1}
             </text>
-            <text x={CX} y={CY + 36} className="select-none text-[12px] font-semibold" fill="var(--muted-2)">
+            <text x={CX} y={CY + 20} className="select-none text-[12.5px] font-bold uppercase tracking-[0.16em]" fill="var(--muted-2)">
               of four
             </text>
           </g>
 
-          {/* nodes */}
-          {STAGES.map((s, i) => {
+          {/* -------------------------------------------------------- nodes */}
+          {STAGES.map((s2, i) => {
             const { x, y } = pt(degOf(i));
             const on = i === active;
+            /* each node arrives in turn as the orbit draws past it. The
+               windows must all CLOSE before enter reaches 1, or the last node
+               settles short of full opacity and never recovers: the first
+               version ended at 0.9 and looked permanently faded. */
+            const n = clamp01((enter - (0.3 + i * 0.14)) / 0.16);
             return (
               <g
-                key={s.id}
+                key={s2.id}
                 onClick={() => pin(i)}
                 role="button"
                 tabIndex={0}
-                aria-label={`Show ${s.label}`}
+                aria-label={`Show ${s2.label}`}
                 aria-pressed={on}
                 className="cursor-pointer focus:outline-none"
                 onKeyDown={(e) => {
@@ -280,49 +311,23 @@ export function IntelligenceLoop() {
                     pin(i);
                   }
                 }}
+                style={{ opacity: n }}
               >
-                {/* soft halo behind the active node */}
-                {on && <circle cx={x} cy={y} r={NODE + 16} fill={s.accent} opacity="0.12" />}
-
+                {on && <circle cx={x} cy={y} r={NODE + 20} fill={s2.accent} opacity="0.16" filter="url(#orbit-soft)" />}
                 <circle
                   cx={x}
                   cy={y}
-                  r={NODE}
-                  fill={on ? s.accent : "var(--card)"}
-                  stroke={on ? s.accent : "var(--line-strong)"}
+                  r={NODE * (0.82 + 0.18 * n) * (on ? 1.1 : 1)}
+                  fill={on ? s2.accent : "var(--card)"}
+                  stroke={on ? s2.accent : "var(--line)"}
                   strokeWidth={on ? 0 : 1.5}
                   style={{
-                    transition: still ? "none" : "fill 380ms, stroke 380ms",
-                    filter: on ? `drop-shadow(0 8px 18px ${s.accent}66)` : "none",
+                    transition: still ? "none" : "r 420ms cubic-bezier(0.22,1,0.36,1), fill 420ms, stroke 420ms",
+                    filter: on ? `drop-shadow(0 10px 22px ${s2.accent}55)` : "drop-shadow(0 4px 12px rgba(13,11,22,0.07))",
                   }}
                 />
-
-                {/* the rim doubles as the clock: full circle = time to advance */}
-                {on && auto && (
-                  <circle
-                    key={`rim-${active}`}
-                    cx={x}
-                    cy={y}
-                    r={RIM}
-                    fill="none"
-                    stroke={s.accent}
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    transform={`rotate(-90 ${x} ${y})`}
-                    onAnimationEnd={() => setActive((a) => (a + 1) % STAGES.length)}
-                    style={
-                      {
-                        strokeDasharray: RIM_C,
-                        animation: `ring-progress ${CYCLE_MS}ms linear forwards`,
-                        animationPlayState: paused ? "paused" : "running",
-                        ["--c" as string]: `${RIM_C}`,
-                      } as React.CSSProperties
-                    }
-                  />
-                )}
-
-                <g transform={`translate(${x - 9} ${y - 22})`} pointerEvents="none">
-                  <Icon name={s.icon} size={18} style={{ color: on ? "#fff" : s.accent }} />
+                <g transform={`translate(${x - 9} ${y - 23})`} pointerEvents="none">
+                  <Icon name={s2.icon} size={18} style={{ color: on ? "#fff" : s2.accent }} />
                 </g>
                 <text
                   x={x}
@@ -330,11 +335,37 @@ export function IntelligenceLoop() {
                   textAnchor="middle"
                   className="select-none text-[14px] font-bold"
                   fill={on ? "#fff" : "var(--foreground)"}
-                  style={{ transition: still ? "none" : "fill 380ms" }}
+                  style={{ transition: still ? "none" : "fill 420ms" }}
                   pointerEvents="none"
                 >
-                  {s.label}
+                  {s2.label}
                 </text>
+
+                {/* the clock, drawn ON the node's own edge rather than floating
+                    outside it as a stray arc */}
+                {on && auto && (
+                  <circle
+                    key={`clock-${active}`}
+                    cx={x}
+                    cy={y}
+                    r={NODE * 1.1}
+                    fill="none"
+                    stroke="#fff"
+                    strokeOpacity="0.55"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    transform={`rotate(-90 ${x} ${y})`}
+                    onAnimationEnd={() => setActive((a) => (a + 1) % STAGES.length)}
+                    style={
+                      {
+                        strokeDasharray: 2 * Math.PI * NODE * 1.1,
+                        animation: `ring-progress ${CYCLE_MS}ms linear forwards`,
+                        animationPlayState: paused ? "paused" : "running",
+                        ["--c" as string]: `${2 * Math.PI * NODE * 1.1}`,
+                      } as React.CSSProperties
+                    }
+                  />
+                )}
               </g>
             );
           })}
