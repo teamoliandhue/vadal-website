@@ -399,18 +399,6 @@ html.lenis body {
   to   { transform: scaleX(1); }
 }
 
-/* IntelligenceLoop: the active node's rim fills as the clock to the next
-   stage, and the quarter-arc arriving at it draws itself. */
-@keyframes ring-progress {
-  from { stroke-dashoffset: var(--c, 0); }
-  to   { stroke-dashoffset: 0; }
-}
-
-@keyframes loop-arc {
-  from { opacity: 0; stroke-dasharray: 240; stroke-dashoffset: 240; }
-  to   { opacity: 1; stroke-dasharray: 240; stroke-dashoffset: 0; }
-}
-
 @keyframes persona-slide {
   from { opacity: 0; transform: translateX(var(--from, 20px)); }
   to   { opacity: 1; transform: translateX(0); }
@@ -649,4 +637,17 @@ html.lenis body {
     scroll-behavior: auto !important;
   }
   .reveal { opacity: 1; }
+}
+
+/* The lit segment that chases the loop mark in the "Impact feeds the next
+   score" card. It is what makes the ring read as a direction rather than a
+   decoration. The global prefers-reduced-motion rule clamps it to a standstill,
+   which is correct — the four coloured nodes still carry the meaning. */
+@keyframes loop-chase {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+.loop-chase {
+  animation: loop-chase 5s linear infinite;
 }

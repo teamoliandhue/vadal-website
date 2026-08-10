@@ -15,7 +15,7 @@ import {
 } from "@/components/home-v2";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { MobilePlatformLayers } from "@/components/MobilePlatformLayers";
-import { IntelligenceLoop } from "@/components/IntelligenceLoop";
+import { LoopBento } from "@/components/LoopBento";
 import { homeFaqsV2, platformOverview, securitySection } from "@/lib/content";
 
 /* ============================================================================
@@ -79,7 +79,7 @@ export default function HomePage() {
             lede="Score, insight, action, impact. Four steps most tools treat as separate products, connected here so each one makes the next one smarter."
           />
           <div className="mt-14">
-            <IntelligenceLoop />
+            <LoopBento />
           </div>
         </Container>
       </Section>
