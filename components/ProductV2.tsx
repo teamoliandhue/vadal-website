@@ -7,6 +7,7 @@ import { ProductScreens } from "./ProductScreens";
 import { SparkMark } from "./Brand";
 import { DashboardMock, PhoneMock, VoiceCard, BroadcastCard } from "./ProductMocks";
 import { CrowdPanel, FeatureRow, IconChip, type PanelTone } from "./sections";
+import { pageTheme } from "@/lib/page-theme";
 import { FaqAccordion } from "./FaqAccordion";
 import { FaqBand } from "./FaqBand";
 import { ProductShot, PRODUCT_SHOTS } from "./ProductShot";
@@ -54,6 +55,10 @@ function screenShot(slug: string, screen: string) {
 
 export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }) {
   const cloud = platformLayers.find((g) => g.id === p.cloud);
+  /* Two pages never look alike: the layer sets the hue family, the product's
+     index within it picks a shade. See lib/page-theme.ts. */
+  const siblingSlugs = (cloud?.modules ?? []).filter((m) => m.slug).map((m) => m.slug);
+  const theme = pageTheme(p.cloud, Math.max(0, siblingSlugs.indexOf(p.slug)), siblingSlugs.length || 1);
   const altMock = p.mock === "dashboard" ? "phone" : "dashboard";
 
   return (
@@ -136,7 +141,8 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
       {/* ------------------------------------------------- solution pillars */}
       <Section tone="base">
         <CrowdPanel
-          tone="blue"
+          tone={theme.ink === "dark" ? "teal" : "blue"}
+          color={theme.base}
           eyebrow="How Vadal.ai solves this"
           title={`${p.name}, reimagined`}
         >
@@ -195,6 +201,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
                 ctaLabel="Book a demo"
                 ctaHref="/demo"
                 panelTone={CAP_TONES[i % CAP_TONES.length]}
+                panelColor={i % 2 === 0 ? theme.base : theme.deep}
                 visual={
                   <div className="flex flex-col items-center gap-3">
                     {screenShot(p.slug, c.screen) ? (
@@ -278,7 +285,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
 
       {/* ------------------------------------------------ how teams use it */}
       <Section tone="base">
-        <CrowdPanel tone="teal" eyebrow="How teams use it" title="From challenge to outcome">
+        <CrowdPanel tone="teal" color={`hsl(${theme.hue} 62% 78%)`} eyebrow="How teams use it" title="From challenge to outcome">
           <div className="grid gap-3 lg:grid-cols-3" data-reveal-stagger>
             {(
               [

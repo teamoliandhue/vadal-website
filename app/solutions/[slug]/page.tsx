@@ -8,6 +8,7 @@ import { DashboardMock, PhoneMock } from "@/components/ProductMocks";
 import { FeatureRow, StatBand, TestimonialCard } from "@/components/sections";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { FaqBand } from "@/components/FaqBand";
+import { pageTheme } from "@/lib/page-theme";
 import { getSolution, solutions, ILLUSTRATIVE } from "@/lib/content";
 
 /* Which FAQ plate a solution gets. The three groups mirror the Solutions mega
@@ -16,6 +17,13 @@ const OUTCOME = new Set(["employee-retention", "manager-effectiveness", "employe
 const WORKFORCE = new Set(["frontline-deskless", "global-multilingual", "enterprise"]);
 const solutionPlate = (slug: string) =>
   OUTCOME.has(slug) ? "sol-outcome" : WORKFORCE.has(slug) ? "sol-workforce" : "sol-need";
+
+/** the page's own hue: group sets the family, position within it sets the shade */
+function solutionTheme(slug: string) {
+  const group = solutionPlate(slug);
+  const peers = solutions.map((x) => x.slug).filter((sl) => solutionPlate(sl) === group);
+  return pageTheme(group, Math.max(0, peers.indexOf(slug)), peers.length || 1);
+}
 
 export function generateStaticParams() {
   return solutions.map((s) => ({ slug: s.slug }));
@@ -43,6 +51,8 @@ export default async function SolutionPage({
   const { slug } = await params;
   const s = getSolution(slug);
   if (!s) notFound();
+
+  const theme = solutionTheme(s.slug);
 
   // related = the next three entries in the array (wrapping), so outcome pages
   // suggest outcome pages and workforce pages suggest their neighbours, rather
@@ -113,6 +123,7 @@ export default async function SolutionPage({
               body={sec.body}
               bullets={sec.bullets}
               panelTone={i % 2 === 0 ? "violet" : "blue"}
+              panelColor={i % 2 === 0 ? theme.base : theme.deep}
               visual={i % 2 === 0 ? <DashboardMock /> : <PhoneMock />}
             />
           ))}

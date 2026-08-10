@@ -73,6 +73,7 @@ const CROWD_TONES = {
 
 export function CrowdPanel({
   tone = "blue",
+  color,
   eyebrow,
   title,
   lede,
@@ -81,6 +82,9 @@ export function CrowdPanel({
   children,
 }: {
   tone?: keyof typeof CROWD_TONES;
+  /** overrides the tone's background so a page can own its own hue; the
+      halftone texture, scrim and text colours come from `tone` as before */
+  color?: string;
   eyebrow?: string;
   title: ReactNode;
   lede?: string;
@@ -94,10 +98,18 @@ export function CrowdPanel({
       <div
         className="relative overflow-hidden rounded-[32px] px-5 py-12 sm:px-10 sm:py-14 lg:py-16"
         style={{
-          backgroundColor: t.bg,
+          backgroundColor: color ?? t.bg,
           backgroundImage: `url('${t.img}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
+          /* The halftone texture is an opaque image, so it completely hid the
+             background colour: every page rendered the same teal no matter
+             what colour it asked for. Blending on luminosity keeps the
+             texture's light-and-dark pattern but takes hue and saturation
+             from the colour underneath, so the page's own tone comes
+             through. Only when a colour is supplied, so the original blue and
+             teal tones render exactly as before. */
+          backgroundBlendMode: color ? "luminosity" : undefined,
         }}
       >
         {/* depth — soft top highlight + gentle bottom shade over the halftone */}
@@ -243,10 +255,13 @@ const PANEL_TONES: Record<PanelTone, { bg: string; dot: string }> = {
 
 export function PanelStage({
   tone = "violet",
+  color,
   children,
   className = "",
 }: {
   tone?: PanelTone;
+  /** overrides the tone's fill so a page can own its own hue */
+  color?: string;
   children: ReactNode;
   className?: string;
 }) {
@@ -254,7 +269,7 @@ export function PanelStage({
   return (
     <div
       className={`relative isolate overflow-hidden rounded-[var(--r-2xl)] p-6 sm:p-8 lg:p-10 ${className}`}
-      style={{ background: t.bg }}
+      style={{ background: color ?? t.bg }}
     >
       {/* halftone dots — dense at the edges, clearing toward the centre card */}
       <div
@@ -291,6 +306,7 @@ export function FeatureRow({
   reverse = false,
   aurora = false,
   panelTone,
+  panelColor,
 }: {
   eyebrow: string;
   title: ReactNode;
@@ -302,6 +318,7 @@ export function FeatureRow({
   reverse?: boolean;
   aurora?: boolean;
   panelTone?: PanelTone;
+  panelColor?: string;
 }) {
   return (
     <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
@@ -326,7 +343,7 @@ export function FeatureRow({
       </div>
       <div className={`relative ${reverse ? "lg:order-1" : ""}`}>
         {panelTone ? (
-          <PanelStage tone={panelTone}>{visual}</PanelStage>
+          <PanelStage tone={panelTone} color={panelColor}>{visual}</PanelStage>
         ) : (
           <>
             <div className="aurora-wash pointer-events-none absolute -inset-6 -z-10 rounded-[var(--r-2xl)] opacity-70" />
