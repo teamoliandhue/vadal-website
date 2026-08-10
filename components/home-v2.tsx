@@ -397,6 +397,52 @@ export function PrivacySection() {
    real file lands — add a brand to BRAND_MARKS and it takes over here. */
 const LOGO_TINTS = ["#19c6b4", "#2bb0e6", "#3b9eff", "#5c7cf9", "#7c5cf8"];
 
+/* Real vendor logos, downloaded from each vendor's own site or from Wikimedia
+   Commons, which only hosts freely-licensed files. Every one was rendered and
+   eyeballed before it landed here — automated matching is not trustworthy for
+   logos. The searches variously returned Aeroports de Paris for "ADP", the
+   pre-merger Kronos mark for UKG, an Ionicons glyph for Tableau and Exchange
+   for Teams. Four wrong out of nineteen, all plausible-looking.
+
+   These are trademarks of their owners, used to identify the products the
+   platform connects to — the nominative use every integrations page relies on.
+
+   Sub-products take the parent mark: SuccessFactors and SAP Payroll are SAP,
+   Oracle HCM and Oracle ERP are Oracle. That is accurate, if repetitive.
+
+   Six have no logo here. Darwinbox, Ramco and Lever publish only their
+   customers' logos, not their own; Dynamics 365 and Tableau are absent from
+   Commons and their own sites refuse automated requests. Those fall through
+   to the monochrome glyph, then to a monogram. */
+const LOGO_FILES: Record<string, string> = {
+  Workday: "workday",
+  "SAP SuccessFactors": "sap",
+  "SAP Payroll": "sap",
+  SAP: "sap",
+  "Oracle HCM": "oracle",
+  "Oracle ERP": "oracle",
+  UKG: "ukg",
+  PeopleStrong: "peoplestrong",
+  "Microsoft Teams": "microsoft-teams",
+  Slack: "slack",
+  "Google Workspace": "google-workspace",
+  Outlook: "outlook",
+  WhatsApp: "whatsapp",
+  ADP: "adp",
+  Greenhouse: "greenhouse",
+  iCIMS: "icims",
+  SmartRecruiters: "smartrecruiters",
+  Cornerstone: "cornerstone",
+  Moodle: "moodle",
+  Docebo: "docebo",
+  "Microsoft Entra ID": "microsoft-entra-id",
+  Okta: "okta",
+  OneLogin: "onelogin",
+  "Power BI": "power-bi",
+  Salesforce: "salesforce",
+  HubSpot: "hubspot",
+};
+
 /* Thirteen of the thirty-three platforms have no licensed mark anywhere in the
    toolchain — simple-icons carries none of them, and an approximated logo is
    worse than none. So the fallback has to look like a decision rather than a
@@ -465,13 +511,86 @@ function tintFor(name: string) {
   return LOGO_TINTS[h % LOGO_TINTS.length];
 }
 
+/* Which of the real logos are symbols and which are wordmarks. Set by hand
+   after looking at all twenty-three, not inferred from the aspect ratio — the
+   ratio gets SAP and Workday wrong, both of which read as roughly 2:1 but are
+   wordmarks with the company name in them. */
+const SYMBOL_LOGOS = new Set([
+  "microsoft-entra-id",
+  "microsoft-teams",
+  "outlook",
+  "power-bi",
+  "salesforce",
+  "slack",
+  "whatsapp",
+  "oracle",
+]);
+
+/* Tiles whose logo belongs to the parent company, not to them. The wordmark
+   layout drops the name text on the grounds that the wordmark already says it
+   — true for Workday, false for SAP SuccessFactors, which would have shown the
+   SAP wordmark over "HRIS & HCM" and been indistinguishable from the SAP tile
+   with the sub-product name nowhere on it. These keep the chip and the name. */
+const PARENT_MARK = new Set([
+  "SAP SuccessFactors",
+  "SAP Payroll",
+  "Oracle HCM",
+  "Oracle ERP",
+]);
+
+/* Two layouts, because the assets are two different things.
+
+   A wordmark already says the company name, so printing "Workday" beside the
+   Workday logo is the name twice. Worse, squeezing a 6:1 wordmark into the
+   72px chip left it about 10px tall — Google Workspace and PeopleStrong were
+   illegible, and the wider name text pushed "SAP SuccessFactors" onto two
+   lines. So a wordmark gets the full width of the card and no name text; the
+   name rides in the alt attribute for screen readers.
+
+   A symbol identifies nothing on its own, so those keep the chip-and-name
+   lockup, as do the brands with only a monochrome glyph or no mark at all. */
 function PlatformCard({ p }: { p: (typeof integrationsSection.platforms)[number] }) {
+  const logo = LOGO_FILES[p.name];
   const mark = BRAND_MARKS[p.name];
   const channel = CHANNEL_ICONS[p.name];
   const c = tintFor(p.name);
+  const shell =
+    "mx-2 flex h-[76px] w-[264px] shrink-0 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] px-4 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow-lg)]";
+  const group = (
+    <span className="block text-[11.5px] font-semibold uppercase tracking-[0.07em] text-[var(--muted-2)]">
+      {p.group}
+    </span>
+  );
+
+  if (logo && !SYMBOL_LOGOS.has(logo) && !PARENT_MARK.has(p.name)) {
+    return (
+      <div className={`${shell} flex-col justify-center gap-2.5`}>
+        <img
+          src={`/logos/${logo}.svg`}
+          alt={p.name}
+          loading="lazy"
+          className="block h-[26px] w-auto max-w-[168px] object-contain object-left"
+        />
+        {group}
+      </div>
+    );
+  }
+
   return (
-    <div className="mx-2 flex w-[264px] shrink-0 items-center gap-3.5 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-4 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow-lg)]">
-      {mark ? (
+    <div className={`${shell} items-center gap-3.5`}>
+      {logo ? (
+        /* White chip, always: several of these are near-black or navy and
+           would vanish against --card on the dark theme. */
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] border border-[var(--line)] bg-white p-1.5">
+          <img
+            src={`/logos/${logo}.svg`}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            className="max-h-full max-w-full object-contain"
+          />
+        </span>
+      ) : mark ? (
         <span
           className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px]"
           style={{ background: `${mark.hex}14` }}
@@ -506,9 +625,7 @@ function PlatformCard({ p }: { p: (typeof integrationsSection.platforms)[number]
       )}
       <span className="min-w-0">
         <span className="block text-[14.5px] font-bold leading-snug text-[var(--foreground)]">{p.name}</span>
-        <span className="mt-0.5 block text-[11.5px] font-semibold uppercase tracking-[0.07em] text-[var(--muted-2)]">
-          {p.group}
-        </span>
+        <span className="mt-0.5 block">{group}</span>
       </span>
     </div>
   );
