@@ -20,12 +20,19 @@ import type { IconName } from "@/lib/content";
    visibly RUNNING, and the active stage is a lifted, glowing node with its
    colour bled into the orbit behind it.
 
-   Scroll drives the ENTRANCE, not the stage. That distinction matters: an
-   earlier version tied stage selection to scroll position, which meant you had
-   to scroll at exactly the right rate to finish a sentence and scrolling back
-   rewound what you were reading. Now scrolling in draws the orbit, staggers
-   the nodes and settles the centre, then the deck cycles on its own for
-   reading. Scrolling out and back replays the entrance.
+   Scroll drives the whole thing, but the section PINS while it does.
+
+   That pinning is the point. An early version mapped stage selection to plain
+   page scroll and it read terribly: you had to scroll at exactly the right
+   rate to finish a sentence, and scrolling back rewound what you were reading.
+   Here the graphic sticks to the viewport for a multi-screen track, so each
+   stage holds still for a comfortable span of scrolling while you read it.
+   The first stretch draws the orbit and staggers the nodes in; the rest is
+   divided evenly between the four stages.
+
+   Pinning is desktop-only and motion-only. On phones, and for anyone who has
+   asked for reduced motion, the section is its normal height and the deck
+   cycles on a timer instead.
 
    Each stage owns a stop on the brand ramp, teal → violet, matching the
    persona switcher.
@@ -98,6 +105,8 @@ const STAGES: Stage[] = [
 ];
 
 const CYCLE_MS = 5200;
+/** share of the pinned track spent drawing the orbit before stage one */
+const ENTRANCE_SPAN = 0.18;
 
 /* --- orbit geometry -------------------------------------------------------
    An ellipse rather than a circle: the vertical squash reads as perspective,
@@ -125,9 +134,14 @@ export function IntelligenceLoop() {
   const [auto, setAuto] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [onScreen, setOnScreen] = useState(false);
-  /** 0 → 1 as the section scrolls into view; drives the entrance only */
+  /** 0 → 1 across the pinned track; drives entrance then stage */
   const [enter, setEnter] = useState(0);
+  /** is the pinned, scroll-driven mode active? (desktop + motion) */
+  const [pinned, setPinned] = useState(false);
+  /** set once someone clicks a node: scroll stops choosing the stage */
+  const [pickedByHand, setPickedByHand] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   const paused = hovered || !onScreen;
   const stage = STAGES[active];
@@ -152,11 +166,18 @@ export function IntelligenceLoop() {
     return () => io.disconnect();
   }, []);
 
-  /* Scroll drives the ENTRANCE, never the stage. `enter` runs 0 → 1 as the
-     graphic travels the lower two thirds of the viewport, so the orbit draws
-     itself, the nodes stagger in and the centre settles as you arrive. Once
-     you're reading, the deck cycles on its own and scroll position no longer
-     touches it. */
+  // pinning needs both room and permission
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const sync = () => setPinned(mq.matches && motion);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, [motion]);
+
+  /* Progress across the pinned track. The first ENTRANCE_SPAN draws the orbit
+     and staggers the nodes; the remainder is split evenly between the four
+     stages, so each one holds still for roughly half a screen of scrolling. */
   useEffect(() => {
     if (!motion) {
       setEnter(1);
@@ -166,12 +187,26 @@ export function IntelligenceLoop() {
     const onScroll = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
+        const track = trackRef.current;
         const el = ref.current;
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        const vh = window.innerHeight;
-        // fully drawn by the time the graphic's middle reaches mid-viewport
-        setEnter(clamp01((vh * 0.92 - r.top) / (r.height * 0.55 + vh * 0.28)));
+        if (!track || !el) return;
+
+        if (!pinned) {
+          // unpinned: scroll only plays the entrance as the graphic arrives
+          const r = el.getBoundingClientRect();
+          const vh = window.innerHeight;
+          setEnter(clamp01((vh * 0.92 - r.top) / (r.height * 0.55 + vh * 0.28)));
+          return;
+        }
+
+        const r = track.getBoundingClientRect();
+        const travel = track.offsetHeight - window.innerHeight;
+        const p = travel > 0 ? clamp01(-r.top / travel) : 0;
+        setEnter(clamp01(p / ENTRANCE_SPAN));
+        if (!pickedByHand) {
+          const after = clamp01((p - ENTRANCE_SPAN) / (1 - ENTRANCE_SPAN));
+          setActive(Math.min(STAGES.length - 1, Math.floor(after * STAGES.length)));
+        }
       });
     };
     onScroll();
@@ -182,16 +217,17 @@ export function IntelligenceLoop() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [motion]);
+  }, [motion, pinned, pickedByHand]);
 
   const pin = (i: number) => {
     setActive(i);
     setAuto(false); // they've chosen; stop moving it for them
+    setPickedByHand(true); // ...and stop scroll choosing for them too
   };
 
   const still = !motion;
 
-  return (
+  const inner = (
     <div
       ref={ref}
       onMouseEnter={() => setHovered(true)}
@@ -258,10 +294,13 @@ export function IntelligenceLoop() {
               and it shows direction without an arrowhead that reads as a glitch */}
           {!still && enter > 0.98 && (
             <>
-              <circle r="7" fill={stage.accent} filter="url(#orbit-soft)" opacity="0.9">
+              <circle r="11" fill={stage.accent} opacity="0.18">
                 <animateMotion dur="7s" repeatCount="indefinite" path={ORBIT} />
               </circle>
-              <circle r="3.5" fill="#fff">
+              <circle r="6" fill={stage.accent} opacity="0.45">
+                <animateMotion dur="7s" repeatCount="indefinite" path={ORBIT} />
+              </circle>
+              <circle r="3.2" fill="#fff">
                 <animateMotion dur="7s" repeatCount="indefinite" path={ORBIT} />
               </circle>
             </>
@@ -343,7 +382,7 @@ export function IntelligenceLoop() {
 
                 {/* the clock, drawn ON the node's own edge rather than floating
                     outside it as a stray arc */}
-                {on && auto && (
+                {on && auto && !pinned && (
                   <circle
                     key={`clock-${active}`}
                     cx={x}
@@ -425,6 +464,17 @@ export function IntelligenceLoop() {
           </span>
         </p>
       </div>
+    </div>
+  );
+
+  if (!pinned) return inner;
+
+  /* The pin track. Its height is what buys each stage its dwell: four stages
+     plus the entrance over 3.4 screens, so roughly two thirds of a screen of
+     scrolling per stage. The graphic sticks near the top while that happens. */
+  return (
+    <div ref={trackRef} style={{ height: "340vh" }}>
+      <div className="sticky top-[14vh]">{inner}</div>
     </div>
   );
 }
