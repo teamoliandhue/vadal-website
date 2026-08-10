@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button, Container, Pill, Section, SectionHead, CheckItem } from "./ui";
 import { Icon } from "./Icon";
 import { LayerSubNav } from "./LayerSubNav";
+import { CHALLENGE_ICONS } from "@/lib/challenge-icons";
 import { ProductScreens } from "./ProductScreens";
 import { SparkMark } from "./Brand";
 import { DashboardMock, PhoneMock, VoiceCard, BroadcastCard } from "./ProductMocks";
@@ -112,13 +113,18 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
             {p.challenges.map((c) => (
               <div
                 key={c}
-                className="flex items-start gap-3 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5"
+                className="group flex items-start gap-3.5 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-5 transition-colors duration-300 hover:border-[var(--line-strong)]"
               >
+                {/* apricot marks the problem, the glyph says which KIND of
+                    problem — assigned per challenge in lib/challenge-icons.ts,
+                    falling back so new copy can never render a blank tile */}
                 <span
-                  className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full"
-                  style={{ background: "#FF8A5B" }}
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px]"
+                  style={{ background: "rgba(255,138,91,0.14)", color: "#E4622F" }}
                   aria-hidden="true"
-                />
+                >
+                  <Icon name={CHALLENGE_ICONS[c] ?? "compass"} size={17} />
+                </span>
                 <p className="text-[14.5px] leading-relaxed text-[var(--foreground)]">{c}</p>
               </div>
             ))}
