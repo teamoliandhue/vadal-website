@@ -4,6 +4,7 @@ import { SparkMark } from "./Brand";
 import { Button, CheckItem, Container, Eyebrow, Pill, SectionHead } from "./ui";
 import { CrowdPanel, IconChip, PanelStage } from "./sections";
 import { BRAND_MARKS } from "@/lib/brand-marks";
+import type { IconName } from "@/lib/content";
 import { DashboardMock, VoiceCard } from "./ProductMocks";
 import {
   actionSection,
@@ -396,7 +397,55 @@ export function PrivacySection() {
    real file lands — add a brand to BRAND_MARKS and it takes over here. */
 const LOGO_TINTS = ["#19c6b4", "#2bb0e6", "#3b9eff", "#5c7cf9", "#7c5cf8"];
 
+/* Thirteen of the thirty-three platforms have no licensed mark anywhere in the
+   toolchain — simple-icons carries none of them, and an approximated logo is
+   worse than none. So the fallback has to look like a decision rather than a
+   gap, and the generic initial rule did not:
+
+     Workday → "W", Ramco → "R", OneLogin → "O", iCIMS → "I"
+
+   Lone letters read as placeholder, and Darwinbox and Docebo both landed on
+   "D" — the same tile twice with two different labels. These are set by hand,
+   two characters each, taken from the name as it is actually written. */
+const MONOGRAMS: Record<string, string> = {
+  Workday: "WD",
+  Darwinbox: "DB",
+  PeopleStrong: "PS",
+  Ramco: "RM",
+  Lever: "LV",
+  iCIMS: "iC",
+  SmartRecruiters: "SR",
+  Cornerstone: "CS",
+  Docebo: "DO",
+  // the product is Entra; "ME" read as a Microsoft monogram for the wrong thing
+  "Microsoft Entra ID": "EN",
+  OneLogin: "OL",
+};
+
+/* Optical size, not box size. Measured every mark's real glyph bounds in the
+   browser: most fill the 24-unit box top to bottom, but the wide, short
+   wordmarks do not — ADP fills 45% of the height and the three SAP tiles 49%,
+   against 100% for Slack, Okta and Moodle. Drawn at one flat size they came
+   out looking like half-loaded images sitting in an oversized plate.
+
+   These scale the glyph up until its height reads level with the rest. They
+   stay wide, which is correct — SAP's mark genuinely is a wide trapezoid — and
+   the largest of them still clears the plate edge by 7px. Anything already at
+   0.6 or above is left alone; Oracle and Salesforce need no help. */
+const MARK_SCALE: Record<string, number> = {
+  ADP: 1.35,
+  SAP: 1.27,
+  "SAP SuccessFactors": 1.27,
+  "SAP Payroll": 1.27,
+};
+
+/* SMS is a channel, not a vendor. A monogram tile claims it is a brand whose
+   logo we could not find, which is a different and untrue statement. */
+const CHANNEL_ICONS: Record<string, IconName> = { SMS: "chat" };
+
 function monogram(name: string) {
+  const set = MONOGRAMS[name];
+  if (set) return set;
   const words = name.split(/\s+/).filter(Boolean);
   if (words[0].length <= 3 && words.length === 1) return words[0].toUpperCase();
   return words
@@ -406,15 +455,20 @@ function monogram(name: string) {
     .toUpperCase();
 }
 
-function PlatformCard({
-  p,
-  tint,
-}: {
-  p: (typeof integrationsSection.platforms)[number];
-  tint: number;
-}) {
-  const c = LOGO_TINTS[tint % LOGO_TINTS.length];
+/* Derived from the name, not the loop index. The marquee renders each row
+   twice to loop seamlessly, so an index-based tint gave the same brand two
+   different colours — Workday teal in the first copy, blue in the second,
+   swapping every time the seam came round. */
+function tintFor(name: string) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+  return LOGO_TINTS[h % LOGO_TINTS.length];
+}
+
+function PlatformCard({ p }: { p: (typeof integrationsSection.platforms)[number] }) {
   const mark = BRAND_MARKS[p.name];
+  const channel = CHANNEL_ICONS[p.name];
+  const c = tintFor(p.name);
   return (
     <div className="mx-2 flex w-[264px] shrink-0 items-center gap-3.5 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] p-4 shadow-[var(--shadow-sm)] transition-shadow duration-300 hover:shadow-[var(--shadow-lg)]">
       {mark ? (
@@ -423,13 +477,27 @@ function PlatformCard({
           style={{ background: `${mark.hex}14` }}
           aria-hidden="true"
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill={mark.hex} role="img">
+          <svg
+            width={Math.round(22 * (MARK_SCALE[p.name] ?? 1))}
+            height={Math.round(22 * (MARK_SCALE[p.name] ?? 1))}
+            viewBox="0 0 24 24"
+            fill={mark.hex}
+            role="img"
+          >
             <path d={mark.path} />
           </svg>
         </span>
+      ) : channel ? (
+        <span
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px]"
+          style={{ background: `${c}1f`, color: c }}
+          aria-hidden="true"
+        >
+          <Icon name={channel} size={21} />
+        </span>
       ) : (
         <span
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] text-[14px] font-extrabold tracking-[-0.02em]"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] text-[15px] font-extrabold leading-none tracking-[-0.03em]"
           style={{ background: `${c}1f`, color: c }}
           aria-hidden="true"
         >
@@ -478,7 +546,7 @@ export function IntegrationsSection() {
         <div className="relative overflow-hidden" style={mask}>
           <div className="marquee-track flex animate-marquee hover:[animation-play-state:paused]" style={{ animationDuration: `${Math.round((rowA.length * CARD) / PX_PER_S_A)}s` }}>
             {[...rowA, ...rowA].map((c, i) => (
-              <PlatformCard key={`${c.name}-${i}`} p={c} tint={i} />
+              <PlatformCard key={`${c.name}-${i}`} p={c} />
             ))}
           </div>
         </div>
@@ -491,7 +559,7 @@ export function IntegrationsSection() {
             }}
           >
             {[...rowB, ...rowB].map((c, i) => (
-              <PlatformCard key={`${c.name}-${i}`} p={c} tint={i + 2} />
+              <PlatformCard key={`${c.name}-${i}`} p={c} />
             ))}
           </div>
         </div>
