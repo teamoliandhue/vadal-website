@@ -202,8 +202,8 @@ export default function HomePage() {
                 title="Questions, answered"
                 lede="Everything leaders ask before they bring Vadal.ai to their workforce."
               />
-              <div className="mx-auto mt-10 max-w-3xl">
-                <FaqAccordion faqs={homeFaqsV2} variant="glass" />
+              <div className="mx-auto mt-10 max-w-5xl">
+                <FaqAccordion faqs={homeFaqsV2} variant="glass" columns={2} />
               </div>
               {/* frosted like the cards — it sits on the busiest part of the
                   photograph, where bare text loses contrast */}

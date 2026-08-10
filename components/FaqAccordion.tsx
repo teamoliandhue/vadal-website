@@ -12,8 +12,12 @@ import { useState } from "react";
    transition simply collapses to an instant toggle).
 
    Two skins:
-   • "glass" — frosted cards for the watercolor-sky panel (home).
+   • "glass" — frosted cards for the photographic FAQ band (home).
    • "plain" — solid cards on the canvas (solution pages).
+
+   `columns={2}` splits the list into two independent stacks rather than
+   flowing one grid, so opening an item never shifts the other column's rows.
+   Panel ids stay globally unique via the column's index offset.
    ========================================================================== */
 
 type Faq = { q: string; a: string };
@@ -22,17 +26,30 @@ export function FaqAccordion({
   faqs,
   variant = "plain",
   defaultOpen = 0,
+  columns = 1,
 }: {
   faqs: Faq[];
   variant?: "glass" | "plain";
   defaultOpen?: number | null;
+  columns?: 1 | 2;
 }) {
   const [open, setOpen] = useState<number | null>(defaultOpen);
   const glass = variant === "glass";
 
-  return (
+  // two balanced stacks, the taller half first so the columns end level
+  const split = Math.ceil(faqs.length / 2);
+  const groups: { items: Faq[]; offset: number }[] =
+    columns === 2
+      ? [
+          { items: faqs.slice(0, split), offset: 0 },
+          { items: faqs.slice(split), offset: split },
+        ]
+      : [{ items: faqs, offset: 0 }];
+
+  const stack = (items: Faq[], offset: number) => (
     <div className="space-y-3">
-      {faqs.map((f, i) => {
+      {items.map((f, k) => {
+        const i = offset + k;
         const isOpen = open === i;
         return (
           <div
@@ -91,6 +108,16 @@ export function FaqAccordion({
           </div>
         );
       })}
+    </div>
+  );
+
+  if (columns === 1) return stack(faqs, 0);
+
+  return (
+    <div className="grid gap-3 md:grid-cols-2 md:items-start">
+      {groups.map((g) => (
+        <div key={g.offset}>{stack(g.items, g.offset)}</div>
+      ))}
     </div>
   );
 }
