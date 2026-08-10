@@ -50,7 +50,7 @@ export function HeroBento() {
         <figure className={`${card} group relative h-full`}>
           <img
             src="/people/voice-of-your-people.webp"
-            alt="An engineer recording a short video answer in the Vadal.ai app"
+            alt="Engineers at work in a modern software-company office"
             className="h-full w-full object-cover"
             loading="eager"
           />
