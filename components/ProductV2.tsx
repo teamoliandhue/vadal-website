@@ -8,6 +8,7 @@ import { SparkMark } from "./Brand";
 import { DashboardMock, PhoneMock, VoiceCard, BroadcastCard } from "./ProductMocks";
 import { CrowdPanel, FeatureRow, IconChip, type PanelTone } from "./sections";
 import { FaqAccordion } from "./FaqAccordion";
+import { FaqBand } from "./FaqBand";
 import { ProductShot, PRODUCT_SHOTS } from "./ProductShot";
 import { platformLayers } from "@/lib/platform-nav";
 import { surveyTypes } from "@/lib/content";
@@ -322,14 +323,11 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
       </Section>
 
       {/* ------------------------------------------------------------- FAQs */}
-      <Section tone="base">
-        <Container>
-          <SectionHead eyebrow="FAQs" title="Questions, answered" />
-          <div className="mx-auto mt-10 max-w-3xl">
-            <FaqAccordion faqs={p.faqs} />
-          </div>
-        </Container>
-      </Section>
+      {/* plate follows the product's layer, so the four Workforce Experience
+          pages share one photograph and the five Talent pages another */}
+      <FaqBand plate={cloud?.id ?? "workforce-experience"} eyebrow="FAQs">
+        <FaqAccordion faqs={p.faqs} columns={p.faqs.length >= 5 ? 2 : 1} />
+      </FaqBand>
 
       {/* ---------------------------------------------------------- related */}
       <Section tone="surface">

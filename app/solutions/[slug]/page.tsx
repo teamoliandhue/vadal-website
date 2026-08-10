@@ -7,7 +7,15 @@ import { SparkMark } from "@/components/Brand";
 import { DashboardMock, PhoneMock } from "@/components/ProductMocks";
 import { FeatureRow, StatBand, TestimonialCard } from "@/components/sections";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { FaqBand } from "@/components/FaqBand";
 import { getSolution, solutions, ILLUSTRATIVE } from "@/lib/content";
+
+/* Which FAQ plate a solution gets. The three groups mirror the Solutions mega
+   menu: by outcome, by workforce, by need. */
+const OUTCOME = new Set(["employee-retention", "manager-effectiveness", "employee-wellbeing", "diversity-inclusion", "remote-hybrid"]);
+const WORKFORCE = new Set(["frontline-deskless", "global-multilingual", "enterprise"]);
+const solutionPlate = (slug: string) =>
+  OUTCOME.has(slug) ? "sol-outcome" : WORKFORCE.has(slug) ? "sol-workforce" : "sol-need";
 
 export function generateStaticParams() {
   return solutions.map((s) => ({ slug: s.slug }));
@@ -133,14 +141,9 @@ export default async function SolutionPage({
 
       {/* faqs */}
       {s.faqs.length > 0 && (
-        <Section tone="surface">
-          <Container>
-            <SectionHead eyebrow="FAQs" title="Questions, answered" />
-            <div className="mx-auto mt-10 max-w-3xl">
-              <FaqAccordion faqs={s.faqs} />
-            </div>
-          </Container>
-        </Section>
+        <FaqBand plate={solutionPlate(s.slug)} eyebrow="FAQs">
+          <FaqAccordion faqs={s.faqs} columns={s.faqs.length >= 5 ? 2 : 1} />
+        </FaqBand>
       )}
 
       {/* related */}

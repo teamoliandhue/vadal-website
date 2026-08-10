@@ -3,6 +3,7 @@ import { Button, Container, Pill, Section, SectionHead } from "@/components/ui";
 import { Icon } from "@/components/Icon";
 import { IconChip } from "@/components/sections";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { FaqBand } from "@/components/FaqBand";
 import { type IconName } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -154,14 +155,9 @@ export default function PricingPage() {
         </Container>
       </Section>
 
-      <Section tone="base">
-        <Container>
-          <SectionHead eyebrow="Pricing FAQ" title="The questions everyone asks" />
-          <div className="mx-auto mt-10 max-w-3xl">
-            <FaqAccordion faqs={PRICING_FAQS} />
-          </div>
-        </Container>
-      </Section>
+      <FaqBand plate="pricing" eyebrow="Pricing FAQ" title="The questions everyone asks">
+        <FaqAccordion faqs={PRICING_FAQS} columns={PRICING_FAQS.length >= 5 ? 2 : 1} />
+      </FaqBand>
     </>
   );
 }

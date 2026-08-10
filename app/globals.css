@@ -524,6 +524,27 @@ html.lenis body {
   border-color: var(--line-strong);
 }
 
+/* Per-section FAQ plates. Each platform layer and solution group gets its own
+   photograph so sibling pages share a family look, rather than 40 unrelated
+   images or one repeated everywhere. Same lg gate as the other photo bands: a
+   phone-width slice of a 16:9 plate is an unrecognizable smear, so phones get
+   the aurora-soft canvas and never download the file. */
+[class*="faq-plate-"] {
+  background: var(--aurora-soft);
+}
+@media (min-width: 1024px) {
+  .faq-plate-workforce-experience   { background: url('/textures/faq/workforce-experience.webp')   center 68% / cover no-repeat; }
+  .faq-plate-ai-engagement          { background: url('/textures/faq/ai-engagement.webp')          center 62% / cover no-repeat; }
+  .faq-plate-digital-workplace      { background: url('/textures/faq/digital-workplace.webp')      center 60% / cover no-repeat; }
+  .faq-plate-talent-intelligence    { background: url('/textures/faq/talent-intelligence.webp')    center 70% / cover no-repeat; }
+  .faq-plate-enterprise-platform    { background: url('/textures/faq/enterprise-platform.webp')    center 55% / cover no-repeat; }
+  .faq-plate-workforce-intelligence { background: url('/textures/faq/workforce-intelligence.webp') center 62% / cover no-repeat; }
+  .faq-plate-sol-outcome            { background: url('/textures/faq/sol-outcome.webp')            center 64% / cover no-repeat; }
+  .faq-plate-sol-workforce          { background: url('/textures/faq/sol-workforce.webp')          center 60% / cover no-repeat; }
+  .faq-plate-sol-need               { background: url('/textures/faq/sol-need.webp')               center 64% / cover no-repeat; }
+  .faq-plate-pricing                { background: url('/textures/faq/pricing.webp')                center 60% / cover no-repeat; }
+}
+
 /* Photographic bands (FAQ, closing CTA) load their plates only from lg up.
    A phone-width slice of a 16:9 plate is an unrecognizable smear — cover math
    shows 13% of the image at 390px — and costs 70-100KB. Phones get the
