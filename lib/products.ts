@@ -46,7 +46,7 @@ export const products: Product[] = [
     "icon": "broadcast",
     "mock": "broadcast",
     "heroTitle": "Intelligent Employee Communication Powered by AI",
-    "heroLede": "Deliver personalized communication, strengthen employee engagement, and transform every interaction into actionable workforce intelligence, reaching every employee, desk-based or frontline, wherever they are.",
+    "heroLede": "Reach every employee wherever they work, and turn each interaction into workforce intelligence you can act on.",
     "challengesTitle": "Why Modern Employee Communication Needs AI",
     "challenges": [
       "Employees miss critical announcements buried in email or scattered across tools.",
@@ -67,7 +67,7 @@ export const products: Product[] = [
     "capabilities": [
       {
         "title": "Personalized Communication",
-        "body": "Deliver the right communication to the right employee at the right time using AI-powered audience segmentation and intelligent targeting, no more one-size-fits-all broadcasts.",
+        "body": "Deliver the right message to the right employee at the right time with AI-powered audience segmentation, not one-size-fits-all broadcasts.",
         "bullets": [
           "Reach every employee with messages relevant to their role and location",
           "Let AI recommend the best audience for each announcement",
@@ -77,7 +77,7 @@ export const products: Product[] = [
       },
       {
         "title": "Continuous Employee Engagement",
-        "body": "Keep employees connected through personalized campaigns, surveys, recognition and two-way conversations that strengthen engagement, not just push information out.",
+        "body": "Keep employees connected with personalized campaigns, surveys, recognition and two-way conversations, not one-way information pushes.",
         "bullets": [
           "Turn one-way announcements into two-way conversations",
           "Run campaigns, surveys and recognition from a single place",
@@ -87,7 +87,7 @@ export const products: Product[] = [
       },
       {
         "title": "Intelligent Collaboration",
-        "body": "Create connected teams with communities, knowledge sharing, employee directories and AI-powered collaboration tools that reach desk and frontline workers alike.",
+        "body": "Connect teams with communities, knowledge sharing, directories and AI-powered collaboration that reaches desk and frontline workers alike.",
         "bullets": [
           "Connect desk and frontline workers in shared communities",
           "Capture knowledge instead of losing it in scattered tools",
@@ -97,7 +97,7 @@ export const products: Product[] = [
       },
       {
         "title": "Communication Intelligence",
-        "body": "Measure communication effectiveness, employee participation, workforce sentiment and business impact through AI-powered analytics that close the loop between publishing and understanding.",
+        "body": "Measure reach, participation, sentiment and business impact with AI analytics that close the loop between publishing and understanding.",
         "bullets": [
           "See who actually read and engaged with every message",
           "Track workforce sentiment alongside communication reach",
@@ -217,7 +217,7 @@ export const products: Product[] = [
     "capabilities": [
       {
         "title": "Personalized Employee Journeys",
-        "body": "Automatically tailor onboarding, transitions, promotions and offboarding to each employee's role, location and life-cycle stage using AI-driven journey orchestration.",
+        "body": "AI-driven journey orchestration tailors onboarding, transitions, promotions and offboarding to each employee's role, location and stage.",
         "bullets": [
           "Give every new hire a journey built for their role",
           "Automate transitions, promotions and offboarding end to end",
@@ -227,7 +227,7 @@ export const products: Product[] = [
       },
       {
         "title": "Moments That Matter",
-        "body": "Recognize and act on key life-cycle events, anniversaries, promotions, relocations, life events, with automated, personalized touchpoints that make employees feel seen.",
+        "body": "Act on anniversaries, promotions, relocations and life events with automated, personalized touchpoints that make employees feel seen.",
         "bullets": [
           "Never let anniversaries, promotions or milestones go unnoticed",
           "Trigger personalized touchpoints automatically at key moments",
@@ -237,7 +237,7 @@ export const products: Product[] = [
       },
       {
         "title": "Unified Employee Hub",
-        "body": "Give every employee a single place to find people, policies, tasks and resources, powered by an AI assistant that understands their role and context.",
+        "body": "One place to find people, policies, tasks and resources, with an AI assistant that understands each employee's role and context.",
         "bullets": [
           "One place for people, policies, tasks and resources",
           "An AI assistant that answers questions in role context",
@@ -247,7 +247,7 @@ export const products: Product[] = [
       },
       {
         "title": "Experience Intelligence",
-        "body": "Measure experience quality at every touchpoint, surface friction points, and quantify the impact on retention, productivity and engagement through AI-powered analytics.",
+        "body": "AI analytics track experience quality at every touchpoint, surface friction, quantify impact on retention, productivity and engagement.",
         "bullets": [
           "Measure experience quality at every journey touchpoint",
           "Surface friction points before they drive attrition",
@@ -304,7 +304,7 @@ export const products: Product[] = [
     "faqs": [
       {
         "q": "How is Employee Experience different from Employee Communication?",
-        "a": "Employee Communication focuses on delivering and measuring messages, news, updates, campaigns. Employee Experience is broader: it orchestrates the entire employee journey (onboarding, milestones, transitions, offboarding) and gives employees a single hub for people, policies and resources. Communication is one input into the experience; Experience is the end-to-end journey itself."
+        "a": "Communication delivers and measures messages. Experience orchestrates the whole journey, onboarding through offboarding, and gives employees one hub for people, policies and resources. Communication is one input into the experience."
       },
       {
         "q": "Can journeys be customized per department, region or role?",
@@ -344,7 +344,7 @@ export const products: Product[] = [
     "icon": "heart",
     "mock": "voice",
     "heroTitle": "Build a Culture of Wellbeing with AI",
-    "heroLede": "Detect burnout before it happens, strengthen culture at scale, and give every employee the support they need, powered by continuous listening and AI-driven insight.",
+    "heroLede": "Spot burnout before it takes hold and strengthen culture at scale, with continuous listening and AI-driven insight.",
     "challengesTitle": "Why Modern Wellbeing & Culture Needs AI",
     "challenges": [
       "Burnout is discovered only after an employee resigns or disengages.",
@@ -375,7 +375,7 @@ export const products: Product[] = [
       },
       {
         "title": "Personalized Wellbeing Journeys",
-        "body": "Surface the right benefit, resource or check-in to the right employee at the right moment, from mental health support to flexible work options.",
+        "body": "Surface the right benefit, resource or check-in at the right moment, from mental health support to flexible work options.",
         "bullets": [
           "Match employees to the support they actually need",
           "Boost usage of benefits employees didn't know existed",
@@ -385,7 +385,7 @@ export const products: Product[] = [
       },
       {
         "title": "Culture Pulse & Programs",
-        "body": "Run culture-building campaigns, wellbeing challenges and values-based recognition moments that scale consistently across teams and locations.",
+        "body": "Run culture campaigns, wellbeing challenges and values-based recognition that scale consistently across teams and locations.",
         "bullets": [
           "Scale culture programs consistently across every location",
           "Run wellbeing challenges that employees actually join",
@@ -454,7 +454,7 @@ export const products: Product[] = [
       },
       {
         "q": "Is individual-level wellbeing data visible to managers, or only aggregated?",
-        "a": "By default, managers see aggregated, team-level trends rather than individual scores, to protect psychological safety and encourage honest participation. Named-individual alerts, where enabled, should be scoped narrowly and disclosed clearly to employees, this is a configuration and policy decision your legal and HR teams should set deliberately."
+        "a": "By default managers see aggregated team trends, not individual scores, which protects psychological safety and honest participation. Named-individual alerts, where enabled, should be scoped narrowly and disclosed to employees, a policy decision for your legal and HR teams."
       },
       {
         "q": "Can we plug in our existing EAP or benefits provider?",
@@ -520,7 +520,7 @@ export const products: Product[] = [
       },
       {
         "title": "Peer-to-Peer Recognition",
-        "body": "Enable every employee, not just managers, to give and receive recognition through shout-outs, values-based badges and public appreciation feeds.",
+        "body": "Let every employee, not just managers, give and receive recognition through shout-outs, values-based badges and appreciation feeds.",
         "bullets": [
           "Let any employee recognize any colleague, anytime",
           "Celebrate wins publicly on a shared appreciation feed",
@@ -530,7 +530,7 @@ export const products: Product[] = [
       },
       {
         "title": "Personalized Rewards Catalog",
-        "body": "Let employees redeem points for rewards that matter to them, from gift cards to experiences to time off, tailored by role, location and preference.",
+        "body": "Employees redeem points for rewards that matter, gift cards, experiences or time off, tailored by role, location and preference.",
         "bullets": [
           "Offer rewards employees genuinely want, not generic swag",
           "Personalize the catalog by role, location and preference",
@@ -1124,7 +1124,7 @@ export const products: Product[] = [
     "icon": "rocket",
     "mock": "phone",
     "heroTitle": "Turn New Hires Into Productive Team Members, Faster",
-    "heroLede": "Deliver personalized, AI-guided onboarding journeys from offer acceptance through the first 90 days, reducing early attrition and accelerating time-to-productivity.",
+    "heroLede": "AI-guided onboarding from offer to day 90, cutting early attrition and getting new starters productive sooner.",
     "challengesTitle": null,
     "challenges": [
       "Candidates go quiet or drop off between offer and start date.",
@@ -1272,7 +1272,7 @@ export const products: Product[] = [
     "capabilities": [
       {
         "title": "AI-Powered Skills Mapping",
-        "body": "Automatically build and maintain a live skills inventory across the organization, drawing from role data, training history and self-assessment.",
+        "body": "Build and maintain a live skills inventory across the organization, drawing on role data, training history and self-assessment.",
         "bullets": [
           "A live skills inventory that stays current automatically",
           "Draws on role data, training history and assessments",
@@ -1620,7 +1620,7 @@ export const products: Product[] = [
     "icon": "users",
     "mock": "phone",
     "heroTitle": "Stay Connected After Goodbye",
-    "heroLede": "Turn every departure into a lasting relationship, lifelong portal access, exit documents in one place, and an alumni network that brings back proven talent, referrals and revenue.",
+    "heroLede": "Turn every departure into a lasting relationship, and an alumni network that returns proven talent, referrals and revenue.",
     "challengesTitle": "Why Alumni Deserve a Programme, Not a Farewell Email",
     "challenges": [
       "Access is switched off on the last day, and the relationship ends with it.",
@@ -1641,7 +1641,7 @@ export const products: Product[] = [
     "capabilities": [
       {
         "title": "Lifelong Portal Access",
-        "body": "Departing employees keep an account rather than losing everything at the door, a private alumni identity that holds their exit documents, service history and a live link back to the organization.",
+        "body": "Departing employees keep a private alumni identity holding their exit documents, service history and a live link back to the organization.",
         "bullets": [
           "Accounts convert to alumni status instead of being switched off",
           "Former employees self-serve documents without emailing HR",
@@ -1651,7 +1651,7 @@ export const products: Product[] = [
       },
       {
         "title": "Exit & Document Hub",
-        "body": "Certificates, references, payslips, tax forms and exit paperwork live in one governed place, issued automatically at offboarding and available whenever an alumnus needs them.",
+        "body": "Certificates, references, payslips and tax forms live in one governed place, issued automatically at offboarding and available on demand.",
         "bullets": [
           "Experience letters and references issued automatically at exit",
           "Every document in one place, no manual retrieval requests",
@@ -1661,7 +1661,7 @@ export const products: Product[] = [
       },
       {
         "title": "Employer Branding & Boomerang Hiring",
-        "body": "Publish roles, news and milestones straight to the alumni community, and rehire people who already know the business, the fastest, lowest-risk source of proven talent you have.",
+        "body": "Publish roles and news to the alumni community, and rehire people who know the business, your lowest-risk source of proven talent.",
         "bullets": [
           "Post open roles and company news directly to alumni",
           "Rehire proven returnees who need no cultural ramp-up",
@@ -1671,7 +1671,7 @@ export const products: Product[] = [
       },
       {
         "title": "Alumni Network & Revenue",
-        "body": "Run a real community, events, groups, mentoring and introductions, and track what it returns in referrals, client work and rehires rather than treating it as goodwill.",
+        "body": "Run a real community of events, groups and mentoring, and track what it returns in referrals, client work and rehires, not just goodwill.",
         "bullets": [
           "Communities, events and mentoring keep alumni engaged",
           "Referrals and introductions captured, attributed and rewarded",
@@ -1739,7 +1739,7 @@ export const products: Product[] = [
       },
       {
         "q": "Is alumni data handled differently from employee data?",
-        "a": "Yes. Alumni records are kept separate from your active employee data, with their own consent settings and retention rules, and alumni manage their own profile and communication preferences. Retention, export and erasure are configurable so you can map them to the obligations that apply in your regions, our team will walk through your specific requirements."
+        "a": "Yes. Alumni records sit separately from active employee data, with their own consent settings and retention rules, and alumni manage their own preferences. Retention, export and erasure are configurable to the obligations in your regions."
       },
       {
         "q": "Can we measure what the alumni programme returns?",
@@ -2412,7 +2412,7 @@ export const products: Product[] = [
     "capabilities": [
       {
         "title": "Case Management",
-        "body": "Log, route and resolve employee requests, HR, IT or facilities, in one place, with ownership, status and full history, so nothing falls through the cracks.",
+        "body": "Log, route and resolve HR, IT and facilities requests in one place, with ownership, status and full history, so nothing falls through.",
         "bullets": [
           "Log and route requests to the right owner automatically",
           "Track ownership, status and SLAs on every case",

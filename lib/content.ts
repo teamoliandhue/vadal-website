@@ -242,7 +242,7 @@ export const solutions: Solution[] = [
         eyebrow: "Two-way by design",
         title: "Stop broadcasting. Start a conversation.",
         body:
-          "Email assumes a desk and an inbox people check. Your frontline has neither. Vadal meets them on the device they always have, with snackable updates, smart reminders for what they've missed, and a tap to react, comment or send feedback straight back to leadership.",
+          "Email assumes a desk and an inbox. Your frontline has neither. Vadal meets them on the device they always have, with snackable updates, missed-post reminders and a tap to reply.",
         bullets: [
           "Target the whole org or a slice, by role, site, team or shift",
           "Snackable posts that are easy to understand and retain",
@@ -253,7 +253,7 @@ export const solutions: Solution[] = [
         eyebrow: "Insight, not guesswork",
         title: "Know what landed",
         body:
-          "Every post comes with accurate, real-time open rates and engagement insight. Follow up with the people who haven't seen the safety notice yet, see which content earns attention, and get a clean overview of the feedback coming back.",
+          "Every post comes with accurate, real-time open rates. Follow up with anyone who hasn't seen the safety notice, see which content earns attention, and read the feedback coming back.",
         bullets: [
           "Follow-up nudges to anyone who hasn't read a must-know update",
           "Track how content is used and engaged with across the org",
@@ -307,7 +307,7 @@ export const solutions: Solution[] = [
         eyebrow: "It's mobile-first",
         title: "Training that fits the way people work",
         body:
-          "To develop today's modern workforce, flexibility and accessibility are everything. Vadal turns long courses into bite-sized lessons, video, images, text, quizzes, that people can complete between shifts, on the floor, on the move.",
+          "Developing a modern workforce takes flexibility. Vadal turns long courses into bite-sized lessons, video, images, text, quizzes, done between shifts, on the floor, on the move.",
         bullets: [
           "Easy-to-follow learning journeys to completion",
           "Gamification and short micro-videos that get finished",
@@ -318,7 +318,7 @@ export const solutions: Solution[] = [
         eyebrow: "It's measurable",
         title: "Empower managers with oversight",
         body:
-          "Real-time insight into training compliance and progress is easy to get with the right platform. Managers see their team's readiness at a glance; every employee can see their own progress and what's next.",
+          "Training compliance and progress, in real time. Managers see their team's readiness at a glance; every employee can see their own progress and what comes next.",
         bullets: [
           "Track activity to ensure readiness-to-perform",
           "Give managers visibility of team learning performance",
@@ -371,7 +371,7 @@ export const solutions: Solution[] = [
         eyebrow: "Culture affects results",
         title: "It's not a myth, workers feel it",
         body:
-          "A positive work environment that breeds engagement and happiness shows up on the bottom line. But an organic culture of wellbeing takes proactivity, especially when people are spread across sites. Drive continuous, digital effort to bring people together, it pays off.",
+          "A workplace that breeds engagement shows up on the bottom line. But wellbeing culture takes proactivity, especially across sites, and continuous effort to bring people together.",
         bullets: [
           "Listen continuously with pulse surveys and eNPS",
           "Bring dispersed teams closer, wherever they are",
@@ -382,7 +382,7 @@ export const solutions: Solution[] = [
         eyebrow: "Make it visible",
         title: "Bring company values to life",
         body:
-          "Highlight culture and values consistently across the whole employee experience, not just at the all-hands. Launch value campaigns, keep comms and training on-brand, and check whether people actually feel the alignment.",
+          "Show culture and values across the whole employee experience, not just at the all-hands. Run value campaigns, keep comms and training on-brand, and check people feel the alignment.",
         bullets: [
           "Friendly competition and campaigns across locations",
           "Health and sustainability initiatives, like a step challenge",
@@ -431,7 +431,7 @@ export const solutions: Solution[] = [
         eyebrow: "Customizable",
         title: "An onboarding that fits your company",
         body:
-          "There's no one-size-fits-all way to bring someone into a company. Tailor flows to help new hires adapt to your culture and even their specific role. Content and structure are easy to tweak, so the programme stays genuinely helpful for your business and your people.",
+          "There's no one-size-fits-all way to bring someone in. Tailor flows to your culture and each role, and tweak content and structure so the programme stays genuinely helpful.",
         bullets: [
           "Welcome staff with custom, engaging onboarding flows",
           "Prep employees with quick training before their first day",
@@ -442,7 +442,7 @@ export const solutions: Solution[] = [
         eyebrow: "Make it automatic",
         title: "Set it up once, let it run",
         body:
-          "Auto-run seamless onboarding from a one-time setup, and still make it feel personal. Trigger flows from start dates, keep managers and staff updated, and watch progress in real time without chasing anyone.",
+          "Auto-run onboarding from a one-time setup, and still make it feel personal. Trigger flows from start dates, keep managers and staff updated, and watch progress in real time.",
         bullets: [
           "Auto-start programmes from each employee's start date",
           "Schedule a flow in minutes, completed on-the-go",
@@ -491,7 +491,7 @@ export const solutions: Solution[] = [
         eyebrow: "It's continuous · It's all-in-one",
         title: "Digitize the workplace people carry in their pocket",
         body:
-          "Give employees easy, secure, mobile access to your company and its people, customised to the needs of a modern, dispersed organisation. One place replaces the scatter of tools nobody wanted to learn.",
+          "Give employees secure, mobile access to your company and its people, customised for a modern, dispersed organisation. One place replaces the tools nobody wanted to learn.",
         bullets: [
           "A mobile-friendly, secure home for everything that matters",
           "Customised to varying needs across teams and regions",
@@ -502,7 +502,7 @@ export const solutions: Solution[] = [
         eyebrow: "Your workplace, customized",
         title: "A journey co-piloted by your data",
         body:
-          "Embark on an impactful journey co-piloted by a tailored 360° engagement platform. Drive remote culture, put benefits and information in one place, and enable both employee development and business success.",
+          "A tailored 360° engagement platform co-pilots the journey: drive remote culture, put benefits and information in one place, and enable employee development and business success.",
         bullets: [
           "Drive remote culture and bring co-workers together",
           "Share employee benefits and information, all in one place",
@@ -555,7 +555,7 @@ export const solutions: Solution[] = [
         eyebrow: "Creation to completion",
         title: "Keep every team organized and accountable",
         body:
-          "Easily track progress and maintain accountability inside a secure, company-approved environment. Decrease downtime with assigned tasks for effective maintenance, stay compliant with analytics, and make sure nobody misses a deadline.",
+          "Track progress and accountability in a secure, company-approved environment. Cut downtime with assigned maintenance tasks, stay compliant with analytics, and let no deadline slip.",
         bullets: [
           "Assign tasks to an individual or a whole group",
           "Add descriptions and media to set clear expectations",
@@ -566,7 +566,7 @@ export const solutions: Solution[] = [
         eyebrow: "Operational excellence",
         title: "Streamline procedures, maximize efficiency",
         body:
-          "Consolidate task-related activity into one platform so teams focus on high-priority work and time and resources are better spent. Digitise health and safety procedures, keep people informed with SMS and push, and manage everything past, present and upcoming in one place.",
+          "Consolidate tasks in one platform so teams focus on high-priority work. Digitise health and safety procedures, inform people by SMS and push, and manage past and upcoming work.",
         bullets: [
           "Digitise health & safety procedures and assign them out",
           "Notify teams of new tasks via SMS and push",
@@ -620,7 +620,7 @@ export const solutions: Solution[] = [
         eyebrow: "See it coming",
         title: "Attrition warns you, if you're listening",
         body:
-          "Resignations look sudden but rarely are. Vadal.ai reads engagement trends, sentiment shifts, lifecycle signals and workload patterns to flag at-risk teams and segments weeks before the exit interview, with the contributing factors spelled out.",
+          "Resignations look sudden but rarely are. Vadal.ai reads engagement, sentiment, lifecycle and workload to flag at-risk teams weeks before the exit interview, factors spelled out.",
         bullets: [
           "Risk flags with explainable contributing factors",
           "Team and segment heatmaps, updated continuously",
@@ -631,7 +631,7 @@ export const solutions: Solution[] = [
         eyebrow: "Act on it",
         title: "From risk flag to retention play",
         body:
-          "A prediction without a plan is just anxiety. Every risk flag arrives with recommended interventions, from workload rebalancing to growth conversations, assigned, tracked and re-measured so you know what actually kept people.",
+          "A prediction without a plan is just anxiety. Every risk flag comes with interventions that are assigned, tracked and re-measured, so you know what actually kept people.",
         bullets: [
           "AI-recommended retention actions per driver",
           "Stay-conversation guides for managers",
@@ -684,7 +684,7 @@ export const solutions: Solution[] = [
         eyebrow: "Insight for every manager",
         title: "The team, understood at a glance",
         body:
-          "Each manager gets a live view of their team's engagement, sentiment and risks, translated into plain language. No analytics training required: the AI explains what changed, why it matters and what to try.",
+          "Managers get a live view of their team's engagement, sentiment and risks in plain language. No analytics training: the AI explains what changed, why it matters and what to try.",
         bullets: [
           "Team dashboards written in plain language",
           "Alerts when a trend needs attention this week",
@@ -695,7 +695,7 @@ export const solutions: Solution[] = [
         eyebrow: "Coaching at scale",
         title: "Every manager gets a copilot",
         body:
-          "AI-powered recommendations turn insight into habit: 1:1 conversation guides, team plays matched to each driver, and gentle nudges that build managerial muscle over time, like having a coach on every manager's shoulder.",
+          "AI recommendations turn insight into habit: 1:1 conversation guides, team plays matched to each driver, and nudges that build managerial muscle, like a coach on the shoulder.",
         bullets: [
           "1:1 prep guides built from team signals",
           "Plays matched to each team's engagement drivers",
@@ -748,7 +748,7 @@ export const solutions: Solution[] = [
         eyebrow: "Listen for it",
         title: "Burnout whispers before it shouts",
         body:
-          "Workload spikes, sentiment dips, quiet withdrawal, the signals are there early. Vadal.ai combines wellbeing pulses with sentiment intelligence to spot rising strain at team level while it's still recoverable.",
+          "Workload spikes, sentiment dips, quiet withdrawal, the signals come early. Vadal.ai pairs wellbeing pulses with sentiment intelligence to spot team strain while it's recoverable.",
         bullets: [
           "Wellbeing pulses on validated scales",
           "Burnout-risk flags at team level",
@@ -759,7 +759,7 @@ export const solutions: Solution[] = [
         eyebrow: "Do something about it",
         title: "From wellbeing score to workplace change",
         body:
-          "Wellbeing programs fail when they're generic. Vadal.ai recommends interventions matched to what's actually driving strain in each team, workload, clarity, recognition, connection, and tracks whether they help.",
+          "Generic wellbeing programs fail. Vadal.ai matches interventions to what's driving strain in each team, workload, clarity, recognition, connection, and tracks whether they help.",
         bullets: [
           "Driver-matched wellbeing interventions",
           "Recognition and connection prompts for managers",
@@ -812,7 +812,7 @@ export const solutions: Solution[] = [
         eyebrow: "Measure honestly",
         title: "Belonging, by the numbers that matter",
         body:
-          "Averages hide inequity. Vadal.ai analyzes engagement, belonging and advancement sentiment across demographic groups, with privacy thresholds that make honest answers safe, so you see the experience gaps averages smooth over.",
+          "Averages hide inequity. Vadal.ai analyzes engagement, belonging and advancement sentiment across demographic groups, with privacy thresholds that make honest answers safe.",
         bullets: [
           "Inclusion and belonging indices by group",
           "Experience-gap analysis with privacy protection",
@@ -823,7 +823,7 @@ export const solutions: Solution[] = [
         eyebrow: "Close the gaps",
         title: "From DEI report to lived change",
         body:
-          "The credibility of DEI work lives in follow-through. Turn findings into owned commitments with deadlines and public progress, and keep listening so you know whether experience is actually changing.",
+          "DEI credibility lives in follow-through. Turn findings into owned commitments with deadlines and public progress, and keep listening to see whether experience is changing.",
         bullets: [
           "Commitments with owners and visible progress",
           "Continuous listening on inclusion moments",
@@ -876,7 +876,7 @@ export const solutions: Solution[] = [
         eyebrow: "See the seams",
         title: "Hybrid works, when you can see where it doesn't",
         body:
-          "Proximity bias, meeting overload, quiet disconnection: hybrid's failure modes are invisible in office hallways. Vadal.ai compares experience across remote, hybrid and on-site segments so you manage the reality, not the assumption.",
+          "Hybrid's failure modes, proximity bias and quiet disconnection, are invisible from the hallway. Compare remote, hybrid and on-site experience, and manage the reality.",
         bullets: [
           "Experience comparison across work modes",
           "Connection and isolation early-warning signals",
@@ -887,7 +887,7 @@ export const solutions: Solution[] = [
         eyebrow: "Design it deliberately",
         title: "From accidental hybrid to intentional",
         body:
-          "The best hybrid setups are designed, not inherited. Use per-team insights to shape rituals, cadences and in-person moments that actually move connection, and verify the effect in the next pulse.",
+          "The best hybrid setups are designed, not inherited. Use per-team insights to shape rituals, cadences and in-person moments that move connection, then verify in the next pulse.",
         bullets: [
           "Team-level hybrid effectiveness insights",
           "Ritual and cadence recommendations",
@@ -940,7 +940,7 @@ export const solutions: Solution[] = [
         eyebrow: "Reach them where they are",
         title: "The channel is the strategy",
         body:
-          "Frontline workers don't check email, so email-first platforms measure the head office and call it the company. Vadal.ai delivers surveys and comms over SMS, WhatsApp and QR posters in the break room, meeting people on the phone already in their pocket.",
+          "Email-first platforms measure the head office and call it the company. Vadal.ai reaches the frontline on SMS, WhatsApp and break-room QR, on the phone already in their pocket.",
         bullets: [
           "One-tap access from SMS or WhatsApp",
           "QR posters for shared and offline workplaces",
@@ -951,7 +951,7 @@ export const solutions: Solution[] = [
         eyebrow: "Respect the shift",
         title: "Built for pockets, not desks",
         body:
-          "Sixty-second surveys designed for standing up, auto-translated into each person's language, working on any device. Participation stops being a head-office phenomenon, and your data finally represents your workforce.",
+          "Sixty-second surveys designed for standing up, auto-translated into each person's language, working on any device, so participation stops being a head-office phenomenon.",
         bullets: [
           "60-second, thumb-friendly survey design",
           "Automatic language detection per employee",
@@ -1006,7 +1006,7 @@ export const solutions: Solution[] = [
         eyebrow: "Every voice, native",
         title: "People are only honest in their own language",
         body:
-          "Forcing feedback through English filters out nuance, and people. Vadal.ai delivers every survey in each employee's language and reads open-text responses natively, so a comment in Tamil carries the same weight as one in English.",
+          "Forcing feedback through English filters out nuance, and people. Vadal.ai runs every survey in the employee's language and reads open text natively, so Tamil weighs like English.",
         bullets: [
           "Auto-translated surveys, reviewed for quality",
           "Native-language open-text analysis",
@@ -1017,7 +1017,7 @@ export const solutions: Solution[] = [
         eyebrow: "Global picture, local truth",
         title: "Compare regions without flattening them",
         body:
-          "Response norms differ across cultures, a 4/5 in Osaka isn't a 4/5 in Ohio. Regional benchmarks and culturally-adjusted comparisons let global leaders see real differences instead of cultural artifacts.",
+          "Response norms differ, a 4/5 in Osaka isn't a 4/5 in Ohio. Regional benchmarks and culturally-adjusted comparisons show real differences instead of cultural artifacts.",
         bullets: [
           "Culturally-adjusted regional benchmarks",
           "Country and region drill-downs",
@@ -1070,7 +1070,7 @@ export const solutions: Solution[] = [
         eyebrow: "Built for org charts that breathe",
         title: "Your structure, mirrored and current",
         body:
-          "Divisions, brands, matrix reporting, reorganizations mid-cycle, Vadal.ai syncs your real hierarchy from your HRIS and keeps every dashboard, permission and benchmark aligned to it automatically.",
+          "Divisions, brands, matrix reporting, mid-cycle reorganizations, Vadal.ai syncs your real hierarchy from your HRIS and keeps every dashboard, permission and benchmark aligned to it.",
         bullets: [
           "HRIS-synced hierarchy, reorg-safe",
           "Permissions that follow the org structure",
@@ -1081,7 +1081,7 @@ export const solutions: Solution[] = [
         eyebrow: "Security leaders sign off on",
         title: "Enterprise-grade, provably",
         body:
-          "End-to-end encryption, SSO/MFA, RBAC, audit logs, data residency options and responsible AI governance with explainable models, the checklist your CISO brings, answered before the meeting.",
+          "End-to-end encryption, SSO/MFA, RBAC, audit logs, data residency and responsible AI governance with explainable models, the checklist your CISO brings, answered before the meeting.",
         bullets: [
           "SOC 2 & ISO 27001-aligned practices, GDPR-ready",
           "Explainable AI with governance controls",
@@ -1138,7 +1138,7 @@ export const heroV2 = {
   titleA: "Transform workforce experiences",
   titleB: "across the employee lifecycle",
   lede:
-    "Go beyond engagement, lead with intelligence. Vadal.ai unifies workforce, talent, leadership and organizational data into AI-powered decision intelligence, so CEOs, CHROs and business leaders can predict risks, uncover opportunities and make faster, smarter decisions.",
+    "One AI platform that turns workforce, talent and leadership data into decisions, so you can see risk early and act on it with confidence.",
   emailCta: "Book a Demo",
   emailCaption: "Book a free product demo call with our experts.",
   secondaryCta: "Watch product tour",
@@ -1321,7 +1321,7 @@ export const surveysSection = {
 export const analyticsSection = {
   eyebrow: "Workforce intelligence & analytics",
   title: "Measure what matters. Predict what comes next. Act with confidence.",
-  lede: "Vadal.ai transforms engagement, workforce, talent and organizational data into actionable intelligence, real-time visibility, predictive insights and personalized recommendations for every leader.",
+  lede: "Engagement, workforce and talent data become live visibility, predictive insight and recommendations built for each leader.",
   features: [
     {
       title: "Employee Engagement Score (eNPS)",
@@ -1363,7 +1363,7 @@ export const analyticsSection = {
 export const feedbackSection = {
   eyebrow: "Employee feedback intelligence",
   title: "Transform employee feedback into workforce intelligence",
-  body: "Vadal.ai continuously captures employee feedback, measures engagement and understands workforce sentiment through AI-powered listening, helping leaders identify emerging risks, prioritize actions and create exceptional employee experiences that drive measurable business outcomes.",
+  body: "Always-on AI listening reads sentiment as it shifts, surfacing the risks worth acting on before they reach your numbers.",
   bullets: [
     "Capture employee feedback through multiple listening channels",
     "Measure engagement and workforce sentiment in real time",
@@ -1693,23 +1693,23 @@ export const scienceMenu = {
 export const homeFaqsV2 = [
   {
     q: "What is Vadal.ai?",
-    a: "Vadal.ai is an AI-powered Workforce Decision Intelligence Platform that helps organizations improve employee engagement, workforce communication, talent management and organizational performance. By combining employee feedback, workforce analytics, AI-powered recommendations and intelligent automation, Vadal.ai enables leaders to make faster, smarter and more informed workforce decisions.",
+    a: "An AI-powered Workforce Decision Intelligence Platform. It combines employee feedback, workforce analytics, AI recommendations and automation so leaders can improve engagement, communication and talent management, and decide faster on better evidence.",
   },
   {
     q: "What is Workforce Decision Intelligence?",
-    a: "The ability to transform workforce, talent, leadership and organizational data into actionable business decisions using AI, predictive analytics and automation. Vadal.ai combines engagement, continuous listening, workforce analytics and AI-powered recommendations to help organizations anticipate risks, identify opportunities and make faster, data-driven decisions across the employee lifecycle.",
+    a: "Turning workforce, talent and leadership data into business decisions using AI and predictive analytics. Vadal.ai combines engagement, continuous listening and analytics so you can anticipate risk and act earlier across the employee lifecycle.",
   },
   {
     q: "How is Vadal.ai different from traditional engagement platforms or HRIS?",
-    a: "HRIS platforms manage employee records; engagement platforms primarily collect feedback. Vadal.ai bridges both, combining employee engagement, communication, workforce intelligence, predictive analytics, AI automation and executive decision support in a single platform. You see not just what is happening across your workforce, but why, and what to do next.",
+    a: "An HRIS manages records; engagement tools collect feedback. Vadal.ai bridges both, adding workforce intelligence, predictive analytics and executive decision support in one platform, so you see not just what is happening, but why and what to do next.",
   },
   {
     q: "Can Vadal.ai predict employee attrition and engagement risks?",
-    a: "Yes. Vadal.ai uses predictive analytics and AI models to identify early indicators of disengagement, burnout and attrition. By analyzing engagement, feedback, communication patterns and workforce trends, the platform lets HR and business leaders address risks proactively, before they impact productivity, retention or performance.",
+    a: "Yes. Predictive models read engagement, feedback, communication patterns and workforce trends to flag early indicators of disengagement, burnout and attrition, so leaders can act before productivity or retention is affected.",
   },
   {
     q: "How does Vadal.ai use Generative AI responsibly?",
-    a: "Generative AI summarizes workforce insights, generates recommendations, automates communication and assists managers, while maintaining strict security and governance standards. Our AI augments human decision-making, never replaces it: every AI-generated recommendation is explainable, transparent and backed by enterprise-grade privacy controls and responsible AI governance.",
+    a: "It summarizes insights, drafts recommendations and assists managers under strict security and governance. The AI augments human judgement rather than replacing it, and every recommendation is explainable and backed by enterprise privacy controls.",
   },
   {
     q: "Is employee feedback anonymous and secure?",
