@@ -1841,7 +1841,6 @@ export const products: Product[] = [
     "screens": [
           "Survey Builder & Template Library",
           "Omnichannel Distribution Panel",
-          "Omnichannel reach: email, SMS, WhatsApp, Microsoft Teams, Slack and QR, no company email required. [ADDED]",
           "Real-Time Response Dashboard",
           "AI Feedback Theme Analysis",
           "Action Plan Tracker"
