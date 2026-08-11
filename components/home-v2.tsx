@@ -139,16 +139,16 @@ export function AnalyticsSection() {
               <div className="relative w-full">
                 {/* sentiment peeks from behind — measure AND predict */}
                 <img
-                  src="/product/sentiment.webp"
-                  alt="The Sentiment screen in the Vadal.ai product"
+                  src="/product/screens/feedback-intelligence/theme-trend-over-time-view.webp"
+                  alt="The Sentiment screen in the Vadal.ai product, positive versus negative sentiment over six months"
                   width={1600}
                   height={1000}
                   loading="lazy"
                   className="absolute -top-7 right-0 w-[76%] rotate-[2deg] rounded-[10px] border border-[var(--line)] shadow-[var(--shadow-md)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[2.8deg]"
                 />
                 <img
-                  src="/product/analytics.webp"
-                  alt="The Analytics screen in the Vadal.ai product, engagement, participation and attrition-risk metrics with team breakdown"
+                  src="/product/screens/people-analytics/driver-level-heatmap.webp"
+                  alt="The Analytics screen in the Vadal.ai product, an engagement heatmap by team and tenure"
                   width={1600}
                   height={1000}
                   loading="lazy"

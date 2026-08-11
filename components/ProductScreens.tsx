@@ -1,30 +1,30 @@
 import { Container, Section, SectionHead } from "./ui";
 import { PRODUCT_SHOTS } from "./ProductShot";
+import { screenFile } from "@/lib/product-screens";
 
 /* ============================================================================
    ProductScreens — §6 of the content spec.
 
    The spec names every screen a product page should show (112 across the 25
-   pages) and the site had no section for them at all: 97 of those names lived
-   only as a caption pill under a drawn mock, and 15 existed nowhere.
+   pages). Until the designs existed this section was frames and captions with
+   nothing in them.
 
-   The frames are placeholders on purpose. We hold 17 real captures and none of
-   them is one of the 112 named screens — dropping a capture into a slot
-   labelled something else would caption the wrong screen. A capture is used
-   only where it genuinely IS that screen, which today is nowhere; everything
-   else is an empty frame waiting for the real thing.
+   27 of those slots now hold the real screen, exported from the "All Pages"
+   board in Figma. The mapping lives in lib/product-screens.ts and is generated
+   by scripts/build-screen-manifest.mjs, which places a file only where its
+   name matches a screen the spec already lists for that product. Slots without
+   a design keep the placeholder frame — an empty frame is honest, a screenshot
+   under someone else's caption is not.
    ========================================================================== */
 
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z]/g, "");
 
 /** Does one of our real captures actually depict this named screen?
 
-   Deliberately an exact match, not a substring one. Our capture labels are
-   short ("Recognition", "Sentiment") and appear inside several different
+   Deliberately an exact match, not a substring one. Our older capture labels
+   are short ("Recognition", "Sentiment") and appear inside several different
    screen names — a substring rule put the single Recognition screenshot into
-   five slots labelled five different things. Today nothing matches, so every
-   frame is a placeholder; register a capture under the exact screen name and
-   its frame fills in on its own. */
+   five slots labelled five different things. */
 function captureFor(slug: string, screen: string) {
   const shot = PRODUCT_SHOTS[slug];
   if (!shot) return null;
@@ -32,7 +32,10 @@ function captureFor(slug: string, screen: string) {
 }
 
 function Frame({ label, slug }: { label: string; slug: string }) {
-  const shot = captureFor(slug, label);
+  /* the Figma design wins where it exists; the older app capture is the
+     fallback, and only where it genuinely is this screen */
+  const design = screenFile(slug, label);
+  const shot = design ? null : captureFor(slug, label);
   const phone = /\bmobile\b|\bapp\b/i.test(label);
 
   return (
@@ -45,7 +48,23 @@ function Frame({ label, slug }: { label: string; slug: string }) {
           ))}
         </div>
 
-        {shot ? (
+        {design ? (
+          /* contain, not cover. The exports come in two shapes — 1600x1000 and
+             1600x864 — and cover cropped the wider ones side-on, slicing the
+             app's left sidebar in half and cutting the right edge off. These
+             are the designer's compositions; letterboxing the odd one by a few
+             percent beats amputating it. */
+          <div className="grid aspect-[16/10] place-items-center bg-[var(--surface)]">
+            <img
+              src={design}
+              alt={`The ${label} screen in the Vadal.ai product`}
+              width={1600}
+              height={1000}
+              loading="lazy"
+              className="max-h-full w-full object-contain"
+            />
+          </div>
+        ) : shot ? (
           // phone captures are portrait — contain them in the landscape tile
           // rather than cropping the screen down to a 16:10 sliver
           <div

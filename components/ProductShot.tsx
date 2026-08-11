@@ -1,5 +1,13 @@
 /* ============================================================================
-   ProductShot — real screenshots of the Vadal.ai product (vadal.vercel.app),
+   ProductShot — the lead screenshot on a product page, and the preview in the
+   desktop Platform mega menu.
+
+   Thirteen products now lead with the real design, exported from the "All
+   Pages" board in Figma and filed under public/product/screens/. `file` is a
+   path under /product, so a nested screens/<slug>/<name> resolves without any
+   change at the call sites.
+
+   The rest still use the older captures of the app build (vadal.vercel.app),
    captured from the live build and framed in the site's browser chrome.
    Each product page shows its actual screen; products whose module isn't
    built yet fall back to the hand-drawn JSX mocks.
@@ -13,12 +21,12 @@ export type ShotInfo = { file: string; label: string };
 /** product slug → real screen from the app build */
 export const PRODUCT_SHOTS: Record<string, ShotInfo> = {
   // Workforce Experience
-  "employee-communication": { file: "campaigns", label: "Campaigns" },
-  "employee-experience": { file: "feed", label: "Company feed" },
-  "employee-wellbeing-culture": { file: "home", label: "Mood & wellbeing check-in" },
-  "recognition-rewards": { file: "recognition", label: "Recognition" },
+  "employee-communication": { file: "screens/employee-communication/campaign-dashboard", label: "Campaigns" },
+  "employee-experience": { file: "screens/employee-experience/moments-that-matter-feed", label: "Moments that matter" },
+  "employee-wellbeing-culture": { file: "screens/employee-wellbeing-culture/burnout-early-warning-alerts", label: "Early-warning alerts" },
+  "recognition-rewards": { file: "screens/recognition-rewards/recognition-feed-wall-of-fame", label: "Wall of fame" },
   // Workforce Intelligence
-  "people-analytics": { file: "analytics", label: "Analytics" },
+  "people-analytics": { file: "screens/people-analytics/driver-level-heatmap", label: "Driver heatmap" },
   "sentiment-intelligence": { file: "sentiment", label: "Sentiment" },
   "benchmark-intelligence": { file: "analytics", label: "Trend vs benchmark" },
   "executive-reports": { file: "analytics", label: "Analytics · Export" },
@@ -26,20 +34,21 @@ export const PRODUCT_SHOTS: Record<string, ShotInfo> = {
   "leadership-intelligence": { file: "managers", label: "Manager hub" },
   // Engagement & Listening
   "engagement-surveys": { file: "surveys", label: "Surveys" },
-  "employee-listening": { file: "listening", label: "Always-on listening" },
-  "feedback-intelligence": { file: "cases", label: "Cases" },
-  "action-planning": { file: "managers", label: "Manager hub · Actions" },
+  "employee-listening": { file: "screens/employee-listening/continuous-listening-dashboard", label: "Always-on listening" },
+  "feedback-intelligence": { file: "screens/feedback-intelligence/theme-cluster-dashboard", label: "Theme clusters" },
+  "action-planning": { file: "screens/action-planning/action-impact-tracker", label: "Action impact" },
   // Digital Workplace
-  "ai-employee-chat": { file: "knowledge", label: "Knowledge & Ask Vadal" },
-  "tasks-workflow": { file: "cases", label: "Cases & workflows" },
+  "ai-employee-chat": { file: "screens/ai-employee-chat/employee-chat-interface", label: "Ask Vadal" },
+  "tasks-workflow": { file: "screens/tasks-workflow/case-inbox", label: "Cases" },
   // Enterprise AI Platform
-  "decision-intelligence-copilot": { file: "home", label: "AI briefing & Ask Vadal" },
-  "ai-workforce-assistant": { file: "home", label: "Your day, with Vadal AI" },
+  "decision-intelligence-copilot": { file: "screens/decision-intelligence-copilot/data-grounded-answer-view", label: "Grounded answers" },
+  "ai-workforce-assistant": { file: "screens/ai-workforce-assistant/assistant-home-daily-brief", label: "Daily brief" },
   // Survey types (legacy template)
   "pulse-surveys": { file: "pulse", label: "Pulse" },
   "lifecycle-surveys": { file: "surveys", label: "Surveys" },
   "predictive-enps": { file: "analytics", label: "Analytics" },
   "confidential-feedback": { file: "listening", label: "Always-on listening" },
+  "security-compliance": { file: "screens/security-compliance/role-based-access-management", label: "Roles & permissions" },
   "workforce-intelligence": { file: "analytics", label: "Analytics" },
 };
 
