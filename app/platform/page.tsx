@@ -20,30 +20,82 @@ export const metadata: Metadata = {
 // color, a deliberate callback to the golden rule), and spark apricot
 // (Impact — the AI-driven payoff). Same tokens as globals.css, no new colors.
 const SPINE_STEPS: { t: string; d: string; i: IconName; color: string }[] = [
-  { t: "Score", d: "Measure how engaged every team really is, continuously.", i: "pulse", color: "#23D7BE" },
-  { t: "Insight", d: "Understand why, drivers, drill-downs and AI explanations.", i: "chart", color: "#3B9EFF" },
-  { t: "Action", d: "Give managers concrete plays: campaigns, recognition, nudges.", i: "checks", color: "#7C5CF8" },
-  { t: "Impact", d: "See it land, engagement moving the business, side by side.", i: "spark", color: "#FF8A5B" },
+  { t: "Score", d: "Measure how engaged every team is, continuously — not once a year.", i: "pulse", color: "#23D7BE" },
+  { t: "Insight", d: "Understand why: the drivers behind the number, drill-downs and AI explanations.", i: "chart", color: "#3B9EFF" },
+  { t: "Action", d: "Give managers concrete plays — campaigns, recognition and nudges with an owner.", i: "checks", color: "#7C5CF8" },
+  { t: "Impact", d: "See it land, measured against each team's own baseline rather than an average.", i: "spark", color: "#FF8A5B" },
 ];
+
+/* A small piece of the product per stage, so the four cards are not four
+   identical boxes distinguished only by an icon colour. Each is a few divs —
+   nothing to download, and it restyles with the tokens. */
+function SpineArt({ index, color }: { index: number; color: string }) {
+  if (index === 0)
+    return (
+      <span className="flex h-9 w-full items-end gap-[3px]">
+        {[38, 52, 44, 61, 55, 72, 68, 82].map((h, i) => (
+          <span key={i} className="flex-1 rounded-[2px]" style={{ height: `${h}%`, background: color, opacity: 0.3 + (i / 8) * 0.7 }} />
+        ))}
+      </span>
+    );
+  if (index === 1)
+    return (
+      <span className="flex h-9 w-full flex-col justify-center gap-[7px]">
+        {[84, 52, 68].map((w, i) => (
+          <span key={i} className="block h-[5px] rounded-full bg-[var(--surface-2)]">
+            <span className="block h-full rounded-full" style={{ width: `${w}%`, background: color }} />
+          </span>
+        ))}
+      </span>
+    );
+  if (index === 2)
+    return (
+      <span className="flex h-9 w-full flex-col justify-center gap-[7px]">
+        {[100, 62].map((w, i) => (
+          <span key={i} className="flex items-center gap-2">
+            <span className="grid h-[15px] w-[15px] shrink-0 place-items-center rounded-full text-[9px] font-bold text-white" style={{ background: color, opacity: i ? 0.45 : 1 }}>✓</span>
+            <span className="block h-[5px] flex-1 rounded-full bg-[var(--surface-2)]">
+              <span className="block h-full rounded-full" style={{ width: `${w}%`, background: color, opacity: i ? 0.45 : 1 }} />
+            </span>
+          </span>
+        ))}
+      </span>
+    );
+  return (
+    <span className="flex h-9 w-[92px] items-end gap-2">
+      {[{ h: 44, o: 0.28 }, { h: 82, o: 1 }].map((b, i) => (
+        <span key={i} className="flex flex-1 flex-col items-center gap-1">
+          <span className="flex h-7 w-full items-end">
+            <span className="w-full rounded-t-[3px]" style={{ height: `${b.h}%`, background: color, opacity: b.o }} />
+          </span>
+          <span className="text-[9px] font-semibold text-[var(--muted-2)]">{i ? "After" : "Before"}</span>
+        </span>
+      ))}
+    </span>
+  );
+}
 
 function SpineCard({ step: s, index }: { step: (typeof SPINE_STEPS)[number]; index: number }) {
   return (
-    <div className="card-lift group relative flex flex-col overflow-hidden rounded-[var(--r-lg)] p-6">
-      {/* ghost numeral — a large, barely-there background numeral (editorial device) */}
-      <span
-        className="pointer-events-none absolute -top-3 right-3 select-none text-[76px] font-black leading-none text-[var(--line)] transition-colors duration-300 group-hover:text-[var(--surface-2)]"
-        aria-hidden="true"
-      >
-        0{index + 1}
-      </span>
-      <span
-        className="relative grid h-12 w-12 place-items-center rounded-[14px] text-white shadow-[0_8px_20px_-8px_rgba(13,11,22,0.35)] transition-transform duration-300 group-hover:-translate-y-0.5"
-        style={{ background: s.color, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.4), 0 8px 18px -8px ${s.color}80` }}
-      >
-        <Icon name={s.i} size={24} />
-      </span>
-      <h3 className="relative mt-4 text-[18px] font-bold">{s.t}</h3>
-      <p className="relative mt-1.5 text-[14px] leading-relaxed text-[var(--muted)]">{s.d}</p>
+    <div className="card-lift group relative flex h-full flex-col rounded-[var(--r-lg)] p-6">
+      {/* the step number belongs with the label, not behind it at 76px where it
+          outranks the word it is numbering */}
+      <div className="flex items-center gap-3">
+        <span
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-[13px] text-white transition-transform duration-300 group-hover:-translate-y-0.5"
+          style={{ background: s.color, boxShadow: `inset 0 1px 0 rgba(255,255,255,0.4), 0 8px 18px -8px ${s.color}80` }}
+        >
+          <Icon name={s.i} size={22} />
+        </span>
+        <span className="text-[11px] font-bold tabular-nums tracking-[0.14em]" style={{ color: s.color }}>
+          0{index + 1}
+        </span>
+      </div>
+      <h3 className="mt-4 text-[18px] font-bold leading-snug">{s.t}</h3>
+      <p className="mt-1.5 text-[13.5px] leading-relaxed text-[var(--muted)]">{s.d}</p>
+      <div className="mt-5 flex flex-1 items-end [&>span]:shrink-0">
+        <SpineArt index={index} color={s.color} />
+      </div>
     </div>
   );
 }
@@ -90,15 +142,24 @@ export default function PlatformPage() {
           <SectionHead
             eyebrow="The spine"
             title={
-              <span className="inline-flex flex-wrap items-baseline justify-center gap-x-2.5 gap-y-1.5 sm:gap-x-3.5">
-                {SPINE_STEPS.map((s, i) => (
-                  <span key={s.t} className="inline-flex items-baseline gap-2.5 sm:gap-3.5">
-                    {i > 0 && (
+              <span className="flex flex-col items-center gap-y-1">
+                {[SPINE_STEPS.slice(0, 2), SPINE_STEPS.slice(2)].map((row, r) => (
+                  <span key={r} className="inline-flex items-baseline gap-x-2.5 sm:gap-x-3.5">
+                    {row.map((s2, i) => (
+                      <span key={s2.t} className="inline-flex items-baseline gap-x-2.5 sm:gap-x-3.5">
+                        {i > 0 && (
+                          <span className="text-[var(--muted-2)]" aria-hidden="true">
+                            →
+                          </span>
+                        )}
+                        <span style={{ color: s2.color }}>{s2.t}</span>
+                      </span>
+                    ))}
+                    {r === 0 && (
                       <span className="text-[var(--muted-2)]" aria-hidden="true">
                         →
                       </span>
                     )}
-                    <span style={{ color: s.color }}>{s.t}</span>
                   </span>
                 ))}
               </span>
@@ -115,7 +176,7 @@ export default function PlatformPage() {
                     <div className="flex items-center justify-center pt-9" aria-hidden="true">
                       <span
                         className="grid h-8 w-8 shrink-0 place-items-center rounded-full"
-                        style={{ background: `${s.color}17` }}
+                        style={{ background: `${s.color}1f`, boxShadow: `0 0 0 4px var(--background)` }}
                       >
                         <Icon name="arrow" size={15} style={{ color: s.color }} />
                       </span>
@@ -134,14 +195,36 @@ export default function PlatformPage() {
             </div>
           </div>
 
-          {/* the loop, made explicit */}
-          <div className="mt-8 flex justify-center">
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-dashed border-[var(--line-strong)] bg-[var(--card)] py-2 pl-2 pr-4 shadow-[var(--shadow-sm)]">
+          {/* The loop, drawn rather than claimed.
+
+              This was a dashed pill under the row saying the fourth step feeds
+              the first. The section is named for that loop and the headline
+              ends on it, so having it be the quietest thing on screen was
+              backwards. Now a return path runs back from Impact to Score with
+              the sentence sitting on it — CSS borders rather than an SVG, so
+              the corner radii stay true at every width instead of shearing the
+              way a stretched viewBox would. */}
+          <div className="relative mt-1 hidden lg:block" aria-hidden="true">
+            <div
+              className="mx-[7%] h-16 rounded-b-[26px] border-b-2 border-l-2 border-r-2 border-dashed"
+              style={{ borderColor: "var(--strong, #c9c9d4)", opacity: 0.55 }}
+            />
+            {/* arrowhead where the path re-enters Score */}
+            <span
+              className="absolute -top-[7px] left-[7%] grid h-[18px] w-[18px] -translate-x-1/2 place-items-center rounded-full text-[9px] font-bold text-white"
+              style={{ background: "#23D7BE", boxShadow: "0 0 0 4px var(--background)" }}
+            >
+              ▲
+            </span>
+          </div>
+
+          <div className="relative z-10 -mt-[38px] flex justify-center max-lg:mt-8">
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-[var(--line)] bg-[var(--card)] py-2 pl-2 pr-4 shadow-[var(--shadow-sm)]">
               <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full" style={{ background: "var(--aurora)" }}>
                 <Icon name="refresh" size={13} className="text-white" />
               </span>
               <span className="text-[13px] font-semibold text-[var(--foreground)]">
-                Then Impact becomes tomorrow&apos;s Score, a loop, not a report.
+                Impact becomes tomorrow&apos;s Score — a loop, not a report.
               </span>
             </div>
           </div>
