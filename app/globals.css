@@ -651,3 +651,18 @@ html.lenis body {
 .loop-chase {
   animation: loop-chase 5s linear infinite;
 }
+
+/* ============================================================================
+   LoopScene motion (components/LoopScene.tsx). Slow and few. Every keyframe
+   returns to rest at 100%, because the global reduce-motion rule clamps
+   animations to 0.001ms rather than removing them.
+   ========================================================================== */
+@keyframes ls-drift   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@keyframes ls-twinkle { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
+@keyframes ls-rise    { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+@keyframes ls-arc     { to { stroke-dashoffset: -38; } }
+.ls-drift   { animation: ls-drift 6.5s ease-in-out infinite; }
+.ls-twinkle { animation: ls-twinkle 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.ls-rise    { animation: ls-rise 5s ease-in-out infinite; }
+/* the dashed return line crawls back toward Score, so the loop reads as travel */
+.ls-arc path:nth-child(2) { animation: ls-arc 2.2s linear infinite; }
