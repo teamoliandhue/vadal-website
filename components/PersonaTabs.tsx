@@ -205,33 +205,52 @@ export function PersonaTabs() {
         style={{ background: `radial-gradient(58% 52% at 50% 0%, ${accent}26, transparent 72%)` }}
       />
 
-      {/* ------------------------------------------------- segmented control */}
+      {/* ---------------------------------------------------------- tab row */}
+      {/* Benchmarked against maze.co/about-us. The personas were five identical
+          small pills in a grey rail — chrome you read past. At editorial size
+          they become the section's headline: the words themselves are the
+          navigation, the inactive ones sit back in muted grey, and the active
+          one takes a soft chip and a rule underneath.
+
+          The visible label drops the "For " that every tab carried, because at
+          this size five repetitions of it is the loudest thing in the row and
+          the section heading already establishes who these are. The full "For
+          Employees" stays on aria-label so it is still spoken in full. */}
       <div className="flex justify-center">
         <div
           ref={trackRef}
           role="tablist"
           aria-label="Who Vadal.ai is for"
-          className="relative inline-flex max-w-full gap-1 overflow-x-auto rounded-full border border-[var(--line)] bg-[var(--card)] p-1.5 shadow-[var(--shadow-sm)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="relative flex max-w-full items-end gap-x-5 overflow-x-auto px-1 pb-3 sm:gap-x-8 lg:gap-x-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {/* the one indicator that travels, rather than five pills lighting up */}
           {ind && (
             <span
               aria-hidden="true"
-              className="absolute bottom-1.5 top-1.5 -z-0 rounded-full transition-[transform,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-              style={{ transform: `translateX(${ind.x - 6}px)`, width: ind.w, background: accent }}
+              className="absolute bottom-0 top-0 -z-0 rounded-[10px] transition-[transform,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+              style={{
+                transform: `translateX(${ind.x - 4}px)`,
+                width: ind.w + 8,
+                background: `${accent}21`,
+              }}
             >
-              {/* auto-advance clock, riding the indicator */}
-              {auto && (
-                <span
-                  key={active}
-                  onAnimationEnd={() => go(active + 1)}
-                  className="absolute inset-x-0 bottom-0 h-[3px] origin-left rounded-full bg-white/70"
-                  style={{
-                    animation: `persona-progress ${CYCLE_MS}ms linear forwards`,
-                    animationPlayState: paused ? "paused" : "running",
-                  }}
-                />
-              )}
+              {/* the rule under the active word, which is also the
+                  auto-advance clock — one element doing both jobs */}
+              <span className="absolute inset-x-0 bottom-0 h-[3px] rounded-full" style={{ background: `${accent}33` }}>
+                {auto && (
+                  <span
+                    key={active}
+                    onAnimationEnd={() => go(active + 1)}
+                    className="absolute inset-0 origin-left rounded-full"
+                    style={{
+                      background: accent,
+                      animation: `persona-progress ${CYCLE_MS}ms linear forwards`,
+                      animationPlayState: paused ? "paused" : "running",
+                    }}
+                  />
+                )}
+                {!auto && <span className="absolute inset-0 rounded-full" style={{ background: accent }} />}
+              </span>
             </span>
           )}
 
@@ -250,11 +269,12 @@ export function PersonaTabs() {
                 tabIndex={on ? 0 : -1}
                 onClick={() => go(i, true)}
                 onKeyDown={(e) => onKeyDown(e, i)}
-                className={`relative z-10 whitespace-nowrap rounded-full px-4 py-2 text-[14px] font-semibold transition-colors duration-300 ${
-                  on ? "text-white" : "text-[var(--muted)] hover:text-[var(--foreground)]"
+                aria-label={t.tab}
+                className={`relative z-10 whitespace-nowrap px-1 pb-2.5 text-[clamp(1.5rem,1rem+2.1vw,2.6rem)] font-extrabold leading-none tracking-[-0.03em] transition-colors duration-300 ${
+                  on ? "text-[var(--foreground)]" : "text-[var(--muted-2)] hover:text-[var(--muted)]"
                 }`}
               >
-                {t.tab}
+                {t.tab.replace(/^For /, "")}
               </button>
             );
           })}
@@ -275,13 +295,13 @@ export function PersonaTabs() {
             className="mt-9"
           >
             <div
-              className="overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line)] bg-[var(--card)] transition-shadow duration-700 lg:grid lg:grid-cols-[0.85fr_1fr]"
+              className="overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line)] bg-[var(--card)] transition-shadow duration-700 lg:grid lg:grid-cols-[1fr_0.92fr]"
               style={{ boxShadow: `0 24px 60px -30px ${a}66, var(--shadow-md)` }}
             >
               {/* ------------------------------------------------- photograph */}
               {/* outside the keyed wrapper below, so changing persona never
                   remounts or re-decodes the image */}
-              <div className="relative isolate min-h-[320px] overflow-hidden sm:min-h-[380px] lg:min-h-[470px]">
+              <div className="relative isolate min-h-[320px] overflow-hidden sm:min-h-[380px] lg:order-2 lg:min-h-[470px]">
                 <img
                   src={t.photo}
                   alt=""
