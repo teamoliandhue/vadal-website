@@ -83,7 +83,26 @@ const HERO_FEATURES: { name: string; icon: IconName }[] = [
   { name: "Recognition", icon: "heart" },
   { name: "AI copilot", icon: "spark" },
 ];
-// dock positions around the V, as fractions of (markW, markH) from its centre
+/* Where each chip sits on the orbit, in degrees, 0 = right of the globe and
+   increasing clockwise. Evenly spaced 60 apart so the ring never bunches, and
+   offset so none of them parks at dead top or dead bottom where it would sit
+   over the globe's pole or collide with the headline below.
+
+   The assignment keeps each chip on the side it used to dock on, so the layout
+   still reads left-to-right the way it did when the positions were fixed. */
+const FEATURE_ANGLE = [240, 300, 180, 0, 120, 60];
+
+/* The orbit is an ellipse, not a circle: wide across and shallow vertically, so
+   it reads as a ring around a sphere seen from slightly above rather than a
+   flat disc drawn on top of one. */
+const ORBIT_RX = 1.16;   // of span — matches how far out the chips used to dock
+const ORBIT_RY = 0.42;   // squashed, which is what sells the viewing angle
+const ORBIT_MS = 52000;  // one full revolution. Slow enough to read every chip.
+
+/* Kept only to derive the colour ramp — each chip's hue still comes from where
+   it started horizontally, so Surveys stays teal and AI copilot stays violet
+   however far round the orbit they travel. Recolouring in flight would make the
+   ring look like it was cycling hues rather than turning. */
 const FEATURE_DOCK: [number, number][] = [
   [-0.94, -0.5], [0.94, -0.5],
   [-1.16, 0.0], [1.16, 0.0],
@@ -144,7 +163,8 @@ export function ScrollHero() {
     let ocx = 0;
     let ocy = 0;
     let R = 1; // globe radius
-    let chipDock: { x: number; y: number }[] = [];    // docked target per feature chip
+    let chipSpan = 0;                                 // orbit radius basis
+    let chipDock: { x: number; y: number }[] = [];    // orbital target per feature chip
     let chipScatter: { x: number; y: number }[] = []; // scattered start per feature chip
 
     function build() {
@@ -184,7 +204,12 @@ export function ScrollHero() {
       const span = R * 2.1;            // chip-dock span, ≈ the old mark's width
 
       // feature chips: docked around the globe, scattered across the upper screen
-      chipDock = FEATURE_DOCK.map(([dx, dy]) => ({ x: ocx + dx * span, y: ocy + dy * span }));
+      chipSpan = span;
+      // the dock target is now a point ON the orbit, at t = 0
+      chipDock = FEATURE_ANGLE.map((deg) => {
+        const a = (deg * Math.PI) / 180;
+        return { x: ocx + Math.cos(a) * span * ORBIT_RX, y: ocy + Math.sin(a) * span * ORBIT_RY };
+      });
       chipScatter = FEATURE_DOCK.map(() => ({
         x: W * (0.12 + 0.76 * Math.random()),
         y: H * (0.08 + 0.46 * Math.random()),
@@ -308,21 +333,42 @@ export function ScrollHero() {
         ctx!.globalAlpha = 1;
       }
 
-      // FEATURE CHIPS — fade in scattered, then fly in and dock around the V,
-      // where they stay through the reveal ("every capability, one platform").
+      // FEATURE CHIPS — fade in scattered, fly in, and then keep orbiting the
+      // globe for as long as the hero is on screen.
+      //
+      // The orbit is driven off a wall clock rather than off scroll, so it
+      // keeps turning when the page is still; the rAF loop already runs every
+      // frame past p > 0.42 to hold the globe's spin, so this costs no extra
+      // frames. Chips only start travelling once they have arrived, otherwise
+      // the fly-in would be chasing a moving target and read as a wobble.
       const chipEls = chipRefs.current;
       if (chipEls.length && chipDock.length) {
         const chipOp = smooth(0.3, 0.44, p);
         const dockPhase = easeInOut(clamp((p - 0.46) / 0.26, 0, 1));
+        // ease the orbit in over the last of the dock so it starts from rest
+        const spin = dockPhase * dockPhase;
+        const turn = ((nowMs % ORBIT_MS) / ORBIT_MS) * Math.PI * 2 * spin;
         for (let i = 0; i < chipEls.length; i++) {
           const el = chipEls[i];
           const sc = chipScatter[i];
-          const dk = chipDock[i];
-          if (!el || !sc || !dk) continue;
-          const cx = lerp(sc.x, dk.x, dockPhase);
-          const cy = lerp(sc.y, dk.y, dockPhase);
-          el.style.opacity = String(chipOp);
-          el.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%) scale(${lerp(0.9, 1, dockPhase)})`;
+          if (!el || !sc) continue;
+          const a = (FEATURE_ANGLE[i] * Math.PI) / 180 + turn;
+          const ox = ocx + Math.cos(a) * chipSpan * ORBIT_RX;
+          const oy = ocy + Math.sin(a) * chipSpan * ORBIT_RY;
+
+          // Depth. The top of the ellipse is the far side of the ring, so a
+          // chip there sits smaller and dimmer than one swinging past the
+          // front. That single cue is what stops it reading as a flat circle —
+          // the globe is a translucent particle cloud, so genuine occlusion
+          // would not show even if we ordered the layers for it.
+          const near = (Math.sin(a) + 1) / 2;           // 0 far, 1 near
+          const depth = 0.84 + 0.16 * near;
+          const dim = 0.62 + 0.38 * near;
+
+          const cx = lerp(sc.x, ox, dockPhase);
+          const cy = lerp(sc.y, oy, dockPhase);
+          el.style.opacity = String(chipOp * lerp(1, dim, dockPhase));
+          el.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%) scale(${lerp(0.9, depth, dockPhase)})`;
         }
       }
     }
