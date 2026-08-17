@@ -1,61 +1,50 @@
+import { StoryArt, archetypeFor, PLATE, type Archetype } from "./StoryArt";
+
 /* ============================================================================
-   ProductShot — the lead screenshot on a product page, and the preview in the
+   ProductShot — the lead visual on a product page, and the preview in the
    desktop Platform mega menu.
 
-   Thirteen products now lead with the real design, exported from the "All
-   Pages" board in Figma and filed under public/product/screens/. `file` is a
-   path under /product, so a nested screens/<slug>/<name> resolves without any
-   change at the call sites.
+   These were screenshots: first captures of the app build, then real Figma
+   designs. The site no longer shows product UI, so each product now leads with
+   the illustration for the kind of thing it is, framed in the same browser
+   chrome so the section still reads as "here is the product".
 
-   The rest still use the older captures of the app build (vadal.vercel.app),
-   captured from the live build and framed in the site's browser chrome.
-   Each product page shows its actual screen; products whose module isn't
-   built yet fall back to the hand-drawn JSX mocks.
-
-   Regenerate with the Playwright script (scratchpad/shots/capture-shots.mjs):
-   1440×900 @2x, reduced motion, 3.5s settle → sharp → 1600w webp.
+   The label under the chrome is the capability, not a file name, and it is
+   what decides the archetype.
    ========================================================================== */
 
-export type ShotInfo = { file: string; label: string };
+export type ShotInfo = { label: string; archetype?: Archetype };
 
-/** product slug → real screen from the app build */
+/** product slug → what its lead visual is called */
 export const PRODUCT_SHOTS: Record<string, ShotInfo> = {
-  // Workforce Experience
-  "employee-communication": { file: "screens/employee-communication/campaign-dashboard", label: "Campaigns" },
-  "employee-experience": { file: "screens/employee-experience/moments-that-matter-feed", label: "Moments that matter" },
-  "employee-wellbeing-culture": { file: "screens/employee-wellbeing-culture/burnout-early-warning-alerts", label: "Early-warning alerts" },
-  "recognition-rewards": { file: "screens/recognition-rewards/recognition-feed-wall-of-fame", label: "Wall of fame" },
-  // Workforce Intelligence
-  "people-analytics": { file: "screens/people-analytics/driver-level-heatmap", label: "Driver heatmap" },
-  "sentiment-intelligence": { file: "sentiment", label: "Sentiment" },
-  "benchmark-intelligence": { file: "analytics", label: "Trend vs benchmark" },
-  "executive-reports": { file: "analytics", label: "Analytics · Export" },
-  // Talent Intelligence
-  "leadership-intelligence": { file: "managers", label: "Manager hub" },
-  // Engagement & Listening
-  "engagement-surveys": { file: "surveys", label: "Surveys" },
-  "employee-listening": { file: "screens/employee-listening/continuous-listening-dashboard", label: "Always-on listening" },
-  "feedback-intelligence": { file: "screens/feedback-intelligence/theme-cluster-dashboard", label: "Theme clusters" },
-  "action-planning": { file: "screens/action-planning/action-impact-tracker", label: "Action impact" },
-  // Digital Workplace
-  "ai-employee-chat": { file: "screens/ai-employee-chat/employee-chat-interface", label: "Ask Vadal" },
-  "tasks-workflow": { file: "screens/tasks-workflow/case-inbox", label: "Cases" },
-  // Enterprise AI Platform
-  "decision-intelligence-copilot": { file: "screens/decision-intelligence-copilot/data-grounded-answer-view", label: "Grounded answers" },
-  "ai-workforce-assistant": { file: "screens/ai-workforce-assistant/assistant-home-daily-brief", label: "Daily brief" },
-  // Survey types (legacy template)
-  "pulse-surveys": { file: "pulse", label: "Pulse" },
-  "lifecycle-surveys": { file: "surveys", label: "Surveys" },
-  "predictive-enps": { file: "analytics", label: "Analytics" },
-  "confidential-feedback": { file: "listening", label: "Always-on listening" },
-  "security-compliance": { file: "screens/security-compliance/role-based-access-management", label: "Roles & permissions" },
-  "workforce-intelligence": { file: "analytics", label: "Analytics" },
+  "employee-communication": { label: "Campaigns" },
+  "employee-experience": { label: "Moments that matter" },
+  "employee-wellbeing-culture": { label: "Early-warning alerts" },
+  "recognition-rewards": { label: "Wall of fame" },
+  "people-analytics": { label: "Driver heatmap" },
+  "sentiment-intelligence": { label: "Sentiment" },
+  "benchmark-intelligence": { label: "Trend vs benchmark" },
+  "executive-reports": { label: "Analytics · Export" },
+  "leadership-intelligence": { label: "Manager hub" },
+  "engagement-surveys": { label: "Surveys" },
+  "employee-listening": { label: "Always-on listening" },
+  "feedback-intelligence": { label: "Theme clusters" },
+  "action-planning": { label: "Action impact" },
+  "ai-employee-chat": { label: "Ask Vadal" },
+  "tasks-workflow": { label: "Cases" },
+  "decision-intelligence-copilot": { label: "Grounded answers" },
+  "ai-workforce-assistant": { label: "Daily brief" },
+  "pulse-surveys": { label: "Pulse" },
+  "lifecycle-surveys": { label: "Surveys" },
+  "predictive-enps": { label: "Analytics" },
+  "confidential-feedback": { label: "Always-on listening" },
+  "security-compliance": { label: "Roles & permissions" },
+  "workforce-intelligence": { label: "Analytics" },
 };
 
 export function ProductShot({
   shot,
   className = "",
-  priority = false,
 }: {
   shot: ShotInfo;
   className?: string;
@@ -79,14 +68,9 @@ export function ProductShot({
             app.vadal.ai · {shot.label}
           </span>
         </div>
-        <img
-          src={`/product/${shot.file}.webp`}
-          alt={`The ${shot.label} screen in the Vadal.ai product`}
-          width={1600}
-          height={1000}
-          loading={priority ? "eager" : "lazy"}
-          className="block h-auto w-full"
-        />
+        <div className="aspect-[16/10]" style={{ background: PLATE }}>
+          <StoryArt screen={shot.label} archetype={shot.archetype} />
+        </div>
       </div>
     </figure>
   );

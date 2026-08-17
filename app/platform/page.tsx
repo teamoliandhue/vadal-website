@@ -126,8 +126,8 @@ export default function PlatformPage() {
             </div>
           </div>
           <div className="mx-auto mt-14 flex max-w-4xl justify-center">
-            {/* the real product home — AI briefing, team health, Ask Vadal */}
-            <ProductShot shot={{ file: "home", label: "Home" }} priority className="!max-w-[880px]" />
+            {/* the platform at a glance — the archetype for a workspace home */}
+            <ProductShot shot={{ label: "Your workspace", archetype: "dashboard" }} className="!max-w-[880px]" />
           </div>
         </Container>
       </section>
