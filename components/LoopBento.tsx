@@ -118,23 +118,39 @@ export function LoopBento() {
       </div>
     );
 
-  /* the scene sits on a warm plate at the top of the card — the reference's
-     own off-white ground — so the flat colours have the surface they were
-     drawn for rather than sitting on card white */
+  /* The scene sits on a warm plate — the reference's own off-white ground —
+     so the flat colours have the surface they were drawn for.
+
+     It is the card's flexible element. The five cards share one row height,
+     set by whichever has the most copy (Score: three-line title, five-line
+     body, two chips). At a fixed aspect the others ended with a band of dead
+     white under their last chip. So the plate has a floor but no ceiling: it
+     grows to absorb whatever height its card has left, and the SVG — which
+     preserves its ratio inside the box — is simply given a little more room
+     where the copy is shorter. That is the right thing to be generous with. */
   const art = (id: keyof typeof LOOP_SCENES) => {
     const Scene = LOOP_SCENES[id];
     return (
-      <div className="mb-5 aspect-[13/10] overflow-hidden rounded-[var(--r-lg)]" style={{ background: "#fbf7f1" }}>
+      <div
+        className="mb-5 flex min-h-[176px] items-center justify-center overflow-hidden rounded-[var(--r-lg)] lg:min-h-[196px]"
+        style={{ background: "#fbf7f1" }}
+      >
         <Scene />
       </div>
     );
   };
 
+  /* Every plate is the same height, so the chip and title land on one line
+     across the row. The copy column takes the slack: it fills the card and
+     pins the link chips to its foot, so a card with less to say ends with the
+     same chips in the same place rather than a band of white under them. */
   const card = (c: Card, span: string) => (
     <div className={`${shell} ${span}`}>
       {art(c.id as keyof typeof LOOP_SCENES)}
-      {head(c)}
-      {links(c)}
+      <div className="flex flex-1 flex-col">
+        {head(c)}
+        <div className="mt-auto">{links(c)}</div>
+      </div>
     </div>
   );
 
@@ -156,10 +172,21 @@ export function LoopBento() {
         <h3 className="mt-4 text-[19px] font-extrabold leading-snug tracking-[-0.01em] text-[#0d0b16]">
           Impact feeds the next score
         </h3>
-        <p className="mt-2 text-[14px] leading-relaxed text-[#0d0b16]/75">
-          Most tools stop at the number. Here the fourth step starts the first, so every cycle
-          begins better informed than the last.
-        </p>
+        <div className="flex flex-1 flex-col">
+          <p className="mt-2 text-[14px] leading-relaxed text-[#0d0b16]/75">
+            Most tools stop at the number. Here the fourth step starts the first, so every cycle
+            begins better informed than the last.
+          </p>
+          <div className="mt-auto pt-4">
+            <Link
+              href="/platform"
+              className="inline-flex items-center gap-1.5 rounded-full border border-[#0d0b16]/15 bg-[var(--card)]/80 px-3 py-1.5 text-[12.5px] font-bold text-[#0d0b16] transition-colors"
+            >
+              See the whole loop
+              <Icon name="arrow" size={12} />
+            </Link>
+          </div>
+        </div>
       </div>
       </div>
     </div>
