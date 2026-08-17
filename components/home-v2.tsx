@@ -4,7 +4,6 @@ import { SparkMark } from "./Brand";
 import { Button, CheckItem, Container, Eyebrow, Pill, SectionHead } from "./ui";
 import { CrowdPanel, IconChip, PanelStage } from "./sections";
 import { BRAND_MARKS } from "@/lib/brand-marks";
-import { StoryArt, PLATE } from "./StoryArt";
 import type { IconName } from "@/lib/content";
 import { DashboardMock, VoiceCard } from "./ProductMocks";
 import {
@@ -130,7 +129,7 @@ export function AnalyticsSection() {
           <div className="group relative flex flex-col">
             <div className="flex items-center gap-2.5">
               <Pill aurora>
-                <SparkMark size={13} animate /> The platform
+                <SparkMark size={13} animate /> Live product
               </Pill>
               <span className="rounded-full bg-white/80 px-3 py-1 text-[12px] font-semibold text-[var(--muted)] shadow-[var(--shadow-sm)] backdrop-blur">
                 app.vadal.ai
@@ -138,22 +137,23 @@ export function AnalyticsSection() {
             </div>
             <div className="relative mt-8 flex flex-1 items-center">
               <div className="relative w-full">
-                {/* the trend peeks from behind — measure AND predict */}
-                <div
-                  className="absolute -top-7 right-0 aspect-[3/2] w-[70%] rotate-[2deg] overflow-hidden rounded-[10px] border border-[var(--line)] shadow-[var(--shadow-md)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[2.8deg]"
-                  style={{ background: PLATE }}
-                  aria-hidden="true"
-                >
-                  <StoryArt archetype="feed" />
-                </div>
-                <div
-                  className="relative aspect-[3/2] w-[86%] overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] shadow-[0_28px_60px_-24px_rgba(13,11,22,0.45)] transition-transform duration-500 group-hover:translate-y-1"
-                  style={{ background: PLATE }}
-                  role="img"
-                  aria-label="Workforce analytics: measures side by side, with the pattern across teams behind"
-                >
-                  <StoryArt archetype="heatmap" />
-                </div>
+                {/* sentiment peeks from behind — measure AND predict */}
+                <img
+                  src="/product/screens/feedback-intelligence/theme-trend-over-time-view.webp"
+                  alt="The Sentiment screen in the Vadal.ai product, positive versus negative sentiment over six months"
+                  width={1600}
+                  height={1000}
+                  loading="lazy"
+                  className="absolute -top-7 right-0 w-[76%] rotate-[2deg] rounded-[10px] border border-[var(--line)] shadow-[var(--shadow-md)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[2.8deg]"
+                />
+                <img
+                  src="/product/screens/people-analytics/driver-level-heatmap.webp"
+                  alt="The Analytics screen in the Vadal.ai product, an engagement heatmap by team and tenure"
+                  width={1600}
+                  height={1000}
+                  loading="lazy"
+                  className="relative block h-auto w-[86%] rounded-[var(--r-lg)] border border-[var(--line)] shadow-[0_28px_60px_-24px_rgba(13,11,22,0.45)] transition-transform duration-500 group-hover:translate-y-1"
+                />
               </div>
             </div>
           </div>

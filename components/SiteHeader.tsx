@@ -5,7 +5,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo, SparkMark } from "./Brand";
 import { Icon } from "./Icon";
-import { StoryArt, PLATE } from "./StoryArt";
 import { MenuGlyph, type GlyphKind } from "./MenuGlyph";
 import { PRODUCT_SHOTS } from "./ProductShot";
 import { Button, Container } from "./ui";
@@ -567,9 +566,13 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
         <div className="flex flex-col border-l border-[var(--line)] bg-[var(--surface)]/40 p-5">
           {preview.shot ? (
             <figure className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] shadow-[var(--shadow-sm)]">
-              <div key={preview.shot.label} className="min-h-[168px] w-full flex-1" style={{ background: PLATE }}>
-                <StoryArt screen={preview.shot.label} archetype={preview.shot.archetype} />
-              </div>
+              <img
+                key={preview.shot.file}
+                src={`/product/${preview.shot.file}.webp`}
+                alt=""
+                className="min-h-[168px] w-full flex-1 object-cover object-left-top"
+                loading="lazy"
+              />
               <figcaption className="border-t border-[var(--line)] px-3.5 py-2 text-[11.5px] font-semibold text-[var(--muted)]">
                 {preview.shot.label}
               </figcaption>
