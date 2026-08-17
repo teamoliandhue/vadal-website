@@ -1,5 +1,5 @@
 /* ============================================================================
-   LoopScene — the "Why Vadal.ai" argument as one isometric landscape.
+   LoopScene — the five "Why Vadal.ai" stations, as small isometric scenes.
 
    Reference: the illustration style of a single continuous scene built from
    bold flat colour blocks — butter yellow, periwinkle, teal, cream — sitting on
@@ -8,17 +8,21 @@
    (a stair, a dome, a bell jar, a flag) doing the storytelling. Documents,
    coins and four-point sparkles float around it.
 
-   The earlier attempt cut this into five card-sized fragments on tiny grey
-   slabs, which lost everything the reference has: scale, weight and the sense
-   of one place. So this is one wide panorama, and Score → Insight → Action →
-   Impact are stations across it, left to right, joined by stairs. Impact stands
-   tallest, and a return arc runs from it back to Score — the loop.
+   One scene per card, and each is minimal on purpose: a single object that
+   IS the idea, on its own slab, with one or two of the reference's floating
+   punctuation marks. The full panorama that preceded this had all five in one
+   landscape; that was a picture to look at, where the cards need a picture
+   each to sit beside their own copy.
 
-   Every solid is projected through iso() below, so the whole landscape shares
-   a ground plane. Colours are the reference's own palette, warmed and named.
-   The scene is SVG, so it is sharp at any width and the drifting objects can
-   move; the motion is slow and few, the way the reference would move if it
-   moved at all.
+   Score is the collector — a stepped stack, tallest column still rising.
+   Insight is a glass dome over three sorted blocks.
+   Action is the domed hall, where the work happens.
+   Impact is the tower with the bell jar and the flag — the lift, measured.
+   The Loop is the return arc, landing back where it started.
+
+   Every solid goes through one iso() so all five share a ground plane and a
+   viewing angle. Same outline, same palette, same slab. Motion is slow and
+   few: a drift, a twinkle, one column that rises, one arc whose dashes crawl.
    ========================================================================== */
 
 /* --------------------------------------------------------------- palette */
@@ -129,206 +133,164 @@ function Spark({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
   );
 }
 
-/* --------------------------------------------------------------- scene */
-export function LoopScene() {
-  /* the ground plane runs left→right; stations sit at increasing x on the
-     iso grid, which is what carries them across the picture and slightly down */
-  const ORIGIN: [number, number] = [640, 330];
-  const at = (x: number, y: number, z = 0): [number, number] => {
-    const p = iso(x, y, z);
-    return [ORIGIN[0] + p[0], ORIGIN[1] + p[1]];
-  };
-  const G = ({ x, y, z = 0, children }: { x: number; y: number; z?: number; children: React.ReactNode }) => {
-    const [tx, ty] = at(x, y, z);
-    return <g transform={`translate(${tx} ${ty})`}>{children}</g>;
-  };
+/* --------------------------------------------------------------- scenes */
+/* Each scene lives in a 260×200 box with its slab centred on the same ground
+   point, so five of them side by side share one horizon. */
+const VW = 260, VH = 200;
+const OX = 130, OY = 128;
+const at = (x: number, y: number, z = 0): [number, number] => {
+  const p = iso(x, y, z);
+  return [OX + p[0], OY + p[1]];
+};
+/** a group placed on the iso ground */
+function At({ x, y, z = 0, children }: { x: number; y: number; z?: number; children: React.ReactNode }) {
+  const [tx, ty] = at(x, y, z);
+  return <g transform={`translate(${tx} ${ty})`}>{children}</g>;
+}
 
+const Frame = ({ children, label }: { children: React.ReactNode; label: string }) => (
+  <svg viewBox={`0 0 ${VW} ${VH}`} className="h-full w-full" role="img" aria-label={label}>
+    <g stroke={INK} strokeLinecap="round">{children}</g>
+  </svg>
+);
+
+/* the ground slab every scene stands on — the same one, five times */
+const Ground = ({ c = F.cream }: { c?: Faces }) => <Block x={-62} y={-52} w={124} d={104} h={12} c={c} />;
+
+/* ═══════════════════════════════════════════════════════════════ 1. SCORE */
+export function SceneScore() {
   return (
-    <svg viewBox="0 0 1280 560" className="h-auto w-full" role="img"
-         aria-label="An isometric landscape: signals gathered into a score, sorted into insight, carried up stairs into owned action, rising to a measured impact, and looping back to the start">
-      <defs>
-        <clipPath id="ls-clip"><rect x="0" y="0" width="1280" height="560" rx="28" /></clipPath>
-      </defs>
-      <g clipPath="url(#ls-clip)" stroke={INK} strokeLinecap="round">
-        <rect x="0" y="0" width="1280" height="560" fill={GROUND} stroke="none" />
-
-        {/* ─────────────────────────────── the return arc: Impact back to Score.
-            Drawn first so it sits behind everything, a soft violet band that
-            travels back across the sky. It IS the loop. */}
-        <g className="ls-arc">
-          <path d="M1040 96 C 900 -30, 320 -30, 205 150" fill="none" stroke={PERI_L} strokeWidth="14" strokeLinecap="round" />
-          <path d="M1040 96 C 900 -30, 320 -30, 205 150" fill="none" stroke={INK} strokeWidth="2.4" strokeDasharray="10 9" strokeLinecap="round" />
-          <path d="M205 150 l 22 -18 M205 150 l 26 2" fill="none" strokeWidth="2.6" />
+    <Frame label="A stepped collector, its tallest column still rising">
+      <At x={0} y={0}>
+        <Ground c={F.butter} />
+        <Block x={-40} y={-16} w={22} d={44} h={30} c={F.teal} />
+        <Block x={-12} y={-16} w={22} d={44} h={54} c={F.teal} />
+        <Block x={16} y={-16} w={22} d={44} h={80} c={F.teal} />
+        <g className="ls-rise">
+          <Block x={16} y={-16} z={80} w={22} d={44} h={14} c={F.teal} />
         </g>
-
-        {/* ═══════════════════════════════════════════ 1. SCORE — the arch.
-            The reference opens on a teal arch with a stair up its side. Ours
-            is the entrance: signals come in through it and gather. */}
-        <G x={-240} y={240}>
-          <Block x={0} y={0} w={40} d={120} h={230} c={F.teal} />
-          <Block x={40} y={0} w={40} d={120} h={230} c={F.teal} />
-          {/* the archway cut through */}
-          <path d={`M ${iso(80,120,0)[0]-40} ${iso(80,120,0)[1]-58} a 42 60 0 0 1 84 0 v 58 h -84 Z`}
-                fill={GROUND} strokeWidth="2.4" transform={`translate(-42 -110)`} />
-          {/* stair climbing the arch's far shoulder */}
-          <Stairs x={-6} y={-30} w={86} d={26} h={230} n={8} c={F.teal} />
-        </G>
-        {/* the collector below the arch: a stepped plinth with a live column */}
-        <G x={-200} y={230}>
-          <Block x={0} y={0} w={130} d={110} h={34} c={F.butter} />
-          <Block x={24} y={20} w={30} d={70} h={40} c={F.teal} />
-          <Block x={60} y={20} w={30} d={70} h={70} c={F.teal} />
-          <Block x={96} y={20} w={30} d={70} h={104} c={F.teal} />
-          {/* the reading, rising */}
-          <g className="ls-rise">
-            <Block x={96} y={20} z={104} w={30} d={70} h={16} c={F.teal} />
-          </g>
-        </G>
-
-        {/* stairs from Score up to Insight */}
-        <G x={-70} y={100}>
-          <Stairs x={0} y={0} w={110} d={40} h={44} n={7} c={F.peri} />
-        </G>
-
-        {/* ═══════════════════════════════════════ 2. INSIGHT — the lens.
-            A periwinkle plinth with a glass dome on it — the reference's bell
-            jar — and inside, three sorted piles at three heights: what the
-            number is made of. */}
-        <G x={-10} y={40}>
-          <Block x={0} y={0} w={170} d={130} h={44} c={F.peri} />
-          <Block x={16} y={16} w={138} d={98} h={12} c={F.cream} />
-          {/* the three drivers, sorted */}
-          <Block x={34} y={40} w={26} d={50} h={38} c={F.teal} />
-          <Block x={72} y={40} w={26} d={50} h={62} c={F.sky} />
-          <Block x={110} y={40} w={26} d={50} h={26} c={{ top: CORAL, left: "#d0614a", right: "#f7b09e" }} />
-          {/* the dome over them */}
-          <g strokeWidth="2.4">
-            <path d={`M ${iso(16,114,56)[0]} ${iso(16,114,56)[1]} A 76 76 0 0 1 ${iso(154,16,56)[0]} ${iso(154,16,56)[1]}`}
-                  fill={GLASS} fillOpacity="0.55" />
-            <ellipse cx={iso(85,65,56)[0]} cy={iso(85,65,56)[1]} rx="86" ry="43" fill="none" />
-            <path d={`M ${iso(50,110,120)[0]} ${iso(50,110,120)[1]} q -18 -12 -22 -34`} fill="none" stroke={PAPER} strokeWidth="6" strokeLinecap="round" />
-          </g>
-        </G>
-
-        {/* ═════════════════════════════════════════════ 3. ACTION — the hall.
-            The reference's centrepiece is a domed pavilion on a stepped
-            plinth with stairs up both sides. Ours is where the work happens:
-            columns, a butter dome, a flag of an owner's colour on top. */}
-        <G x={140} y={-140}>
-          <Block x={0} y={0} w={220} d={190} h={40} c={F.peri} />
-          <Block x={30} y={30} w={160} d={130} h={26} c={F.cream} />
-          {/* stairs up the front-left and front-right */}
-          <Stairs x={-70} y={40} w={70} d={60} h={40} n={6} c={F.peri} />
-          <Stairs x={220} y={40} w={70} d={60} h={40} n={6} c={F.peri} />
-          {/* the hall body */}
-          <g>
-            <g transform={`translate(${iso(110,95,66)[0]} ${iso(110,95,66)[1]})`} strokeWidth="2.4" strokeLinejoin="round">
-              {/* pediment block */}
-              <rect x="-88" y="-40" width="176" height="52" fill={CREAM} />
-              <path d="M-96 -40 L0 -92 L96 -40 Z" fill={CREAM_D} />
-              <circle cx="-14" cy="-58" r="4" fill={PERI} strokeWidth="1.8" />
-              <circle cx="0" cy="-64" r="4" fill={PERI} strokeWidth="1.8" />
-              <circle cx="14" cy="-58" r="4" fill={PERI} strokeWidth="1.8" />
-              {/* dome */}
-              <path d="M-72 -92 A 72 60 0 0 1 72 -92 Z" fill={BUTTER} />
-              <path d="M-72 -92 A 72 60 0 0 1 72 -92" fill="none" />
-              <path d="M-36 -92 A 36 60 0 0 1 36 -92 M0 -92 v-60" fill="none" strokeWidth="1.8" />
-              <circle cx="0" cy="-152" r="5" fill={CORAL} />
-              {/* colonnade */}
-              {[-70, -35, 0, 35, 70].map((cx) => (
-                <g key={cx}>
-                  <rect x={cx - 8} y="12" width="16" height="70" fill={PAPER} />
-                  <path d={`M${cx - 12} 12 h24 M${cx - 12} 82 h24`} strokeWidth="2.4" />
-                </g>
-              ))}
-              {/* the dark doorways between columns */}
-              {[-52, -17, 18, 53].map((cx) => (
-                <path key={cx} d={`M${cx - 9} 82 v-40 a 9 9 0 0 1 18 0 v40 Z`} fill={INK} fillOpacity="0.55" strokeWidth="1.6" />
-              ))}
-              <rect x="-96" y="82" width="192" height="12" fill={CREAM_D} />
-            </g>
-          </g>
-        </G>
-
-        {/* ═══════════════════════════════════════════ 4. IMPACT — the tower.
-            The reference ends on a tall periwinkle tower with a bell jar and a
-            feather. Ours is the tallest thing on the page — the lift, measured
-            — with a butter plinth, a coral flag and a stair up its side. */}
-        <G x={242} y={-242}>
-          <Block x={0} y={0} w={130} d={120} h={44} c={F.butter} />
-          <Block x={16} y={20} w={100} d={80} h={210} c={F.peri} />
-          {/* the top: a bell jar with the score inside, glowing teal */}
-          <g transform={`translate(${iso(66,60,254)[0]} ${iso(66,60,254)[1]})`}>
-            <g strokeWidth="2.4">
-              <ellipse cx="0" cy="0" rx="46" ry="23" fill={PERI_L} />
-              <path d="M-46 0 v-58 a 46 46 0 0 1 92 0 v58" fill={GLASS} fillOpacity="0.6" />
-              <ellipse cx="0" cy="0" rx="46" ry="23" fill="none" />
-              <path d="M-30 -66 q -6 12 -6 26" fill="none" stroke={PAPER} strokeWidth="6" strokeLinecap="round" />
-              {/* the score inside, sitting on its plinth */}
-              <circle cx="0" cy="-30" r="16" fill={TEAL} />
-              <path d="M-7 -30 l5 5 l9 -11" fill="none" strokeWidth="3" />
-            </g>
-          </g>
-          {/* the flag */}
-          <g transform={`translate(${iso(116,20,254)[0]} ${iso(116,20,254)[1]})`}>
-            <g strokeWidth="2.4" strokeLinejoin="round">
-              <path d="M0 0 v-46" />
-              <path d="M0 -44 l30 9 l-30 10 Z" fill={CORAL} />
-            </g>
-          </g>
-          {/* stair up the tower's front */}
-          <Stairs x={-64} y={30} w={64} d={44} h={44} n={6} c={F.butter} />
-        </G>
-
-        {/* the garden plinth at the far right — the reference's closing note.
-            The impact landing somewhere living: a tree, saplings, a ladder. */}
-        <G x={285} y={-285}>
-          <Block x={0} y={0} w={170} d={130} h={30} c={F.sky} />
-          <g transform={`translate(${iso(130,30,30)[0]} ${iso(130,30,30)[1]})`}>
-            <g strokeWidth="2.4">
-              <path d="M0 0 v-30" />
-              <path d="M0 -30 c-16 -4 -22 -22 -12 -36 c4 -14 20 -14 24 0 c10 14 4 32 -12 36 Z" fill={LEAF} />
-              <path d="M0 -30 c-16 -4 -22 -22 -12 -36" fill="none" />
-            </g>
-          </g>
-          {[[36, 90], [66, 96], [96, 102]].map(([sx, sy], i) => (
-            <g key={i} transform={`translate(${iso(sx,sy,30)[0]} ${iso(sx,sy,30)[1]})`}>
-              <g strokeWidth="2">
-                <ellipse cx="0" cy="0" rx="9" ry="4.5" fill={PAPER} />
-                <path d="M0 -2 c-6 -2 -8 -10 -3 -14 c2 -6 8 -6 10 0 c5 4 3 12 -3 14 Z" fill={LEAF_D} />
-              </g>
-            </g>
-          ))}
-          <g transform={`translate(${iso(20,110,0)[0]} ${iso(20,110,0)[1]})`}>
-            <g strokeWidth="2.4">
-              <path d="M0 0 l14 -40 M10 0 l14 -40 M2 -10 h10 M5 -20 h10 M8 -30 h10" fill="none" />
-            </g>
-          </g>
-        </G>
-
-        {/* stairs from Action across to Impact */}
-        <G x={245} y={-245}>
-          <Stairs x={0} y={0} w={110} d={40} h={44} n={7} c={F.butter} />
-        </G>
-
-        {/* ─────────────────────────────────────── the drifting objects.
-            Papers, folders, coins and sparkles: the reference's punctuation.
-            Each on its own slow drift so the scene breathes without any one
-            thing demanding attention. */}
-        <g className="ls-drift" style={{ animationDelay: "0s" }}><Sheet x={222} y={64} r={-16} /></g>
-        <g className="ls-drift" style={{ animationDelay: "-1.4s" }}><Folder x={430} y={40} r={-10} /></g>
-        <g className="ls-drift" style={{ animationDelay: "-2.8s" }}><Sheet x={760} y={70} r={12} s={0.9} /></g>
-        <g className="ls-drift" style={{ animationDelay: "-4.2s" }}><Folder x={880} y={116} r={12} s={0.85} /></g>
-        <g className="ls-drift" style={{ animationDelay: "-0.7s" }}><Coin x={96} y={330} /></g>
-        <g className="ls-drift" style={{ animationDelay: "-2.1s" }}><Coin x={700} y={128} s={0.9} /></g>
-        <g className="ls-drift" style={{ animationDelay: "-3.5s" }}><Coin x={1000} y={200} s={0.85} /></g>
-        <g className="ls-twinkle" style={{ animationDelay: "0s" }}><Spark x={172} y={148} /></g>
-        <g className="ls-twinkle" style={{ animationDelay: "-1.1s" }}><Spark x={330} y={200} s={0.8} /></g>
-        <g className="ls-twinkle" style={{ animationDelay: "-2.2s" }}><Spark x={588} y={112} s={0.9} /></g>
-        <g className="ls-twinkle" style={{ animationDelay: "-3.3s" }}><Spark x={942} y={92} s={0.75} /></g>
-        <g className="ls-twinkle" style={{ animationDelay: "-0.6s" }}><Spark x={1150} y={280} s={0.85} /></g>
-        <g className="ls-twinkle" style={{ animationDelay: "-1.7s" }}><Spark x={72} y={210} s={0.7} /></g>
-      </g>
-    </svg>
+      </At>
+      <g className="ls-drift" style={{ animationDelay: "0s" }}><Sheet x={30} y={26} r={-14} s={0.8} /></g>
+      <g className="ls-twinkle" style={{ animationDelay: "-1.2s" }}><Spark x={214} y={48} s={0.8} /></g>
+      <g className="ls-drift" style={{ animationDelay: "-2.6s" }}><Coin x={222} y={128} s={0.8} /></g>
+    </Frame>
   );
 }
+
+/* ═════════════════════════════════════════════════════════════ 2. INSIGHT */
+export function SceneInsight() {
+  return (
+    <Frame label="A glass dome over three sorted blocks">
+      <At x={0} y={0}>
+        <Ground c={F.peri} />
+        <Block x={-46} y={-38} w={92} d={76} h={8} c={F.cream} />
+        <Block x={-34} y={-14} w={20} d={36} h={30} c={F.teal} />
+        <Block x={-8} y={-14} w={20} d={36} h={48} c={F.sky} />
+        <Block x={18} y={-14} w={20} d={36} h={20} c={{ top: CORAL, left: "#d0614a", right: "#f7b09e" }} />
+        {/* the dome */}
+        <g transform={`translate(${iso(0,0,20)[0]} ${iso(0,0,20)[1]})`} strokeWidth="2.4">
+          <path d="M-56 0 A 56 56 0 0 1 56 0" fill={GLASS} fillOpacity="0.55" />
+          <ellipse cx="0" cy="0" rx="56" ry="28" fill="none" />
+          <path d="M-40 -34 q -6 10 -8 24" fill="none" stroke={PAPER} strokeWidth="5" strokeLinecap="round" />
+        </g>
+      </At>
+      <g className="ls-drift" style={{ animationDelay: "-0.8s" }}><Sheet x={20} y={30} r={-12} s={0.78} /></g>
+      <g className="ls-twinkle" style={{ animationDelay: "0s" }}><Spark x={224} y={60} s={0.85} /></g>
+      <g className="ls-twinkle" style={{ animationDelay: "-2s" }}><Spark x={38} y={140} s={0.65} /></g>
+    </Frame>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════ 3. ACTION */
+export function SceneAction() {
+  return (
+    <Frame label="A small domed hall with a colonnade, where the work happens">
+      <At x={0} y={0}>
+        <Ground c={F.peri} />
+        <Block x={-44} y={-40} w={88} d={80} h={10} c={F.cream} />
+        <Stairs x={-78} y={-14} w={34} d={30} h={22} n={4} c={F.peri} />
+        <g transform={`translate(${iso(0,0,22)[0]} ${iso(0,0,22)[1]})`} strokeWidth="2.4" strokeLinejoin="round">
+          <rect x="-46" y="-22" width="92" height="30" fill={CREAM} />
+          <path d="M-52 -22 L0 -52 L52 -22 Z" fill={CREAM_D} />
+          <circle cx="0" cy="-36" r="3" fill={PERI} strokeWidth="1.6" />
+          <path d="M-38 -52 A 38 32 0 0 1 38 -52 Z" fill={BUTTER} />
+          <path d="M-38 -52 A 38 32 0 0 1 38 -52 M0 -52 v-32" fill="none" strokeWidth="1.8" />
+          <circle cx="0" cy="-84" r="3.5" fill={CORAL} />
+          {[-34, -11, 12, 35].map((cx) => (
+            <g key={cx}>
+              <rect x={cx - 5} y="8" width="10" height="38" fill={PAPER} />
+              <path d={`M${cx - 7} 8 h14 M${cx - 7} 46 h14`} strokeWidth="2" />
+            </g>
+          ))}
+          {[-22.5, 0.5, 23.5].map((cx) => (
+            <path key={cx} d={`M${cx - 5} 46 v-22 a 5 5 0 0 1 10 0 v22 Z`} fill={INK} fillOpacity="0.5" strokeWidth="1.4" />
+          ))}
+          <rect x="-52" y="46" width="104" height="8" fill={CREAM_D} />
+        </g>
+      </At>
+      <g className="ls-drift" style={{ animationDelay: "-1.6s" }}><Folder x={16} y={40} r={-10} s={0.75} /></g>
+      <g className="ls-twinkle" style={{ animationDelay: "-0.5s" }}><Spark x={226} y={54} s={0.8} /></g>
+      <g className="ls-drift" style={{ animationDelay: "-3s" }}><Coin x={230} y={140} s={0.75} /></g>
+    </Frame>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════ 4. IMPACT */
+export function SceneImpact() {
+  return (
+    <Frame label="A tall tower with a bell jar and a flag: the lift, measured">
+      <At x={0} y={12}>
+        <Ground c={F.butter} />
+        <Block x={-30} y={-24} w={60} d={48} h={92} c={F.peri} />
+        <Stairs x={-64} y={-8} w={34} d={26} h={22} n={4} c={F.butter} />
+        {/* bell jar */}
+        <g transform={`translate(${iso(0,0,92)[0]} ${iso(0,0,92)[1]})`} strokeWidth="2.4">
+          <ellipse cx="0" cy="0" rx="26" ry="13" fill={PERI_L} />
+          <path d="M-26 0 v-30 a 26 26 0 0 1 52 0 v30" fill={GLASS} fillOpacity="0.6" />
+          <ellipse cx="0" cy="0" rx="26" ry="13" fill="none" />
+          <circle cx="0" cy="-20" r="10" fill={TEAL} />
+          <path d="M-4.5 -20 l3.5 3.5 l6 -7.5" fill="none" strokeWidth="2.4" />
+        </g>
+        {/* flag */}
+        <g transform={`translate(${iso(30,-24,92)[0]} ${iso(30,-24,92)[1]})`} strokeWidth="2.4" strokeLinejoin="round">
+          <path d="M0 0 v-34" />
+          <path d="M0 -32 l22 7 l-22 7 Z" fill={CORAL} />
+        </g>
+      </At>
+      <g className="ls-drift" style={{ animationDelay: "-2.2s" }}><Sheet x={22} y={28} r={-14} s={0.75} /></g>
+      <g className="ls-twinkle" style={{ animationDelay: "-1s" }}><Spark x={214} y={100} s={0.75} /></g>
+      <g className="ls-drift" style={{ animationDelay: "-0.4s" }}><Coin x={40} y={140} s={0.75} /></g>
+    </Frame>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════ 5. LOOP */
+export function SceneLoop() {
+  return (
+    <Frame label="A return arc landing back where it started">
+      <At x={0} y={0}>
+        <Ground c={F.sky} />
+        {/* two small posts: where it leaves, where it lands */}
+        <Block x={-44} y={-10} w={22} d={22} h={26} c={F.peri} />
+        <Block x={22} y={-10} w={22} d={22} h={26} c={F.teal} />
+      </At>
+      {/* the arc, from the right post over to the left, dashes travelling */}
+      <g className="ls-arc">
+        <path d="M188 92 C 176 30, 84 30, 76 88" fill="none" stroke={PERI_L} strokeWidth="11" strokeLinecap="round" />
+        <path d="M188 92 C 176 30, 84 30, 76 88" fill="none" stroke={INK} strokeWidth="2.4" strokeDasharray="8 7" strokeLinecap="round" />
+        <path d="M76 88 l 12 -12 M76 88 l 14 3" fill="none" strokeWidth="2.6" />
+      </g>
+      <g className="ls-twinkle" style={{ animationDelay: "0s" }}><Spark x={130} y={38} s={0.9} /></g>
+      <g className="ls-drift" style={{ animationDelay: "-1.4s" }}><Sheet x={216} y={40} r={12} s={0.72} /></g>
+      <g className="ls-drift" style={{ animationDelay: "-2.8s" }}><Coin x={38} y={140} s={0.72} /></g>
+    </Frame>
+  );
+}
+
+export const LOOP_SCENES = {
+  score: SceneScore,
+  insight: SceneInsight,
+  action: SceneAction,
+  impact: SceneImpact,
+  loop: SceneLoop,
+} as const;

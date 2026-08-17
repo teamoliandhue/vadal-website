@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import type { IconName } from "@/lib/content";
-import { LoopScene } from "./LoopScene";
+import { LOOP_SCENES } from "./LoopScene";
 
 /* ============================================================================
    LoopBento — Score → Insight → Action → Impact, as a bento of five.
@@ -17,11 +17,11 @@ import { LoopScene } from "./LoopScene";
    and a fifth card that closes the argument: impact feeds the next score,
    which is the bit a report cannot do.
 
-   The illustration is one wide isometric landscape (LoopScene.tsx) above the
-   four stage cards, rather than a picture per card. The stages are stations
-   across it, left to right, joined by stairs, with a return arc from Impact
-   back to Score. One place, one argument — a card-sized fragment each could
-   never carry the scale the style depends on.
+   Each card opens on a small isometric scene (LoopScene.tsx) — one object
+   that IS the idea, on its own slab, in the reference's flat-block line style.
+   Five scenes share one projection, one outline and one palette, so the row
+   reads as one set. A single wide panorama preceded this; a picture per card
+   sits beside its own copy, which is what a card is for.
    ========================================================================== */
 
 type Card = {
@@ -118,8 +118,21 @@ export function LoopBento() {
       </div>
     );
 
+  /* the scene sits on a warm plate at the top of the card — the reference's
+     own off-white ground — so the flat colours have the surface they were
+     drawn for rather than sitting on card white */
+  const art = (id: keyof typeof LOOP_SCENES) => {
+    const Scene = LOOP_SCENES[id];
+    return (
+      <div className="mb-5 aspect-[13/10] overflow-hidden rounded-[var(--r-lg)]" style={{ background: "#fbf7f1" }}>
+        <Scene />
+      </div>
+    );
+  };
+
   const card = (c: Card, span: string) => (
     <div className={`${shell} ${span}`}>
+      {art(c.id as keyof typeof LOOP_SCENES)}
       {head(c)}
       {links(c)}
     </div>
@@ -127,13 +140,7 @@ export function LoopBento() {
 
   return (
     <div>
-      {/* the landscape — the whole loop as one place */}
-      <div className="overflow-hidden rounded-[var(--r-xl)] border border-[var(--line)] shadow-[var(--shadow-md)]">
-        <LoopScene />
-      </div>
-
-      {/* the four stages as stations, in reading order under the picture */}
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
       {card(score, "")}
       {card(insight, "")}
       {card(action, "")}
@@ -141,6 +148,7 @@ export function LoopBento() {
 
       {/* the closing argument */}
       <div className={`${shell}`} style={{ background: "var(--aurora-soft)" }}>
+        {art("loop")}
         <span className="inline-flex items-center gap-2 self-start rounded-full bg-[var(--card)]/80 px-3 py-1.5 text-[11.5px] font-bold uppercase tracking-[0.1em] text-[#0d0b16]">
           <SparkMark size={13} />
           The loop
