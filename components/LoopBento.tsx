@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import type { IconName } from "@/lib/content";
-import { LOOP_ART } from "./LoopArt";
+import { LoopArt, type SceneName } from "./LoopArt";
 
 /* ============================================================================
    LoopBento — Score → Insight → Action → Impact, as a bento of five.
@@ -17,10 +17,10 @@ import { LOOP_ART } from "./LoopArt";
    and a fifth card that closes the argument: impact feeds the next score,
    which is the bit a report cannot do.
 
-   The five illustrations live in LoopArt.tsx. They began as small replicas of
-   product UI, which earned nothing here — the real product is further down the
-   page, so a shrunken copy of it was the least interesting thing a card could
-   hold. They are isometric line scenes now: the idea rather than the interface.
+   The five illustrations live in LoopArt.tsx: living particle fields in the
+   same language as the hero globe — luminous points, aurora colour, no
+   outlines. Each card is the same field doing something different, and the
+   motion is the picture rather than decoration on top of one.
    ========================================================================== */
 
 type Card = {
@@ -117,23 +117,21 @@ export function LoopBento() {
       </div>
     );
 
-  const card = (c: Card, span: string) => {
-    const Art = LOOP_ART[c.id];
-    return (
-      <div className={`${shell} ${span}`}>
-        {head(c)}
-        {links(c)}
-        {/* the scene sits on its own tinted plate, the way the reference set
-            frames each illustration on a soft panel rather than loose on the card */}
-        <div
-          className="mt-6 flex min-h-[190px] flex-1 items-center justify-center overflow-hidden rounded-[var(--r-lg)]"
-          style={{ background: `${c.accent}12` }}
-        >
-          <Art />
-        </div>
+  const card = (c: Card, span: string) => (
+    <div className={`${shell} ${span}`}>
+      {head(c)}
+      {links(c)}
+      {/* a dark plate, because luminous points need something to glow against.
+          The tint is the card's own accent, so each field sits in its stage's
+          colour and the five read as one family across the row. */}
+      <div
+        className="relative mt-6 min-h-[190px] flex-1 overflow-hidden rounded-[var(--r-lg)]"
+        style={{ background: `radial-gradient(120% 90% at 50% 100%, ${c.accent}2e 0%, #0d0b16 62%)` }}
+      >
+        <LoopArt scene={c.id as SceneName} className="absolute inset-0" />
       </div>
-    );
-  };
+    </div>
+  );
 
   return (
     <div className="grid gap-4 lg:grid-cols-6">
@@ -155,8 +153,11 @@ export function LoopBento() {
           Most tools stop at the number. Here the fourth step starts the first, so every cycle
           begins better informed than the last.
         </p>
-        <div className="mt-6 flex min-h-[190px] flex-1 items-center justify-center overflow-hidden rounded-[var(--r-lg)]">
-          {LOOP_ART.loop()}
+        <div
+          className="relative mt-6 min-h-[190px] flex-1 overflow-hidden rounded-[var(--r-lg)]"
+          style={{ background: "radial-gradient(120% 90% at 50% 100%, rgba(59,158,255,0.22) 0%, #0d0b16 62%)" }}
+        >
+          <LoopArt scene="loop" className="absolute inset-0" />
         </div>
       </div>
     </div>
