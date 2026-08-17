@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import type { IconName } from "@/lib/content";
+import { LOOP_ART } from "./LoopArt";
 
 /* ============================================================================
    LoopBento — Score → Insight → Action → Impact, as a bento of five.
@@ -16,9 +17,10 @@ import type { IconName } from "@/lib/content";
    and a fifth card that closes the argument: impact feeds the next score,
    which is the bit a report cannot do.
 
-   Every illustration is drawn in DOM and SVG rather than shipped as an image,
-   so the cards stay sharp at any size, restyle with the tokens, and cost
-   nothing to download.
+   The five illustrations live in LoopArt.tsx. They began as small replicas of
+   product UI, which earned nothing here — the real product is further down the
+   page, so a shrunken copy of it was the least interesting thing a card could
+   hold. They are isometric line scenes now: the idea rather than the interface.
    ========================================================================== */
 
 type Card = {
@@ -76,196 +78,6 @@ const CARDS: Card[] = [
   },
 ];
 
-/* --------------------------------------------------------- illustrations */
-
-/** Score: the live number, its trend, and the channels it came from */
-function ScoreArt({ c }: { c: string }) {
-  const bars = [38, 52, 44, 61, 55, 72, 68, 81];
-  return (
-    <div className="rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--surface)] p-4">
-      <div className="flex items-end justify-between">
-        <div>
-          <p className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
-            Engagement
-          </p>
-          <p className="mt-1 text-[30px] font-extrabold leading-none tabular-nums" style={{ color: c }}>
-            82
-          </p>
-        </div>
-        <span
-          className="rounded-full px-2 py-0.5 text-[11px] font-bold"
-          style={{ background: `${c}1f`, color: c }}
-        >
-          +4 wk
-        </span>
-      </div>
-      <div className="mt-3 flex h-10 items-end gap-1">
-        {bars.map((h, i) => (
-          <span
-            key={i}
-            className="flex-1 rounded-[2px]"
-            style={{ height: `${h}%`, background: c, opacity: 0.25 + (i / bars.length) * 0.75 }}
-          />
-        ))}
-      </div>
-      <div className="mt-3 flex gap-1.5">
-        {(["chat", "phone", "broadcast"] as IconName[]).map((n) => (
-          <span
-            key={n}
-            className="grid h-6 w-6 place-items-center rounded-[7px]"
-            style={{ background: `${c}14`, color: c }}
-          >
-            <Icon name={n} size={12} />
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/** Insight: the themes behind the number, with direction */
-function InsightArt({ c }: { c: string }) {
-  const themes = [
-    { t: "Recognition", v: 74, up: true },
-    { t: "Workload", v: 38, up: false },
-    { t: "Career growth", v: 61, up: true },
-  ];
-  return (
-    <div className="rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--surface)] p-4">
-      <p className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
-        What is driving it
-      </p>
-      <div className="mt-3 space-y-2.5">
-        {themes.map((t) => (
-          <div key={t.t}>
-            <div className="flex items-center justify-between text-[12px]">
-              <span className="font-semibold text-[var(--foreground)]">{t.t}</span>
-              <span className="font-bold tabular-nums" style={{ color: t.up ? c : "#e4622f" }}>
-                {t.up ? "▲" : "▼"} {t.v}
-              </span>
-            </div>
-            <div className="mt-1 h-1.5 rounded-full bg-[var(--line)]">
-              <span
-                className="block h-full rounded-full"
-                style={{ width: `${t.v}%`, background: t.up ? c : "#e4622f" }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/** Action: owned work with progress, not a slide */
-function ActionArt({ c }: { c: string }) {
-  const rows = [
-    { t: "Rebalance sprint load", who: "PR", pct: 70 },
-    { t: "Monthly 1:1 cadence", who: "SK", pct: 40 },
-  ];
-  return (
-    <div className="rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--surface)] p-4">
-      <div className="space-y-2.5">
-        {rows.map((r) => (
-          <div key={r.t} className="flex items-center gap-2.5">
-            <span
-              className="grid h-6 w-6 shrink-0 place-items-center rounded-full text-[9.5px] font-bold text-white"
-              style={{ background: c }}
-            >
-              {r.who}
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block truncate text-[12px] font-semibold text-[var(--foreground)]">
-                {r.t}
-              </span>
-              <span className="mt-1 block h-1.5 rounded-full bg-[var(--line)]">
-                <span className="block h-full rounded-full" style={{ width: `${r.pct}%`, background: c }} />
-              </span>
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/** Impact: measured against its own baseline */
-function ImpactArt({ c }: { c: string }) {
-  return (
-    <div className="rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--surface)] p-4">
-      <div className="flex items-end gap-3">
-        {[
-          { l: "Before", h: 44, faded: true },
-          { l: "After", h: 82, faded: false },
-          { l: "Peers", h: 61, faded: true },
-        ].map((b) => (
-          <div key={b.l} className="flex flex-1 flex-col items-center gap-1.5">
-            <span className="flex h-[62px] w-full items-end">
-              <span
-                className="w-full rounded-t-[4px]"
-                style={{ height: `${b.h}%`, background: c, opacity: b.faded ? 0.22 : 1 }}
-              />
-            </span>
-            <span className="text-[10.5px] font-semibold text-[var(--muted-2)]">{b.l}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-const ART: Record<string, (p: { c: string }) => React.ReactElement> = {
-  score: ScoreArt,
-  insight: InsightArt,
-  action: ActionArt,
-  impact: ImpactArt,
-};
-
-/** the closing card: the fourth step feeds the first.
-
-    A bare ring reads as decoration. The direction is the whole point here, so
-    one lit segment chases the path — you can see which way it turns without
-    having to be told. pathLength normalises the ellipse to 100 units so the
-    dash maths is readable rather than derived from its circumference. */
-function LoopArt() {
-  const CX = 60, CY = 58, RX = 46, RY = 39.6;
-  const pts = [0, 1, 2, 3].map((i) => {
-    const a = ((-90 + i * 90) * Math.PI) / 180;
-    return { x: CX + RX * Math.cos(a), y: CY + RY * Math.sin(a) };
-  });
-  const COLS = ["#19c6b4", "#2bb0e6", "#4a8bfb", "#7c5cf8"];
-  return (
-    <svg viewBox="0 0 120 116" className="w-full max-w-[168px]" aria-hidden="true">
-      <defs>
-        <linearGradient id="bento-loop" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#19c6b4" />
-          <stop offset="100%" stopColor="#7c5cf8" />
-        </linearGradient>
-      </defs>
-      <ellipse cx={CX} cy={CY} rx={RX} ry={RY} fill="none" stroke="url(#bento-loop)" strokeWidth="2" opacity="0.32" />
-      <ellipse
-        className="loop-chase"
-        cx={CX}
-        cy={CY}
-        rx={RX}
-        ry={RY}
-        fill="none"
-        stroke="url(#bento-loop)"
-        strokeWidth="3"
-        strokeLinecap="round"
-        pathLength={100}
-        strokeDasharray="16 84"
-      />
-      {pts.map((p, i) => (
-        <g key={i}>
-          <circle cx={p.x} cy={p.y} r="8.5" fill={COLS[i]} opacity="0.16" />
-          <circle cx={p.x} cy={p.y} r="5" fill={COLS[i]} />
-        </g>
-      ))}
-    </svg>
-  );
-}
-
 export function LoopBento() {
   const [score, insight, action, impact] = CARDS;
 
@@ -306,13 +118,18 @@ export function LoopBento() {
     );
 
   const card = (c: Card, span: string) => {
-    const Art = ART[c.id];
+    const Art = LOOP_ART[c.id];
     return (
       <div className={`${shell} ${span}`}>
         {head(c)}
         {links(c)}
-        <div className="mt-6 flex-1">
-          <Art c={c.accent} />
+        {/* the scene sits on its own tinted plate, the way the reference set
+            frames each illustration on a soft panel rather than loose on the card */}
+        <div
+          className="mt-6 flex min-h-[190px] flex-1 items-center justify-center overflow-hidden rounded-[var(--r-lg)]"
+          style={{ background: `${c.accent}12` }}
+        >
+          <Art />
         </div>
       </div>
     );
@@ -338,8 +155,8 @@ export function LoopBento() {
           Most tools stop at the number. Here the fourth step starts the first, so every cycle
           begins better informed than the last.
         </p>
-        <div className="mt-6 flex flex-1 items-center justify-center">
-          <LoopArt />
+        <div className="mt-6 flex min-h-[190px] flex-1 items-center justify-center overflow-hidden rounded-[var(--r-lg)]">
+          {LOOP_ART.loop()}
         </div>
       </div>
     </div>

@@ -651,3 +651,34 @@ html.lenis body {
 .loop-chase {
   animation: loop-chase 5s linear infinite;
 }
+
+/* ============================================================================
+   Illustration motion (components/LoopArt.tsx).
+
+   Every keyframe resolves to its rest state at 100%, because the global
+   reduce-motion rule clamps animations to 0.001ms rather than removing them —
+   a cycle that ended mid-drift would freeze there and look like a bug.
+   ========================================================================== */
+@keyframes il-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+@keyframes il-spark {
+  0%, 100% { opacity: 0.9; transform: scale(1) rotate(0deg); }
+  50%      { opacity: 0.45; transform: scale(0.76) rotate(22deg); }
+}
+@keyframes il-turn  { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+@keyframes il-unturn{ from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
+@keyframes il-slide {
+  0%, 14%   { transform: translate(0, 0); }
+  36%, 64%  { transform: translate(40px, -22px); }
+  86%, 100% { transform: translate(0, 0); }
+}
+
+.il-float  { animation: il-float 5.2s ease-in-out infinite; }
+.il-spark  { animation: il-spark 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.il-slide  { animation: il-slide 7s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+/* the ring and its riders turn at the same rate in opposite directions, so the
+   stages travel the loop while staying upright */
+.il-turn   { animation: il-turn 26s linear infinite; }
+.il-unturn { animation: il-unturn 26s linear infinite; }
