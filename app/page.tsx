@@ -3,6 +3,7 @@ import { Button, Container, Section, SectionHead } from "@/components/ui";
 import { PersonaTabs } from "@/components/PersonaTabs";
 import { Hero } from "@/components/Hero";
 import { PlatformReveal } from "@/components/PlatformReveal";
+import { JourneySection } from "@/components/JourneySection";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { EnterprisePanel, LogoMarquee } from "@/components/sections";
 import {
@@ -16,7 +17,6 @@ import {
 } from "@/components/home-v2";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { MobilePlatformLayers } from "@/components/MobilePlatformLayers";
-import { LoopBento } from "@/components/LoopBento";
 import { homeFaqsV2, platformOverview, securitySection } from "@/lib/content";
 
 /* ============================================================================
@@ -32,15 +32,9 @@ export default function HomePage() {
       {/* ========================================================== HERO */}
       <Hero />
 
-      {/* ====================================================== THE PLATFORM */}
-      {/* What the scroll animation used to pay off with, now a section that
-          does not cost 215vh to reach. */}
-      <Section tone="surface" reveal className="!pt-10">
-        <Container>
-          <PlatformReveal />
-        </Container>
-      </Section>
-
+      {/* ============================================= TRUST STRIP + JOURNEY */}
+      {/* The reference puts its logo strip immediately under the hero, then
+          walks the product across the journey. Same order here. */}
       {/* ==================================================== LOGO MARQUEE */}
       {/* MOBILE-FIRST BRIEF: Social Proof = "HOLD / HIDE FOR NOW" — placeholder
           proof erodes trust while we have no real logos + one verified metric.
@@ -48,6 +42,23 @@ export default function HomePage() {
       <Section tone="surface" className="!py-14 max-lg:hidden">
         <Container>
           <LogoMarquee label="Trusted by HR, people and business leaders across industries" />
+        </Container>
+      </Section>
+
+      {/* The four stages, promoted from further down the page — see
+          JourneySection for why they moved rather than being duplicated. */}
+      <Section tone="base" id="loop" reveal className="scroll-mt-20">
+        <Container>
+          <JourneySection />
+        </Container>
+      </Section>
+
+      {/* ====================================================== THE PLATFORM */}
+      {/* What the scroll animation used to pay off with, now a section that
+          does not cost 215vh to reach. */}
+      <Section tone="surface" reveal className="!pt-10">
+        <Container>
+          <PlatformReveal />
         </Container>
       </Section>
 
@@ -69,25 +80,6 @@ export default function HomePage() {
           />
           <div className="mt-12">
             <PersonaTabs />
-          </div>
-        </Container>
-      </Section>
-
-      {/* =========================================== THE INTELLIGENCE LOOP */}
-      {/* MOBILE-FIRST BRIEF, priority 3: "Why Vadal / AI-Native — keep, elevate
-          above the product list… This is the wedge vs Actimo, CultureMonkey and
-          inFeedo. Surfacing it early answers 'why you, not them' before the
-          user browses the catalog." Score → Insight → Action → Impact was only
-          ever a line of text; this is it drawn. */}
-      <Section tone="surface" id="loop" reveal className="scroll-mt-20 max-lg:bg-none">
-        <Container>
-          <SectionHead
-            eyebrow="Why Vadal.ai"
-            title="A loop, not a report"
-            lede="Score, insight, action, impact. Four steps most tools treat as separate products, connected here so each one makes the next one smarter."
-          />
-          <div className="mt-14">
-            <LoopBento />
           </div>
         </Container>
       </Section>
