@@ -6,6 +6,7 @@ import { CrowdPanel, IconChip, PanelStage } from "./sections";
 import { BRAND_MARKS } from "@/lib/brand-marks";
 import type { IconName } from "@/lib/content";
 import { DashboardMock, VoiceCard } from "./ProductMocks";
+import { ProductStage } from "./ProductStage";
 import {
   actionSection,
   analyticsSection,
@@ -136,6 +137,7 @@ export function AnalyticsSection() {
               </span>
             </div>
             <div className="relative mt-8 flex flex-1 items-center">
+              <ProductStage tint="#5c7cf9" className="w-full" padding="p-5 sm:p-7">
               <div className="relative w-full">
                 {/* sentiment peeks from behind — measure AND predict */}
                 <img
@@ -155,6 +157,7 @@ export function AnalyticsSection() {
                   className="relative block h-auto w-[86%] rounded-[var(--r-lg)] border border-[var(--line)] shadow-[0_28px_60px_-24px_rgba(13,11,22,0.45)] transition-transform duration-500 group-hover:translate-y-1"
                 />
               </div>
+              </ProductStage>
             </div>
           </div>
 

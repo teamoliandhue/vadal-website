@@ -4,8 +4,15 @@
 // NOTE ON PROOF DATA: The requirement spreadsheets were templated from Actimo's
 // live site, so their customers, metrics, addresses and legal text are Actimo's.
 // Per vadal.md §3 those are placeholders. Everything below is rewritten in
-// Vadal's voice; all customers, numbers and locations are *illustrative sample
-// data* (see `ILLUSTRATIVE`) to be swapped for Vadal's real proof before launch.
+// Vadal's voice; numbers, testimonials and locations are still *illustrative
+// sample data* (see `ILLUSTRATIVE`) to be swapped for Vadal's real proof before
+// launch.
+//
+// EXCEPT `customerLogos` below, which is real: six named clients, with their
+// own logos downloaded from their own sites. Those names must not be attached
+// to the invented testimonials, metrics or case studies elsewhere in this file
+// — a real company's name on a fabricated quote is a different kind of problem
+// from a placeholder one.
 // ============================================================================
 
 export const ILLUSTRATIVE =
@@ -89,17 +96,26 @@ export const headerNav = [
   { label: "Pricing", href: "/pricing" },
 ];
 
-// ------------------------------------------------------------ sample logos
-// Rendered as monochrome wordmark chips, not real brand assets. ILLUSTRATIVE.
-export const sampleCustomers = [
-  "Northwind Retail",
-  "Meridian Facilities",
-  "Cobalt Finance",
-  "Harbor & Co.",
-  "Forge Industries",
-  "Rivermark Logistics",
-  "Verdant Hospitality",
-  "Summit Health",
+// ---------------------------------------------------------- customer logos
+// Real client marks, downloaded from each company's own site and rendered as
+// images — not wordmark chips. They are their owners' trademarks, shown to
+// identify Vadal.ai's customers (nominative use). Provenance and the rule for
+// adding one: public/customers/README.md.
+//
+// `h` is the display height in px, tuned per mark rather than shared: these
+// range from a 5.7:1 wordmark (HireSense.ai) to a 1.2:1 stacked lockup
+// (Sami-Sabinsa), and one fixed height would make the wide ones tower over the
+// stacked one. Heights equalise optical area, with the stacked mark capped so
+// it does not set the row height on its own.
+export type CustomerLogo = { name: string; file: string; h: number };
+
+export const customerLogos: CustomerLogo[] = [
+  { name: "HireSense.ai", file: "/customers/hiresense-ai.webp", h: 22 },
+  { name: "Recotap", file: "/customers/recotap.svg", h: 26 },
+  { name: "Refyne", file: "/customers/refyne.svg", h: 25 },
+  { name: "NeoIntelli", file: "/customers/neointelli.webp", h: 25 },
+  { name: "Sami-Sabinsa Group", file: "/customers/sami-sabinsa.webp", h: 40 },
+  { name: "Aforv", file: "/customers/aforv.webp", h: 26 },
 ];
 
 // ---------------------------------------------------------------- homepage
@@ -1134,13 +1150,19 @@ export function getSolution(slug: string) {
 
 export const heroV2 = {
   pill: "AI-Powered Workforce Engagement & Decision Intelligence",
-  // H1 renders as two lines with an aurora accent on the second
+  /* H1 renders as two lines with an aurora accent on the second.
+
+     Founder's heading, kept. Only "employee" comes out of the second line —
+     "workforce" in the first already establishes whose lifecycle it is, so the
+     word was carrying no meaning and was costing a whole line of 70px type.
+     The five-line version is what pushed the hero to 950px, which is 124vh on
+     a 1366x768 laptop, and it broke on "across the", orphaning the article. */
   titleA: "Transform workforce experiences",
-  titleB: "across the employee lifecycle",
+  titleB: "across the lifecycle",
   lede:
     "One AI platform that turns workforce, talent and leadership data into decisions, so you can see risk early and act on it with confidence.",
   emailCta: "Book a Demo",
-  emailCaption: "Book a free product demo call with our experts.",
+  emailCaption: "Free 30-minute walkthrough, tailored to your industry.",
   secondaryCta: "Watch product tour",
 };
 

@@ -1,6 +1,7 @@
 import { Container, Section, SectionHead } from "./ui";
 import { PRODUCT_SHOTS } from "./ProductShot";
 import { screenFile } from "@/lib/product-screens";
+import { ProductStage, productTint } from "./ProductStage";
 
 /* ============================================================================
    ProductScreens — §6 of the content spec.
@@ -40,7 +41,7 @@ function Frame({ label, slug }: { label: string; slug: string }) {
 
   return (
     <figure>
-      <div className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] shadow-[var(--shadow-sm)]">
+      <div className="overflow-hidden rounded-[var(--r-lg)] border border-white/40 bg-[var(--card)] shadow-[0_16px_36px_-14px_rgba(13,11,22,0.35)]">
         {/* window chrome, so an empty frame still reads as a product surface */}
         <div className="flex items-center gap-1.5 border-b border-[var(--line)] px-3.5 py-2.5">
           {["#ff5f57", "#febc2e", "#28c840"].map((c) => (
@@ -95,7 +96,7 @@ function Frame({ label, slug }: { label: string; slug: string }) {
           </div>
         )}
       </div>
-      <figcaption className="mt-3 text-[14px] font-semibold text-[var(--foreground)]">
+      <figcaption className="mt-3 text-[14px] font-semibold text-[var(--foreground)] drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
         {label}
       </figcaption>
     </figure>
@@ -113,15 +114,28 @@ export function ProductScreens({
 }) {
   if (!screens.length) return null;
 
+  /* The grid gets ONE stage behind all of its tiles, not a photograph behind
+     each. A product page can carry eleven of these; eleven backdrops would be
+     eleven competing pictures and a page-weight problem, and the tiles are
+     small enough that a busy backing would swamp the screen inside. The light
+     tone for the same reason — a deep slab under a dozen small cards reads as
+     a hole in the page. */
   return (
     <Section tone="surface">
       <Container>
         <SectionHead eyebrow="Product screens" title={`${name}, screen by screen`} />
-        <div className="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
-          {screens.map((s) => (
-            <Frame key={s} label={s} slug={slug} />
-          ))}
-        </div>
+        <ProductStage
+          tint={productTint(slug)}
+          tone="light"
+          className="mt-10"
+          padding="p-5 sm:p-7 lg:p-9"
+        >
+          <div className="grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
+            {screens.map((s) => (
+              <Frame key={s} label={s} slug={slug} />
+            ))}
+          </div>
+        </ProductStage>
       </Container>
     </Section>
   );

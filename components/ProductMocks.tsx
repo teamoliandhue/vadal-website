@@ -5,7 +5,13 @@ import { ProductShot } from "./ProductShot";
    light "lite" mode), replacing the earlier hand-coded mockups. The component
    names are kept so every existing usage site picks up the real screens.
 
-   - Desktop screens are framed in browser chrome via <ProductShot>.
+   - Desktop screens are framed in browser chrome via <ProductShot>, with its
+     photographic stage turned OFF: every one of these renders inside a
+     <PanelStage> or an equivalent toned panel already, so a stage here would
+     be a frame inside a frame — and, having no product slug to take a layer
+     tint from, it would fall back to mid-ramp blue and sit next to a
+     differently-tinted lead shot on the same page. The stage belongs to the
+     lead shot and the screen grid, which are the page's own product images.
    - PhoneMock frames a real mobile capture in a device bezel.
    Regenerate captures with scratchpad/capture-mobile.mjs (Playwright, light +
    reduced-motion) and the desktop shots with the original capture-shots.mjs.
@@ -37,20 +43,20 @@ export function PhoneMock({
 
 /* People analytics / engagement dashboard. */
 export function DashboardMock({ className = "" }: { className?: string }) {
-  return <ProductShot shot={{ file: "analytics", label: "Analytics" }} className={className} />;
+  return <ProductShot stage={false} shot={{ file: "analytics", label: "Analytics" }} className={className} />;
 }
 
 /* Voice of the employee — continuous listening & sentiment. */
 export function VoiceCard({ className = "" }: { className?: string }) {
-  return <ProductShot shot={{ file: "sentiment", label: "Sentiment" }} className={className} />;
+  return <ProductShot stage={false} shot={{ file: "sentiment", label: "Sentiment" }} className={className} />;
 }
 
 /* Company-wide communication & campaigns. */
 export function BroadcastCard({ className = "" }: { className?: string }) {
-  return <ProductShot shot={{ file: "campaigns", label: "Campaigns" }} className={className} />;
+  return <ProductShot stage={false} shot={{ file: "campaigns", label: "Campaigns" }} className={className} />;
 }
 
 /* Ask Vadal — the AI knowledge assistant. */
 export function ChatMock({ className = "" }: { className?: string }) {
-  return <ProductShot shot={{ file: "knowledge", label: "Ask Vadal" }} className={className} />;
+  return <ProductShot stage={false} shot={{ file: "knowledge", label: "Ask Vadal" }} className={className} />;
 }

@@ -97,7 +97,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
             <div className="aurora-wash pointer-events-none absolute -inset-6 -z-10 rounded-[var(--r-2xl)] opacity-70" />
             {/* the real product screen when this module exists in the build */}
             {PRODUCT_SHOTS[p.slug] ? (
-              <ProductShot shot={PRODUCT_SHOTS[p.slug]} priority />
+              <ProductShot shot={PRODUCT_SHOTS[p.slug]} slug={p.slug} priority />
             ) : (
               <Mock kind={p.mock} />
             )}
@@ -205,7 +205,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
                 visual={
                   <div className="flex flex-col items-center gap-3">
                     {screenShot(p.slug, c.screen) ? (
-                      <ProductShot shot={PRODUCT_SHOTS[p.slug]} />
+                      <ProductShot shot={PRODUCT_SHOTS[p.slug]} slug={p.slug} />
                     ) : (
                       <Mock kind={i % 2 === 0 ? p.mock : altMock} scale />
                     )}

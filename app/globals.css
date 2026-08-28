@@ -363,8 +363,14 @@ html.lenis body {
 .display-md { font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.4rem); line-height: 1.12; letter-spacing: -0.025em; }
 
 /* hero headline — Maze-style: large, light weight, tight tracking, 2 lines */
+/* Max is 4.05rem (65px), not the 4.35rem (70px) it was. At 70px the founder's
+   heading set FOUR lines, putting "Transform", "workforce" and "experiences"
+   each on their own; 65px pulls the first two together and takes the block to
+   three, which is what brings the trust row back above the fold on a 1366x768
+   laptop. Tested at 3.85 and 3.65rem too — both give the same three lines, so
+   65px is the largest type that buys the line. The mobile floor is untouched. */
 .hero-display {
-  font-size: clamp(2.2rem, 0.7rem + 5.4vw, 4.35rem);
+  font-size: clamp(2.2rem, 0.7rem + 5.4vw, 4.05rem);
   line-height: 1.04;
   letter-spacing: -0.04em;
   font-weight: 460;
@@ -640,7 +646,10 @@ html.lenis body {
    ========================================================================== */
 @keyframes ls-drift   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
 @keyframes ls-twinkle { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
-@keyframes ls-rise    { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+/* -6, not -14: these translate in viewBox units, so at display scale a 14-unit
+   lift opened a ~60px gap and the cap read as a detached slab floating over the
+   column rather than the top of it still rising. */
+@keyframes ls-rise    { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @keyframes ls-arc     { to { stroke-dashoffset: -38; } }
 .ls-drift   { animation: ls-drift 6.5s ease-in-out infinite; }
 .ls-twinkle { animation: ls-twinkle 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }

@@ -112,7 +112,7 @@ export default async function ProductPage({
           <div className="reveal relative flex justify-center" style={{ animationDelay: "0.12s" }}>
             <div className="aurora-wash pointer-events-none absolute -inset-6 -z-10 rounded-[var(--r-2xl)] opacity-70" />
             {PRODUCT_SHOTS[p.slug] ? (
-              <ProductShot shot={PRODUCT_SHOTS[p.slug]} priority />
+              <ProductShot shot={PRODUCT_SHOTS[p.slug]} slug={p.slug} priority />
             ) : (
               <Mock kind={p.mock} />
             )}

@@ -3,7 +3,7 @@ import { Container } from "@/components/ui";
 import { Icon } from "@/components/Icon";
 import { SparkMark } from "@/components/Brand";
 import { DemoForm } from "@/components/DemoForm";
-import { sampleCustomers } from "@/lib/content";
+import { customerLogos } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Book a demo",
@@ -53,12 +53,20 @@ export default function DemoPage() {
             <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--muted-2)]">
               Trusted by people teams worldwide
             </p>
-            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-              {sampleCustomers.slice(0, 5).map((c) => (
-                <span key={c} className="text-[14px] font-bold text-[var(--muted)]">{c}</span>
+            <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-4">
+              {customerLogos.map((c) => (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  key={c.file}
+                  src={c.file}
+                  alt={c.name}
+                  style={{ height: c.h * 0.72 }}
+                  className="w-auto opacity-90"
+                  loading="lazy"
+                  decoding="async"
+                />
               ))}
             </div>
-            <p className="mt-3 text-[12px] text-[var(--muted-2)]">Company names shown are illustrative samples.</p>
           </div>
         </div>
 

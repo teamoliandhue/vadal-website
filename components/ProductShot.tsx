@@ -16,6 +16,8 @@
    1440×900 @2x, reduced motion, 3.5s settle → sharp → 1600w webp.
    ========================================================================== */
 
+import { ProductStage, productTint } from "./ProductStage";
+
 export type ShotInfo = { file: string; label: string };
 
 /** product slug → real screen from the app build */
@@ -56,14 +58,19 @@ export function ProductShot({
   shot,
   className = "",
   priority = false,
+  slug,
+  stage = true,
 }: {
   shot: ShotInfo;
   className?: string;
   priority?: boolean;
+  /** which product this is, so the stage takes its platform layer's tint */
+  slug?: string;
+  /** set false where the shot is already inside a framed surface */
+  stage?: boolean;
 }) {
-  return (
-    <figure className={`w-full max-w-[620px] ${className}`}>
-      <div className="overflow-hidden rounded-[var(--r-xl)] border border-[var(--line)] bg-[var(--card)] shadow-[var(--shadow-lg)]">
+  const window = (
+    <div className="overflow-hidden rounded-[var(--r-lg)] border border-white/25 bg-[var(--card)] shadow-[0_30px_70px_-20px_rgba(13,11,22,0.55)]">
         {/* browser chrome — matches the DashboardMock frame */}
         <div className="flex items-center gap-2 border-b border-[var(--line)] bg-[var(--surface)] px-4 py-2.5">
           <span className="flex gap-1.5" aria-hidden="true">
@@ -87,7 +94,18 @@ export function ProductShot({
           loading={priority ? "eager" : "lazy"}
           className="block h-auto w-full"
         />
-      </div>
+    </div>
+  );
+
+  return (
+    <figure className={`w-full max-w-[620px] ${className}`}>
+      {stage ? (
+        <ProductStage tint={productTint(slug)} padding="p-4 sm:p-6 lg:p-7">
+          {window}
+        </ProductStage>
+      ) : (
+        window
+      )}
     </figure>
   );
 }

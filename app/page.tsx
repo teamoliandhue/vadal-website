@@ -39,7 +39,10 @@ export default function HomePage() {
       {/* MOBILE-FIRST BRIEF: Social Proof = "HOLD / HIDE FOR NOW" — placeholder
           proof erodes trust while we have no real logos + one verified metric.
           Desktop keeps it; restore on mobile (drop max-lg:hidden) once real. */}
-      <Section tone="surface" className="!py-14 max-lg:hidden">
+      {/* !py-11, tightened with the hero: at 673px the hero now ends high
+          enough that this row peeks above the fold on a 1366x768 laptop, which
+          is where the trust signal actually does its work. */}
+      <Section tone="surface" className="!py-11 max-lg:hidden">
         <Container>
           <LogoMarquee label="Trusted by HR, people and business leaders across industries" />
         </Container>

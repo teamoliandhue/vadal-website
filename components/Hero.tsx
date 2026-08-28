@@ -1,4 +1,5 @@
-import { Button, Container, Pill } from "./ui";
+import Link from "next/link";
+import { Container, Pill } from "./ui";
 import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import { HeroBento } from "./HeroBento";
@@ -41,8 +42,8 @@ export function Hero() {
       <div className="aurora-wash pointer-events-none absolute inset-0 -z-10" />
       {/* the right column is wider than the space it is given, so the product
           bleeds past the container edge and the section crops it */}
-      <Container className="grid w-full items-center gap-12 py-14 lg:grid-cols-[52%_48%] lg:gap-8 lg:py-20">
-        <div className="flex flex-col items-start gap-5">
+      <Container className="grid w-full items-center gap-10 py-12 lg:grid-cols-[52%_48%] lg:gap-8 lg:py-14">
+        <div className="flex flex-col items-start gap-4">
           <Pill aurora>
             <SparkMark size={14} animate />
             {/* the full positioning line wraps awkwardly at phone widths */}
@@ -58,8 +59,15 @@ export function Hero() {
             {heroV2.lede}
           </p>
           <HeroEmailForm />
-          {/* the small reassurance line the reference runs under its CTA */}
-          <p className="-mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-[var(--muted-2)]">
+          {/* One row, not three stacked ones. This was a caption, then two
+              checks, then a full-width secondary button — four elements of
+              competing weight under a single CTA.
+
+              --muted, not --muted-2: against the hero wash the lighter token
+              measures 2.62:1, under the 4.5:1 AA floor for normal text. This
+              is the copy meant to remove friction at the CTA, so it has to be
+              legible. --muted measures 4.63:1. */}
+          <div className="-mt-1 flex flex-wrap items-center gap-x-5 gap-y-2.5 text-[13px] text-[var(--muted)]">
             <span className="inline-flex items-center gap-1.5">
               <Icon name="check" size={13} strokeWidth={2.6} className="text-[var(--success)]" />
               Free personalised demo
@@ -68,13 +76,21 @@ export function Hero() {
               <Icon name="check" size={13} strokeWidth={2.6} className="text-[var(--success)]" />
               Enterprise-ready from day one
             </span>
-          </p>
-          <Button href="/platform" variant="ghost" size="lg" className="w-full justify-center sm:w-auto">
-            <Icon name="play" size={15} className="text-[var(--brand)]" />
-            {heroV2.secondaryCta}
-          </Button>
+            <Link
+              href="/platform"
+              className="inline-flex items-center gap-1.5 font-semibold text-[var(--brand)] underline-offset-4 hover:underline"
+            >
+              <Icon name="play" size={13} />
+              {heroV2.secondaryCta}
+            </Link>
+          </div>
         </div>
-        <div className="lg:w-[124%]">
+        {/* The bleed is graded by width. A flat 124% put the sixth capability
+            button 83px off-screen at 1280 and 40px at 1366 — fine while the
+            rail was decorative glyphs, not fine now that each one is a labelled
+            control you are meant to be able to click. Full bleed returns at
+            2xl, where there is room for it. */}
+        <div className="lg:w-[100%] xl:w-[108%] 2xl:w-[124%]">
           <HeroBento />
         </div>
       </Container>

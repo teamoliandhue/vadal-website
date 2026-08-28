@@ -40,6 +40,8 @@ const DWELL = 4200;
 type Feature = {
   id: string;
   name: string;
+  /** one word for the rail — the icons alone do not say what is cycling */
+  tab: string;
   icon: IconName;
   accent: string;
   scene: (on: boolean) => ReactNode;
@@ -156,6 +158,7 @@ const FEATURES: Feature[] = [
   {
     id: "listening",
     name: "Always-on listening",
+    tab: "Listen",
     icon: "chat",
     accent: "#19c6b4",
     scene: (on) => (
@@ -193,6 +196,7 @@ const FEATURES: Feature[] = [
   {
     id: "surveys",
     name: "Adaptive surveys",
+    tab: "Survey",
     icon: "pulse",
     accent: "#2bb0e6",
     scene: (on) => (
@@ -243,6 +247,7 @@ const FEATURES: Feature[] = [
   {
     id: "analytics",
     name: "People analytics",
+    tab: "Analyse",
     icon: "chart",
     accent: "#3b9eff",
     scene: (on) => (
@@ -280,6 +285,7 @@ const FEATURES: Feature[] = [
   {
     id: "recognition",
     name: "Recognition",
+    tab: "Recognise",
     icon: "heart",
     accent: "#5c7cf9",
     scene: (on) => (
@@ -327,6 +333,7 @@ const FEATURES: Feature[] = [
   {
     id: "action",
     name: "Action planning",
+    tab: "Act",
     icon: "checks",
     accent: "#7c5cf8",
     scene: (on) => (
@@ -374,6 +381,7 @@ const FEATURES: Feature[] = [
   {
     id: "copilot",
     name: "AI copilot",
+    tab: "Ask",
     icon: "spark",
     accent: "#7c5cf8",
     scene: (on) => (
@@ -576,7 +584,14 @@ export function HeroBento() {
                   className="relative z-10 flex flex-1 flex-col items-center gap-1.5 rounded-[10px] px-1 py-2 transition-colors duration-300"
                   style={{ color: on ? x.accent : "var(--muted-2)" }}
                 >
-                  <Icon name={x.icon} size={16} />
+                  <span className="flex items-center gap-1.5">
+                    <Icon name={x.icon} size={15} />
+                    {/* the rail was six unlabelled glyphs: you could see something
+                        cycling but not what, nor what was coming next */}
+                    <span className="hidden text-[12px] font-semibold tracking-[-0.01em] sm:inline">
+                      {x.tab}
+                    </span>
+                  </span>
                   <span className="h-[3px] w-full overflow-hidden rounded-full bg-[var(--surface-2)]">
                     {on && motion && !paused && (
                       <span

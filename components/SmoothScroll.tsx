@@ -3,6 +3,17 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 
+/* Exposed so scroll-driven sections can hand a programmatic jump to Lenis
+   instead of calling window.scrollTo, which fights Lenis's own rAF loop for
+   control of the scroll position and lands jumpy. Null whenever Lenis is not
+   running (reduced motion, hidden document), and callers fall back to native
+   smooth scroll then. */
+declare global {
+  interface Window {
+    __lenis?: { scrollTo: (target: number, opts?: { duration?: number }) => void } | null;
+  }
+}
+
 /* ============================================================================
    SmoothScroll — buttery momentum scrolling via Lenis.
 
@@ -36,6 +47,7 @@ export function SmoothScroll() {
         raf = requestAnimationFrame(loop);
       };
       raf = requestAnimationFrame(loop);
+      window.__lenis = lenis;
     };
 
     const stop = () => {
@@ -43,6 +55,7 @@ export function SmoothScroll() {
       cancelAnimationFrame(raf);
       lenis.destroy();
       lenis = null;
+      window.__lenis = null;
     };
 
     const onVisibility = () => (document.hidden ? stop() : start());

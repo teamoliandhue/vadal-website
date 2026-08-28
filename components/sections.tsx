@@ -4,7 +4,8 @@ import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import { Button, CheckItem, Container, Eyebrow } from "./ui";
 import {
-  sampleCustomers,
+  customerLogos,
+  type CustomerLogo,
   solutionsNav,
   type Testimonial,
 } from "@/lib/content";
@@ -140,15 +141,21 @@ export function CrowdPanel({
 }
 
 /* --------------------------------------------------------- Logo marquee */
-function LogoChip({ name }: { name: string }) {
+function LogoChip({ logo }: { logo: CustomerLogo }) {
   return (
-    <div className="flex shrink-0 items-center gap-2 px-7">
-      <span className="grid h-7 w-7 place-items-center rounded-md bg-[var(--surface-2)] text-[var(--muted)]">
-        <Icon name="globe" size={15} />
-      </span>
-      <span className="whitespace-nowrap text-[15px] font-bold tracking-[-0.01em] text-[var(--muted)]">
-        {name}
-      </span>
+    <div className="flex shrink-0 items-center px-9">
+      {/* eslint-disable-next-line @next/next/no-img-element -- marquee logos are
+          fixed-height brand assets, not layout-driven images; next/image would
+          add a wrapper per copy of the track for no benefit */}
+      <img
+        src={logo.file}
+        alt={logo.name}
+        height={logo.h}
+        style={{ height: logo.h }}
+        className="w-auto max-w-none opacity-90 transition-opacity duration-300 hover:opacity-100"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   );
 }
@@ -171,14 +178,11 @@ export function LogoMarquee({ label }: { label?: string }) {
         }}
       >
         <div className="marquee-track flex animate-marquee hover:[animation-play-state:paused]">
-          {[...sampleCustomers, ...sampleCustomers].map((c, i) => (
-            <LogoChip key={i} name={c} />
+          {[...customerLogos, ...customerLogos].map((c, i) => (
+            <LogoChip key={i} logo={c} />
           ))}
         </div>
       </div>
-      <p className="mt-5 text-center text-[12px] text-[var(--muted-2)]">
-        Company names shown are illustrative samples.
-      </p>
     </div>
   );
 }

@@ -5,7 +5,7 @@
    bold flat colour blocks — butter yellow, periwinkle, teal, cream — sitting on
    a warm off-white ground, drawn with one confident dark outline, with big
    architectural masses that have real weight and a few recognisable objects
-   (a stair, a dome, a bell jar, a flag) doing the storytelling. Documents,
+   (a stair, a dome, a flag) doing the storytelling. Documents,
    coins and four-point sparkles float around it.
 
    One scene per card, and each is minimal on purpose: a single object that
@@ -16,8 +16,8 @@
 
    Score is the collector — a stepped stack, tallest column still rising.
    Insight is a glass dome over three sorted blocks.
-   Action is the domed hall, where the work happens.
-   Impact is the tower with the bell jar and the flag — the lift, measured.
+   Action is a board of work: lanes, owned cards, one still landing.
+   Impact is the tower rising past its baseline, flag planted — the lift, measured.
    The Loop is the return arc, landing back where it started.
 
    Every solid goes through one iso() so all five share a ground plane and a
@@ -25,137 +25,13 @@
    few: a drift, a twinkle, one column that rises, one arc whose dashes crawl.
    ========================================================================== */
 
-/* --------------------------------------------------------------- palette */
-const INK = "#33475b";        // one outline, everywhere
-const GROUND = "#fbf7f1";     // warm off-white
-const CREAM = "#f3ede3";
-const CREAM_D = "#dfd6c8";
-const BUTTER = "#f9c86e";
-const BUTTER_D = "#e6ac47";
-const BUTTER_L = "#fde3a8";
-const PERI = "#9b98e0";
-const PERI_D = "#7d79cc";
-const PERI_L = "#c8c5f0";
-const TEAL = "#8fd3d0";
-const TEAL_D = "#5db8b6";
-const TEAL_L = "#c7ebe9";
-const SKY = "#bfe6f2";
-const SKY_D = "#8fcfe3";
-const CORAL = "#f27c62";
-const LEAF = "#7fc39a";
-const LEAF_D = "#4f9e73";
-const PAPER = "#fffdf8";
-const GLASS = "#e6f6fb";
 
-/* ------------------------------------------------------------ projection */
-/* 2:1 isometric. x runs down-right, y runs down-left, z is up. */
-const iso = (x: number, y: number, z: number): [number, number] => [x - y, (x + y) / 2 - z];
-const P = (pts: [number, number][]) => "M " + pts.map((p) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" L ") + " Z";
+import {
+  INK, CREAM, CREAM_D, BUTTER, BUTTER_L, PERI, PERI_D, PERI_L, TEAL, TEAL_D, TEAL_L,
+  SKY, CORAL, LEAF, PAPER, GLASS,
+  iso, type Faces, Block, F, Stairs, Sheet, Folder, Coin, Spark, At, Frame, Ground,
+} from "./iso-kit";
 
-type Faces = { top: string; left: string; right: string };
-/** an isometric block with its two visible sides */
-function Block({ x, y, z = 0, w, d, h, c, sw = 2.4 }: {
-  x: number; y: number; z?: number; w: number; d: number; h: number; c: Faces; sw?: number;
-}) {
-  const p = (dx: number, dy: number, dz: number) => iso(x + dx, y + dy, z + dz);
-  return (
-    <g strokeWidth={sw} strokeLinejoin="round">
-      <path d={P([p(w, 0, h), p(w, 0, 0), p(w, d, 0), p(w, d, h)])} fill={c.right} />
-      <path d={P([p(0, d, h), p(0, d, 0), p(w, d, 0), p(w, d, h)])} fill={c.left} />
-      <path d={P([p(0, 0, h), p(w, 0, h), p(w, d, h), p(0, d, h)])} fill={c.top} />
-    </g>
-  );
-}
-
-const F = {
-  butter: { top: BUTTER, left: BUTTER_D, right: BUTTER_L },
-  peri: { top: PERI, left: PERI_D, right: PERI_L },
-  teal: { top: TEAL, left: TEAL_D, right: TEAL_L },
-  cream: { top: CREAM, left: CREAM_D, right: "#faf6ef" },
-  sky: { top: SKY, left: SKY_D, right: "#e3f4f9" },
-};
-
-/** a run of steps climbing +x, from ground to height h */
-function Stairs({ x, y, z = 0, w, d, h, n = 6, c }: {
-  x: number; y: number; z?: number; w: number; d: number; h: number; n?: number; c: Faces;
-}) {
-  const stepW = w / n, stepH = h / n;
-  return (
-    <g>
-      {Array.from({ length: n }, (_, i) => (
-        <Block key={i} x={x + i * stepW} y={y} z={z} w={stepW} d={d} h={stepH * (i + 1)} c={c} sw={2} />
-      ))}
-    </g>
-  );
-}
-
-/** a sheet of paper, drawn flat, ruled — the reference's recurring object */
-function Sheet({ x, y, r = 0, s = 1 }: { x: number; y: number; r?: number; s?: number }) {
-  return (
-    <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`} strokeWidth={2.4 / s} strokeLinejoin="round">
-      <path d="M0 4 Q14 -4 30 4 L30 40 Q16 32 0 40 Z" fill={PAPER} />
-      {[0, 1, 2, 3].map((i) => (
-        <path key={i} d={`M6 ${13 + i * 6.5} h${i % 2 ? 12 : 18}`} strokeWidth={1.8 / s} strokeLinecap="round" />
-      ))}
-    </g>
-  );
-}
-
-/** a folder, the other recurring object */
-function Folder({ x, y, r = 0, s = 1 }: { x: number; y: number; r?: number; s?: number }) {
-  return (
-    <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`} strokeWidth={2.4 / s} strokeLinejoin="round">
-      <path d="M0 8 h14 l5 -6 h19 v30 h-38 Z" fill={BUTTER_D} />
-      <path d="M0 12 h38 v20 h-38 Z" fill={BUTTER} />
-    </g>
-  );
-}
-
-function Coin({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
-  return (
-    <g transform={`translate(${x} ${y}) scale(${s})`} strokeWidth={2.4 / s}>
-      <circle r="12" fill={BUTTER} />
-      <circle r="7.5" fill="none" strokeWidth={1.8 / s} />
-      <path d="M-2.5 -3.5 v7 M0 -3.5 v7 M2.5 -3.5 v7" strokeWidth={1.4 / s} strokeLinecap="round" />
-    </g>
-  );
-}
-
-function Spark({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
-  return (
-    <path
-      transform={`translate(${x} ${y}) scale(${s})`}
-      d="M0 -11 C1.4 -3.5 3.5 -1.4 11 0 C3.5 1.4 1.4 3.5 0 11 C-1.4 3.5 -3.5 1.4 -11 0 C-3.5 -1.4 -1.4 -3.5 0 -11 Z"
-      fill={PERI_L}
-      strokeWidth="2.2"
-      strokeLinejoin="round"
-    />
-  );
-}
-
-/* --------------------------------------------------------------- scenes */
-/* Each scene lives in a 260×200 box with its slab centred on the same ground
-   point, so five of them side by side share one horizon. */
-const VW = 260, VH = 200;
-const OX = 130, OY = 128;
-const at = (x: number, y: number, z = 0): [number, number] => {
-  const p = iso(x, y, z);
-  return [OX + p[0], OY + p[1]];
-};
-/** a group placed on the iso ground */
-function At({ x, y, z = 0, children }: { x: number; y: number; z?: number; children: React.ReactNode }) {
-  const [tx, ty] = at(x, y, z);
-  return <g transform={`translate(${tx} ${ty})`}>{children}</g>;
-}
-
-const Frame = ({ children, label }: { children: React.ReactNode; label: string }) => (
-  <svg viewBox={`0 0 ${VW} ${VH}`} className="h-full w-full" role="img" aria-label={label}>
-    <g stroke={INK} strokeLinecap="round">{children}</g>
-  </svg>
-);
-
-/* the ground slab every scene stands on — the same one, five times */
-const Ground = ({ c = F.cream }: { c?: Faces }) => <Block x={-62} y={-52} w={124} d={104} h={12} c={c} />;
 
 /* ═══════════════════════════════════════════════════════════════ 1. SCORE */
 export function SceneScore() {
@@ -203,63 +79,138 @@ export function SceneInsight() {
 
 /* ══════════════════════════════════════════════════════════════ 3. ACTION */
 export function SceneAction() {
+  /* Rebuilt twice. The original drew a domed hall as a flat front elevation —
+     plain rects and a face-on triangle inside a single translate() — set on the
+     isometric ground. It broke the family's language (every other scene is real
+     Block solids on the shared projection) and it broke geometrically: the
+     dome's base line met the pediment only at its apex point, so most of the
+     dome hung over open air. That is the floating cap.
+
+     A lie-flat kanban replaced it and had to go too: two rows across three
+     lanes overlap heavily once the cards are raised to the board's top face,
+     because rows and lanes both run diagonally in this projection, so the
+     cards collided and the tick read against the wrong one.
+
+     So the plan stands up instead. "Plans with an owner, a deadline and
+     visible progress" is a thing you read, and an upright board gives it both
+     legibility and the height the other four scenes have. Rows are drawn in
+     plain 2-D inside FACE, a matrix that maps (across, up) straight onto the
+     board's front face, so nothing overlaps and the geometry cannot drift. */
+  const BY = -12, BD = 8;              // the board slab's depth in y
+  const FY = BY + BD;                  // the face we draw on
+  /* (u,w) -> iso(u, FY, w): across the face, and up it */
+  const FACE = `matrix(1 0.5 0 -1 ${-FY} ${FY / 2})`;
+  const ROWS = [58, 42, 26];           // three rows, top to bottom
+  const P = (x: number, y: number, z: number) => iso(x, y, z).join(" ");
+
+  /* One line of the plan: its checkbox, the task, and who owns it. `w` is a
+     height up the face and is passed POSITIVE — FACE's d = -1 already flips the
+     axis, so negating here as well sends the rows back down below the board. */
+  const Row = ({ w, done, dot }: { w: number; done: boolean; dot: string }) => (
+    <g>
+      <rect x={-32} y={w - 5.5} width={11} height={11} rx={2}
+        fill={done ? LEAF : PAPER} strokeWidth="2" vectorEffect="non-scaling-stroke" />
+      {/* the tick's deltas run negative-down: FACE flips the axis, so a check
+          written the usual way comes out as a caret */}
+      {done && (
+        <path d={`M-29 ${w} l2 -2.2 l4.2 5`} fill="none" stroke={PAPER}
+          strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
+          vectorEffect="non-scaling-stroke" />
+      )}
+      <path d={`M-15 ${w} h${done ? 22 : 30}`} strokeWidth="3.4" strokeLinecap="round"
+        opacity={done ? 0.3 : 0.6} vectorEffect="non-scaling-stroke" />
+      <circle cx={26} cy={w} r={5} fill={dot} strokeWidth="2" vectorEffect="non-scaling-stroke" />
+    </g>
+  );
+
   return (
-    <Frame label="A small domed hall with a colonnade, where the work happens">
+    <Frame label="An upright plan board: three tasks, each with an owner, the last being ticked off">
       <At x={0} y={0}>
         <Ground c={F.peri} />
-        <Block x={-44} y={-40} w={88} d={80} h={10} c={F.cream} />
-        <Stairs x={-78} y={-14} w={34} d={30} h={22} n={4} c={F.peri} />
-        <g transform={`translate(${iso(0,0,22)[0]} ${iso(0,0,22)[1]})`} strokeWidth="2.4" strokeLinejoin="round">
-          <rect x="-46" y="-22" width="92" height="30" fill={CREAM} />
-          <path d="M-52 -22 L0 -52 L52 -22 Z" fill={CREAM_D} />
-          <circle cx="0" cy="-36" r="3" fill={PERI} strokeWidth="1.6" />
-          <path d="M-38 -52 A 38 32 0 0 1 38 -52 Z" fill={BUTTER} />
-          <path d="M-38 -52 A 38 32 0 0 1 38 -52 M0 -52 v-32" fill="none" strokeWidth="1.8" />
-          <circle cx="0" cy="-84" r="3.5" fill={CORAL} />
-          {[-34, -11, 12, 35].map((cx) => (
-            <g key={cx}>
-              <rect x={cx - 5} y="8" width="10" height="38" fill={PAPER} />
-              <path d={`M${cx - 7} 8 h14 M${cx - 7} 46 h14`} strokeWidth="2" />
-            </g>
-          ))}
-          {[-22.5, 0.5, 23.5].map((cx) => (
-            <path key={cx} d={`M${cx - 5} 46 v-22 a 5 5 0 0 1 10 0 v22 Z`} fill={INK} fillOpacity="0.5" strokeWidth="1.4" />
-          ))}
-          <rect x="-52" y="46" width="104" height="8" fill={CREAM_D} />
+        {/* the board and the plinth it stands on */}
+        <Block x={-44} y={BY - 4} w={88} d={16} h={6} c={F.cream} />
+        <Block x={-40} y={BY} w={80} d={BD} h={58} z={18} c={F.cream} />
+
+        {/* the plan, read straight off the board's face */}
+        <g transform={FACE} stroke={INK} strokeLinejoin="round">
+          <rect x={-32} y={65} width={64} height={9} rx={2.5}
+            fill={SKY} strokeWidth="2" vectorEffect="non-scaling-stroke" />
+          <Row w={ROWS[0]} done dot={TEAL_D} />
+          <Row w={ROWS[1]} done dot={CORAL} />
+          <Row w={ROWS[2]} done={false} dot={PERI_D} />
+        </g>
+
+        {/* two cards on the desk in front, one still being placed. The motion
+            lives here rather than on a tick flying at the open row: the rows sit
+            16 units apart on a 58-tall face, so a 9.5-radius badge hovering over
+            row three always fouls row two. */}
+        <Block x={-32} y={16} w={24} d={20} h={4} c={F.butter} sw={2} />
+        <g className="ls-rise">
+          <Block x={2} y={16} z={6} w={24} d={20} h={4} c={F.teal} sw={2} />
         </g>
       </At>
-      <g className="ls-drift" style={{ animationDelay: "-1.6s" }}><Folder x={16} y={40} r={-10} s={0.75} /></g>
-      <g className="ls-twinkle" style={{ animationDelay: "-0.5s" }}><Spark x={226} y={54} s={0.8} /></g>
-      <g className="ls-drift" style={{ animationDelay: "-3s" }}><Coin x={230} y={140} s={0.75} /></g>
+
+      <g className="ls-drift" style={{ animationDelay: "-1.6s" }}><Folder x={28} y={40} r={-10} s={0.75} /></g>
+      <g className="ls-twinkle" style={{ animationDelay: "-0.5s" }}><Spark x={228} y={54} s={0.8} /></g>
+      <g className="ls-drift" style={{ animationDelay: "-3s" }}><Coin x={228} y={148} s={0.75} /></g>
     </Frame>
   );
 }
 
 /* ══════════════════════════════════════════════════════════════ 4. IMPACT */
 export function SceneImpact() {
+  /* Placed from the same At(0,0) origin as the other four scenes. The previous
+     version offset the group to (0,12) and stood a 92-tall tower under a bell
+     jar: the jar's crown landed 14 units above the viewBox and was sliced off,
+     and the offset pushed the scene 12 units left of where the others sit.
+     Measured, not guessed — the content bbox now clears the frame all round.
+
+     The bell jar is gone with it. "Prove what actually changed" is a lift
+     against a baseline, so that is what this draws: a plinth, a tower, a
+     dashed baseline that carries round both visible faces, a coral rise
+     measuring the height gained above it, and the flag planted on the cap. */
+  const GH = 12;                                          // the ground slab's top
+  const P = { x: -36, y: -30, w: 72, d: 60, h: 8, z: GH }; // plinth
+  const T = { x: -30, y: -24, w: 60, d: 48, h: 54, z: 20 };// tower
+  const C = { x: -34, y: -28, w: 68, d: 56, h: 6, z: 74 }; // cap
+  const TOP = C.z + C.h;                                   // 80
+  const BASE = 40;                                         // the baseline height
+  const L = (x: number, y: number, z: number) => iso(x, y, z).join(" ");
   return (
-    <Frame label="A tall tower with a bell jar and a flag: the lift, measured">
-      <At x={0} y={12}>
+    <Frame label="A tower rising past a dashed baseline, flag planted on top: the lift, measured">
+      <At x={0} y={0}>
         <Ground c={F.butter} />
-        <Block x={-30} y={-24} w={60} d={48} h={92} c={F.peri} />
-        <Stairs x={-64} y={-8} w={34} d={26} h={22} n={4} c={F.butter} />
-        {/* bell jar */}
-        <g transform={`translate(${iso(0,0,92)[0]} ${iso(0,0,92)[1]})`} strokeWidth="2.4">
-          <ellipse cx="0" cy="0" rx="26" ry="13" fill={PERI_L} />
-          <path d="M-26 0 v-30 a 26 26 0 0 1 52 0 v30" fill={GLASS} fillOpacity="0.6" />
-          <ellipse cx="0" cy="0" rx="26" ry="13" fill="none" />
-          <circle cx="0" cy="-20" r="10" fill={TEAL} />
-          <path d="M-4.5 -20 l3.5 3.5 l6 -7.5" fill="none" strokeWidth="2.4" />
+        <Block {...P} c={F.cream} />
+        <Block {...T} c={F.peri} />
+        <Block {...C} c={F.teal} />
+
+        {/* the baseline — carried round both visible faces so it reads as a
+            level, not a stray line on one wall */}
+        <g strokeWidth="2" strokeDasharray="5 5" opacity="0.6">
+          <path
+            d={`M ${L(T.x, T.y + T.d, BASE)} L ${L(T.x + T.w, T.y + T.d, BASE)} L ${L(T.x + T.w, T.y, BASE)}`}
+            fill="none"
+          />
         </g>
-        {/* flag */}
-        <g transform={`translate(${iso(30,-24,92)[0]} ${iso(30,-24,92)[1]})`} strokeWidth="2.4" strokeLinejoin="round">
-          <path d="M0 0 v-34" />
-          <path d="M0 -32 l22 7 l-22 7 Z" fill={CORAL} />
+
+        {/* the lift above it, measured up the tower's right face */}
+        <g stroke={CORAL} strokeWidth="2.4" strokeLinejoin="round">
+          <path d={`M ${L(T.x + T.w, T.y + 8, BASE)} L ${L(T.x + T.w, T.y + 8, T.z + T.h)}`} />
+          <path d={`M ${L(T.x + T.w, T.y + 8, T.z + T.h)} l -5 10 h 10 Z`} fill={CORAL} />
+          <path d={`M ${L(T.x + T.w, T.y + 2, BASE)} L ${L(T.x + T.w, T.y + 14, BASE)}`} strokeWidth="2" />
+        </g>
+
+        {/* the flag, on a collar so it reads as planted rather than punched in */}
+        <g transform={`translate(${L(0, 0, TOP)})`} strokeWidth="2.4" strokeLinejoin="round">
+          <ellipse cx="0" cy="0" rx="11" ry="5.5" fill={TEAL_L} strokeWidth="2" />
+          <path d="M0 -2 v-30" />
+          <path d="M0 -30 l22 6.5 l-22 6.5 Z" fill={CORAL} />
         </g>
       </At>
-      <g className="ls-drift" style={{ animationDelay: "-2.2s" }}><Sheet x={22} y={28} r={-14} s={0.75} /></g>
-      <g className="ls-twinkle" style={{ animationDelay: "-1s" }}><Spark x={214} y={100} s={0.75} /></g>
-      <g className="ls-drift" style={{ animationDelay: "-0.4s" }}><Coin x={40} y={140} s={0.75} /></g>
+
+      <g className="ls-drift" style={{ animationDelay: "-2.2s" }}><Sheet x={26} y={34} r={-14} s={0.75} /></g>
+      <g className="ls-twinkle" style={{ animationDelay: "-1s" }}><Spark x={220} y={62} s={0.8} /></g>
+      <g className="ls-drift" style={{ animationDelay: "-0.4s" }}><Coin x={38} y={152} s={0.75} /></g>
     </Frame>
   );
 }
