@@ -6,6 +6,7 @@ import { Icon } from "./Icon";
 import { SparkMark } from "./Brand";
 import { HeroBento } from "./HeroBento";
 import { HeroEmailForm } from "./HeroEmailForm";
+import { PlatformReveal } from "./PlatformReveal";
 import { heroV2, type IconName } from "@/lib/content";
 
 /* ============================================================================
@@ -263,7 +264,11 @@ export function ScrollHero() {
       }
       if (heroRef.current) heroRef.current.style.pointerEvents = p > 0.06 ? "none" : "auto";
 
-      const revealOp = smooth(0.76, 0.96, p);
+      /* the globe pulls back rather than sitting at full strength behind the
+         reveal: it shrinks toward the top of the frame and dims to a backdrop,
+         so the platform grid reads as the subject and the globe as its ground */
+      const revealOp = smooth(0.72, 0.94, p);
+      const recede = smooth(0.66, 0.92, p);
       if (revealRef.current) {
         revealRef.current.style.opacity = String(revealOp);
         revealRef.current.style.pointerEvents = revealOp < 0.5 ? "none" : "auto";
@@ -304,11 +309,19 @@ export function ScrollHero() {
             y = lerp(pt.sy, gy, gphase);
           }
           // aurora wash by screen position, so the globe reads teal → violet
+          /* recede: scale the whole sphere about its centre and lift it, so it
+             leaves the space the platform grid needs without moving the
+             particles' own maths around */
+          if (recede > 0.001) {
+            const k = lerp(1, 0.46, recede);
+            x = ocx + (x - ocx) * k;
+            y = ocy + (y - ocy) * k - recede * H * 0.1;
+          }
           const idx = clamp(Math.round(((x - (ocx - R)) / (2 * R)) * 32), 0, 32);
           ctx!.fillStyle = pt.spark ? SPARK : PALETTE[idx];
           // depth cues ramp in as the globe forms: near particles bigger & brighter
           const depthSize = lerp(1, 0.5 + 0.5 * depthT, gphase);
-          ctx!.globalAlpha = partA * lerp(1, 0.32 + 0.68 * depthT, gphase);
+          ctx!.globalAlpha = partA * lerp(1, 0.32 + 0.68 * depthT, gphase) * lerp(1, 0.3, recede);
           const s = pt.size * sizeFactor * depthSize;
           ctx!.save();
           ctx!.translate(x, y);
@@ -367,7 +380,7 @@ export function ScrollHero() {
 
           const cx = lerp(sc.x, ox, dockPhase);
           const cy = lerp(sc.y, oy, dockPhase);
-          el.style.opacity = String(chipOp * lerp(1, dim, dockPhase));
+          el.style.opacity = String(chipOp * lerp(1, dim, dockPhase) * (1 - recede));
           el.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%) scale(${lerp(0.9, depth, dockPhase)})`;
         }
       }
@@ -443,7 +456,7 @@ export function ScrollHero() {
   }, [enabled]);
 
   return (
-    <section ref={trackRef} className="relative" style={{ height: enabled ? "260vh" : undefined }}>
+    <section ref={trackRef} className="relative" style={{ height: enabled ? "215vh" : undefined }}>
       <div ref={stickyRef} className={enabled ? "sticky top-0 h-screen overflow-hidden" : "relative"}>
         <div className="aurora-wash pointer-events-none absolute inset-0 -z-10" />
 
@@ -509,43 +522,21 @@ export function ScrollHero() {
         )}
 
         {/* --------------------------------------------------------- reveal */}
-        {/* In animated mode the reveal must fit inside the bottom ~44% of the
-            pinned viewport — cap type by viewport HEIGHT too (min of the width
-            clamp and a vh cap) so nothing clips on short laptop screens. */}
+        {/* The scroll now pays off with the platform itself rather than a
+            restatement of the hero's own promise. It needs more room than the
+            old headline did, so it starts higher up the pinned viewport and
+            the globe recedes behind it (see revealOp in draw()). */}
         <div
           ref={revealRef}
           className={
             enabled
-              ? "absolute inset-x-0 bottom-0 top-[56%] z-30 flex items-start justify-center opacity-0"
+              ? "absolute inset-x-0 bottom-0 top-[34%] z-30 flex items-start justify-center opacity-0"
               : "relative z-10 flex items-center justify-center border-t border-[var(--line)] py-16 sm:py-24"
           }
           style={enabled ? { pointerEvents: "none" } : undefined}
         >
-          <Container className="text-center">
-            <h2
-              className={
-                enabled
-                  ? "text-[min(clamp(2.2rem,4.4vw,4.2rem),7.2vh)] font-semibold leading-[1.06] tracking-[-0.025em]"
-                  : "display-lg font-semibold"
-              }
-            >
-              One platform.
-              <br />
-              <span className="aurora-text">Every decision.</span>
-            </h2>
-            <p
-              className={`mx-auto max-w-xl leading-relaxed text-[var(--muted)] ${
-                enabled ? "mt-[min(1.25rem,2vh)] text-[min(18px,2.2vh)]" : "mt-5 text-[18px]"
-              }`}
-            >
-              Vadal.ai unifies engagement, workforce intelligence and action planning in one
-              place, so every people decision is a confident one.
-            </p>
-            <div className={`flex justify-center ${enabled ? "mt-[min(2rem,3vh)]" : "mt-8"}`}>
-              <Button href="/platform" size="lg" icon>
-                Explore the platform
-              </Button>
-            </div>
+          <Container>
+            <PlatformReveal animated={enabled} />
           </Container>
         </div>
 
