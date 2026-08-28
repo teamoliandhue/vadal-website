@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Button, Container, Section, SectionHead } from "@/components/ui";
 import { PersonaTabs } from "@/components/PersonaTabs";
-import { ScrollHero } from "@/components/ScrollHero";
+import { Hero } from "@/components/Hero";
+import { PlatformReveal } from "@/components/PlatformReveal";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { EnterprisePanel, LogoMarquee } from "@/components/sections";
 import {
@@ -28,10 +29,17 @@ import { homeFaqsV2, platformOverview, securitySection } from "@/lib/content";
 export default function HomePage() {
   return (
     <>
-      {/* ================================ HERO (scroll transform animation) */}
-      {/* NOTE: never wrap in <Section reveal> — Reveal's transform breaks the
-          sticky pinning the canvas animation depends on. */}
-      <ScrollHero />
+      {/* ========================================================== HERO */}
+      <Hero />
+
+      {/* ====================================================== THE PLATFORM */}
+      {/* What the scroll animation used to pay off with, now a section that
+          does not cost 215vh to reach. */}
+      <Section tone="surface" reveal className="!pt-10">
+        <Container>
+          <PlatformReveal />
+        </Container>
+      </Section>
 
       {/* ==================================================== LOGO MARQUEE */}
       {/* MOBILE-FIRST BRIEF: Social Proof = "HOLD / HIDE FOR NOW" — placeholder

@@ -21,7 +21,7 @@ import {
    Intelligence" repositioning, dressed in the site's original Maze-style
    design language: colored crowd-texture panels, halftone stages, product UI
    floating in cards, and multi-tint icon chips. Interactivity lives in
-   PersonaTabs; the hero is ScrollHero.
+   PersonaTabs; the hero is Hero.
    ========================================================================== */
 
 /* ------------------------------------------------------- feature card grid */

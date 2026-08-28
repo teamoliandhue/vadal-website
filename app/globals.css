@@ -447,16 +447,6 @@ html.lenis body {
 /* ---------------------------------------------------- hero bento mosaic */
 /* A Maze-style mosaic of real product moments. Desktop uses named grid
    areas; tablet collapses to 2 columns; mobile stacks in DOM order. */
-/* The hero bento is now a single stage rather than a mosaic, but the class
-   stays: ScrollHero seeds its particle cloud from `.hero-bento > *`, so this
-   is the hook that lets the card dissolve into the globe on scroll. The
-   two-column areas it used to define are gone with the tiles that used them. */
-.hero-bento {
-  display: grid;
-  gap: 14px;
-  grid-template-columns: 1fr;
-}
-.hero-bento > * { min-width: 0; }
 
 /* ============================================================================
    Premium polish layer — the details that separate "clean template" from

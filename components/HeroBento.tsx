@@ -471,7 +471,7 @@ export function HeroBento() {
   return (
     <div
       ref={rootRef}
-      className="hero-bento reveal"
+      className="reveal"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
