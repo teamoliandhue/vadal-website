@@ -97,11 +97,8 @@ export function PlatformReveal() {
               {/* what this layer does, as a picture — drawn in the same
                   isometric language as the journey section, so the site keeps
                   one illustration voice from top to bottom */}
-              <div
-                className="relative w-full overflow-hidden"
-                style={{ background: `linear-gradient(160deg, ${tint}12 0%, ${tint}05 55%, transparent 100%)` }}
-                aria-hidden="true"
-              >
+              {/* the stage paints its own gradient, so the band is just a clip */}
+              <div className="relative w-full overflow-hidden" aria-hidden="true">
                 <span
                   className="pointer-events-none absolute -right-8 -top-10 h-32 w-32 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
                   style={{ background: `radial-gradient(circle, ${tint}40, transparent 70%)` }}

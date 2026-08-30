@@ -8,6 +8,7 @@ Backdrops the product screenshots float on (`components/ProductStage.tsx`).
 |---|---|---|
 | `product-stage.webp` | deep — the lead shot on product pages and the homepage | Unsplash photo `IVUzTbbuenU` |
 | `product-band.webp` | light — behind the screen-by-screen grid | Unsplash photo `nIlwOYUbQEA` |
+| `analytics-aurora.webp` | the homepage analytics band | Unsplash photo `IGtutkXikuc` |
 
 Both are **Unsplash License**: free for commercial use, no attribution required,
 no permission needed. Confirmed before download by resolving
@@ -27,6 +28,14 @@ worth repeating that step before swapping either file:
 - pink/red gradients (`NrAvSjyW3D4`) fight the teal→violet ramp
 - pale gradients (`aE8Mx8-vQss`) leave a light product window with no edge
 - a warm paper texture (`2vseuo54GvA`) reads as a different brand entirely
+- near-white gradients (`OrmHuJyoy4g`) leave white glass cards with no edge at all,
+  which is the specific failure mode of this section: it is white cards on the
+  backdrop, so the backdrop has to be saturated enough to hold them
+
+`analytics-aurora` was chosen over a calmer deep-violet (`4L2fxcv6sW0`) because it
+runs cyan -> blue -> violet, which is the aurora ramp the rest of the site is
+built on — the brand palette as a photograph rather than a colour that merely
+coordinates with it.
 
 ## Section washes
 

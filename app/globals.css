@@ -640,6 +640,78 @@ html.lenis body {
 }
 
 /* ============================================================================
+   Product-UI stage motion (components/ui-stage.tsx).
+
+   Four one-shot animations, all `forwards`, all ending at the resting state —
+   so the global prefers-reduced-motion clamp lands on a fully composed UI
+   rather than on a half-built one. Nothing loops: a card that keeps moving
+   under body copy is a distraction, and these sit beside text people read.
+   ========================================================================== */
+@keyframes ui-in   { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
+@keyframes ui-bar  { from { height: 0; }        to { height: var(--h); } }
+@keyframes ui-grow { from { width: 0; }         to { width: var(--w); } }
+@keyframes ui-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes ui-fade { from { opacity: 0; }       to { opacity: 1; } }
+
+.ui-in   { opacity: 0; animation: ui-in 620ms cubic-bezier(0.22,1,0.36,1) forwards; }
+.ui-bar  { height: 0; animation: ui-bar 700ms cubic-bezier(0.22,1,0.36,1) forwards; }
+.ui-grow { width: 0;  animation: ui-grow 900ms cubic-bezier(0.22,1,0.36,1) forwards; }
+.ui-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ui-draw 1100ms cubic-bezier(0.22,1,0.36,1) forwards; }
+.ui-fade { opacity: 0; animation: ui-fade 700ms ease forwards; }
+
+/* ============================================================================
+   "Signal" illustration motion (components/flow-kit.tsx).
+
+   Two animations only. fl-draw runs once: every line is normalised with
+   pathLength=1, so one dasharray/dashoffset pair draws lines of any length on
+   the same timeline, and the per-line delay is what makes the field sweep. It
+   ends at dashoffset 0 and holds (forwards), so the reduced-motion clamp lands
+   on a fully drawn field rather than an empty frame.
+
+   fl-breathe and fl-pulse are symmetric — 0% and 100% are the rest state — so
+   the same clamp freezes them where they belong instead of mid-cycle.
+   ========================================================================== */
+@keyframes fl-draw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+.fl-draw {
+  stroke-dasharray: 1;
+  animation-name: fl-draw;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes fl-pop {
+  0%   { opacity: 0; transform: scale(0.5); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.fl-pop {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fl-pop 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes fl-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0;    transform: scale(2.1); }
+}
+.fl-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fl-pulse 3.8s ease-out infinite;
+}
+
+/* the field settles, then breathes — a 5px sway over nine seconds, which is
+   below the threshold you notice and above the one you feel */
+@keyframes fl-breathe {
+  0%, 100% { transform: translateY(0) }
+  50%      { transform: translateY(-5px) }
+}
+.fl-breathe { animation: fl-breathe 9s ease-in-out infinite; }
+
+/* ============================================================================
    LoopScene motion (components/LoopScene.tsx). Slow and few. Every keyframe
    returns to rest at 100%, because the global reduce-motion rule clamps
    animations to 0.001ms rather than removing them.

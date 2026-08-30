@@ -125,6 +125,36 @@ const paths: Record<IconName, React.ReactNode> = {
   ),
 };
 
+
+/* ---------------------------------------------------------------- accents */
+/* The reference (customer.io) fills exactly ONE sub-shape per icon flat, and
+   that single fill is most of what makes the set feel like a set. It is opt-in
+   by size here, because it only survives above ~18px: below that the fill and
+   the 1.6px stroke merge into a blob, and 51 of our 94 icon usages sit at
+   12-15px. The fill takes currentColor at low alpha rather than a fixed mint,
+   so an icon tinted to its platform layer stays tinted. */
+const ACCENT_MIN = 18;
+
+const accents: Partial<Record<IconName, React.ReactNode>> = {
+  heart: <path d="M12 20.5S3.5 15.4 3.5 9.4A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 8.5 1.8c0 6-8.5 11.1-8.5 11.1Z" />,
+  shield: <path d="M12 3.5 5 6v5.5c0 4.5 3 7.4 7 8.9 4-1.5 7-4.4 7-8.9V6l-7-2.5Z" />,
+  chat: <path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5v-3.5H6.5a2 2 0 0 1-2-2v-7Z" />,
+  bell: <path d="M6.5 10a5.5 5.5 0 0 1 11 0c0 4 1.5 5.5 1.5 5.5H5s1.5-1.5 1.5-5.5Z" />,
+  lock: <rect x="5.5" y="10.5" width="13" height="9" rx="2" />,
+  phone: <rect x="7" y="3.5" width="10" height="17" rx="2.5" />,
+  chart: <rect x="10.5" y="7" width="3" height="10" rx="1" />,
+  globe: <circle cx="12" cy="12" r="8.5" />,
+  compass: <circle cx="12" cy="12" r="8.5" />,
+  lifebuoy: <circle cx="12" cy="12" r="8.5" />,
+  users: <circle cx="9" cy="8.5" r="3" />,
+  graduation: <path d="M12 4 2.5 9 12 14l9.5-5L12 4Z" />,
+  palette: <path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.4 0 2-1 2-2 0-1.5 1-2 2.2-2H18a3 3 0 0 0 3-3c0-4.7-4-7-9-7Z" />,
+  plug: <path d="M7 7h10v3a5 5 0 0 1-10 0V7Z" />,
+  rocket: <path d="M13.5 6.5C16 4 19.5 3.5 20.5 3.5c0 1-.5 4.5-3 7-1.9 1.9-5.4 4.3-7.2 5.5L8 14c1.2-1.8 3.6-5.3 5.5-7.5Z" />,
+  broadcast: <circle cx="12" cy="12" r="2.4" />,
+  refresh: <circle cx="12" cy="12" r="7.5" />,
+};
+
 export function Icon({
   name,
   className = "",
@@ -153,6 +183,12 @@ export function Icon({
       style={style}
       aria-hidden="true"
     >
+      {/* the flat accent, under the line, and only where it can be read */}
+      {!filled && size >= ACCENT_MIN && accents[name] && (
+        <g fill="currentColor" stroke="none" opacity="0.18">
+          {accents[name]}
+        </g>
+      )}
       {paths[name]}
     </svg>
   );

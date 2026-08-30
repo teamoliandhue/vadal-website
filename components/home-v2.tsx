@@ -92,6 +92,11 @@ export function AnalyticsSection() {
   // one stop of the brand ramp per feature — the same colour language as the
   // persona switcher and the loop
   const RAMP = ["#19c6b4", "#2bb0e6", "#3b9eff", "#5c7cf9", "#7c5cf8"];
+  /* The same ramp, darkened, for anything set as TEXT. The bright stops are
+     built for fills and tinted chips — as 11.5px numerals on white glass the
+     teal end measured 1.64:1, nowhere near the 4.5 AA floor. The icon tiles
+     keep the bright ramp; only type uses these. */
+  const RAMP_TEXT = ["#07564c", "#134f68", "#1e4a85", "#2c3b85", "#42288c"];
   const rail = [enps, sentiment, benchmark, reports];
 
   return (
@@ -111,24 +116,30 @@ export function AnalyticsSection() {
       <div
         className="relative isolate mt-12 overflow-hidden rounded-[var(--r-2xl)] border border-[var(--line-strong)] shadow-[var(--shadow-lg)]"
         style={{
-          backgroundImage: "url('/textures/analytics-stage.webp')",
+          backgroundImage: "url('/textures/analytics-aurora.webp')",
           backgroundSize: "cover",
-          backgroundPosition: "center 30%",
+          backgroundPosition: "center",
         }}
       >
         <div
           className="pointer-events-none absolute inset-0"
           aria-hidden="true"
           style={{
+            /* just enough veil to seat white glass on it; the old plate was
+               washed office photography and needed 55% to be usable at all */
             background:
-              "linear-gradient(105deg, rgba(243,244,248,0.55) 0%, rgba(243,244,248,0.22) 45%, rgba(243,244,248,0.05) 100%)",
+              "linear-gradient(115deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.10) 46%, rgba(20,22,60,0.20) 100%)",
           }}
         />
 
         <div className="relative grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10 lg:p-10">
           {/* ------------------------------------ the product, front and centre */}
+          {/* The image is 521px wide and 307 tall; the feature rail beside it is
+              664. Centring the image in that column left ~330px of nothing —
+              half the column. So the column now carries the whole story: badge,
+              the product at full column width, and the numbers underneath it. */}
           <div className="group relative flex flex-col">
-            <div className="flex items-center gap-2.5">
+            <div className="flex shrink-0 items-center gap-2.5">
               <Pill aurora>
                 <SparkMark size={13} animate /> Live product
               </Pill>
@@ -136,37 +147,52 @@ export function AnalyticsSection() {
                 app.vadal.ai
               </span>
             </div>
-            <div className="relative mt-8 flex flex-1 items-center">
-              <ProductStage tint="#5c7cf9" className="w-full" padding="p-5 sm:p-7">
-              <div className="relative w-full">
-                {/* sentiment peeks from behind — measure AND predict */}
-                <img
-                  src="/product/screens/feedback-intelligence/theme-trend-over-time-view.webp"
-                  alt="The Sentiment screen in the Vadal.ai product, positive versus negative sentiment over six months"
-                  width={1600}
-                  height={1000}
-                  loading="lazy"
-                  className="absolute -top-7 right-0 w-[76%] rotate-[2deg] rounded-[10px] border border-[var(--line)] shadow-[var(--shadow-md)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[2.8deg]"
-                />
-                <img
-                  src="/product/screens/people-analytics/driver-level-heatmap.webp"
-                  alt="The Analytics screen in the Vadal.ai product, an engagement heatmap by team and tenure"
-                  width={1600}
-                  height={1000}
-                  loading="lazy"
-                  className="relative block h-auto w-[86%] rounded-[var(--r-lg)] border border-[var(--line)] shadow-[0_28px_60px_-24px_rgba(13,11,22,0.45)] transition-transform duration-500 group-hover:translate-y-1"
-                />
-              </div>
+
+            <div className="relative mt-5 flex flex-1 items-center">
+              <ProductStage tint="#5c7cf9" className="w-full" padding="p-4 sm:p-5">
+                <div className="relative w-full pt-9">
+                  {/* sentiment peeks from behind — measure AND predict */}
+                  <img
+                    src="/product/screens/feedback-intelligence/theme-trend-over-time-view.webp"
+                    alt="The Sentiment screen in the Vadal.ai product, positive versus negative sentiment over six months"
+                    width={1600}
+                    height={1000}
+                    loading="lazy"
+                    className="absolute right-0 top-0 w-[74%] rotate-[2deg] rounded-[10px] border border-white/50 shadow-[var(--shadow-md)] transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:rotate-[2.8deg]"
+                  />
+                  <img
+                    src="/product/screens/people-analytics/driver-level-heatmap.webp"
+                    alt="The Analytics screen in the Vadal.ai product, an engagement heatmap by team and tenure"
+                    width={1600}
+                    height={1000}
+                    loading="lazy"
+                    className="relative block h-auto w-full rounded-[var(--r-lg)] border border-white/50 shadow-[0_28px_60px_-24px_rgba(13,11,22,0.45)] transition-transform duration-500 group-hover:translate-y-1"
+                  />
+                </div>
               </ProductStage>
+            </div>
+
+            {/* the numbers the screen above is showing — what used to be air */}
+            <div className="mt-4 grid shrink-0 grid-cols-3 gap-2.5">
+              {[
+                ["12,460", "people measured"],
+                ["94%", "weekly reach"],
+                ["6 mo", "trend depth"],
+              ].map(([v, k]) => (
+                <div key={k} className="rounded-[var(--r-lg)] border border-white/55 bg-white/70 px-3.5 py-3 backdrop-blur-md">
+                  <p className="text-[19px] font-bold leading-none tracking-[-0.02em] text-[var(--ink-deep)]">{v}</p>
+                  <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--foreground)]/70">{k}</p>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* --------------------------------------- the features, as a rail */}
-          <div className="flex flex-col justify-center gap-3">
+          <div className="flex flex-col justify-between gap-3">
             {rail.map((f, i) => (
               <div
                 key={f.title}
-                className="group/row flex gap-4 rounded-[var(--r-lg)] border border-white/55 bg-white/70 p-5 backdrop-blur-md transition-all duration-300 hover:bg-white/85 hover:shadow-[var(--shadow-md)]"
+                className="group/row flex gap-3.5 rounded-[var(--r-lg)] border border-white/55 bg-white/70 p-4 backdrop-blur-md transition-all duration-300 hover:bg-white/85 hover:shadow-[var(--shadow-md)]"
               >
                 <div className="flex flex-col items-center gap-2">
                   <span
@@ -175,13 +201,13 @@ export function AnalyticsSection() {
                   >
                     <Icon name={f.icon} size={19} />
                   </span>
-                  <span className="text-[11.5px] font-bold tabular-nums" style={{ color: RAMP[i] }}>
+                  <span className="text-[11.5px] font-bold tabular-nums" style={{ color: RAMP_TEXT[i] }}>
                     0{i + 1}
                   </span>
                 </div>
                 <div>
                   <h3 className="text-[15.5px] font-bold leading-snug text-[var(--ink-deep)]">{f.title}</h3>
-                  <p className="mt-1.5 text-[13.5px] leading-relaxed text-[var(--foreground)]/75">{f.body}</p>
+                  <p className="mt-1 text-[13px] leading-[1.5] text-[var(--foreground)]/78">{f.body}</p>
                 </div>
               </div>
             ))}
@@ -200,7 +226,7 @@ export function AnalyticsSection() {
               </span>
               <div>
                 <h3 className="text-[14.5px] font-bold leading-snug">{exports_.title}</h3>
-                <p className="text-[12.5px] text-[var(--muted)]">Excel, CSV, PDF, or straight into your BI stack.</p>
+                <p className="text-[12.5px] text-[var(--foreground)]/80">Excel, CSV, PDF, or straight into your BI stack.</p>
               </div>
             </div>
             <div className="flex flex-wrap gap-2 sm:justify-end">

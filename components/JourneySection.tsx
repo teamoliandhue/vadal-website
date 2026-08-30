@@ -33,7 +33,13 @@ import type { IconName } from "@/lib/content";
    inline and the page simply reads top to bottom.
    ========================================================================== */
 
-/* The illustration frame. No drop shadow: the scenes already sit on their own
+/* 16:10 on desktop and square on mobile is not an aesthetic choice — it makes
+   both boxes 350px tall at their real widths (560 and 350), so ONE set of scene
+   content fits both exactly. At 13:10 the desktop panel was 431px, 81px more
+   than the scenes needed, and justify-between spread that slack into 30-43px
+   gaps between rows inside a card, which reads as broken rather than airy.
+
+   The illustration frame. No drop shadow: the scenes already sit on their own
    warm cream ground, and a lifted card under a flat-colour illustration reads
    as a screenshot pasted onto the page. Depth comes from the surface instead —
    a soft warm wash, and a hairline in the illustration's own ink rather than
@@ -42,10 +48,11 @@ import type { IconName } from "@/lib/content";
    The border colour has to be an inline style, not a `border-[…]` utility:
    globals.css sets `* { border-color: var(--line) }` OUTSIDE @layer base, and
    an unlayered rule beats every layered utility in the cascade. */
-const FRAME =
-  "overflow-hidden rounded-[var(--r-xl)] border " +
-  "bg-[radial-gradient(120%_100%_at_50%_0%,#fffdf8_0%,#fbf7f1_45%,#f6eee2_100%)]";
-const FRAME_STYLE = { borderColor: "rgba(51,71,91,0.13)" };
+/* No background here any more: the scene is a lit gradient stage that has to
+   run edge to edge, so the frame is a rounded clip and a hairline, nothing
+   else. A cream wash behind it just showed as a rim. */
+const FRAME = "overflow-hidden rounded-[var(--r-xl)] border";
+const FRAME_STYLE = { borderColor: "rgba(13,47,42,0.16)" };
 
 type Stage = {
   id: keyof typeof LOOP_SCENES;
@@ -225,7 +232,10 @@ export function JourneySection() {
 
                 {/* below lg there is no sticky column, so the picture rides
                     with its own copy */}
-                <div className={`mt-7 aspect-[13/10] lg:hidden ${FRAME}`} style={FRAME_STYLE}>
+                {/* Square on mobile, not 13/10. At 350px wide a 13:10 box is 269px tall and
+                    these scenes need ~326px — Listen was overflowing its panel by 50px.
+                    The desktop column keeps 13/10, where there is room. */}
+                <div className={`mt-7 aspect-square lg:hidden ${FRAME}`} style={FRAME_STYLE}>
                   {LOOP_SCENES[x.id]()}
                 </div>
               </div>
@@ -237,7 +247,7 @@ export function JourneySection() {
         <div className="hidden lg:block">
           <div className="sticky top-[13vh] flex h-[74vh] flex-col justify-center">
             <div
-              className={`relative mx-auto aspect-[13/10] w-full max-w-[560px] ${FRAME}`}
+              className={`relative mx-auto aspect-[16/10] w-full max-w-[560px] ${FRAME}`}
               style={FRAME_STYLE}
             >
               {/* all four are mounted and crossfade in place — remounting on
