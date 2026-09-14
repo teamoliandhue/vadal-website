@@ -1,618 +1,116 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { Icon } from "./Icon";
+import { SignalMark, SparkMark } from "./Brand";
 import type { IconName } from "@/lib/content";
+import "./hero-workspace.css";
+import { VadalIntelligence } from "./VadalIntelligence";
+import "./hero-polish.css";
+import "./vadal-ai-finish.css";
+import { ListeningExperience } from "./ListeningExperience";
 
-/* ============================================================================
-   Hero bento — the product, one capability at a time.
-
-   This was a static mosaic: a photo, a channel list and an Ask Vadal panel,
-   all visible at once. It looked fine and said little — three fragments of an
-   interface with no order to read them in, and no sense of what the platform
-   actually does beyond "there is a product".
-
-   Now it is a stage that walks through the six things Vadal does, in the order
-   they happen: listen, ask, understand, recognise, act, and ask the copilot.
-   Each gets a small, specific product moment rather than a caption, so the
-   capability is shown rather than named. The rail underneath holds all six at
-   once, so the breadth is visible before the cycle reaches any of them, and a
-   visitor who wants a particular one can click straight to it.
-
-   Motion is the point here, so it is built to be smooth rather than busy:
-
-   - All six scenes stay mounted and stack absolutely, and only opacity and
-     transform change. That means the crossfade is compositor-only, and the
-     card never reflows or jumps as content of different heights swaps in.
-   - Rows inside a scene carry a transition-delay, so when a scene becomes
-     active its contents arrive in sequence rather than all at once. It costs
-     nothing — the same properties are already transitioning.
-   - Advancement is a timer, not an animationend. The global reduce-motion rule
-     clamps animations to 0.001ms rather than removing them, so a cycle driven
-     off animationend would fire instantly and strobe all six.
-
-   It pauses on hover and when scrolled out of view, and under
-   prefers-reduced-motion it holds on the first capability and never advances.
-   ========================================================================== */
-
-const DWELL = 4200;
-
-type Feature = {
-  id: string;
-  name: string;
-  /** one word for the rail — the icons alone do not say what is cycling */
-  tab: string;
-  icon: IconName;
-  accent: string;
-  scene: (on: boolean) => ReactNode;
-};
-
-/* stagger helper: a row that arrives in sequence once its scene is active */
-function Row({ on, i, className = "", children }: { on: boolean; i: number; className?: string; children: ReactNode }) {
-  return (
-    <div
-      className={`transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${className}`}
-      style={{
-        opacity: on ? 1 : 0,
-        transform: on ? "none" : "translateY(10px)",
-        transitionDelay: on ? `${140 + i * 80}ms` : "0ms",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-const label = "text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]";
-const bar = (pct: number, colour: string, on: boolean) => (
-  <span className="block h-[6px] flex-1 overflow-hidden rounded-full bg-[var(--surface-2)]">
-    <span
-      className="block h-full rounded-full transition-[width] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-      style={{ width: on ? `${pct}%` : "0%", background: colour, transitionDelay: on ? "320ms" : "0ms" }}
-    />
-  </span>
-);
-
-
-/* ---------------------------------------------------------------- charts */
-/* Small, deterministic visualisations. They exist to fill the scenes with
-   something to read rather than to decorate: every one of them is the shape of
-   the claim its scene is making. All draw from a normalised series so the same
-   two components cover a trend, a volume and a comparison. */
-
-/** an area + line chart that draws itself in when its scene becomes active */
-function Area({ data, colour, on, h = 58 }: { data: number[]; colour: string; on: boolean; h?: number }) {
-  const W = 260;
-  const max = Math.max(...data) * 1.1;
-  const min = Math.min(...data) * 0.85;
-  const pts = data.map((v, i) => [
-    (i / (data.length - 1)) * W,
-    h - ((v - min) / (max - min || 1)) * h,
-  ]);
-  const line = pts.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
-  const last = pts[pts.length - 1];
-  return (
-    <svg viewBox={`0 0 ${W} ${h}`} preserveAspectRatio="none" className="block h-full w-full" aria-hidden="true">
-      <defs>
-        <linearGradient id={`ar-${colour.slice(1)}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={colour} stopOpacity="0.28" />
-          <stop offset="100%" stopColor={colour} stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <path
-        d={`${line} L${W} ${h} L0 ${h} Z`}
-        fill={`url(#ar-${colour.slice(1)})`}
-        className="transition-opacity duration-700 motion-reduce:transition-none"
-        style={{ opacity: on ? 1 : 0, transitionDelay: on ? "420ms" : "0ms" }}
-      />
-      <path
-        d={line}
-        fill="none"
-        stroke={colour}
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        pathLength={100}
-        strokeDasharray={100}
-        className="transition-[stroke-dashoffset] duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-        style={{ strokeDashoffset: on ? 0 : 100, transitionDelay: on ? "260ms" : "0ms" }}
-        vectorEffect="non-scaling-stroke"
-      />
-      <circle
-        cx={last[0]}
-        cy={last[1]}
-        r="3.5"
-        fill={colour}
-        className="transition-opacity duration-500 motion-reduce:transition-none"
-        style={{ opacity: on ? 1 : 0, transitionDelay: on ? "1000ms" : "0ms" }}
-      />
-    </svg>
-  );
-}
-
-/** a column chart — volume by day, recognition per week, before vs after */
-function Cols({ data, colour, on, hi }: { data: { l: string; v: number }[]; colour: string; on: boolean; hi?: number }) {
-  const max = Math.max(...data.map((d) => d.v));
-  return (
-    <div className="flex h-full items-end gap-[5px]">
-      {data.map((d, i) => (
-        <span key={i} className="flex h-full flex-1 flex-col justify-end gap-1.5">
-          <span
-            className="block w-full rounded-[3px] transition-[height] duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-            style={{
-              height: on ? `${Math.max(8, (d.v / max) * 100)}%` : "0%",
-              background: colour,
-              opacity: hi === undefined || hi === i ? 1 : 0.32,
-              transitionDelay: on ? `${300 + i * 55}ms` : "0ms",
-            }}
-          />
-          <span className="text-center text-[9.5px] font-medium text-[var(--muted-2)]">{d.l}</span>
-        </span>
-      ))}
-    </div>
-  );
-}
-
-const FEATURES: Feature[] = [
-  /* ---------------------------------------------------------- 1. listening */
-  {
-    id: "listening",
-    name: "Always-on listening",
-    tab: "Listen",
-    icon: "chat",
-    accent: "#19c6b4",
-    scene: (on) => (
-      <div className="flex h-full flex-col gap-2.5">
-        <Row on={on} i={0} className="flex items-center justify-between">
-          <p className={label}>Live signal stream</p>
-          <span className="rounded-full bg-[#19c6b41f] px-2 py-0.5 text-[11px] font-bold text-[#19c6b4]">38 today</span>
-        </Row>
-        <Row on={on} i={1} className="min-h-[52px] flex-1">
-          <Area data={[18, 26, 22, 34, 30, 41, 38]} colour="#19c6b4" on={on} h={52} />
-        </Row>
-        {[
-          { t: "“Can we get clarity on the return-to-office policy?”", c: "Chat", w: "just now" },
-          { t: "“Another weekend of on-call — we can't keep shipping like this.”", c: "Chat", w: "12m" },
-        ].map((x, i) => (
-          <Row key={x.w} on={on} i={i + 2}>
-            <div className="rounded-[11px] border border-[var(--line)] bg-[var(--card)] px-3 py-2">
-              <p className="line-clamp-2 text-[13px] leading-snug text-[var(--foreground)]">{x.t}</p>
-              <p className="mt-1 text-[11px] text-[var(--muted-2)]">{x.c} · {x.w}</p>
-            </div>
-          </Row>
-        ))}
-        <Row on={on} i={4} className="flex gap-1.5">
-          {[["Chat", "1,640"], ["Feed", "412"], ["Survey", "620"], ["1:1s", "96"]].map(([n, v]) => (
-            <span key={n} className="flex-1 rounded-[9px] border border-[var(--line)] bg-[var(--card)] px-2 py-1.5 text-center">
-              <span className="block text-[12px] font-bold tabular-nums text-[var(--foreground)]">{v}</span>
-              <span className="block text-[9.5px] text-[var(--muted-2)]">{n}</span>
-            </span>
-          ))}
-        </Row>
-      </div>
-    ),
-  },
-  /* ------------------------------------------------------------ 2. surveys */
-  {
-    id: "surveys",
-    name: "Adaptive surveys",
-    tab: "Survey",
-    icon: "pulse",
-    accent: "#2bb0e6",
-    scene: (on) => (
-      <div className="flex h-full flex-col gap-2.5">
-        <Row on={on} i={0} className="flex items-center justify-between">
-          <p className={label}>Pulse · question 3 of 4</p>
-          <span className="text-[11px] font-semibold text-[var(--muted-2)]">40 seconds</span>
-        </Row>
-        <Row on={on} i={1}>
-          <p className="text-[15px] font-semibold leading-snug text-[var(--foreground)]">My workload is sustainable</p>
-        </Row>
-        <Row on={on} i={2}>
-          <div className="flex gap-2">
-            {["😀", "🙂", "😐", "😕"].map((e, i) => (
-              <span
-                key={e}
-                className="grid flex-1 place-items-center rounded-[11px] border py-2 text-[19px] transition-colors duration-500"
-                style={{
-                  borderColor: on && i === 2 ? "#2bb0e6" : "var(--line)",
-                  background: on && i === 2 ? "#2bb0e614" : "var(--card)",
-                  transitionDelay: on ? "760ms" : "0ms",
-                }}
-              >
-                {e}
-              </span>
-            ))}
-          </div>
-        </Row>
-        <Row on={on} i={3} className="min-h-[54px] flex-1">
-          <Cols
-            data={[{ l: "M", v: 42 }, { l: "T", v: 78 }, { l: "W", v: 94 }, { l: "T", v: 61 }, { l: "F", v: 38 }, { l: "S", v: 12 }, { l: "S", v: 9 }]}
-            colour="#2bb0e6"
-            on={on}
-            hi={2}
-          />
-        </Row>
-        <Row on={on} i={4}>
-          <div className="flex items-center gap-3">
-            {bar(74, "#2bb0e6", on)}
-            <span className="shrink-0 text-[12px] font-bold tabular-nums text-[var(--foreground)]">74%</span>
-          </div>
-          <p className="mt-1.5 text-[11px] text-[var(--muted-2)]">9,240 of 12,480 responded · every channel</p>
-        </Row>
-      </div>
-    ),
-  },
-  /* ---------------------------------------------------------- 3. analytics */
-  {
-    id: "analytics",
-    name: "People analytics",
-    tab: "Analyse",
-    icon: "chart",
-    accent: "#3b9eff",
-    scene: (on) => (
-      <div className="flex h-full flex-col gap-2.5">
-        <Row on={on} i={0} className="flex items-end justify-between">
-          <div>
-            <p className={label}>Engagement</p>
-            <p className="mt-0.5 text-[32px] font-extrabold leading-none tracking-[-0.03em] tabular-nums text-[var(--foreground)]">82</p>
-          </div>
-          <span className="rounded-full bg-[#17a35e14] px-2.5 py-1 text-[11.5px] font-bold text-[#17a35e]">▲ 4 this quarter</span>
-        </Row>
-        <Row on={on} i={1} className="min-h-[62px] flex-1">
-          <Area data={[71, 72, 70, 74, 76, 75, 78, 79, 78, 81, 80, 82]} colour="#3b9eff" on={on} h={62} />
-        </Row>
-        <Row on={on} i={2}>
-          <p className={label}>What is driving it</p>
-        </Row>
-        {[
-          { t: "Recognition", v: 84, c: "#17a35e" },
-          { t: "Workload", v: 52, c: "#e4622f" },
-          { t: "Career growth", v: 61, c: "#3b9eff" },
-        ].map((d, i) => (
-          <Row key={d.t} on={on} i={i + 3}>
-            <div className="flex items-center gap-3">
-              <span className="w-[96px] shrink-0 text-[12.5px] font-semibold text-[var(--foreground)]">{d.t}</span>
-              {bar(d.v, d.c, on)}
-              <span className="w-6 shrink-0 text-right text-[12px] font-bold tabular-nums" style={{ color: d.c }}>{d.v}</span>
-            </div>
-          </Row>
-        ))}
-      </div>
-    ),
-  },
-  /* -------------------------------------------------------- 4. recognition */
-  {
-    id: "recognition",
-    name: "Recognition",
-    tab: "Recognise",
-    icon: "heart",
-    accent: "#5c7cf9",
-    scene: (on) => (
-      <div className="flex h-full flex-col gap-2.5">
-        <Row on={on} i={0} className="flex items-center justify-between">
-          <p className={label}>Wall of fame</p>
-          <span className="text-[11px] font-semibold text-[var(--muted-2)]">this month</span>
-        </Row>
-        <Row on={on} i={1}>
-          <div className="rounded-[12px] border border-[var(--line)] bg-[var(--card)] p-3">
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#5c7cf91f] text-[11px] font-bold text-[#5c7cf9]">RM</span>
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-[13px] font-semibold text-[var(--foreground)]">Rohan Mehta</span>
-                <span className="block text-[11px] text-[var(--muted-2)]">from Sara · Ownership</span>
-              </span>
-              <span className="shrink-0 rounded-full bg-[#5c7cf91f] px-2 py-0.5 text-[11px] font-bold text-[#5c7cf9]">+250</span>
-            </div>
-            <p className="mt-2 line-clamp-2 text-[12.5px] leading-snug text-[var(--muted)]">
-              “Carried the design-system refactor for two sprints and never made it someone else's problem.”
-            </p>
-          </div>
-        </Row>
-        <Row on={on} i={2} className="min-h-[56px] flex-1">
-          <Cols
-            data={[{ l: "W1", v: 34 }, { l: "W2", v: 48 }, { l: "W3", v: 41 }, { l: "W4", v: 62 }, { l: "W5", v: 71 }, { l: "W6", v: 88 }]}
-            colour="#5c7cf9"
-            on={on}
-          />
-        </Row>
-        <Row on={on} i={3} className="flex items-center gap-3">
-          <span className="flex-1">
-            <span className="mb-1 flex items-baseline justify-between">
-              <span className="text-[11.5px] font-semibold text-[var(--foreground)]">Coverage</span>
-              <span className="text-[11.5px] font-bold tabular-nums text-[#5c7cf9]">61%</span>
-            </span>
-            {bar(61, "#5c7cf9", on)}
-          </span>
-          <span className="shrink-0 text-[11px] text-[var(--muted-2)]">❤️ 312 · 🎉 84</span>
-        </Row>
-      </div>
-    ),
-  },
-  /* ------------------------------------------------------------- 5. action */
-  {
-    id: "action",
-    name: "Action planning",
-    tab: "Act",
-    icon: "checks",
-    accent: "#7c5cf8",
-    scene: (on) => (
-      <div className="flex h-full flex-col gap-2.5">
-        <Row on={on} i={0} className="flex items-center justify-between">
-          <p className={label}>Plans in flight</p>
-          <span className="rounded-full bg-[#7c5cf81f] px-2 py-0.5 text-[11px] font-bold text-[#7c5cf8]">38 live</span>
-        </Row>
-        {[
-          { t: "Rebalance sprint load", who: "MB", pct: 70, due: "30 Jun" },
-          { t: "Monthly 1:1 cadence", who: "RP", pct: 40, due: "15 Jul" },
-        ].map((x, i) => (
-          <Row key={x.t} on={on} i={i + 1}>
-            <div className="rounded-[11px] border border-[var(--line)] bg-[var(--card)] px-3 py-2.5">
-              <div className="flex items-center gap-2.5">
-                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#7c5cf81f] text-[10px] font-bold text-[#7c5cf8]">{x.who}</span>
-                <span className="min-w-0 flex-1 truncate text-[13px] font-semibold text-[var(--foreground)]">{x.t}</span>
-                <span className="shrink-0 text-[11px] text-[var(--muted-2)]">{x.due}</span>
-              </div>
-              <div className="mt-2 flex items-center gap-2.5">
-                {bar(x.pct, "#7c5cf8", on)}
-                <span className="shrink-0 text-[11px] font-bold tabular-nums text-[var(--muted)]">{x.pct}%</span>
-              </div>
-            </div>
-          </Row>
-        ))}
-        <Row on={on} i={3} className="flex min-h-[58px] flex-1 items-end gap-3">
-          <span className="h-full flex-1">
-            <Cols data={[{ l: "Before", v: 44 }, { l: "After", v: 82 }]} colour="#7c5cf8" on={on} hi={1} />
-          </span>
-          <span className="flex-[1.6] pb-4">
-            <span className="block text-[11px] font-bold uppercase tracking-[0.1em] text-[var(--muted-2)]">Measured lift</span>
-            <span className="block text-[19px] font-extrabold leading-tight tabular-nums text-[#17a35e]">+5.2 pts</span>
-          </span>
-        </Row>
-        <Row on={on} i={4}>
-          <div className="rounded-[10px] bg-[#e6f7ee] px-3 py-2 text-[12px] font-semibold text-[#17a35e]">
-            ✓ Meeting-free Wednesdays closed against its own baseline
-          </div>
-        </Row>
-      </div>
-    ),
-  },
-  /* ------------------------------------------------------------ 6. copilot */
-  {
-    id: "copilot",
-    name: "AI copilot",
-    tab: "Ask",
-    icon: "spark",
-    accent: "#7c5cf8",
-    scene: (on) => (
-      <div className="relative flex h-full flex-col gap-2.5 overflow-hidden rounded-[14px] bg-[#141419] p-3.5">
-        <div
-          className="pointer-events-none absolute -right-16 -top-20 h-52 w-52 rounded-full opacity-45 blur-3xl"
-          style={{ background: "var(--aurora)" }}
-          aria-hidden="true"
-        />
-        <Row on={on} i={0}>
-          <div className="relative flex items-center gap-2">
-            <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full text-white" style={{ background: "var(--aurora)" }}>
-              <Icon name="spark" size={12} />
-            </span>
-            <span className="text-[13.5px] font-bold text-white">Ask Vadal</span>
-            <span className="rounded-[7px] border border-white/15 px-1.5 text-[10px] text-[#d4d4d8]">AI</span>
-          </div>
-        </Row>
-        <Row on={on} i={1}>
-          <div className="relative ml-auto max-w-[88%] rounded-[13px] rounded-br-[4px] bg-[#7c5cf8] px-3 py-2 text-[12.5px] leading-snug text-white">
-            Why is Engineering down this quarter?
-          </div>
-        </Row>
-        <Row on={on} i={2} className="flex-1">
-          <div className="relative flex h-full flex-col rounded-[13px] rounded-bl-[4px] bg-white/[0.07] px-3 py-2.5">
-            <p className="text-[12.5px] leading-relaxed text-[#e4e4e7]">
-              Workload, not pay — 312 mentions this quarter, up 22%, concentrated in the teams merged in March.
-            </p>
-            <div className="mt-2 min-h-[46px] flex-1">
-              <Area data={[180, 196, 205, 232, 258, 279, 312]} colour="#a78bfa" on={on} h={42} />
-            </div>
-          </div>
-        </Row>
-        <Row on={on} i={3}>
-          <div className="relative grid grid-cols-2 gap-2">
-            {["Draft an action plan", "Show the teams"].map((q) => (
-              <span key={q} className="truncate rounded-[11px] border border-white/[0.07] bg-white/[0.05] px-2.5 py-2 text-[12px] font-medium text-[#d4d4d8]">
-                {q}
-              </span>
-            ))}
-          </div>
-        </Row>
-      </div>
-    ),
-  },
+const VIEWS: { tab: string; icon: IconName; title: string; description: string }[] = [
+  { tab: "Vadal AI", icon: "spark", title: "Intelligence in every interaction.", description: "Meet Vadal.ai / Your workforce, connected" },
+  { tab: "Listen", icon: "chat", title: "Every voice. A clearer picture.", description: "Continuous listening / All teams" },
+  { tab: "Survey", icon: "pulse", title: "Small questions. Real understanding.", description: "Engagement pulse / September 2026" },
+  { tab: "Analyse", icon: "chart", title: "See what’s moving your people.", description: "People analytics / This quarter" },
+  { tab: "Recognise", icon: "heart", title: "Make great work feel seen.", description: "Recognition / Across your organisation" },
+  { tab: "Act", icon: "checks", title: "Good insights deserve a next step.", description: "Action planning / Engineering" },
+  { tab: "Ask", icon: "spark", title: "Your next decision starts here.", description: "Vadal AI / Grounded in your workforce data" },
 ];
 
-export function HeroBento() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [motion, setMotion] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const railRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [ind, setInd] = useState<{ x: number; w: number } | null>(null);
-
-  /* motion preference and visibility both gate the cycle — a hero that keeps
-     ticking while it is scrolled past is just burning frames */
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const set = () => setMotion(!mq.matches);
-    set();
-    mq.addEventListener("change", set);
-    const el = rootRef.current;
-    const io = el
-      ? new IntersectionObserver(([e]) => setPaused((p) => (e.isIntersecting ? false : true)), { threshold: 0.15 })
-      : null;
-    if (el && io) io.observe(el);
-    return () => {
-      mq.removeEventListener("change", set);
-      io?.disconnect();
-    };
-  }, []);
-
-  /* a timer, not an animationend — see the note at the top of this file */
-  useEffect(() => {
-    if (!motion || paused) return;
-    const t = window.setTimeout(() => setActive((a) => (a + 1) % FEATURES.length), DWELL);
-    return () => window.clearTimeout(t);
-  }, [active, paused, motion]);
-
-  /* the rail's travelling pill */
-  useEffect(() => {
-    const measure = () => {
-      const el = railRefs.current[active];
-      if (el) setInd({ x: el.offsetLeft, w: el.offsetWidth });
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    document.fonts?.ready.then(measure).catch(() => {});
-    return () => window.removeEventListener("resize", measure);
-  }, [active]);
-
-  const f = FEATURES[active];
-
-  return (
-    <div
-      ref={rootRef}
-      className="reveal"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
-    >
-      {/* The card sits on three stacked layers rather than flat white: a cool
-          vertical wash, a dot grid for texture, and a bloom in the active
-          capability's colour. Only the bloom changes between scenes, and it
-          transitions over 700ms — so the whole card warms from teal through to
-          violet as the cycle runs, which is the same aurora walk the rest of
-          the site makes. An aurora hairline along the top edge ties it to the
-          hero above it. */}
-      <div
-        className="relative flex flex-col overflow-hidden rounded-[var(--r-xl)] border border-[var(--line)] shadow-[var(--shadow-lg)]"
-        style={{ background: "linear-gradient(178deg, #ffffff 0%, var(--surface) 100%)" }}
-      >
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[2px]"
-          style={{ background: "var(--aurora)" }}
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-[0.55]"
-          style={{
-            backgroundImage: "radial-gradient(circle, var(--line-strong) 1px, transparent 1px)",
-            backgroundSize: "20px 20px",
-            maskImage: "radial-gradient(120% 90% at 50% 0%, #000 0%, transparent 78%)",
-            WebkitMaskImage: "radial-gradient(120% 90% at 50% 0%, #000 0%, transparent 78%)",
-          }}
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 transition-[background] duration-700 ease-out"
-          style={{ background: `radial-gradient(105% 70% at 88% 2%, ${f.accent}26 0%, transparent 62%)` }}
-        />
-        {/* ------------------------------------------------------- header */}
-        <div className="relative z-[1] flex items-center gap-2.5 border-b border-[var(--line)] px-5 py-3.5">
-          <span
-            className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-white transition-colors duration-500"
-            style={{ background: f.accent }}
-          >
-            <Icon name={f.icon} size={14} />
-          </span>
-          <span className="text-[14.5px] font-bold tracking-[-0.01em] text-[var(--foreground)]">{f.name}</span>
-          <span className="ml-auto inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[var(--muted-2)]">
-            <span className="live-dot h-1.5 w-1.5 rounded-full bg-[var(--danger)]" aria-hidden="true" />
-            Live
-          </span>
-        </div>
-
-        {/* -------------------------------------------------------- stage */}
-        {/* Fixed height so six scenes of different lengths never reflow the card.
-            Sized to the tallest scene at each width, measured rather than
-            guessed. The narrow card wraps its copy further, so the mobile value
-            is the LARGER of the two: at 375px the action scene needs 324px of
-            content where the widest it ever gets on desktop is 312. Padding
-            lives on the scenes, which are inset-0 and ignore any the stage
-            sets — applying it in both places was what clipped the copilot. */}
-        <div className="relative z-[1] min-h-[360px] flex-1 sm:min-h-[348px]">
-          {FEATURES.map((x, i) => {
-            const on = i === active;
-            return (
-              <div
-                key={x.id}
-                aria-hidden={!on}
-                className="absolute inset-0 px-5 py-4 transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-                style={{
-                  opacity: on ? 1 : 0,
-                  transform: on ? "none" : "translateY(14px) scale(0.985)",
-                  pointerEvents: on ? "auto" : "none",
-                }}
-              >
-                {x.scene(on)}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* --------------------------------------------------------- rail */}
-        <div className="relative z-[1] border-t border-[var(--line)] px-3 pb-3 pt-2.5">
-          <div className="relative flex items-center gap-1">
-            {ind && (
-              <span
-                aria-hidden="true"
-                className="absolute bottom-0 top-0 -z-0 rounded-[10px] transition-[transform,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
-                style={{ transform: `translateX(${ind.x}px)`, width: ind.w, background: `${f.accent}1f` }}
-              />
-            )}
-            {FEATURES.map((x, i) => {
-              const on = i === active;
-              return (
-                <button
-                  key={x.id}
-                  ref={(el) => {
-                    railRefs.current[i] = el;
-                  }}
-                  type="button"
-                  onClick={() => setActive(i)}
-                  aria-label={x.name}
-                  aria-current={on}
-                  className="relative z-10 flex flex-1 flex-col items-center gap-1.5 rounded-[10px] px-1 py-2 transition-colors duration-300"
-                  style={{ color: on ? x.accent : "var(--muted-2)" }}
-                >
-                  <span className="flex items-center gap-1.5">
-                    <Icon name={x.icon} size={15} />
-                    {/* the rail was six unlabelled glyphs: you could see something
-                        cycling but not what, nor what was coming next */}
-                    <span className="hidden text-[12px] font-semibold tracking-[-0.01em] sm:inline">
-                      {x.tab}
-                    </span>
-                  </span>
-                  <span className="h-[3px] w-full overflow-hidden rounded-full bg-[var(--surface-2)]">
-                    {on && motion && !paused && (
-                      <span
-                        key={active}
-                        className="block h-full origin-left rounded-full"
-                        style={{
-                          background: x.accent,
-                          animation: `persona-progress ${DWELL}ms linear forwards`,
-                        }}
-                      />
-                    )}
-                    {on && (!motion || paused) && (
-                      <span className="block h-full rounded-full" style={{ background: x.accent }} />
-                    )}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+function Insight({ children, label = "Vadal intelligence" }: { children: ReactNode; label?: string }) {
+  return <div className="hw-insight"><SparkMark size={21} /><div><span className="hw-eyebrow">{label}</span><p>{children}</p></div></div>;
+}
+function Avatar({ initials, tone = "violet" }: { initials: string; tone?: string }) {
+  return <span className={`hw-avatar hw-avatar--${tone}`}>{initials}</span>;
+}
+function Trend({ id }: { id: string }) {
+  return <svg className="hw-trend" viewBox="0 0 480 100" role="img" aria-label="Engagement rises from 74 to 82 over six months">
+    <defs><linearGradient id={id} x1="0" y1="0" x2="0" y2="1"><stop stopColor="#23c3b1" stopOpacity=".2"/><stop offset="1" stopColor="#23c3b1" stopOpacity="0"/></linearGradient></defs>
+    {[20,50,80].map(y=><path key={y} d={`M0 ${y}H480`} stroke="#eaeef0" strokeDasharray="3 5"/>)}
+    <path d="M0 82 C40 82 45 58 90 62 S155 85 195 51 S250 60 300 36 S355 48 395 23 S440 27 480 10 L480 100 H0Z" fill={`url(#${id})`}/>
+    <path d="M0 82 C40 82 45 58 90 62 S155 85 195 51 S250 60 300 36 S355 48 395 23 S440 27 480 10" fill="none" stroke="#16a998" strokeWidth="3"/>
+  </svg>;
+}
+function Listening() {
+  return <ListeningExperience />;
+}
+function Survey({ value, onChange }: { value: number; onChange: (value: number) => void }) {
+  return <div className="hw-scene"><div className="hw-survey-card"><div className="hw-between"><span className="hw-tag">Weekly check-in</span><span className="hw-muted">03 / 04</span></div><div className="hw-question-progress"><span/><span/><span/><span/></div><h3>My workload feels manageable.</h3><p className="hw-muted">Think about your experience this week.</p><div className="hw-responses" role="group" aria-label="Your workload response">{["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"].map((name,i)=><button type="button" key={name} aria-label={name} aria-pressed={value===i} className={value===i?"is-selected":""} onClick={()=>onChange(i)}><svg width="27" height="27" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="11" stroke="currentColor" strokeWidth="1.5"/><circle cx="10" cy="11" r="1" fill="currentColor"/><circle cx="18" cy="11" r="1" fill="currentColor"/><path d={["M9 20 Q14 12 19 20","M10 19 Q14 15 18 19","M10 18H18","M9 16 Q14 22 19 16","M8 15 Q14 25 20 15Z"][i]} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg><span>{i+1}</span></button>)}</div><div className="hw-scale"><span>Strongly disagree</span><span>Strongly agree</span></div><div className="hw-survey-foot"><span><Icon name="lock" size={14}/>Anonymous response</span><span className="hw-selected-response" aria-live="polite">{["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"][value]} selected <Icon name="check" size={14}/></span></div></div><div className="hw-participation"><div className="hw-avatar-stack"><Avatar initials="AK"/><Avatar initials="SM" tone="teal"/><Avatar initials="JR" tone="amber"/></div><div><b>74% participation</b><span>9,240 people heard. Every channel included.</span></div><span className="hw-mini-bars" aria-hidden="true">{[25,42,33,62,52,75,90].map((h,i)=><i key={i} style={{height:`${h}%`}}/>)}</span></div></div>;
+}
+function Analytics({ id }: { id: string }) {
+  return <div className="hw-scene"><div className="hw-analytics-card"><div className="hw-between"><div><span className="hw-eyebrow">Engagement score</span><div className="hw-score">82<span>/ 100</span></div></div><span className="hw-tag hw-tag--teal">↗ 8 points in 6 months</span></div><Trend id={id}/><div className="hw-scale"><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span></div></div><div className="hw-drivers"><span className="hw-eyebrow">Behind the score</span>{[{title:"Recognition",score:84,tone:"teal"},{title:"Career growth",score:61,tone:"violet"},{title:"Workload",score:52,tone:"amber"}].map(d=><div key={d.title}><span>{d.title}</span><div className={`hw-meter hw-meter--${d.tone}`}><i style={{width:`${d.score}%`}}/></div><b>{d.score}</b></div>)}</div><Insight>Recognition is a strength. Workload is the clearest opportunity to improve.</Insight></div>;
+}
+function Recognition() {
+  const [liked, setLiked] = useState(false);
+  return <div className="hw-scene">
+    <div className="hw-recognition-card" data-celebrating={liked}>
+      <div className="hw-confetti" aria-hidden="true">{Array.from({length: 9}, (_, i) => <i key={`${liked}-${i}`} style={{left:`${8+i*10}%`,animationDelay:`${i*45}ms`}}/>)}</div>
+      <div className="hw-between"><span className="hw-tag hw-tag--amber"><Icon name="heart" size={13}/>Living our values</span><span className="hw-muted">Today, 10:24</span></div>
+      <div className="hw-recipient"><Avatar initials="RM" tone="teal"/><div><span className="hw-muted">A little appreciation for</span><h3>Rohan Mehta</h3></div><span className="hw-appreciation" aria-hidden="true">✦</span></div>
+      <blockquote>“You made a complex launch feel effortless. Thank you for showing up for the whole team.”</blockquote>
+      <div className="hw-between"><span className="hw-muted">Sara Khan · Product team</span><span className="hw-tag hw-tag--violet">Above & beyond</span></div>
+      <div className="hw-recognition-reactions"><button type="button" aria-label="Appreciate Rohan’s work" aria-pressed={liked} onClick={()=>setLiked(v=>!v)}><Icon name="heart" size={15}/><b>{liked?25:24}</b><span>{liked?"Appreciated":"Appreciate"}</span></button><span><Icon name="chat" size={15}/>6 kind words</span><span className="hw-muted">+250 points</span></div>
     </div>
-  );
+    <div className="hw-small-stats"><div><strong>312</strong><span>moments celebrated</span></div><div><strong>61%</strong><span>of your people recognised</span></div></div>
+    <Insight>Appreciation travels. Recognition now reaches 12 more teams than last month.</Insight>
+  </div>;
+}
+function Actions() {
+  return <div className="hw-scene"><div className="hw-between hw-board-summary"><span><b>Team action board</b><span className="hw-muted"> · 2 priorities</span></span><span className="hw-tag hw-tag--teal">On track</span></div><div className="hw-action-grid">{[
+    {title:"Rebalance sprint load",theme:"Workload",owner:"Maya Brooks",initials:"MB",progress:70,due:"Sep 30",tasks:"7 of 10 steps",tone:"violet"},
+    {title:"Make space for 1:1s",theme:"Manager support",owner:"Ravi Patel",initials:"RP",progress:40,due:"Oct 15",tasks:"2 of 5 steps",tone:"teal"},
+  ].map(a=><article className="hw-action-card" key={a.title}><div className="hw-action-source"><span className={`hw-theme-dot hw-theme-dot--${a.tone}`}/>{a.theme}<span>↗</span></div><h3>{a.title}</h3><div className="hw-owner"><Avatar initials={a.initials} tone={a.tone}/><span>{a.owner}<small>Action owner</small></span></div><div className="hw-between hw-action-progress"><span>{a.tasks}</span><b>{a.progress}%</b></div><div className="hw-meter"><i style={{width:`${a.progress}%`}}/></div><div className="hw-action-due"><span>In progress</span><span>Due {a.due}</span></div></article>)}</div><div className="hw-impact"><div className="hw-impact-icon"><Icon name="check" size={18}/></div><div><b>Meeting-free Wednesdays</b><span>Completed · Workload score improved</span></div><strong>+5.2<small>points</small></strong></div><Insight label="From insight to impact">Every action has an owner. Every outcome is measured against its starting point.</Insight></div>;
+}
+function Copilot() {
+  const [question, setQuestion] = useState(0);
+  const answers = [
+    { question: "Where should I focus with Engineering?", lead: "Start with workload.", body: "It’s the strongest signal behind the team’s engagement dip.", number: "312", metric: "workload mentions", change: "+22%", period: "vs. last quarter", advice: "Review sprint capacity with managers in the teams merged in March.", source: "Pulse responses" },
+    { question: "What’s working well for our people?", lead: "Recognition is a strength.", body: "Teams are building a more consistent habit of appreciating each other.", number: "84", metric: "recognition score", change: "+12", period: "teams reached", advice: "Share the practices of teams with strong peer recognition across the organisation.", source: "Recognition signals" },
+    { question: "What should our next action be?", lead: "Create room to recharge.", body: "Turn the workload signal into an owned, measurable team action.", number: "3", metric: "teams to prioritise", change: "2 weeks", period: "until follow-up", advice: "Review sprint capacity, agree on an owner, and check back with a short pulse.", source: "Action recommendations" },
+  ];
+  const answer = answers[question];
+  return <div className="hw-scene">
+    <div className="hw-chat-question"><Avatar initials="JD"/><p>{answer.question}</p></div>
+    <div className="hw-answer" key={question}>
+      <div className="hw-answer-brand"><SparkMark size={23}/><b>Vadal AI</b><span>2 sources</span></div>
+      <p><strong>{answer.lead}</strong> {answer.body}</p>
+      <div className="hw-answer-data"><div><strong>{answer.number}</strong><span>{answer.metric}</span></div><div><strong>{answer.change}</strong><span>{answer.period}</span></div></div>
+      <p className="hw-muted">{answer.advice}</p>
+      <div className="hw-citations"><span>01 · {answer.source}</span><span>02 · Team trends</span></div>
+    </div>
+    <div className="hw-question-options" role="group" aria-label="Example questions for Vadal AI">{["Where to focus?","What’s working?","Next action?"].map((q,i)=><button key={q} type="button" aria-pressed={question===i} onClick={()=>setQuestion(i)}>{q}<span aria-hidden="true">↗</span></button>)}</div>
+  </div>;
+}
+
+export function HeroBento() {
+  const [active,setActive]=useState(0);
+  const [playing,setPlaying]=useState(true);
+  const [hovered,setHovered]=useState(false);
+  const [focused,setFocused]=useState(false);
+  const [visible,setVisible]=useState(false);
+  const [reduced,setReduced]=useState(true);
+  const [response,setResponse]=useState(3);
+  const root=useRef<HTMLDivElement>(null);
+  const tabs=useRef<(HTMLButtonElement|null)[]>([]);
+  const id=useId();
+  const running=playing&&visible&&!hovered&&!focused&&!reduced;
+  useEffect(()=>{
+    const mq=window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync=()=>setReduced(mq.matches);sync();mq.addEventListener("change",sync);
+    const observer=new IntersectionObserver(([entry])=>setVisible(entry.isIntersecting),{threshold:.2});
+    if(root.current)observer.observe(root.current);
+    return()=>{mq.removeEventListener("change",sync);observer.disconnect();};
+  },[]);
+  useEffect(()=>{if(!running)return;const timer=window.setTimeout(()=>setActive(v=>(v+1)%VIEWS.length),7500);return()=>window.clearTimeout(timer);},[running,active]);
+  const select=(index:number)=>{setActive(index);setPlaying(false);};
+  const scenes=[<VadalIntelligence key="vadal-ai"/>,<Listening key="listen"/>,<Survey key="survey" value={response} onChange={setResponse}/>,<Analytics key="analyse" id={`${id}-trend`}/>,<Recognition key="recognise"/>,<Actions key="act"/>,<Copilot key="ask"/>];
+  return <div className="hw-shell" data-view={VIEWS[active].tab} data-visible={visible} ref={root} onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)} onFocusCapture={()=>setFocused(true)} onBlurCapture={event=>{if(!event.currentTarget.contains(event.relatedTarget))setFocused(false);}}>
+    <div className="hw-window-bar"><div className="hw-workspace-name"><SignalMark size={20}/><b>Workspace</b><span>/</span><span>Overview</span></div><div className="hw-window-right"><span className="hw-demo">Product preview</span><Avatar initials="JD"/></div></div>
+    <div className="hw-heading"><p>{VIEWS[active].description}</p><h2>{VIEWS[active].title}</h2></div>
+    <div className="hw-stage"><div key={active} id={`${id}-panel-${active}`} role="tabpanel" aria-labelledby={`${id}-tab-${active}`} className="hw-panel">{scenes[active]}</div></div>
+    <div className="hw-navigation"><div role="tablist" aria-label="Explore Vadal capabilities" className="hw-tabs">{VIEWS.map((view,i)=><button key={view.tab} type="button" ref={el=>{tabs.current[i]=el;}} role="tab" id={`${id}-tab-${i}`} aria-controls={active===i?`${id}-panel-${i}`:undefined} aria-selected={active===i} tabIndex={active===i?0:-1} onClick={()=>select(i)} onKeyDown={event=>{let next=i;if(event.key==="ArrowRight")next=(i+1)%VIEWS.length;else if(event.key==="ArrowLeft")next=(i+VIEWS.length-1)%VIEWS.length;else if(event.key==="Home")next=0;else if(event.key==="End")next=VIEWS.length-1;else return;event.preventDefault();select(next);tabs.current[next]?.focus();}}><Icon name={view.icon} size={16}/><span>{view.tab}</span></button>)}</div><button className="hw-play" type="button" aria-label={playing?"Pause product tour":"Play product tour"} aria-pressed={playing} onClick={()=>setPlaying(p=>!p)}>{playing?<span className="hw-pause-symbol" aria-hidden="true"/>:<Icon name="play" size={13}/>}</button></div>
+  </div>;
 }

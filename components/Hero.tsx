@@ -43,7 +43,7 @@ export function Hero() {
       {/* the right column is wider than the space it is given, so the product
           bleeds past the container edge and the section crops it */}
       <Container className="grid w-full items-center gap-10 py-12 lg:grid-cols-[52%_48%] lg:gap-8 lg:py-14">
-        <div className="flex flex-col items-start gap-4">
+        <div className="hero-copy flex flex-col items-start gap-4">
           <Pill aurora>
             <SparkMark size={14} animate />
             {/* the full positioning line wraps awkwardly at phone widths */}
@@ -90,7 +90,7 @@ export function Hero() {
             rail was decorative glyphs, not fine now that each one is a labelled
             control you are meant to be able to click. Full bleed returns at
             2xl, where there is room for it. */}
-        <div className="lg:w-[100%] xl:w-[108%] 2xl:w-[124%]">
+        <div className="hero-product-column lg:w-[100%] xl:w-[108%] 2xl:w-[124%]">
           <HeroBento />
         </div>
       </Container>
