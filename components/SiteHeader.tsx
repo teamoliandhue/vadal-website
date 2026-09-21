@@ -374,7 +374,7 @@ function MegaPanel({ id, onNavigate }: { id: MegaId; onNavigate: () => void }) {
 
 /* Two-pane platform mega: a rail of the platform layers on the left, the
    hovered/focused layer's modules on the right. The catalog is far too big for
-   a flat grid (25 modules), and this is the only shape that gives every module
+   a flat grid (16 modules), and this is the only shape that gives every module
    room for its benefit hook — which is how the brief describes the taxonomy.
    Rail items are real links to /platform#<layer>, so the menu stays navigable
    and keyboard-accessible without bespoke key handling: focus swaps the pane. */
@@ -855,7 +855,7 @@ function MobileLink({ item, onClose }: { item: MenuItem; onClose: () => void }) 
 }
 
 /* The brief: "hamburger opens full module menu". A nested accordion — layer,
-   then its modules as name + hook — is the only way 25 modules stay scannable
+   then its modules as name + hook — is the only way 16 modules stay scannable
    on a phone. Rows navigate straight to the product page; the four benefit
    lines belong to the landing-page accordion, not to the menu. */
 function MobileLayerGroup({ onClose }: { onClose: () => void }) {

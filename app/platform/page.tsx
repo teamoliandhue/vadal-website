@@ -255,7 +255,7 @@ export default function PlatformPage() {
                 </p>
                 {/* this layer opens with what it is — the summary that used to
                     sit on the home page with nothing around it to explain it */}
-                {g.id === "workforce-intelligence" && <AnalyticsSection embedded />}
+                {g.id === "decision-intelligence" && <AnalyticsSection embedded />}
                 <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                   {g.modules.map((it) =>
                     it.slug ? (
@@ -268,6 +268,16 @@ export default function PlatformPage() {
                         <p className="mt-1.5 text-[13px] leading-relaxed text-[var(--muted)]">
                           {it.blurb ?? it.hook}
                         </p>
+                        {it.lines && (
+                          <ul className="mt-3 space-y-1">
+                            {it.lines.map((l) => (
+                              <li key={l} className="flex items-start gap-1.5 text-[13px] text-[var(--muted)]">
+                                <span aria-hidden className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[var(--brand)]" />
+                                {l.split(",")[0]}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                         <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-[13px] font-semibold text-[var(--brand)]">
                           Explore
                           <Icon name="arrow" size={13} className="transition-transform group-hover:translate-x-0.5" />

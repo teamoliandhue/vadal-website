@@ -324,7 +324,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
             ))}
           </div>
           <p className="mt-8 text-center text-[14px] text-[var(--muted)]">
-            <Link href="/platform/enterprise-integrations" className="font-bold text-[var(--brand)] underline-offset-4 hover:underline">
+            <Link href="/platform/link" className="font-bold text-[var(--brand)] underline-offset-4 hover:underline">
               See the full integration ecosystem →
             </Link>
           </p>

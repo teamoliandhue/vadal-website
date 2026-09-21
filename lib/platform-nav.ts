@@ -3,24 +3,23 @@ import type { IconName } from "./content";
 /* ============================================================================
    Platform taxonomy — THE single source of truth for the product catalog.
 
-   Structure comes from the founder's "Mobile-First Website Brief": platform
-   layers, each holding modules with a short benefit hook. Everything that
-   renders the catalog derives from here — the desktop mega, the mobile module
-   menu, the /platform grid, the footer, the homepage accordion and search.
+   Six layers, sixteen modules, four capabilities each — exactly the structure
+   the founders signed off (21 Sep). Module names are the product's own names,
+   so the website and the platform say the same words: a customer who sees
+   "Kudos" here opens Kudos in the app.
 
-   Before this file there were three overlapping lists (portfolioGroups,
-   mobileProductNav, mobile-layers' platformLayers) that had drifted apart:
-   different ids for the same layer, different labels for the same product,
-   and six modules missing the slug that would link them to their own page.
-   Add a product HERE and every surface picks it up.
+   Everything that renders the catalog derives from this file — the desktop
+   mega menu, the mobile module menu, /platform, the footer, the homepage
+   accordion and search. Add a module HERE and every surface picks it up.
 
-   Two exports:
-   - `platformLayers`  full catalog, 6 layers / 25 modules → menus, grid, footer
-   - `landingLayers`   the brief's landing IA: its 5 layers and 16 modules that
-                       carry benefit lines → the homepage mobile accordion
+   Three exports:
+   - `platformLayers`   the catalog: 6 layers / 16 modules → menus, grid, footer
+   - `landingLayers`    the homepage accordion's IA
+   - `platformModules`  every module flattened, with its layer and href
 
-   Layer ids intentionally match the previous `portfolioGroups` ids, because
-   /platform#<id> anchors are already live in persona-tab links and the footer.
+   Layer ids are used as /platform#<id> anchors, so they are stable strings —
+   `decision-intelligence` replaced `workforce-intelligence` when that layer
+   was renamed.
    ========================================================================== */
 
 export type PlatformModule = {
@@ -29,13 +28,13 @@ export type PlatformModule = {
   hook: string;
   /** fuller sentence — the /platform portfolio cards */
   blurb?: string;
-  /** product page, when one exists → /platform/<slug> */
+  /** product page → /platform/<slug> */
   slug?: string;
-  /** flagged NEW in the brief */
+  /** flagged NEW in the catalog */
   isNew?: boolean;
-  /** the brief's four "what customers get" lines; only its own 16 modules have them */
+  /** the module's four capabilities, exactly as the platform names them */
   lines?: string[];
-  /** part of the brief's landing-page IA (drives `landingLayers`) */
+  /** part of the homepage accordion IA */
   landing?: boolean;
   /** glyph for the desktop mega's module rows */
   icon: IconName;
@@ -58,94 +57,67 @@ export const platformLayers: PlatformLayer[] = [
     name: "Workforce Experience",
     lede: "Connect, engage and retain your people.",
     description:
-      "Create exceptional employee experiences by connecting communication, engagement, wellbeing and recognition to improve productivity, collaboration and organizational culture.",
+      "The day-to-day experience of working here: the feed people actually open, the journey from first day to last, the wellbeing signals that arrive early, and recognition that reaches everyone.",
     icon: "heart",
     modules: [
       {
-        /* Social was buried inside Employee Communication and is the module
-           every employee touches daily, so it leads the layer. */
         name: "Social",
         icon: "users",
-        hook: "One feed the whole company reads",
+        hook: "Everyone in the conversation",
         slug: "social",
-        blurb: "An enterprise feed with must-read confirmation, accepted answers, communities and translation.",
+        blurb:
+          "One enterprise feed for news, wins and questions, with AI help to write the post and translation so everyone reads it in their own language.",
         landing: true,
         lines: [
-          "Six ways to read, For you, Latest, Popular, Must read, Questions and Saved.",
-          "Must-read posts, confirmed by the people who read them.",
-          "Questions with an accepted answer, so nobody asks twice.",
-          "Communities and translation, one conversation across teams and languages.",
+          "Communication, company news that reaches the frontline, not just the inbox.",
+          "Communities, spaces for teams, sites and interests to talk in their own words.",
+          "Collaboration, posts, replies and polls that turn announcements into conversations.",
+          "Knowledge Sharing, questions answered once, marked as the answer, findable after.",
         ],
       },
       {
-        /* A shipped module that had no presence on the site at all. */
-        name: "Amplify",
-        icon: "rocket",
-        hook: "Your people carry the message",
-        slug: "amplify",
-        blurb: "Employee advocacy in your people's own words, with reach traced through to applications and hires.",
-        landing: true,
-        lines: [
-          "Their own words, a suggested angle rather than a mandated caption.",
-          "Live preview, see the post exactly as the network will render it.",
-          "Company news and personal wins, from the same place.",
-          "Reach to hires, advocacy measured where it matters.",
-        ],
-      },
-      {
-        name: "Employee Communication",
-        icon: "broadcast",
-        hook: "Reach everyone, instantly",
-        slug: "employee-communication",
-        blurb: "AI-powered announcements, targeted campaigns, digital noticeboards and multi-channel messaging.",
-        landing: true,
-        lines: [
-          "Personalized Communication, right message, right person, right time.",
-          "Two-Way Engagement, conversations and campaigns, not one-way broadcasts.",
-          "Intelligent Collaboration, communities, directories and knowledge sharing.",
-          "Communication Intelligence, see what was read, understood and acted on.",
-        ],
-      },
-      {
-        name: "Employee Experience",
+        name: "Journey",
         icon: "compass",
         hook: "Every moment matters",
-        slug: "employee-experience",
-        blurb: "Measure and improve every stage of the lifecycle with AI-powered listening and journey analytics.",
+        slug: "journey",
+        blurb:
+          "One hub for people, policies and tasks, with an experience tailored to where each person is in their time with you.",
         landing: true,
         lines: [
-          "Personalized Journeys, experiences tailored to each employee, hire to retire.",
-          "Moments That Matter, auto-recognize promotions, milestones and life events.",
-          "Unified Employee Hub, one place for people, policies, tasks and resources.",
-          "Experience Intelligence, measure and fix friction at every touchpoint.",
+          "Employee Hub, one place for people, policies, tasks and resources.",
+          "Moments That Matter, promotions, milestones and life events recognised automatically.",
+          "Personalized Journeys, the right step at the right stage, hire to retire.",
+          "Experience Analytics, measure and fix friction at every touchpoint.",
         ],
       },
       {
-        name: "Employee Wellbeing & Culture",
+        name: "iThrive",
         icon: "heart",
         hook: "Spot burnout early",
-        slug: "employee-wellbeing-culture",
-        blurb: "Continuous listening, wellbeing assessments and recognition that foster a healthy workplace.",
+        slug: "ithrive",
+        blurb:
+          "Continuous wellbeing signals, culture programmes that run at scale, and coaching for the managers who can actually change something.",
         landing: true,
         lines: [
-          "Early Burnout Detection, catch risk before an employee resigns.",
-          "Personalized Support, the right resource at the right moment.",
-          "Culture Programs, wellbeing challenges and values, delivered at scale.",
-          "Manager Coaching, AI guidance to support at-risk teams.",
+          "Wellbeing, check-ins and support people will actually use.",
+          "Burnout Detection, catch the risk while there is still time to act.",
+          "Culture Programs, challenges and values delivered across every site.",
+          "Manager Coaching, AI guidance for the teams that need support.",
         ],
       },
       {
-        name: "Recognition & Rewards",
-        icon: "users",
-        hook: "Make people feel valued",
-        slug: "recognition-rewards",
-        blurb: "AI-enabled peer recognition, milestone celebrations and performance-based rewards.",
+        name: "Kudos",
+        icon: "rocket",
+        hook: "Make good work seen",
+        slug: "kudos",
+        blurb:
+          "Peer recognition and rewards people care about, with the analytics that show whether praise is reaching everyone or the same few names.",
         landing: true,
         lines: [
-          "AI-Suggested Moments, never miss a win worth recognizing.",
-          "Peer-to-Peer Recognition, everyone recognizes, not just managers.",
-          "Personalized Rewards, redeem for rewards employees actually want.",
-          "Recognition Intelligence, track frequency, equity and impact.",
+          "Peer Recognition, everyone recognises, not only managers.",
+          "Rewards, points and rewards employees actually want to redeem.",
+          "Recognition Analytics, frequency, reach and impact in one view.",
+          "Recognition Equity, see who is never recognised, and fix it.",
         ],
       },
     ],
@@ -155,91 +127,92 @@ export const platformLayers: PlatformLayer[] = [
     name: "Employee Engagement & Listening",
     lede: "Listen daily. Act fast. Keep talent.",
     description:
-      "Continuously listen, engage and act on employee feedback using AI-powered surveys, predictive insights and personalized action planning.",
+      "Hear what people are saying between surveys, ask the right question at the right moment, and finish the loop by telling them what changed.",
     icon: "chat",
     modules: [
       {
-        name: "Continuous Employee Listening",
+        name: "Listen",
         icon: "bell",
-        hook: "Listen every day",
-        slug: "employee-listening",
-        blurb: "Multi-channel listening, surveys, portals, recognition and AI conversations.",
+        hook: "Hear it as it happens",
+        slug: "listen",
+        blurb:
+          "Always-on listening across every channel and every stage, read as themes rather than as individuals.",
         landing: true,
         lines: [
-          "Always-On Listening, capture employee voice continuously across channels.",
-          "Lifecycle Listening, the right check-in at every stage, onboarding to exit.",
+          "Always-On Listening, employee voice captured continuously, not once a year.",
+          "Lifecycle Listening, the right check-in from onboarding to exit.",
           "Real-Time Signals, emerging issues surface as they happen.",
-          "Unified Voice, all feedback in one connected stream.",
+          "Voice Analytics, themes, drivers and tone read from what people wrote.",
         ],
       },
       {
-        name: "Engagement Surveys",
+        name: "Pulse",
         icon: "pulse",
-        hook: "Sentiment matters",
-        slug: "engagement-surveys",
-        blurb: "AI-powered engagement, pulse and lifecycle surveys that capture meaningful feedback.",
+        hook: "Ask, read, act",
+        slug: "pulse",
+        blurb:
+          "Adaptive surveys on the channel each person answers on, results you can read by team, and follow-ups people hear back about.",
         landing: true,
         lines: [
-          "Adaptive Surveys, AI personalizes timing, length and questions.",
-          "Omnichannel Reach, email, SMS, WhatsApp, Teams, Slack and QR reach everyone.",
-          "AI Feedback Analysis, themes and sentiment surfaced from open text.",
-          "Connected Actions, feedback becomes assigned, tracked action plans.",
+          "Adaptive Surveys, people only get the questions their answers make worth asking.",
+          "Omnichannel Surveys, app, email, WhatsApp, SMS and QR, in their language.",
+          "Sentiment Analysis, the mix behind every score, and which way it is moving.",
+          "Action Plans, a fix with an owner and a date, and a 'you said, we did' when it lands.",
         ],
       },
-      { name: "Feedback Intelligence",
- icon: "chat", hook: "See what feedback means", slug: "feedback-intelligence" , blurb: "AI that organizes and prioritizes feedback into recurring themes and actions." },
-      { name: "Action Planning",
- icon: "checks", hook: "Feedback becomes action", slug: "action-planning" , blurb: "AI-generated action plans with ownership tracking and progress monitoring." },
     ],
   },
   {
     id: "digital-workplace",
     name: "Digital Workplace",
-    lede: "Work, learn and grow, on the move.",
+    lede: "Answers, learning and work that flows.",
     description:
-      "Empower employees with an intelligent digital workplace that simplifies communication, collaboration, learning and everyday work through AI-powered experiences.",
-    icon: "spark",
+      "The everyday machinery: HR questions answered from your own policies, learning that fits a shift, and cases and tasks that never fall through.",
+    icon: "rocket",
     modules: [
       {
-        name: "AI Employee Chat",
-        icon: "spark",
-        hook: "Answers, 24/7",
-        slug: "ai-employee-chat",
-        blurb: "An intelligent assistant for HR support, policy guidance and knowledge discovery.",
+        name: "SmartWork",
+        icon: "chat",
+        hook: "Answers, not tickets",
+        slug: "smartwork",
+        blurb:
+          "HR questions answered from your own policies, resolved automatically where they can be and escalated to a person where they should be.",
         landing: true,
         lines: [
-          "Always-On Assistant, instant answers to HR and IT questions, any time.",
-          "Automated Resolution, routine queries handled without a human.",
-          "Smart Escalation, complex cases routed with full context.",
-          "Grounded Answers, replies from your real policies, not guesswork.",
+          "HR Queries, answered instantly, day or night, in any language.",
+          "Automated Resolution, routine requests handled end to end.",
+          "Smart Escalation, the cases that need a human reach one, with context.",
+          "Policy Answers, grounded in your documents, with the source shown.",
         ],
       },
       {
-        name: "Mobile & E-Learning",
+        name: "iLearn",
         icon: "graduation",
-        hook: "Learn on the go",
-        slug: "mobile-e-learning",
-        blurb: "Mobile-first learning journeys, microlearning and AI content recommendations.",
+        hook: "Learning that fits a shift",
+        slug: "ilearn",
+        blurb:
+          "Microlearning and gamified paths built for a phone and a ten-minute break, recommended by AI and tracked for compliance.",
         landing: true,
         lines: [
-          "Mobile-First Learning, bite-sized learning on any phone, anywhere.",
-          "Microlearning & Gamification, short, engaging paths that get completed.",
-          "AI Recommendations, learning matched to role and skill gaps.",
-          "Progress & Compliance, real-time completion and readiness tracking.",
+          "Microlearning, short lessons that fit between tasks.",
+          "Gamified Learning, streaks, points and teams that keep people coming back.",
+          "AI Recommendations, the next lesson chosen for the role and the gap.",
+          "Compliance Tracking, who has completed what, ready for an audit.",
         ],
       },
       {
-        name: "Case Management, Tasks & Workflow",
-        icon: "lifebuoy",
-        hook: "Get work done in flow",
-        slug: "tasks-workflow",
-        blurb: "Log, route and resolve requests, and digitize tasks with intelligent workflow automation.",
+        name: "Flow",
+        icon: "checks",
+        hook: "Nothing falls through",
+        slug: "flow",
+        blurb:
+          "Cases, tasks and approvals with an owner, automation for the repetitive parts, and SLAs you can actually report on.",
         landing: true,
         lines: [
-          "Case Management, log, route and resolve employee requests in one place.",
-          "Task Assignment, assign and track work to individuals, teams or locations.",
-          "Workflow Automation, automate approvals, checklists and routine processes.",
-          "Manager Oversight, see what's done, pending or overdue at a glance.",
+          "Case Management, every request tracked from raised to resolved.",
+          "Task Management, work assigned, visible and chased automatically.",
+          "Workflow Automation, approvals and handovers that run themselves.",
+          "SLA Analytics, response and resolution times by team and case type.",
         ],
       },
     ],
@@ -247,159 +220,146 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "talent-intelligence",
     name: "Talent Intelligence",
-    lede: "Onboard, retain, develop and keep key talent.",
+    lede: "From first day to alumni.",
     description:
-      "Attract, develop and retain future-ready talent through intelligent onboarding, skills development, leadership growth and strategic workforce planning.",
-    icon: "rocket",
+      "Start people well and keep the relationship after they leave — the two ends of the lifecycle that most systems ignore.",
+    icon: "compass",
     modules: [
       {
-        name: "Pre- & Onboarding",
+        name: "Onboard",
         icon: "rocket",
-        hook: "Productive from day one",
-        slug: "pre-onboarding",
-        blurb: "Personalized journeys, digital documentation and AI-guided onboarding.",
+        hook: "Ready on day one",
+        slug: "onboard",
+        blurb:
+          "Preboarding that starts before the first day, a personalised first 90 days, and the admin handled without anyone chasing it.",
         landing: true,
         lines: [
-          "Pre-Boarding Engagement, keep new hires engaged before they start.",
-          "Personalized Onboarding, journeys tailored by role, location and level.",
-          "Automated Admin, documents and compliance handled without chasing.",
-          "Manager Visibility, track onboarding health in real time.",
+          "Preboarding, engaged from offer to first day.",
+          "Personalized Onboarding, a first 90 days shaped by role and site.",
+          "Automated Admin, documents, accounts and equipment without the chasing.",
+          "Manager Visibility, managers see how their new joiner is settling in.",
         ],
       },
       {
-        name: "Alumni Management",
+        name: "Alumni",
         icon: "globe",
-        hook: "Stay connected after goodbye",
-        slug: "alumni-management",
-        blurb: "Lifelong portal access, exit documents and a boomerang pipeline of proven talent.",
-        isNew: true,
+        hook: "Leavers stay reachable",
+        slug: "alumni",
+        blurb:
+          "An alumni network that keeps good leavers close — exit documents in one place, boomerang hiring and referrals that keep paying back.",
         landing: true,
         lines: [
-          "Lifelong Portal Access, departing employees keep an account and exit documents.",
-          "Exit & Document Hub, certificates, references and paperwork in one place.",
-          "Employer Branding & Boomerang Hiring, post jobs and news, rehire proven alumni.",
-          "Alumni Network & Revenue, a community that drives referrals and new revenue.",
+          "Alumni Network, a directory and feed that people stay in.",
+          "Exit Documents, payslips, letters and certificates, self-serve.",
+          "Boomerang Hiring, the people who already know you, back in the pipeline.",
+          "Employee Referrals, referrals from alumni, tracked to the hire.",
         ],
       },
-      { name: "Skills Intelligence",
- icon: "palette", hook: "Map skills and gaps", slug: "skills-intelligence" , blurb: "Map capabilities, spot skill gaps and recommend personalized learning paths." },
-      { name: "Leadership Intelligence",
- icon: "compass", hook: "Coach better managers", slug: "leadership-intelligence" , blurb: "Assess leadership effectiveness, strengthen succession and coach future leaders." },
-      { name: "Workforce Planning",
- icon: "refresh", hook: "Plan capacity ahead", slug: "workforce-planning" , blurb: "Optimize capacity, hiring plans and org design with predictive analytics." },
     ],
   },
   {
-    // Not one of the brief's five landing layers: the brief treats these as
-    // "associated intelligence" woven through every module. They are real,
-    // live product pages though, so they keep a home in the menus, placed last.
-    id: "workforce-intelligence",
-    name: "Workforce Intelligence",
-    lede: "Turn workforce data into decisions.",
-    description:
-      "Transform workforce data into AI-powered insights that help leaders measure organizational health, predict risks and make informed business decisions.",
-    icon: "chart",
-    modules: [
-      { name: "People Analytics",
- icon: "chart", hook: "See the whole workforce", slug: "people-analytics" , blurb: "Predictive analytics, AI dashboards and BI to uncover trends and identify risks." },
-      { name: "Sentiment Intelligence",
- icon: "pulse", hook: "Read the mood", slug: "sentiment-intelligence" , blurb: "NLP-driven analysis of emotions, workplace trends and engagement drivers." },
-      { name: "Benchmark Intelligence",
- icon: "chart", hook: "Compare with peers", slug: "benchmark-intelligence" , blurb: "Compare engagement and performance across units, locations and industry benchmarks." },
-      { name: "Executive Reports",
- icon: "shield", hook: "Board-ready in minutes", slug: "executive-reports" , blurb: "Executive-ready dashboards, board reports and AI-powered workforce summaries." },
-    ],
-  },
-  {
-    // brief: placed last of its five and collapsed, it serves IT/procurement
     id: "enterprise-platform",
     name: "Enterprise AI Platform",
-    lede: "Secure, connected, enterprise-ready AI.",
+    lede: "Connected, secure, live in weeks.",
     description:
-      "Deliver a secure, scalable and enterprise-ready AI platform that integrates seamlessly with existing systems while enabling intelligent automation and workforce decision-making.",
+      "The foundation every module sits on: one workforce record, security and privacy people can trust, and an implementation that reaches go-live.",
     icon: "shield",
     modules: [
       {
-        name: "Enterprise Integrations",
+        name: "Link",
         icon: "plug",
-        hook: "Connects to your stack",
-        slug: "enterprise-integrations",
-        blurb: "Connect HRIS, HCM, ERP, ATS, payroll, collaboration and analytics platforms.",
+        hook: "One workforce record",
+        slug: "link",
+        blurb:
+          "HR integrations, two-way sync and an open API, so every module reads the same data and nobody maintains a spreadsheet.",
         landing: true,
         lines: [
-          "Pre-Built Connectors, SSO, Workday, SAP, Teams, Slack and more, out of the box.",
-          "Automatic Data Sync, employee data stays current with no manual work.",
-          "Open API, extend to custom and niche systems.",
-          "Low-Maintenance, managed, resilient integrations that don't burden IT.",
+          "HR Integrations, your HRIS, payroll, identity and collaboration tools.",
+          "Data Sync, people, teams and roles kept current both ways.",
+          "Open API, build on the platform with documented endpoints and webhooks.",
+          "Unified Data, one workforce record behind every module and report.",
         ],
       },
       {
-        name: "Security & Compliance",
+        name: "Trust",
         icon: "lock",
-        hook: "Enterprise-grade trust",
-        slug: "security-compliance",
-        blurb: "Enterprise-grade security, GDPR-ready privacy and responsible AI governance.",
+        hook: "Safe to say anything",
+        slug: "trust",
+        blurb:
+          "Security, privacy controls and responsible AI, including the anonymity floor that keeps small teams unidentifiable.",
         landing: true,
         lines: [
-          "Enterprise Security, encryption, single sign-on and role-based access.",
-          "Privacy & Data Residency, regional controls for global workforces.",
-          "Compliance-Ready, aligned to major frameworks and regulations.",
-          "Responsible AI, transparent, governed use of employee data.",
+          "Data Security, encryption, single sign-on and role-based access.",
+          "Privacy Controls, anonymity thresholds and regional data residency.",
+          "Compliance, aligned to the frameworks your buyers ask about.",
+          "Responsible AI, governed use of employee data, with the reasoning shown.",
         ],
       },
       {
-        name: "Implementation & Customer Success",
+        name: "Launch",
         icon: "lifebuoy",
-        hook: "Live faster, stay supported",
-        slug: "implementation",
-        blurb: "Structured implementation, free data migration and dedicated customer success.",
+        hook: "Live, then proven",
+        slug: "launch",
+        blurb:
+          "Guided implementation, change management that drives real adoption, a named success partner and ROI tracked from week one.",
         landing: true,
         lines: [
-          "Guided Implementation, a structured, clear path to go-live.",
-          "AI-Accelerated Setup, configuration and data mapping sped up by AI.",
-          "Dedicated Success Partner, a named partner focused on your outcomes.",
-          "Change Management, support to drive real adoption, not just deployment.",
+          "Guided Implementation, a clear path to go-live with dates.",
+          "Change Management, launch and adoption support, not just deployment.",
+          "Success Partner, one named partner accountable for your outcomes.",
+          "ROI Tracking, the value measured against the baseline you started from.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "decision-intelligence",
+    name: "Decision Intelligence",
+    lede: "Know what is coming, and what to do.",
+    description:
+      "Where the whole platform adds up: analytics that show risk early, and an assistant that tells each person the next right thing to do.",
+    icon: "chart",
+    modules: [
+      {
+        name: "Insight",
+        icon: "chart",
+        hook: "See risk early",
+        slug: "insight",
+        blurb:
+          "Workforce analytics with attrition risk, succession readiness and recommendations, explained well enough to act on.",
+        landing: true,
+        lines: [
+          "Workforce Analytics, engagement, attrition and productivity in one place.",
+          "Risk Intelligence, the teams and people at risk, while there is time.",
+          "Succession Intelligence, who is ready, who is nearly ready, where the gaps are.",
+          "Recommendations, the next move, with the data behind it.",
         ],
       },
       {
-        name: "Decision Intelligence Copilot",
+        name: "Nudge",
         icon: "spark",
-        hook: "Ask your workforce anything",
-        slug: "decision-intelligence-copilot",
-        blurb: "Ask workforce questions in natural language, get AI-powered predictive guidance.",
-        landing: true,
-        lines: [
-          "Ask Anything, query your workforce in plain language.",
-          "Cross-Platform Intelligence, draws on data from every module at once.",
-          "Recommended Next Steps, from answer to prioritized action.",
-          "Explainable Answers, shows the data behind every recommendation.",
-        ],
-      },
-      {
-        name: "AI Workforce Assistant",
-        icon: "chat",
-        hook: "A proactive AI teammate",
-        slug: "ai-workforce-assistant",
-        blurb: "A proactive AI teammate that surfaces what needs attention before anyone asks.",
+        hook: "The next right thing",
+        slug: "nudge",
+        blurb:
+          "The AI teammate: proactive alerts, manager guidance and the short list of what to do first today.",
         isNew: true,
         landing: true,
         lines: [
-          "Proactive Nudges, surfaces what needs attention before you look.",
-          "Personalized Guidance, helps each employee navigate their day.",
-          "Manager Enablement, team-specific coaching prompts for managers.",
-          "Cross-Product Awareness, draws on comms, tasks, learning and sentiment together.",
+          "Proactive Alerts, what needs attention, before anyone goes looking.",
+          "Manager Guidance, team-specific coaching prompts in plain words.",
+          "Retention Nudges, act to keep the people you cannot afford to lose.",
+          "Task Priorities, today's short list, ordered by what matters.",
         ],
       },
     ],
   },
 ];
 
-/* The brief's landing-page IA: its five layers, and only the modules it spells
-   out with four benefit lines. The homepage accordion renders this, so the
-   landing page stays exactly as briefed while the menus carry the full catalog. */
-export const landingLayers: PlatformLayer[] = platformLayers
-  .filter((l) => l.id !== "workforce-intelligence")
-  .map((l) => ({ ...l, modules: l.modules.filter((m) => m.landing) }));
+/* The homepage accordion renders the same catalog, layer by layer. */
+export const landingLayers: PlatformLayer[] = platformLayers.map((l) => ({
+  ...l,
+  modules: l.modules.filter((m) => m.landing),
+}));
 
 /** Every module that has its own page, flattened in layer order. */
 export const platformModules: (PlatformModule & { layerId: string; layerName: string; href: string })[] =

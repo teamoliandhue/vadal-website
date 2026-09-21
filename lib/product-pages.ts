@@ -107,7 +107,7 @@ export const productPages: ProductPage[] = [
         a: "Anonymity is protected with configurable thresholds and intelligent aggregation, so no individual can ever be identified. Employees see that protection up front, which is why participation and candor stay high.",
       },
     ],
-    related: ["pulse-surveys", "lifecycle-surveys", "people-analytics"],
+    related: ["pulse-surveys", "lifecycle-surveys", "insight"],
   },
 
   // ==================================================== employee listening
@@ -182,7 +182,7 @@ export const productPages: ProductPage[] = [
         a: "Employees submit feedback anonymously; HR or managers can reply through the platform without ever seeing who's behind it. The employee chooses if and when to reveal themselves. Identity protection is enforced by the platform, not by policy.",
       },
     ],
-    related: ["confidential-feedback", "engagement-surveys", "workforce-intelligence"],
+    related: ["confidential-feedback", "pulse", "workforce-intelligence"],
   },
 
   // ================================================ workforce intelligence
@@ -259,7 +259,7 @@ export const productPages: ProductPage[] = [
         a: "Every plan is linked to the metric it's meant to move. Vadal.ai re-measures after execution and attributes the change, so over time you build an evidence base of what works in your organization.",
       },
     ],
-    related: ["people-analytics", "engagement-surveys", "employee-listening"],
+    related: ["insight", "pulse", "listen"],
   },
 
   // ===================================================== people analytics
@@ -336,7 +336,7 @@ export const productPages: ProductPage[] = [
         a: "Yes. Native integrations for Power BI, Tableau and Looker, scheduled exports in Excel/CSV/PDF, plus REST APIs and webhooks for anything custom.",
       },
     ],
-    related: ["workforce-intelligence", "predictive-enps", "engagement-surveys"],
+    related: ["workforce-intelligence", "predictive-enps", "pulse"],
   },
 
   // ======================================================== pulse surveys
@@ -413,7 +413,7 @@ export const productPages: ProductPage[] = [
         a: "Yes. The same anonymity thresholds and aggregation protections apply to pulses as to every other Vadal.ai survey.",
       },
     ],
-    related: ["engagement-surveys", "predictive-enps", "employee-listening"],
+    related: ["pulse", "predictive-enps", "listen"],
   },
 
   // ==================================================== lifecycle surveys
@@ -490,7 +490,7 @@ export const productPages: ProductPage[] = [
         a: "Exit surveys can be answered anonymously with publication delayed and aggregated, so departing employees can be candid without burning bridges, which is exactly when you learn the most.",
       },
     ],
-    related: ["engagement-surveys", "pulse-surveys", "employee-listening"],
+    related: ["pulse", "pulse-surveys", "listen"],
   },
 
   // ====================================================== predictive eNPS
@@ -565,7 +565,7 @@ export const productPages: ProductPage[] = [
         a: "Yes. Two-way anonymous conversations let HR acknowledge and resolve detractor feedback while the platform enforces identity protection throughout.",
       },
     ],
-    related: ["pulse-surveys", "people-analytics", "engagement-surveys"],
+    related: ["pulse-surveys", "insight", "pulse"],
   },
 
   // ================================================ confidential feedback
@@ -640,7 +640,7 @@ export const productPages: ProductPage[] = [
         a: "Responders reply into the thread without ever seeing the author. The employee gets notified privately, can continue the conversation, and can choose to identify themselves at any point, it's always their call.",
       },
     ],
-    related: ["employee-listening", "engagement-surveys", "pulse-surveys"],
+    related: ["listen", "pulse", "pulse-surveys"],
   },
 ];
 

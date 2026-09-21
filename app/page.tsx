@@ -99,7 +99,7 @@ export default function HomePage() {
         <Container>
           <SectionHead
             eyebrow="The platform"
-            title="Everything your workforce needs, in five layers"
+            title="Everything your workforce needs, in six layers"
             lede="Tap a layer to see its modules, and any module to see what you get."
           />
           <div className="mt-10">

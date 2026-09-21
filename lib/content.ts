@@ -1233,7 +1233,7 @@ export const personaTabs: PersonaTab[] = [
     ],
     photo: "/people/persona-managers.webp",
     links: [
-      { label: "Manager Intelligence", href: "/platform#workforce-intelligence" },
+      { label: "Manager Intelligence", href: "/platform#decision-intelligence" },
       { label: "Engagement & Performance", href: "/solutions" },
     ],
     icon: "users",
@@ -1279,7 +1279,7 @@ export const personaTabs: PersonaTab[] = [
     ],
     photo: "/people/persona-chros.webp",
     links: [
-      { label: "Workforce Intelligence", href: "/platform#workforce-intelligence" },
+      { label: "Workforce Intelligence", href: "/platform#decision-intelligence" },
       { label: "Talent Intelligence", href: "/platform#talent-intelligence" },
     ],
     icon: "chart",
@@ -1303,7 +1303,7 @@ export const personaTabs: PersonaTab[] = [
     photo: "/people/persona-company.webp",
     links: [
       { label: "Workforce Intelligence Platform", href: "/platform" },
-      { label: "Organizational Analytics", href: "/platform#workforce-intelligence" },
+      { label: "Organizational Analytics", href: "/platform#decision-intelligence" },
     ],
     icon: "globe",
     stat: { value: "18%", label: "uplift in customer satisfaction" },
@@ -1585,13 +1585,13 @@ export const platformPillars: MenuItem[] = [
   {
     name: "Intelligent Workforce Engagement Surveys",
     blurb: "Design, deploy and measure AI-powered surveys that deliver actionable workforce insights.",
-    href: "/platform/engagement-surveys",
+    href: "/platform/pulse",
     icon: "pulse",
   },
   {
     name: "Continuous Employee Listening",
     blurb: "Gather feedback continuously across channels, from surveys to real-time interactions.",
-    href: "/platform/employee-listening",
+    href: "/platform/listen",
     icon: "chat",
   },
   {
@@ -1603,13 +1603,13 @@ export const platformPillars: MenuItem[] = [
   {
     name: "AI-Driven People Analytics",
     blurb: "Align workforce strategies with business outcomes, leadership decisions, data-informed.",
-    href: "/platform/people-analytics",
+    href: "/platform/insight",
     icon: "chart",
   },
 ];
 
 export const surveyTypes: MenuItem[] = [
-  { name: "Engagement Surveys", blurb: "Annual intelligence surveys for culture and performance.", href: "/platform/engagement-surveys" },
+  { name: "Pulse", blurb: "Annual intelligence surveys for culture and performance.", href: "/platform/pulse" },
   { name: "Pulse Surveys", blurb: "Frequent, intelligent pulse checks that predict trends.", href: "/platform/pulse-surveys" },
   { name: "Lifecycle Surveys", blurb: "Feedback at key milestones, onboarding to offboarding.", href: "/platform/lifecycle-surveys" },
   { name: "Predictive eNPS", blurb: "Track loyalty and the AI-explained drivers behind it.", href: "/platform/predictive-enps" },
@@ -1642,14 +1642,14 @@ export type PortfolioGroup = {
    for. NOT a taxonomy — the catalog lives in lib/platform-nav.ts. Every href
    here is checked by scripts/check-nav-links.mjs. */
 export const mobileProductNav: MenuItem[] = [
-  { name: "AI Chatbot", href: "/platform/ai-employee-chat", icon: "chat" },
-  { name: "Employee Experience", href: "/platform/employee-experience", icon: "compass" },
+  { name: "SmartWork", href: "/platform/smartwork", icon: "chat" },
+  { name: "Journey", href: "/platform/journey", icon: "compass" },
   { name: "Employee Communication", href: "/platform/employee-communication", icon: "broadcast" },
-  { name: "Continuous Employee Listening", href: "/platform/employee-listening", icon: "pulse" },
-  { name: "Engagement Surveys", href: "/platform/engagement-surveys", icon: "checks" },
-  { name: "Employee Wellbeing & Culture", href: "/platform/employee-wellbeing-culture", icon: "heart" },
-  { name: "Mobile & E-Learning", href: "/platform/mobile-e-learning", icon: "phone" },
-  { name: "Recognition & Rewards", href: "/platform/recognition-rewards", icon: "bell" },
+  { name: "Listen", href: "/platform/listen", icon: "pulse" },
+  { name: "Pulse", href: "/platform/pulse", icon: "checks" },
+  { name: "iThrive", href: "/platform/ithrive", icon: "heart" },
+  { name: "iLearn", href: "/platform/ilearn", icon: "phone" },
+  { name: "Kudos", href: "/platform/kudos", icon: "bell" },
   { name: "Feedback Intelligence", href: "/platform/feedback-intelligence", icon: "spark" },
   { name: "AI-powered Action Planning", href: "/platform/action-planning", icon: "rocket" },
   { name: "Enterprise AI Platform", href: "/platform#enterprise-platform", icon: "shield" },

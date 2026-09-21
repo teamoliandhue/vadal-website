@@ -56,7 +56,7 @@ export const PRODUCT_SHOTS: Record<string, ShotInfo> = {
   "predictive-enps": { file: "analytics", label: "Analytics" },
   "confidential-feedback": { file: "listening", label: "Always-on listening" },
   "security-compliance": { file: "screens/security-compliance/role-based-access-management", label: "Roles & permissions" },
-  "workforce-intelligence": { file: "analytics", label: "Analytics" },
+  "decision-intelligence": { file: "analytics", label: "Analytics" },
 };
 
 export function ProductShot({

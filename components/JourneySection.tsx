@@ -67,8 +67,8 @@ const STAGES: Stage[] = [
     title: "Listen continuously, not annually",
     body: "Always-on listening and adaptive surveys reach every employee across email, chat and mobile, so the number reflects this week.",
     links: [
-      { name: "Engagement Surveys", href: "/platform/engagement-surveys" },
-      { name: "Continuous Listening", href: "/platform/employee-listening" },
+      { name: "Pulse", href: "/platform/pulse" },
+      { name: "Listen", href: "/platform/listen" },
     ],
   },
   {
@@ -80,7 +80,7 @@ const STAGES: Stage[] = [
     body: "AI reads the open text and surfaces the themes behind the score, showing which drivers actually move it and where risk is building.",
     links: [
       { name: "Feedback Intelligence", href: "/platform/feedback-intelligence" },
-      { name: "People Analytics", href: "/platform/people-analytics" },
+      { name: "Insight", href: "/platform/insight" },
     ],
   },
   {

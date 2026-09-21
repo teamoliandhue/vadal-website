@@ -125,5 +125,5 @@ export const PLATFORM_SCENES: Record<string, () => React.ReactNode> = {
   "digital-workplace": SceneWorkplace,
   "talent-intelligence": SceneTalent,
   "enterprise-platform": SceneEnterprise,
-  "workforce-intelligence": SceneIntelligence,
+  "decision-intelligence": SceneIntelligence,
 };

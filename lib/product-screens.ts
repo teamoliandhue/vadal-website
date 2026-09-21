@@ -16,19 +16,7 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "AI Action Recommendation Panel": "ai-action-recommendation-panel",
     "Manager Accountability Dashboard": "manager-accountability-dashboard"
   },
-  "ai-employee-chat": {
-    "Employee Chat Interface": "employee-chat-interface",
-    "Escalation & Ticketing View": "escalation-and-ticketing-view",
-    "Knowledge Source Management": "knowledge-source-management",
-    "Query Resolution Dashboard": "query-resolution-dashboard"
-  },
-  "ai-workforce-assistant": {
-    "Assistant Home / Daily Brief": "assistant-home-daily-brief",
-    "Manager Guidance Panel": "manager-guidance-panel",
-    "Personalized Task & Info View": "personalized-task-and-info-view",
-    "Proactive Nudge Feed": "proactive-nudge-feed"
-  },
-  "alumni-management": {
+  "alumni": {
     "Alumni Engagement & Revenue Dashboard": "alumni-engagement-and-revenue-dashboard",
     "Alumni Network Directory": "alumni-network-directory",
     "Alumni Portal Home": "alumni-portal-home",
@@ -56,41 +44,6 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "Mobile Employee App": "mobile-employee-app",
     "News Feed": "news-feed"
   },
-  "employee-experience": {
-    "Employee Hub / Homepage": "employee-hub-homepage",
-    "Employee Journey Map Dashboard": "employee-journey-map-dashboard",
-    "Experience Analytics Dashboard": "experience-analytics-dashboard",
-    "Mobile Employee App": "mobile-employee-app",
-    "Moments That Matter Feed": "moments-that-matter-feed",
-    "Onboarding Portal": "onboarding-portal"
-  },
-  "employee-listening": {
-    "Channel Coverage View": "channel-coverage-view",
-    "Continuous Listening Dashboard": "continuous-listening-dashboard",
-    "Lifecycle Listening Timeline": "lifecycle-listening-timeline",
-    "Real-Time Signal Feed": "real-time-signal-feed"
-  },
-  "employee-wellbeing-culture": {
-    "Burnout Early-Warning Alerts": "burnout-early-warning-alerts",
-    "Culture Pulse Survey Interface": "culture-pulse-survey-interface",
-    "Manager Coaching Panel": "manager-coaching-panel",
-    "Mobile Wellbeing Check-in": "mobile-wellbeing-check-in",
-    "Wellbeing Resource Hub": "wellbeing-resource-hub",
-    "Wellbeing Risk Dashboard": "wellbeing-risk-dashboard"
-  },
-  "engagement-surveys": {
-    "Action Plan Tracker": "action-plan-tracker",
-    "AI Feedback Theme Analysis": "ai-feedback-theme-analysis",
-    "Omnichannel Distribution Panel": "omnichannel-distribution-panel",
-    "Real-Time Response Dashboard": "real-time-response-dashboard",
-    "Survey Builder & Template Library": "survey-builder-and-template-library"
-  },
-  "enterprise-integrations": {
-    "API & Webhook Management": "api-and-webhook-management",
-    "Connector Configuration Panel": "connector-configuration-panel",
-    "Data Sync Status Dashboard": "data-sync-status-dashboard",
-    "Integration Directory": "integration-directory"
-  },
   "executive-reports": {
     "AI-Generated Summary Panel": "ai-generated-summary-panel",
     "Board-Ready Report Template": "board-ready-report-template",
@@ -103,7 +56,49 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "Theme Cluster Dashboard": "theme-cluster-dashboard",
     "Theme Trend-Over-Time View": "theme-trend-over-time-view"
   },
-  "implementation": {
+  "flow": {
+    "Manager Oversight Panel": "manager-oversight-panel",
+    "Mobile Task View": "mobile-task-view",
+    "Task Dashboard": "task-dashboard",
+    "Workflow Builder": "workflow-builder"
+  },
+  "ilearn": {
+    "Learning Path Builder": "learning-path-builder",
+    "Learning Recommendation Feed": "learning-recommendation-feed",
+    "Mobile Learning Home": "mobile-learning-home",
+    "Training Progress & Compliance Dashboard": "training-progress-and-compliance-dashboard"
+  },
+  "insight": {
+    "AI Insight Summary Panel": "ai-insight-summary-panel",
+    "Driver-Level Heatmap": "driver-level-heatmap",
+    "Manager Team View": "manager-team-view",
+    "Workforce Health Dashboard": "workforce-health-dashboard"
+  },
+  "ithrive": {
+    "Burnout Early-Warning Alerts": "burnout-early-warning-alerts",
+    "Culture Pulse Survey Interface": "culture-pulse-survey-interface",
+    "Manager Coaching Panel": "manager-coaching-panel",
+    "Mobile Wellbeing Check-in": "mobile-wellbeing-check-in",
+    "Wellbeing Resource Hub": "wellbeing-resource-hub",
+    "Wellbeing Risk Dashboard": "wellbeing-risk-dashboard"
+  },
+  "journey": {
+    "Employee Hub / Homepage": "employee-hub-homepage",
+    "Employee Journey Map Dashboard": "employee-journey-map-dashboard",
+    "Experience Analytics Dashboard": "experience-analytics-dashboard",
+    "Mobile Employee App": "mobile-employee-app",
+    "Moments That Matter Feed": "moments-that-matter-feed",
+    "Onboarding Portal": "onboarding-portal"
+  },
+  "kudos": {
+    "Give Recognition Interface": "give-recognition-interface",
+    "Manager Recognition Dashboard": "manager-recognition-dashboard",
+    "Mobile Recognition App": "mobile-recognition-app",
+    "Recognition Analytics & Equity Report": "recognition-analytics-and-equity-report",
+    "Recognition Feed / Wall of Fame": "recognition-feed-wall-of-fame",
+    "Rewards Catalog & Redemption": "rewards-catalog-and-redemption"
+  },
+  "launch": {
     "Adoption Dashboard": "adoption-dashboard",
     "Configuration & Template Library": "configuration-and-template-library",
     "Customer Success Portal": "customer-success-portal",
@@ -115,37 +110,36 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "Individual Leader Development Plan": "individual-leader-development-plan",
     "Leadership Impact Dashboard": "leadership-impact-dashboard"
   },
-  "mobile-e-learning": {
-    "Learning Path Builder": "learning-path-builder",
-    "Learning Recommendation Feed": "learning-recommendation-feed",
-    "Mobile Learning Home": "mobile-learning-home",
-    "Training Progress & Compliance Dashboard": "training-progress-and-compliance-dashboard"
+  "link": {
+    "API & Webhook Management": "api-and-webhook-management",
+    "Connector Configuration Panel": "connector-configuration-panel",
+    "Data Sync Status Dashboard": "data-sync-status-dashboard",
+    "Integration Directory": "integration-directory"
   },
-  "people-analytics": {
-    "AI Insight Summary Panel": "ai-insight-summary-panel",
-    "Driver-Level Heatmap": "driver-level-heatmap",
-    "Manager Team View": "manager-team-view",
-    "Workforce Health Dashboard": "workforce-health-dashboard"
+  "listen": {
+    "Channel Coverage View": "channel-coverage-view",
+    "Continuous Listening Dashboard": "continuous-listening-dashboard",
+    "Lifecycle Listening Timeline": "lifecycle-listening-timeline",
+    "Real-Time Signal Feed": "real-time-signal-feed"
   },
-  "pre-onboarding": {
+  "nudge": {
+    "Assistant Home / Daily Brief": "assistant-home-daily-brief",
+    "Manager Guidance Panel": "manager-guidance-panel",
+    "Personalized Task & Info View": "personalized-task-and-info-view",
+    "Proactive Nudge Feed": "proactive-nudge-feed"
+  },
+  "onboard": {
     "Document Collection Workflow": "document-collection-workflow",
     "Manager Onboarding Dashboard": "manager-onboarding-dashboard",
     "Onboarding Journey Timeline": "onboarding-journey-timeline",
     "Pre-Boarding Candidate Portal": "pre-boarding-candidate-portal"
   },
-  "recognition-rewards": {
-    "Give Recognition Interface": "give-recognition-interface",
-    "Manager Recognition Dashboard": "manager-recognition-dashboard",
-    "Mobile Recognition App": "mobile-recognition-app",
-    "Recognition Analytics & Equity Report": "recognition-analytics-and-equity-report",
-    "Recognition Feed / Wall of Fame": "recognition-feed-wall-of-fame",
-    "Rewards Catalog & Redemption": "rewards-catalog-and-redemption"
-  },
-  "security-compliance": {
-    "AI Governance & Transparency Panel": "ai-governance-and-transparency-panel",
-    "Audit Log Viewer": "audit-log-viewer",
-    "Role-Based Access Management": "role-based-access-management",
-    "Security Controls Dashboard": "security-controls-dashboard"
+  "pulse": {
+    "Action Plan Tracker": "action-plan-tracker",
+    "AI Feedback Theme Analysis": "ai-feedback-theme-analysis",
+    "Omnichannel Distribution Panel": "omnichannel-distribution-panel",
+    "Real-Time Response Dashboard": "real-time-response-dashboard",
+    "Survey Builder & Template Library": "survey-builder-and-template-library"
   },
   "sentiment-intelligence": {
     "Attrition Risk Alert Panel": "attrition-risk-alert-panel",
@@ -159,11 +153,17 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "Organization Skills Map": "organization-skills-map",
     "Skills-by-Team Heatmap": "skills-by-team-heatmap"
   },
-  "tasks-workflow": {
-    "Manager Oversight Panel": "manager-oversight-panel",
-    "Mobile Task View": "mobile-task-view",
-    "Task Dashboard": "task-dashboard",
-    "Workflow Builder": "workflow-builder"
+  "smartwork": {
+    "Employee Chat Interface": "employee-chat-interface",
+    "Escalation & Ticketing View": "escalation-and-ticketing-view",
+    "Knowledge Source Management": "knowledge-source-management",
+    "Query Resolution Dashboard": "query-resolution-dashboard"
+  },
+  "trust": {
+    "AI Governance & Transparency Panel": "ai-governance-and-transparency-panel",
+    "Audit Log Viewer": "audit-log-viewer",
+    "Role-Based Access Management": "role-based-access-management",
+    "Security Controls Dashboard": "security-controls-dashboard"
   },
   "workforce-planning": {
     "HR-Finance Shared Planning Interface": "hr-finance-shared-planning-interface",

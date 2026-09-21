@@ -64,7 +64,7 @@ export function SurveysSection({ embedded = false }: { embedded?: boolean } = {}
       title={embedded ? undefined : surveysSection.title}
       lede={embedded ? undefined : surveysSection.lede}
       ctaLabel={embedded ? undefined : "Explore engagement surveys"}
-      ctaHref={embedded ? undefined : "/platform/engagement-surveys"}
+      ctaHref={embedded ? undefined : "/platform/pulse"}
     >
       <div className="grid gap-3 sm:grid-cols-2" data-reveal-stagger>
         {surveysSection.features.map((f, i) => (
@@ -269,7 +269,7 @@ export function AnalyticsSection({ embedded = false }: { embedded?: boolean } = 
 
       {!embedded && (
         <div className="mt-10 text-center">
-          <Button href="/platform/people-analytics" variant="ghost" icon>
+          <Button href="/platform/insight" variant="ghost" icon>
             Explore people analytics
           </Button>
         </div>
@@ -296,7 +296,7 @@ export function FeedbackSection() {
             ))}
           </ul>
           <div className="mt-8">
-            <Button href="/platform/employee-listening" variant="secondary" icon>
+            <Button href="/platform/listen" variant="secondary" icon>
               Explore continuous listening
             </Button>
           </div>

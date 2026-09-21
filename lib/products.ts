@@ -161,8 +161,8 @@ export const products: Product[] = [
     ],
     "related": [
       "employee-communication",
-      "employee-experience",
-      "recognition-rewards",
+      "journey",
+      "kudos",
       "amplify"
     ],
     "footerCta": "Ready to give your whole company one place to talk?"
@@ -261,8 +261,8 @@ export const products: Product[] = [
     "related": [
       "social",
       "employee-communication",
-      "recognition-rewards",
-      "pre-onboarding"
+      "kudos",
+      "onboard"
     ],
     "footerCta": "Ready to let your people carry the message further than your company page?"
   },
@@ -407,18 +407,18 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "employee-experience",
-      "employee-wellbeing-culture",
-      "recognition-rewards",
-      "employee-listening",
-      "engagement-surveys",
-      "people-analytics"
+      "journey",
+      "ithrive",
+      "kudos",
+      "listen",
+      "pulse",
+      "insight"
     ],
     "footerCta": "Ready to transform employee communication into workforce intelligence?"
   },
   {
-    "slug": "employee-experience",
-    "name": "Employee Experience",
+    "slug": "journey",
+    "name": "Journey",
     "cloud": "workforce-experience",
     "icon": "compass",
     "mock": "phone",
@@ -556,17 +556,17 @@ export const products: Product[] = [
     ],
     "related": [
       "employee-communication",
-      "employee-wellbeing-culture",
-      "recognition-rewards",
-      "employee-listening",
-      "pre-onboarding",
-      "people-analytics"
+      "ithrive",
+      "kudos",
+      "listen",
+      "onboard",
+      "insight"
     ],
     "footerCta": "Ready to turn every employee moment into a meaningful experience?"
   },
   {
-    "slug": "employee-wellbeing-culture",
-    "name": "Employee Wellbeing & Culture",
+    "slug": "ithrive",
+    "name": "iThrive",
     "cloud": "workforce-experience",
     "icon": "heart",
     "mock": "voice",
@@ -701,17 +701,17 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "employee-experience",
+      "journey",
       "employee-communication",
-      "recognition-rewards",
-      "employee-listening",
-      "people-analytics"
+      "kudos",
+      "listen",
+      "insight"
     ],
     "footerCta": "Ready to build a workplace that truly supports its people?"
   },
   {
-    "slug": "recognition-rewards",
-    "name": "Recognition & Rewards",
+    "slug": "kudos",
+    "name": "Kudos",
     "cloud": "workforce-experience",
     "icon": "bell",
     "mock": "phone",
@@ -845,18 +845,18 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "employee-experience",
+      "journey",
       "employee-communication",
-      "employee-wellbeing-culture",
-      "employee-listening",
-      "people-analytics"
+      "ithrive",
+      "listen",
+      "insight"
     ],
     "footerCta": "Ready to make recognition a daily habit, not an afterthought?"
   },
   {
-    "slug": "people-analytics",
-    "name": "People Analytics",
-    "cloud": "workforce-intelligence",
+    "slug": "insight",
+    "name": "Insight",
+    "cloud": "decision-intelligence",
     "icon": "chart",
     "mock": "dashboard",
     "heroTitle": "Understand Your Workforce with AI-Powered People Analytics",
@@ -976,14 +976,14 @@ export const products: Product[] = [
       "sentiment-intelligence",
       "benchmark-intelligence",
       "executive-reports",
-      "engagement-surveys"
+      "pulse"
     ],
     "footerCta": "Ready to see your entire workforce clearly, in real time?"
   },
   {
     "slug": "sentiment-intelligence",
     "name": "Sentiment Intelligence",
-    "cloud": "workforce-intelligence",
+    "cloud": "decision-intelligence",
     "icon": "pulse",
     "mock": "voice",
     "heroTitle": "Know How Your Workforce Really Feels, in Real Time",
@@ -1097,9 +1097,9 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "people-analytics",
-      "engagement-surveys",
-      "employee-listening",
+      "insight",
+      "pulse",
+      "listen",
       "executive-reports"
     ],
     "footerCta": "Ready to know how your people really feel, before it's too late?"
@@ -1107,7 +1107,7 @@ export const products: Product[] = [
   {
     "slug": "benchmark-intelligence",
     "name": "Benchmark Intelligence",
-    "cloud": "workforce-intelligence",
+    "cloud": "decision-intelligence",
     "icon": "globe",
     "mock": "dashboard",
     "heroTitle": "See How Your Workforce Compares, and What to Do About It",
@@ -1217,9 +1217,9 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "people-analytics",
+      "insight",
       "executive-reports",
-      "engagement-surveys",
+      "pulse",
       "sentiment-intelligence"
     ],
     "footerCta": "Ready to see exactly where you stand, and what to fix first?"
@@ -1227,7 +1227,7 @@ export const products: Product[] = [
   {
     "slug": "executive-reports",
     "name": "Executive Reports",
-    "cloud": "workforce-intelligence",
+    "cloud": "decision-intelligence",
     "icon": "checks",
     "mock": "dashboard",
     "heroTitle": "Turn Workforce Data Into Board-Ready Insight, Instantly",
@@ -1339,14 +1339,14 @@ export const products: Product[] = [
     ],
     "related": [
       "benchmark-intelligence",
-      "people-analytics",
+      "insight",
       "sentiment-intelligence"
     ],
     "footerCta": "Ready to stop building reports and start using them?"
   },
   {
-    "slug": "pre-onboarding",
-    "name": "Pre- & Onboarding",
+    "slug": "onboard",
+    "name": "Onboard",
     "cloud": "talent-intelligence",
     "icon": "rocket",
     "mock": "phone",
@@ -1466,10 +1466,10 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "employee-experience",
+      "journey",
       "skills-intelligence",
       "employee-communication",
-      "engagement-surveys"
+      "pulse"
     ],
     "footerCta": "Ready to make every new hire's first 90 days count?"
   },
@@ -1591,7 +1591,7 @@ export const products: Product[] = [
     "related": [
       "leadership-intelligence",
       "workforce-planning",
-      "pre-onboarding"
+      "onboard"
     ],
     "footerCta": "Ready to know your organization's real capability, and close the gaps that matter?"
   },
@@ -1713,7 +1713,7 @@ export const products: Product[] = [
     "related": [
       "skills-intelligence",
       "workforce-planning",
-      "people-analytics"
+      "insight"
     ],
     "footerCta": "Ready to know which leaders actually drive engagement, and develop the rest?"
   },
@@ -1835,14 +1835,14 @@ export const products: Product[] = [
     "related": [
       "skills-intelligence",
       "leadership-intelligence",
-      "people-analytics",
+      "insight",
       "executive-reports"
     ],
     "footerCta": "Ready to plan your workforce with real data, not guesswork?"
   },
   {
-    "slug": "alumni-management",
-    "name": "Alumni Management",
+    "slug": "alumni",
+    "name": "Alumni",
     "cloud": "talent-intelligence",
     "icon": "users",
     "mock": "phone",
@@ -1974,16 +1974,16 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "pre-onboarding",
+      "onboard",
       "workforce-planning",
       "skills-intelligence",
-      "employee-experience"
+      "journey"
     ],
     "footerCta": "Ready to turn every goodbye into a lasting relationship?"
   },
   {
-    "slug": "engagement-surveys",
-    "name": "Engagement Surveys",
+    "slug": "pulse",
+    "name": "Pulse",
     "cloud": "ai-engagement",
     "icon": "pulse",
     "mock": "dashboard",
@@ -2108,15 +2108,15 @@ export const products: Product[] = [
     ],
     "related": [
       "sentiment-intelligence",
-      "employee-listening",
+      "listen",
       "feedback-intelligence",
       "action-planning"
     ],
     "footerCta": "Ready to turn feedback into action, continuously?"
   },
   {
-    "slug": "employee-listening",
-    "name": "Continuous Employee Listening",
+    "slug": "listen",
+    "name": "Listen",
     "cloud": "ai-engagement",
     "icon": "chat",
     "mock": "voice",
@@ -2231,7 +2231,7 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "engagement-surveys",
+      "pulse",
       "feedback-intelligence",
       "action-planning",
       "sentiment-intelligence"
@@ -2356,8 +2356,8 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "engagement-surveys",
-      "employee-listening",
+      "pulse",
+      "listen",
       "action-planning",
       "sentiment-intelligence"
     ],
@@ -2478,16 +2478,16 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "engagement-surveys",
+      "pulse",
       "feedback-intelligence",
-      "employee-listening",
-      "people-analytics"
+      "listen",
+      "insight"
     ],
     "footerCta": "Ready to make feedback lead to real change?"
   },
   {
-    "slug": "ai-employee-chat",
-    "name": "AI Employee Chat",
+    "slug": "smartwork",
+    "name": "SmartWork",
     "cloud": "digital-workplace",
     "icon": "chat",
     "mock": "phone",
@@ -2605,16 +2605,16 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "tasks-workflow",
-      "mobile-e-learning",
-      "ai-workforce-assistant",
+      "flow",
+      "ilearn",
+      "nudge",
       "employee-communication"
     ],
     "footerCta": "Ready to give every employee instant, always-on support?"
   },
   {
-    "slug": "tasks-workflow",
-    "name": "Case Management, Tasks & Workflow",
+    "slug": "flow",
+    "name": "Flow",
     "cloud": "digital-workplace",
     "icon": "checks",
     "mock": "phone",
@@ -2738,16 +2738,16 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "ai-employee-chat",
-      "mobile-e-learning",
+      "smartwork",
+      "ilearn",
       "employee-communication",
-      "employee-experience"
+      "journey"
     ],
     "footerCta": "Ready to bring everyday work into one intelligent flow?"
   },
   {
-    "slug": "mobile-e-learning",
-    "name": "Mobile & E-Learning",
+    "slug": "ilearn",
+    "name": "iLearn",
     "cloud": "digital-workplace",
     "icon": "phone",
     "mock": "phone",
@@ -2865,15 +2865,15 @@ export const products: Product[] = [
     ],
     "related": [
       "skills-intelligence",
-      "pre-onboarding",
-      "ai-employee-chat",
-      "tasks-workflow"
+      "onboard",
+      "smartwork",
+      "flow"
     ],
     "footerCta": "Ready to make learning accessible to every employee?"
   },
   {
-    "slug": "enterprise-integrations",
-    "name": "Enterprise Integrations",
+    "slug": "link",
+    "name": "Link",
     "cloud": "enterprise-platform",
     "icon": "plug",
     "mock": "dashboard",
@@ -3006,15 +3006,15 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "security-compliance",
-      "implementation",
-      "people-analytics"
+      "trust",
+      "launch",
+      "insight"
     ],
     "footerCta": "Ready to connect your entire workforce stack?"
   },
   {
-    "slug": "security-compliance",
-    "name": "Security & Compliance",
+    "slug": "trust",
+    "name": "Trust",
     "cloud": "enterprise-platform",
     "icon": "shield",
     "mock": "dashboard",
@@ -3124,15 +3124,15 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "enterprise-integrations",
-      "implementation",
+      "link",
+      "launch",
       "decision-intelligence-copilot"
     ],
     "footerCta": "Ready to see how we protect your workforce data?"
   },
   {
-    "slug": "implementation",
-    "name": "Implementation & Customer Success",
+    "slug": "launch",
+    "name": "Launch",
     "cloud": "enterprise-platform",
     "icon": "lifebuoy",
     "mock": "dashboard",
@@ -3241,9 +3241,9 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "enterprise-integrations",
-      "security-compliance",
-      "pre-onboarding"
+      "link",
+      "trust",
+      "onboard"
     ],
     "footerCta": "Ready to roll out with a partner who stays?"
   },
@@ -3362,17 +3362,17 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "people-analytics",
+      "insight",
       "executive-reports",
-      "ai-workforce-assistant",
+      "nudge",
       "sentiment-intelligence"
     ],
     "footerCta": "Ready to ask your workforce data anything?"
   },
   {
-    "slug": "ai-workforce-assistant",
-    "name": "AI Workforce Assistant",
-    "cloud": "enterprise-platform",
+    "slug": "nudge",
+    "name": "Nudge",
+    "cloud": "decision-intelligence",
     "icon": "bell",
     "mock": "phone",
     "heroTitle": "An AI Teammate for Every Employee and Manager",
@@ -3485,9 +3485,9 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "ai-employee-chat",
+      "smartwork",
       "decision-intelligence-copilot",
-      "tasks-workflow",
+      "flow",
       "leadership-intelligence"
     ],
     "footerCta": "Ready to give every employee and manager an AI teammate?"
