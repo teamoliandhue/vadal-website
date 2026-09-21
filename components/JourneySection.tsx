@@ -79,7 +79,7 @@ const STAGES: Stage[] = [
     title: "Understand what is driving it",
     body: "AI reads the open text and surfaces the themes behind the score, showing which drivers actually move it and where risk is building.",
     links: [
-      { name: "Feedback Intelligence", href: "/platform/feedback-intelligence" },
+      { name: "Pulse", href: "/platform/pulse" },
       { name: "Insight", href: "/platform/insight" },
     ],
   },
@@ -91,7 +91,7 @@ const STAGES: Stage[] = [
     title: "Turn insight into owned work",
     body: "Recommendations become plans with an owner, a deadline and visible progress, sitting with the manager who can actually move them.",
     links: [
-      { name: "Action Planning", href: "/platform/action-planning" },
+      { name: "Nudge", href: "/platform/nudge" },
       { name: "Manager Effectiveness", href: "/platform/manager-effectiveness" },
     ],
   },
@@ -103,8 +103,8 @@ const STAGES: Stage[] = [
     title: "Prove what actually changed",
     body: "Every action is measured against its own baseline and benchmarked against peers, so the lift is a number you can take to the board.",
     links: [
-      { name: "Executive Reports", href: "/platform/executive-reports" },
-      { name: "Benchmark Intelligence", href: "/platform/benchmark-intelligence" },
+      { name: "Insight", href: "/platform/insight" },
+      { name: "Launch", href: "/platform/launch" },
     ],
   },
 ];

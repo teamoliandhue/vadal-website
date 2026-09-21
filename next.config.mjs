@@ -34,6 +34,19 @@ const nextConfig = {
     { source: "/platform/implementation", destination: "/platform/launch", permanent: true },
     { source: "/platform/people-analytics", destination: "/platform/insight", permanent: true },
     { source: "/platform/ai-workforce-assistant", destination: "/platform/nudge", permanent: true },
+
+    /* pages that are now capabilities inside one of the sixteen modules */
+    { source: "/platform/employee-communication", destination: "/platform/social", permanent: true },
+    { source: "/platform/amplify", destination: "/platform/social", permanent: true },
+    { source: "/platform/feedback-intelligence", destination: "/platform/listen", permanent: true },
+    { source: "/platform/action-planning", destination: "/platform/pulse", permanent: true },
+    { source: "/platform/sentiment-intelligence", destination: "/platform/pulse", permanent: true },
+    { source: "/platform/benchmark-intelligence", destination: "/platform/insight", permanent: true },
+    { source: "/platform/executive-reports", destination: "/platform/insight", permanent: true },
+    { source: "/platform/skills-intelligence", destination: "/platform/insight", permanent: true },
+    { source: "/platform/leadership-intelligence", destination: "/platform/insight", permanent: true },
+    { source: "/platform/workforce-planning", destination: "/platform/insight", permanent: true },
+    { source: "/platform/decision-intelligence-copilot", destination: "/platform/nudge", permanent: true },
     ];
   },
 };

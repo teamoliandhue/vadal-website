@@ -76,7 +76,7 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
             >
               <Pill aurora>
                 <Icon name={p.icon} size={14} />
-                Vadal.ai · {cloud?.name ?? "Platform"}
+                {p.name} · {cloud?.name ?? "Platform"}
               </Pill>
             </Link>
             <h1 className="display-lg mt-5 font-extrabold text-balance">{p.heroTitle}</h1>

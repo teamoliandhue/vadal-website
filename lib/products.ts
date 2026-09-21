@@ -58,12 +58,10 @@ export const products: Product[] = [
       "Teams spread across languages read the same post very differently."
     ],
     "pillars": [
-      "Six ways to read",
-      "Must-read confirmation",
-      "Accepted answers",
+      "Communication",
       "Communities",
-      "Translation",
-      "AI composer"
+      "Collaboration",
+      "Knowledge Sharing"
     ],
     "capabilities": [
       {
@@ -160,10 +158,9 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "employee-communication",
+      "social",
       "journey",
       "kudos",
-      "amplify"
     ],
     "footerCta": "Ready to give your whole company one place to talk?"
   },
@@ -260,9 +257,8 @@ export const products: Product[] = [
     ],
     "related": [
       "social",
-      "employee-communication",
       "kudos",
-      "onboard"
+      "onboard",
     ],
     "footerCta": "Ready to let your people carry the message further than your company page?"
   },
@@ -412,7 +408,7 @@ export const products: Product[] = [
       "kudos",
       "listen",
       "pulse",
-      "insight"
+      "insight",
     ],
     "footerCta": "Ready to transform employee communication into workforce intelligence?"
   },
@@ -436,10 +432,10 @@ export const products: Product[] = [
       "There's no reliable way to measure whether employee experience is improving."
     ],
     "pillars": [
-      "AI Journey Orchestration",
+      "Employee Hub",
       "Moments That Matter",
-      "Unified Employee Hub",
-      "Experience Intelligence"
+      "Personalized Journeys",
+      "Experience Analytics"
     ],
     "capabilities": [
       {
@@ -555,12 +551,12 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "employee-communication",
+      "social",
       "ithrive",
       "kudos",
       "listen",
       "onboard",
-      "insight"
+      "insight",
     ],
     "footerCta": "Ready to turn every employee moment into a meaningful experience?"
   },
@@ -584,10 +580,10 @@ export const products: Product[] = [
       "Frontline and remote employees are the hardest to reach and support."
     ],
     "pillars": [
-      "AI Burnout Detection",
-      "Personalized Wellbeing Support",
-      "Culture Intelligence",
-      "Manager Enablement"
+      "Wellbeing",
+      "Burnout Detection",
+      "Culture Programs",
+      "Manager Coaching"
     ],
     "capabilities": [
       {
@@ -702,10 +698,10 @@ export const products: Product[] = [
     ],
     "related": [
       "journey",
-      "employee-communication",
+      "social",
       "kudos",
       "listen",
-      "insight"
+      "insight",
     ],
     "footerCta": "Ready to build a workplace that truly supports its people?"
   },
@@ -729,10 +725,10 @@ export const products: Product[] = [
       "Recognition and performance data live in separate systems, disconnected from insight."
     ],
     "pillars": [
-      "AI-Powered Recognition",
-      "Peer-to-Peer Appreciation",
-      "Personalized Rewards",
-      "Recognition Intelligence"
+      "Peer Recognition",
+      "Rewards",
+      "Recognition Analytics",
+      "Recognition Equity"
     ],
     "capabilities": [
       {
@@ -846,10 +842,10 @@ export const products: Product[] = [
     ],
     "related": [
       "journey",
-      "employee-communication",
+      "social",
       "ithrive",
       "listen",
-      "insight"
+      "insight",
     ],
     "footerCta": "Ready to make recognition a daily habit, not an afterthought?"
   },
@@ -871,10 +867,10 @@ export const products: Product[] = [
       "Reporting takes days or weeks to produce."
     ],
     "pillars": [
-      "Unified Data Layer",
-      "Real-Time Dashboards",
-      "AI-Generated Insights",
-      "Manager-Level Distribution"
+      "Workforce Analytics",
+      "Risk Intelligence",
+      "Succession Intelligence",
+      "Recommendations"
     ],
     "capabilities": [
       {
@@ -973,10 +969,8 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "sentiment-intelligence",
-      "benchmark-intelligence",
-      "executive-reports",
-      "pulse"
+      "pulse",
+      "insight",
     ],
     "footerCta": "Ready to see your entire workforce clearly, in real time?"
   },
@@ -1100,7 +1094,6 @@ export const products: Product[] = [
       "insight",
       "pulse",
       "listen",
-      "executive-reports"
     ],
     "footerCta": "Ready to know how your people really feel, before it's too late?"
   },
@@ -1218,9 +1211,7 @@ export const products: Product[] = [
     ],
     "related": [
       "insight",
-      "executive-reports",
       "pulse",
-      "sentiment-intelligence"
     ],
     "footerCta": "Ready to see exactly where you stand, and what to fix first?"
   },
@@ -1338,9 +1329,8 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "benchmark-intelligence",
       "insight",
-      "sentiment-intelligence"
+      "pulse",
     ],
     "footerCta": "Ready to stop building reports and start using them?"
   },
@@ -1362,9 +1352,9 @@ export const products: Product[] = [
       "Document collection and compliance tasks slow down day-one readiness."
     ],
     "pillars": [
-      "Candidate Engagement Pre-Start",
-      "AI-Personalized Onboarding Journeys",
-      "Automated Admin & Compliance",
+      "Preboarding",
+      "Personalized Onboarding",
+      "Automated Admin",
       "Manager Visibility"
     ],
     "capabilities": [
@@ -1467,9 +1457,9 @@ export const products: Product[] = [
     ],
     "related": [
       "journey",
-      "skills-intelligence",
-      "employee-communication",
-      "pulse"
+      "insight",
+      "social",
+      "pulse",
     ],
     "footerCta": "Ready to make every new hire's first 90 days count?"
   },
@@ -1589,9 +1579,8 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "leadership-intelligence",
-      "workforce-planning",
-      "onboard"
+      "insight",
+      "onboard",
     ],
     "footerCta": "Ready to know your organization's real capability, and close the gaps that matter?"
   },
@@ -1711,9 +1700,7 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "skills-intelligence",
-      "workforce-planning",
-      "insight"
+      "insight",
     ],
     "footerCta": "Ready to know which leaders actually drive engagement, and develop the rest?"
   },
@@ -1833,10 +1820,7 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "skills-intelligence",
-      "leadership-intelligence",
       "insight",
-      "executive-reports"
     ],
     "footerCta": "Ready to plan your workforce with real data, not guesswork?"
   },
@@ -1860,10 +1844,10 @@ export const products: Product[] = [
       "There's no measure of what the alumni community is actually worth."
     ],
     "pillars": [
-      "Lifelong Portal Access",
-      "Exit & Document Hub",
-      "Employer Brand & Boomerang Hiring",
-      "Alumni Network & Revenue"
+      "Alumni Network",
+      "Exit Documents",
+      "Boomerang Hiring",
+      "Employee Referrals"
     ],
     "capabilities": [
       {
@@ -1975,9 +1959,8 @@ export const products: Product[] = [
     ],
     "related": [
       "onboard",
-      "workforce-planning",
-      "skills-intelligence",
-      "journey"
+      "insight",
+      "journey",
     ],
     "footerCta": "Ready to turn every goodbye into a lasting relationship?"
   },
@@ -1999,10 +1982,10 @@ export const products: Product[] = [
       "Leaders don't know which questions actually predict engagement or attrition."
     ],
     "pillars": [
-      "AI-Personalized Survey Design",
-      "Multi-Channel Distribution",
-      "AI-Powered Analysis",
-      "Connected Action Planning"
+      "Adaptive Surveys",
+      "Omnichannel Surveys",
+      "Sentiment Analysis",
+      "Action Plans"
     ],
     "capabilities": [
       {
@@ -2107,10 +2090,8 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "sentiment-intelligence",
+      "pulse",
       "listen",
-      "feedback-intelligence",
-      "action-planning"
     ],
     "footerCta": "Ready to turn feedback into action, continuously?"
   },
@@ -2132,10 +2113,10 @@ export const products: Product[] = [
       "There's no continuous signal to tell leaders whether things are improving."
     ],
     "pillars": [
-      "Always-On Multi-Channel Listening",
-      "Lifecycle-Based Listening",
-      "Real-Time Signal Detection",
-      "Unified Employee Voice"
+      "Always-On Listening",
+      "Lifecycle Listening",
+      "Real-Time Signals",
+      "Voice Analytics"
     ],
     "capabilities": [
       {
@@ -2232,9 +2213,7 @@ export const products: Product[] = [
     ],
     "related": [
       "pulse",
-      "feedback-intelligence",
-      "action-planning",
-      "sentiment-intelligence"
+      "listen",
     ],
     "footerCta": "Ready to hear your workforce continuously, not just once a year?"
   },
@@ -2358,8 +2337,6 @@ export const products: Product[] = [
     "related": [
       "pulse",
       "listen",
-      "action-planning",
-      "sentiment-intelligence"
     ],
     "footerCta": "Ready to understand every piece of feedback, at scale?"
   },
@@ -2479,9 +2456,8 @@ export const products: Product[] = [
     ],
     "related": [
       "pulse",
-      "feedback-intelligence",
       "listen",
-      "insight"
+      "insight",
     ],
     "footerCta": "Ready to make feedback lead to real change?"
   },
@@ -2503,10 +2479,10 @@ export const products: Product[] = [
       "HR spends time on tickets instead of strategic work."
     ],
     "pillars": [
-      "24/7 Conversational AI",
-      "Automated Query Resolution",
-      "Intelligent Escalation",
-      "Knowledge Grounding"
+      "HR Queries",
+      "Automated Resolution",
+      "Smart Escalation",
+      "Policy Answers"
     ],
     "capabilities": [
       {
@@ -2608,7 +2584,7 @@ export const products: Product[] = [
       "flow",
       "ilearn",
       "nudge",
-      "employee-communication"
+      "social",
     ],
     "footerCta": "Ready to give every employee instant, always-on support?"
   },
@@ -2630,10 +2606,10 @@ export const products: Product[] = [
       "Work happens in silos disconnected from communication and learning."
     ],
     "pillars": [
-      "Structured Task Assignment",
+      "Case Management",
+      "Task Management",
       "Workflow Automation",
-      "Mobile-First Completion",
-      "Manager Oversight"
+      "SLA Analytics"
     ],
     "capabilities": [
       {
@@ -2740,8 +2716,8 @@ export const products: Product[] = [
     "related": [
       "smartwork",
       "ilearn",
-      "employee-communication",
-      "journey"
+      "social",
+      "journey",
     ],
     "footerCta": "Ready to bring everyday work into one intelligent flow?"
   },
@@ -2763,10 +2739,10 @@ export const products: Product[] = [
       "Learning is disconnected from the rest of the employee experience."
     ],
     "pillars": [
-      "Mobile-First Learning",
-      "Microlearning & Gamification",
-      "AI Learning Recommendations",
-      "Progress & Compliance Tracking"
+      "Microlearning",
+      "Gamified Learning",
+      "AI Recommendations",
+      "Compliance Tracking"
     ],
     "capabilities": [
       {
@@ -2864,10 +2840,10 @@ export const products: Product[] = [
       }
     ],
     "related": [
-      "skills-intelligence",
+      "insight",
       "onboard",
       "smartwork",
-      "flow"
+      "flow",
     ],
     "footerCta": "Ready to make learning accessible to every employee?"
   },
@@ -2889,11 +2865,10 @@ export const products: Product[] = [
       "Point tools don't talk to each other, breaking workflows."
     ],
     "pillars": [
-      "Pre-Built Connectors",
-      "Automatic Data Sync",
+      "HR Integrations",
+      "Data Sync",
       "Open API",
-      "Low-Maintenance Integration",
-      "Single Sign-On (SSO)"
+      "Unified Data"
     ],
     "capabilities": [
       {
@@ -3008,7 +2983,7 @@ export const products: Product[] = [
     "related": [
       "trust",
       "launch",
-      "insight"
+      "insight",
     ],
     "footerCta": "Ready to connect your entire workforce stack?"
   },
@@ -3030,10 +3005,10 @@ export const products: Product[] = [
       "AI features raise new questions about responsible data use."
     ],
     "pillars": [
-      "Enterprise-Grade Security",
-      "Privacy & Data Controls",
-      "Compliance Certifications",
-      "Responsible AI Governance"
+      "Data Security",
+      "Privacy Controls",
+      "Compliance",
+      "Responsible AI"
     ],
     "capabilities": [
       {
@@ -3126,7 +3101,7 @@ export const products: Product[] = [
     "related": [
       "link",
       "launch",
-      "decision-intelligence-copilot"
+      "nudge",
     ],
     "footerCta": "Ready to see how we protect your workforce data?"
   },
@@ -3149,9 +3124,9 @@ export const products: Product[] = [
     ],
     "pillars": [
       "Guided Implementation",
-      "AI-Accelerated Setup",
-      "Dedicated Customer Success",
-      "Ongoing Value Realization"
+      "Change Management",
+      "Success Partner",
+      "ROI Tracking"
     ],
     "capabilities": [
       {
@@ -3243,7 +3218,7 @@ export const products: Product[] = [
     "related": [
       "link",
       "trust",
-      "onboard"
+      "onboard",
     ],
     "footerCta": "Ready to roll out with a partner who stays?"
   },
@@ -3363,9 +3338,8 @@ export const products: Product[] = [
     ],
     "related": [
       "insight",
-      "executive-reports",
       "nudge",
-      "sentiment-intelligence"
+      "pulse",
     ],
     "footerCta": "Ready to ask your workforce data anything?"
   },
@@ -3387,10 +3361,10 @@ export const products: Product[] = [
       "AI in most tools is reactive, it waits to be asked."
     ],
     "pillars": [
-      "Proactive Assistance",
-      "Personalized Guidance",
-      "Manager Enablement",
-      "Cross-Product Awareness"
+      "Proactive Alerts",
+      "Manager Guidance",
+      "Retention Nudges",
+      "Task Priorities"
     ],
     "capabilities": [
       {
@@ -3486,9 +3460,9 @@ export const products: Product[] = [
     ],
     "related": [
       "smartwork",
-      "decision-intelligence-copilot",
+      "nudge",
       "flow",
-      "leadership-intelligence"
+      "insight",
     ],
     "footerCta": "Ready to give every employee and manager an AI teammate?"
   }

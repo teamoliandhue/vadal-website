@@ -1,3 +1,5 @@
+import { platformModules } from "./platform-nav";
+
 // ============================================================================
 // Vadal — site content (source of truth for crafted copy)
 //
@@ -1638,22 +1640,14 @@ export type PortfolioGroup = {
    Order is the founder's and is intentional: do not re-sort alphabetically or
    regroup by family. Ten resolve to product pages; Enterprise AI Platform is a
    family, so it targets its section anchor on /platform. */
-/* Curated footer shortlist, in the exact order and wording the founder asked
-   for. NOT a taxonomy — the catalog lives in lib/platform-nav.ts. Every href
-   here is checked by scripts/check-nav-links.mjs. */
-export const mobileProductNav: MenuItem[] = [
-  { name: "SmartWork", href: "/platform/smartwork", icon: "chat" },
-  { name: "Journey", href: "/platform/journey", icon: "compass" },
-  { name: "Employee Communication", href: "/platform/employee-communication", icon: "broadcast" },
-  { name: "Listen", href: "/platform/listen", icon: "pulse" },
-  { name: "Pulse", href: "/platform/pulse", icon: "checks" },
-  { name: "iThrive", href: "/platform/ithrive", icon: "heart" },
-  { name: "iLearn", href: "/platform/ilearn", icon: "phone" },
-  { name: "Kudos", href: "/platform/kudos", icon: "bell" },
-  { name: "Feedback Intelligence", href: "/platform/feedback-intelligence", icon: "spark" },
-  { name: "AI-powered Action Planning", href: "/platform/action-planning", icon: "rocket" },
-  { name: "Enterprise AI Platform", href: "/platform#enterprise-platform", icon: "shield" },
-];
+/* The sixteen modules, in catalog order — derived from lib/platform-nav.ts so
+   this list can never drift from the platform again. Every href here is
+   checked by scripts/check-nav-links.mjs. */
+export const mobileProductNav: MenuItem[] = platformModules.map((m) => ({
+  name: m.name,
+  href: m.href,
+  icon: m.icon,
+}));
 
 /* portfolioGroups retired — the product catalog now lives in
    lib/platform-nav.ts as the single source of truth (see its header).
