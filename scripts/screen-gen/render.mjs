@@ -4,10 +4,14 @@
 import { writeFileSync, mkdirSync, existsSync, rmSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { SCREENS } from "./screens.mjs";
 
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const HERE = dirname(new URL(import.meta.url).pathname);
+/* fileURLToPath, not .pathname: this repo lives under "Claude Code", and a
+   raw pathname keeps the %20 — the HTML was written to a literal "Claude%20Code"
+   folder while Chrome loaded the real path and screenshotted a blank page. */
+const HERE = dirname(fileURLToPath(import.meta.url));
 const TMP = join(HERE, "html");
 const OUT = process.argv[2] || join(HERE, "out");
 const only = process.argv[3];

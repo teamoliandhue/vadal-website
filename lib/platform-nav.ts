@@ -76,6 +76,21 @@ export const platformLayers: PlatformLayer[] = [
         ],
       },
       {
+        name: "Amplify",
+        icon: "broadcast",
+        hook: "Your people, your reach",
+        slug: "amplify",
+        blurb:
+          "Employees share company news and their own wins in their own words — with a preview of the post, and reach, applications and hires traced back to the share.",
+        landing: true,
+        lines: [
+          "Employee Advocacy, the company's news carried by the people who work here.",
+          "Written As You, a draft in your own voice, yours to edit, never auto-posted.",
+          "Referral Tracking, applications and hires traced to the person who shared.",
+          "Reach Analytics, what each share reached beyond the company's own accounts.",
+        ],
+      },
+      {
         name: "Journey",
         icon: "compass",
         hook: "Every moment matters",

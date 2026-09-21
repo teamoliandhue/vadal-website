@@ -6,7 +6,7 @@
    basename under public/product/screens/<slug>/. A slot appears here only when
    a real exported screen depicts it; every other slot keeps its placeholder.
 
-   111 of 111 screen slots are filled.
+   115 of 121 screen slots are filled.
    ========================================================================== */
 
 export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
@@ -24,6 +24,12 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "Exit & Document Hub": "exit-and-document-hub",
     "Job & News Feed for Alumni": "job-and-news-feed-for-alumni"
   },
+  "amplify": {
+    "Post Preview": "post-preview",
+    "Programme Queue": "programme-queue",
+    "Share Studio": "share-studio",
+    "Your Record": "your-record"
+  },
   "benchmark-intelligence": {
     "Benchmark Comparison Dashboard": "benchmark-comparison-dashboard",
     "Board-Ready Benchmark Report": "board-ready-benchmark-report",
@@ -35,14 +41,6 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "Data-Grounded Answer View": "data-grounded-answer-view",
     "Insight Drill-Down": "insight-drill-down",
     "Recommendation Panel": "recommendation-panel"
-  },
-  "employee-communication": {
-    "AI Communication Copilot": "ai-communication-copilot",
-    "Announcement Composer": "announcement-composer",
-    "Campaign Dashboard": "campaign-dashboard",
-    "Communication Analytics": "communication-analytics",
-    "Mobile Employee App": "mobile-employee-app",
-    "News Feed": "news-feed"
   },
   "executive-reports": {
     "AI-Generated Summary Panel": "ai-generated-summary-panel",
@@ -158,6 +156,14 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "Escalation & Ticketing View": "escalation-and-ticketing-view",
     "Knowledge Source Management": "knowledge-source-management",
     "Query Resolution Dashboard": "query-resolution-dashboard"
+  },
+  "social": {
+    "Announcement Composer": "announcement-composer",
+    "Communication Analytics": "communication-analytics",
+    "Communities": "communities",
+    "Post Composer AI": "post-composer-ai",
+    "Reach Analytics": "reach-analytics",
+    "The Feed": "the-feed"
   },
   "trust": {
     "AI Governance & Transparency Panel": "ai-governance-and-transparency-panel",

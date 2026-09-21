@@ -18,29 +18,29 @@ const esc = (s) =>
 /* Matches the exported screens item for item, including the counters on
    Surveys and Manager hub and the Health score at the foot. */
 const NAV = [
-  { label: "MY SPACE", items: [["Home", "home"], ["Feed", "feed"]] },
-  { label: "INTELLIGENCE", items: [["Pulse", "pulse"], ["Analytics", "analytics"]] },
+  { label: "MY SPACE", items: [["Home", "home"], ["Social", "social"], ["Kudos", "kudos"]] },
+  { label: "ENGAGE", items: [["Campaigns", "campaigns"], ["Amplify", "amplify"]] },
   {
     label: "LISTEN",
-    items: [["Surveys", "surveys", "3"], ["Sentiment", "sentiment"], ["Always-on listening", "listening"]],
+    items: [["Pulse", "pulse", "3"], ["Sentiment", "sentiment"], ["Always-on listening", "listening"]],
   },
-  { label: "ENGAGE", items: [["Recognition", "recognition"], ["Campaigns", "campaigns"]] },
-  { label: "OPERATIONS", items: [["Manager hub", "managers", "5"], ["Cases", "cases"]] },
+  { label: "INSIGHT", items: [["Analytics", "analytics"]] },
+  { label: "OPERATIONS", items: [["Manager hub", "managers", "5"], ["Flow", "flow"]] },
   { label: "KNOWLEDGE", items: [["Knowledge", "knowledge"]] },
 ];
 
 const ICONS = {
   home: '<path d="M3 9.2 10 3.5l7 5.7V16a1.2 1.2 0 0 1-1.2 1.2H4.2A1.2 1.2 0 0 1 3 16V9.2Z"/>',
-  feed: '<rect x="3" y="4" width="14" height="12" rx="1.6"/><path d="M6 8h8M6 11h5"/>',
-  pulse: '<path d="M2.5 10h3l2-5 3.5 10 2.5-6.5 1.5 1.5h2.5"/>',
+  social: '<rect x="3" y="4" width="14" height="12" rx="1.6"/><path d="M6 8h8M6 11h5"/>',
+  amplify: '<path d="M4 8v4h2.5l4 3V5l-4 3H4Z"/><circle cx="15" cy="6" r="1.6"/><circle cx="15" cy="13.5" r="1.6"/><path d="M11.5 9.2 13.6 7M11.5 10.8l2.1 2"/>',
   analytics: '<path d="M3.5 16.5v-5M8 16.5v-9M12.5 16.5v-6M17 16.5v-11"/>',
-  surveys: '<rect x="4" y="3" width="12" height="14" rx="1.6"/><path d="M7 7.5h6M7 10.5h6M7 13.5h3"/>',
+  pulse: '<rect x="4" y="3" width="12" height="14" rx="1.6"/><path d="M7 7.5h6M7 10.5h6M7 13.5h3"/>',
   sentiment: '<circle cx="10" cy="10" r="7"/><path d="M7.2 11.6a3.4 3.4 0 0 0 5.6 0M7.6 8h.01M12.4 8h.01"/>',
   listening: '<circle cx="10" cy="10" r="2"/><path d="M6.5 6.5a5 5 0 0 0 0 7M13.5 6.5a5 5 0 0 1 0 7"/>',
-  recognition: '<path d="M10 13.2 6.2 15.4l.9-4.3L4 8.1l4.3-.5L10 3.7l1.7 3.9 4.3.5-3.1 3 .9 4.3Z"/>',
+  kudos: '<path d="M10 13.2 6.2 15.4l.9-4.3L4 8.1l4.3-.5L10 3.7l1.7 3.9 4.3.5-3.1 3 .9 4.3Z"/>',
   campaigns: '<path d="M4 8v4h3l5 3.5v-11L7 8H4Z"/><path d="M15 8.2a3 3 0 0 1 0 3.6"/>',
   managers: '<circle cx="7.5" cy="7.5" r="2.5"/><path d="M3 16.5c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4"/><circle cx="14" cy="8.5" r="2"/><path d="M13 12.8c2 .2 3.5 1.6 3.5 3.7"/>',
-  cases: '<rect x="3" y="6" width="14" height="10" rx="1.6"/><path d="M7.5 6V4.8A1.3 1.3 0 0 1 8.8 3.5h2.4a1.3 1.3 0 0 1 1.3 1.3V6"/>',
+  flow: '<rect x="3" y="6" width="14" height="10" rx="1.6"/><path d="M7.5 6V4.8A1.3 1.3 0 0 1 8.8 3.5h2.4a1.3 1.3 0 0 1 1.3 1.3V6"/>',
   knowledge: '<path d="M4 4.5h5a2 2 0 0 1 2 2v9a1.6 1.6 0 0 0-1.6-1.6H4v-9.4Z"/><path d="M16 4.5h-5a2 2 0 0 0-2 2v9a1.6 1.6 0 0 1 1.6-1.6H16v-9.4Z"/>',
   settings:
     '<circle cx="10" cy="10" r="2.4"/><path d="M10 3.2v1.6M10 15.2v1.6M16.8 10h-1.6M4.8 10H3.2M14.8 5.2l-1.1 1.1M6.3 13.7l-1.1 1.1M14.8 14.8l-1.1-1.1M6.3 6.3 5.2 5.2"/>',

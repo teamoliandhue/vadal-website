@@ -37,7 +37,6 @@ const nextConfig = {
 
     /* pages that are now capabilities inside one of the sixteen modules */
     { source: "/platform/employee-communication", destination: "/platform/social", permanent: true },
-    { source: "/platform/amplify", destination: "/platform/social", permanent: true },
     { source: "/platform/feedback-intelligence", destination: "/platform/listen", permanent: true },
     { source: "/platform/action-planning", destination: "/platform/pulse", permanent: true },
     { source: "/platform/sentiment-intelligence", destination: "/platform/pulse", permanent: true },

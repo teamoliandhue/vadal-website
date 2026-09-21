@@ -8,8 +8,8 @@ const add = (slug, file, html) => S.push({ slug, file, html });
 const P = a.person;
 const num = (v) => `<b class="num">${v}</b>`;
 
-/* ═════════════════════════════════════════════ employee-communication (4) */
-add("employee-communication", "announcement-composer", () =>
+/* ═════════════════════════════════════════════ social (4) */
+add("social", "announcement-composer", () =>
   a.rail({
     crumbs: ["Engage", "Campaigns"], active: "campaigns",
     head: { eyebrow: "ENGAGE", title: "New announcement", lede: "Write once. Vadal adapts tone and channel per audience, then tells you who actually read it.", action: "Send", meta: "Draft saved" },
@@ -28,7 +28,7 @@ add("employee-communication", "announcement-composer", () =>
     ),
   }));
 
-add("employee-communication", "communication-analytics", () =>
+add("social", "communication-analytics", () =>
   a.dash({
     crumbs: ["Engage", "Campaigns"], active: "campaigns",
     head: { eyebrow: "ENGAGE · ANALYTICS", title: "Communication analytics", lede: "Who opened it, who acted on it, and which channel actually reached the frontline.", action: "Export", meta: "Last 30 days" },
@@ -54,7 +54,7 @@ add("employee-communication", "communication-analytics", () =>
     ])),
   }));
 
-add("employee-communication", "ai-communication-copilot", () =>
+add("social", "ai-communication-copilot", () =>
   a.pair({
     crumbs: ["Engage", "Campaigns"], active: "campaigns",
     head: { eyebrow: "ENGAGE · COPILOT", title: "AI communication copilot", lede: "Drafts the message, picks the channel mix, and flags the audience most likely to miss it." },
@@ -73,7 +73,7 @@ add("employee-communication", "ai-communication-copilot", () =>
     ]) + aiNote("Predicted read rate 74%", "Six points above your 30-day average, driven mostly by the channel split rather than the copy.", "Apply all")),
   }));
 
-add("employee-communication", "mobile-employee-app", () =>
+add("social", "mobile-employee-app", () =>
   k.phone({
     title: { t: "Company feed", s: "Everything that matters today" },
     body:
@@ -95,7 +95,7 @@ add("employee-communication", "mobile-employee-app", () =>
   }));
 
 /* ══════════════════════════════════════════════════ employee-experience (5) */
-add("employee-experience", "employee-journey-map-dashboard", () =>
+add("journey", "employee-journey-map-dashboard", () =>
   a.dash({
     crumbs: ["My space", "Home"], active: "home",
     head: { eyebrow: "EXPERIENCE", title: "Employee journey map", lede: "Every stage from offer to alumni, scored on what people actually said at that moment.", action: "Configure", meta: "12,480 people" },
@@ -119,7 +119,7 @@ add("employee-experience", "employee-journey-map-dashboard", () =>
       ]) + aiNote("Add a 18-month career conversation", "Teams that ran one saw year-two sentiment recover 9 points within a quarter.", "Draft the plan")),
   }));
 
-add("employee-experience", "onboarding-portal", () =>
+add("journey", "onboarding-portal", () =>
   a.rail({
     crumbs: ["My space", "Home"], active: "home",
     head: { eyebrow: "ONBOARDING", title: "Welcome, Priya", lede: "Your first 30 days, in one place. Nine of fourteen tasks done.", meta: "Day 6 of 30" },
@@ -142,7 +142,7 @@ add("employee-experience", "onboarding-portal", () =>
       ])),
   }));
 
-add("employee-experience", "employee-hub-homepage", () =>
+add("journey", "employee-hub-homepage", () =>
   a.dash({
     crumbs: ["My space", "Home"], active: "home",
     head: { eyebrow: "TUESDAY, 9 JUNE", title: "Good morning, Priya 👋", lede: "You have 4 things today, and you are on a 12-day streak.", action: "Ask Vadal" },
@@ -169,7 +169,7 @@ add("employee-experience", "employee-hub-homepage", () =>
       aiNote("You have had no 1:1 in 3 weeks", "Your next one is Thursday. Vadal has drafted three things worth raising, based on your last two pulses.", "See the prep")),
   }));
 
-add("employee-experience", "experience-analytics-dashboard", () =>
+add("journey", "experience-analytics-dashboard", () =>
   a.dash({
     crumbs: ["People intelligence", "Analytics"], active: "analytics",
     head: { eyebrow: "EXPERIENCE ANALYTICS", title: "Experience analytics", lede: "How the journey scores differ by team, tenure and location — and where the gap is widening.", action: "Export", meta: "Rolling 90 days" },
@@ -200,7 +200,7 @@ add("employee-experience", "experience-analytics-dashboard", () =>
     ])),
   }));
 
-add("employee-experience", "mobile-employee-app", () =>
+add("journey", "mobile-employee-app", () =>
   k.phone({
     title: { t: "Your space", s: "Tuesday, 9 June" },
     body:
@@ -220,7 +220,7 @@ add("employee-experience", "mobile-employee-app", () =>
   }));
 
 /* ═══════════════════════════════════════════ employee-wellbeing-culture (3) */
-add("employee-wellbeing-culture", "wellbeing-risk-dashboard", () =>
+add("ithrive", "wellbeing-risk-dashboard", () =>
   a.dash({
     crumbs: ["Listening", "Sentiment"], active: "sentiment",
     head: { eyebrow: "WELLBEING", title: "Wellbeing risk", lede: "Aggregate signals only. No individual is ever named, and thresholds are set by your HR and legal teams.", action: "Export", meta: "Confidential" },
@@ -251,7 +251,7 @@ add("employee-wellbeing-culture", "wellbeing-risk-dashboard", () =>
       ])),
   }));
 
-add("employee-wellbeing-culture", "wellbeing-resource-hub", () =>
+add("ithrive", "wellbeing-resource-hub", () =>
   a.full({
     crumbs: ["Knowledge", "Knowledge"], active: "knowledge",
     head: { eyebrow: "WELLBEING", title: "Resource hub", lede: "Support, confidentially. Nothing you open here is reported to your manager or recorded against you.", meta: "Private" },
@@ -267,7 +267,7 @@ add("employee-wellbeing-culture", "wellbeing-resource-hub", () =>
       `<div style="margin-top:14px">${aiNote("Most opened this month: shift and sleep", "Opens are up 34% in Plant Ops since the roster change. That is a signal worth acting on, not just a resource being read.", "See the pattern")}</div>`),
   }));
 
-add("employee-wellbeing-culture", "mobile-wellbeing-check-in", () =>
+add("ithrive", "mobile-wellbeing-check-in", () =>
   k.phone({
     title: { t: "Check in", s: "Private to you — always" },
     body:
@@ -288,9 +288,9 @@ add("employee-wellbeing-culture", "mobile-wellbeing-check-in", () =>
 
 
 /* ═══════════════════════════════════════════════ recognition-rewards (4) */
-add("recognition-rewards", "rewards-catalog-and-redemption", () =>
+add("kudos", "rewards-catalog-and-redemption", () =>
   a.full({
-    crumbs: ["Engage", "Recognition"], active: "recognition",
+    crumbs: ["Engage", "Recognition"], active: "kudos",
     head: { eyebrow: "REWARDS", title: "Rewards catalogue", lede: "Points convert to things people actually want, in their own currency and country.", action: "Redeem", meta: "You have 4,250 points" },
     stats: [
       { l: "YOUR BALANCE", v: "4,250", sub: "pts", d: "▲ 600 this month" },
@@ -309,7 +309,7 @@ add("recognition-rewards", "rewards-catalog-and-redemption", () =>
       ], 3)),
   }));
 
-add("recognition-rewards", "manager-recognition-dashboard", () =>
+add("kudos", "manager-recognition-dashboard", () =>
   a.dash({
     crumbs: ["Operations", "Manager hub"], active: "managers",
     head: { eyebrow: "MANAGER HUB", title: "Recognition in your team", lede: "Who is being seen, who is being missed, and how your coverage compares with the org.", action: "Give recognition", meta: "Design pod · 6" },
@@ -338,7 +338,7 @@ add("recognition-rewards", "manager-recognition-dashboard", () =>
       ]) + aiNote("Recognition predicts retention here", "In your org, people with no recognition for 60 days are 2.4× more likely to leave within two quarters.", "See the evidence")),
   }));
 
-add("recognition-rewards", "recognition-analytics-and-equity-report", () =>
+add("kudos", "recognition-analytics-and-equity-report", () =>
   a.dash({
     crumbs: ["People intelligence", "Analytics"], active: "analytics",
     head: { eyebrow: "RECOGNITION · EQUITY", title: "Recognition equity", lede: "Whether praise is spread fairly — by team, gender, shift and tenure — not just whether there is a lot of it.", action: "Export", meta: "Rolling 12 months" },
@@ -365,7 +365,7 @@ add("recognition-rewards", "recognition-analytics-and-equity-report", () =>
       aiNote("Prompt managers at shift handover", "A nudge at 06:00 and 22:00 lifted night-shift coverage 16 points in the pilot.", "Set it up")),
   }));
 
-add("recognition-rewards", "mobile-recognition-app", () =>
+add("kudos", "mobile-recognition-app", () =>
   k.phone({
     title: { t: "Give kudos", s: "Catch someone doing it right" },
     body:
@@ -381,7 +381,7 @@ add("recognition-rewards", "mobile-recognition-app", () =>
   }));
 
 /* ═══════════════════════════════════════════════════ people-analytics (1) */
-add("people-analytics", "ai-insight-summary-panel", () =>
+add("insight", "ai-insight-summary-panel", () =>
   a.pair({
     crumbs: ["People intelligence", "Analytics"], active: "analytics",
     head: { eyebrow: "PEOPLE INTELLIGENCE", title: "AI insight summary", lede: "The quarter in five findings, each traced back to the data behind it.", action: "Export", meta: "Generated 9 Jun" },
@@ -699,7 +699,7 @@ add("executive-reports", "report-scheduling-and-distribution-view", () =>
     ]) + `<p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:12px">A manager whose team has fewer than eight responses receives the org view instead, never a group small enough to identify.</p>`),
   }));
 /* ═══════════════════════════════════════════════════ pre-onboarding (4) */
-add("pre-onboarding", "pre-boarding-candidate-portal", () =>
+add("onboard", "pre-boarding-candidate-portal", () =>
   a.rail({
     crumbs: ["My space", "Home"], active: "home",
     head: { eyebrow: "PRE-BOARDING", title: "Welcome, Aditya", lede: "Everything before day one, in one place — so your first morning is not paperwork.", meta: "Starts 1 July · 22 days" },
@@ -720,7 +720,7 @@ add("pre-onboarding", "pre-boarding-candidate-portal", () =>
     ]) + `<div style="margin-top:14px">${aiNote("Most new joiners choose the 14-inch", "Order in the next four days and it arrives before your start date.", "Choose now")}</div>`),
   }));
 
-add("pre-onboarding", "onboarding-journey-timeline", () =>
+add("onboard", "onboarding-journey-timeline", () =>
   a.dash({
     crumbs: ["Operations", "Manager hub"], active: "managers",
     head: { eyebrow: "ONBOARDING", title: "Journey timeline", lede: "The same path for every joiner, so nothing depends on which manager they got.", action: "Edit journey", meta: "Design · 4 joiners" },
@@ -746,9 +746,9 @@ add("pre-onboarding", "onboarding-journey-timeline", () =>
     ])),
   }));
 
-add("pre-onboarding", "document-collection-workflow", () =>
+add("onboard", "document-collection-workflow", () =>
   a.dash({
-    crumbs: ["Operations", "Cases"], active: "cases",
+    crumbs: ["Operations", "Cases"], active: "flow",
     head: { eyebrow: "COMPLIANCE", title: "Document collection", lede: "Chased automatically, verified once, stored against the right retention rule.", action: "Send reminders", meta: "4 joiners" },
     stats: [
       { l: "COMPLETE", v: "82%", d: "▲ 9 pts" },
@@ -775,7 +775,7 @@ add("pre-onboarding", "document-collection-workflow", () =>
     ]) + `<p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:12px">Managers never see a joiner's identity documents — only whether the check has cleared.</p>`),
   }));
 
-add("pre-onboarding", "manager-onboarding-dashboard", () =>
+add("onboard", "manager-onboarding-dashboard", () =>
   a.dash({
     crumbs: ["Operations", "Manager hub"], active: "managers",
     head: { eyebrow: "MANAGER HUB", title: "Your new joiners", lede: "The four things only you can do, and when each one is due.", action: "Mark done", meta: "Design pod" },
@@ -1100,7 +1100,7 @@ add("workforce-planning", "hr-finance-shared-planning-interface", () =>
         <div class="kv"><span class="muted">Headroom</span><b style="color:${T.success}">£9.9M</b></div></div>`),
   }));
 /* ═══════════════════════════════════════════════════ alumni-management (6) */
-add("alumni-management", "alumni-portal-home", () =>
+add("alumni", "alumni-portal-home", () =>
   a.dash({ crumbs: ["My space", "Home"], active: "home",
     head: { eyebrow: "ALUMNI", title: "Welcome back, Marcus", lede: "Your record, your documents and what the company is up to — for as long as you want it.", meta: "Alumni since Mar 2024" },
     stats: [{ l: "YEARS HERE", v: "6" }, { l: "NETWORK", v: "4,120", sub: "alumni" }, { l: "OPEN ROLES", v: "38", d: "6 match you", dir: "flat" }, { l: "REFERRALS", v: "3", d: "1 hired" }],
@@ -1117,8 +1117,8 @@ add("alumni-management", "alumni-portal-home", () =>
       { t: "Pension provider", s: "Contact details on file", right: '<span class="btn2 sm">Open</span>' },
     ])) }));
 
-add("alumni-management", "exit-and-document-hub", () =>
-  a.rail({ crumbs: ["Operations", "Cases"], active: "cases",
+add("alumni", "exit-and-document-hub", () =>
+  a.rail({ crumbs: ["Operations", "Cases"], active: "flow",
     head: { eyebrow: "OFFBOARDING", title: "Exit and documents", lede: "Everything owed in both directions, tracked to completion rather than remembered.", action: "Complete exit", meta: "Last day 30 June" },
     rail: card(cardHead({ e: "PROGRESS", t: "Exit checklist" }) +
       `<div style="display:grid;place-items:center;padding:6px 0 14px">${donut(58, "58%", T.brand)}</div>` +
@@ -1136,8 +1136,8 @@ add("alumni-management", "exit-and-document-hub", () =>
        ["<b>Alumni portal access</b>", "1 July", "Until revoked", badge("Scheduled", "brand")]]) +
       `<div style="margin-top:14px">${aiNote("Exit interview themes feed the loop", "Marcus is the third leaver from Product Engineering this quarter to cite workload. That pattern is already flagged on the attrition model.", "See the theme")}</div>`) }));
 
-add("alumni-management", "job-and-news-feed-for-alumni", () =>
-  a.dash({ crumbs: ["My space", "Feed"], active: "feed",
+add("alumni", "job-and-news-feed-for-alumni", () =>
+  a.dash({ crumbs: ["My space", "Feed"], active: "social",
     head: { eyebrow: "ALUMNI FEED", title: "Roles and news", lede: "Openings matched to what you actually did here, and news worth knowing.", action: "Refer someone", meta: "6 new this week" },
     left: card(cardHead({ e: "MATCHED TO YOU", t: "Open roles" }) + rows([
       { ic: "💼", t: "Staff Product Engineer", s: "London · hybrid · posted 3 days ago", right: badge("94% match", "success") },
@@ -1153,7 +1153,7 @@ add("alumni-management", "job-and-news-feed-for-alumni", () =>
       { ic: "🌍", t: "New Dublin office", s: "28 April · 120 roles opening" },
     ])) }));
 
-add("alumni-management", "boomerang-candidate-pipeline", () =>
+add("alumni", "boomerang-candidate-pipeline", () =>
   a.dash({ crumbs: ["Operations", "Manager hub"], active: "managers",
     head: { eyebrow: "TALENT", title: "Boomerang pipeline", lede: "Former colleagues worth a call — ranked on fit, and on how they actually left.", action: "Start outreach", meta: "4,120 alumni" },
     stats: [{ l: "IN PIPELINE", v: "142" }, { l: "CONTACTED · 90D", v: "38" }, { l: "REHIRED · 12M", v: "24", d: "▲ 9" }, { l: "AVG RAMP", v: "21d", sub: "vs 42d", d: "half the time" }],
@@ -1171,8 +1171,8 @@ add("alumni-management", "boomerang-candidate-pipeline", () =>
        <div class="kv"><span class="muted">First-year performance</span><b>▲ 18%</b></div>` +
       `<div style="margin-top:14px">${aiNote("Only good-terms leavers are surfaced", "Exit conduct and rehire eligibility are checked before anyone appears here. That flag is set by HR, never by the model.", "See the rule")}</div>`) }));
 
-add("alumni-management", "alumni-network-directory", () =>
-  a.full({ crumbs: ["My space", "Feed"], active: "feed",
+add("alumni", "alumni-network-directory", () =>
+  a.full({ crumbs: ["My space", "Feed"], active: "social",
     head: { eyebrow: "NETWORK", title: "Alumni directory", lede: "Four thousand former colleagues, searchable — for those who opted in.", action: "Edit your profile", meta: "4,120 members · opt-in" },
     stats: [{ l: "MEMBERS", v: "4,120", d: "▲ 180" }, { l: "OPTED IN", v: "68%", d: "▲ 6 pts" }, { l: "COUNTRIES", v: "34" }, { l: "INTROS MADE", v: "412", sub: "12m", d: "▲ 22%" }],
     body: card(cardHead({ e: "BROWSE", t: "Find someone" }, seg(["All", "By team", "By city", "Hiring"], 0)) +
@@ -1186,7 +1186,7 @@ add("alumni-management", "alumni-network-directory", () =>
       ], 3) +
       `<p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:14px">Only people who opted in appear here, and each of them chooses which fields are visible. Contact details are never shown without consent.</p>`) }));
 
-add("alumni-management", "alumni-engagement-and-revenue-dashboard", () =>
+add("alumni", "alumni-engagement-and-revenue-dashboard", () =>
   a.dash({ crumbs: ["People intelligence", "Analytics"], active: "analytics",
     head: { eyebrow: "ALUMNI", title: "Engagement and value", lede: "What the alumni network returns — in referrals, rehires and business introduced.", action: "Export", meta: "Rolling 12 months" },
     stats: [{ l: "ACTIVE ALUMNI", v: "2,810", sub: "68%", d: "▲ 6 pts" }, { l: "REFERRALS", v: "412", d: "▲ 22%" }, { l: "REHIRES", v: "24", d: "▲ 9" }, { l: "PIPELINE INFLUENCED", v: "£4.2M", d: "▲ 31%" }],
@@ -1199,8 +1199,8 @@ add("alumni-management", "alumni-engagement-and-revenue-dashboard", () =>
       `<div style="margin-top:14px">${aiNote("Referrals are the strongest return", "Alumni-referred hires stay 13 points longer at twelve months than agency hires, and cost a third as much.", "See the breakdown")}</div>`) }));
 
 /* ═══════════════════════════════════════════════════ engagement-surveys (5) */
-add("engagement-surveys", "survey-builder-and-template-library", () =>
-  a.rail({ crumbs: ["Listening", "Surveys"], active: "surveys",
+add("pulse", "survey-builder-and-template-library", () =>
+  a.rail({ crumbs: ["Listening", "Surveys"], active: "pulse",
     head: { eyebrow: "SURVEYS", title: "Survey builder", lede: "Start from a validated template or build your own — the science is already in the question bank.", action: "Launch", meta: "Draft · 12 questions" },
     rail: a.navList("Templates", [
       { t: "Quarterly engagement", s: "12 questions · validated", ic: "★", on: true },
@@ -1218,8 +1218,8 @@ add("engagement-surveys", "survey-builder-and-template-library", () =>
       { ic: "5", t: "What is one thing we should change?", s: "Open text · AI themed", right: badge("Open", "brand") },
     ]) + `<div style="margin-top:14px">${aiNote("Twelve questions is the sweet spot here", "Completion falls 18% past fifteen questions in your org, and past twenty the open-text quality drops sharply.", "Keep at 12")}</div>`) }));
 
-add("engagement-surveys", "omnichannel-distribution-panel", () =>
-  a.dash({ crumbs: ["Listening", "Surveys"], active: "surveys",
+add("pulse", "omnichannel-distribution-panel", () =>
+  a.dash({ crumbs: ["Listening", "Surveys"], active: "pulse",
     head: { eyebrow: "SURVEYS", title: "Distribution", lede: "Reach everyone — including the 2,140 people with no company email address.", action: "Send now", meta: "12,480 recipients" },
     stats: [{ l: "REACHABLE", v: "100%", sub: "12,480", d: "▲ 17 pts" }, { l: "NO COMPANY EMAIL", v: "2,140", d: "covered by SMS/WhatsApp", dir: "flat" }, { l: "CHANNELS ON", v: "6" }, { l: "LANGUAGES", v: "12" }],
     left: card(cardHead({ e: "CHANNELS", t: "How it goes out" }) + a.toggles([
@@ -1238,8 +1238,8 @@ add("engagement-surveys", "omnichannel-distribution-panel", () =>
       { t: "Field & remote", s: "SMS + WhatsApp", right: meter(86, "success") + " " + num("86%") },
     ]) + `<div style="margin-top:12px">${aiNote("Turn on kiosk mode for night shift", "Night-shift reach is 74% against 88% for day. Shop-floor terminals closed most of that gap at the two sites that piloted it.", "Enable kiosks")}</div>`) }));
 
-add("engagement-surveys", "real-time-response-dashboard", () =>
-  a.dash({ crumbs: ["Listening", "Surveys"], active: "surveys",
+add("pulse", "real-time-response-dashboard", () =>
+  a.dash({ crumbs: ["Listening", "Surveys"], active: "pulse",
     head: { eyebrow: "SURVEYS · LIVE", title: "Response dashboard", lede: "Watch it come in, and nudge only the groups that are actually behind.", action: "Send nudge", meta: "Closes Friday 18:00" },
     stats: [{ l: "RESPONSES", v: "9,240", sub: "of 12,480", d: "▲ 1,120 today" }, { l: "PARTICIPATION", v: "74%", d: "▲ 6 pts vs last" }, { l: "MEDIAN TIME", v: "3m 12s", d: "▼ 24s" }, { l: "OPEN TEXT", v: "4,120", d: "44% left a comment" }],
     left: card(cardHead({ e: "LAST 7 DAYS", t: "Responses per day" }) + bars([
@@ -1255,8 +1255,8 @@ add("engagement-surveys", "real-time-response-dashboard", () =>
       { t: "Plant Ops · night", s: "372 of 910", right: badge("41%", "danger") },
     ]) + `<div style="margin-top:12px">${aiNote("Nudge night shift at handover", "A 06:00 SMS lifted night-shift completion 22 points last cycle. Nothing else moved it.", "Schedule nudge")}</div>`) }));
 
-add("engagement-surveys", "ai-feedback-theme-analysis", () =>
-  a.dash({ crumbs: ["Listening", "Surveys"], active: "surveys",
+add("pulse", "ai-feedback-theme-analysis", () =>
+  a.dash({ crumbs: ["Listening", "Surveys"], active: "pulse",
     head: { eyebrow: "SURVEYS · AI", title: "Theme analysis", lede: "Four thousand comments, read and grouped in minutes rather than a fortnight of manual coding.", action: "Ask Vadal", meta: "4,120 comments" },
     stats: [{ l: "COMMENTS READ", v: "4,120", d: "100%" }, { l: "THEMES FOUND", v: "18", d: "6 rising", dir: "flat" }, { l: "TIME SAVED", v: "~14d", sub: "manual coding", d: "estimated", dir: "flat" }, { l: "CONFIDENCE", v: "91%", d: "▲ 3 pts" }],
     left: card(cardHead({ e: "THEMES", t: "What people wrote about" }) + table(
@@ -1275,7 +1275,7 @@ add("engagement-surveys", "ai-feedback-theme-analysis", () =>
       </div>` +
       `<div style="margin-top:14px"><span class="btn2 sm">Read sample comments</span></div>`) }));
 
-add("engagement-surveys", "action-plan-tracker", () =>
+add("pulse", "action-plan-tracker", () =>
   a.dash({ crumbs: ["Operations", "Manager hub"], active: "managers",
     head: { eyebrow: "ACTION", title: "Action plan tracker", lede: "Every commitment made after the survey, with an owner, a date and a measured result.", action: "New plan", meta: "38 plans live" },
     stats: [{ l: "PLANS LIVE", v: "38", d: "▲ 6" }, { l: "ON TRACK", v: "71%", d: "▲ 9 pts" }, { l: "CLOSED · 90D", v: "24", d: "▲ 11" }, { l: "MEASURED LIFT", v: "+4.1", sub: "pts", d: "avg" }],
@@ -1294,7 +1294,7 @@ add("engagement-surveys", "action-plan-tracker", () =>
     ]) + `<p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:12px">Lift is measured against each team's own baseline before the action started, not against the org average.</p>`) }));
 
 /* ═══════════════════════════════════════════════════ employee-listening (2) */
-add("employee-listening", "lifecycle-listening-timeline", () =>
+add("listen", "lifecycle-listening-timeline", () =>
   a.dash({ crumbs: ["Listening", "Always-on listening"], active: "listening",
     head: { eyebrow: "LISTEN", title: "Lifecycle listening", lede: "A question at each moment that matters, instead of one long survey twice a year.", action: "Edit moments", meta: "9 moments live" },
     stats: [{ l: "MOMENTS LIVE", v: "9" }, { l: "TRIGGERED · 30D", v: "1,840" }, { l: "RESPONSE RATE", v: "81%", d: "▲ 7 pts" }, { l: "AVG LENGTH", v: "48s", d: "▼ 12s" }],
@@ -1313,7 +1313,7 @@ add("employee-listening", "lifecycle-listening-timeline", () =>
       rows([{ t: "Career path unclear", s: "142 mentions", right: badge("Rising", "danger") },
         { t: "No stretch work", s: "98 mentions", right: badge("Rising", "danger") }])) }));
 
-add("employee-listening", "real-time-signal-feed", () =>
+add("listen", "real-time-signal-feed", () =>
   a.dash({ crumbs: ["Listening", "Always-on listening"], active: "listening",
     head: { eyebrow: "LISTEN · LIVE", title: "Signal feed", lede: "Every comment as it arrives, classified and routed to whoever can act on it.", action: "Route all", meta: "Live · 38 today" },
     stats: [{ l: "SIGNALS TODAY", v: "38", d: "▲ 12" }, { l: "AUTO-ROUTED", v: "84%", d: "▲ 9 pts" }, { l: "TOPICS RISING", v: "4", d: "▲ 1", dir: "dn" }, { l: "RISKS FLAGGED", v: "3", d: "needs action", dir: "dn" }],
@@ -1407,8 +1407,8 @@ add("action-planning", "manager-accountability-dashboard", () =>
       `<div style="margin-top:12px">${aiNote("Owen Clarke needs help, not a reminder", "Thirty-one reports and no plan yet. The largest span in the org — offer HRBP support rather than another nudge.", "Assign support")}</div>`) }));
 
 /* ═══════════════════════════════════════════════════ ai-employee-chat (2) */
-add("ai-employee-chat", "escalation-and-ticketing-view", () =>
-  a.dash({ crumbs: ["Operations", "Cases"], active: "cases",
+add("smartwork", "escalation-and-ticketing-view", () =>
+  a.dash({ crumbs: ["Operations", "Cases"], active: "flow",
     head: { eyebrow: "OPERATIONS", title: "Escalations", lede: "What the assistant could not answer, handed to a person with the full thread attached.", action: "New case", meta: "6 open" },
     stats: [{ l: "AUTO-RESOLVED", v: "78%", d: "▲ 6 pts" }, { l: "ESCALATED", v: "6", sub: "open", d: "▼ 3", dir: "up" }, { l: "SLA BREACHED", v: "1", d: "needs action", dir: "dn" }, { l: "AVG RESOLUTION", v: "4.2d", d: "▼ 0.8d" }],
     left: card(cardHead({ e: "CASELOAD", t: "Escalated to a person" }, seg(["All", "Open", "In progress", "Escalated", "Resolved"], 0)) + table(
@@ -1425,7 +1425,7 @@ add("ai-employee-chat", "escalation-and-ticketing-view", () =>
         { t: "Visible to", s: "ER team only", right: badge("Restricted", "brand") },
         { t: "Employee informed", s: "Automatically, at handoff", right: badge("Yes", "success") }])) }));
 
-add("ai-employee-chat", "knowledge-source-management", () =>
+add("smartwork", "knowledge-source-management", () =>
   a.rail({ crumbs: ["Knowledge", "Knowledge"], active: "knowledge",
     head: { eyebrow: "KNOWLEDGE", title: "Sources", lede: "What the assistant is allowed to read, how fresh it is, and what it must never quote.", action: "Add source", meta: "14 sources" },
     rail: card(cardHead({ e: "HEALTH", t: "Source freshness" }) +
@@ -1445,8 +1445,8 @@ add("ai-employee-chat", "knowledge-source-management", () =>
       `<div style="margin-top:14px">${aiNote("Relocation policy is 14 months old", "The assistant answered 41 relocation questions last month from a document nobody has reviewed since last April.", "Flag for review")}</div>`) }));
 
 /* ═══════════════════════════════════════════════════ tasks-workflow (3) */
-add("tasks-workflow", "task-dashboard", () =>
-  a.dash({ crumbs: ["Operations", "Cases"], active: "cases",
+add("flow", "task-dashboard", () =>
+  a.dash({ crumbs: ["Operations", "Cases"], active: "flow",
     head: { eyebrow: "OPERATIONS", title: "Tasks", lede: "Everything owed by you and to you, with the SLA clock visible on each one.", action: "New task", meta: "12 open" },
     stats: [{ l: "OPEN", v: "12", d: "▼ 4", dir: "up" }, { l: "DUE TODAY", v: "3", d: "1 overdue", dir: "dn" }, { l: "AVG CLOSE", v: "2.1d", d: "▼ 0.4d" }, { l: "SLA MET", v: "94%", d: "▲ 3 pts" }],
     left: card(cardHead({ e: "YOUR QUEUE", t: "What needs you" }, seg(["Mine", "Team", "All"], 0)) + table(
@@ -1462,7 +1462,7 @@ add("tasks-workflow", "task-dashboard", () =>
       { l: "Cases", v: 18 }, { l: "Vadal", v: 41, tone: T.brand }, { l: "Comp", v: 12 },
     ]) + `<div style="margin-top:12px">${aiNote("Most of your queue is generated, not typed", "Forty-one of the last hundred tasks came from Vadal spotting something, rather than someone raising it.", "See the rules")}</div>`) }));
 
-add("tasks-workflow", "workflow-builder", () =>
+add("flow", "workflow-builder", () =>
   a.rail({ crumbs: ["Account", "Settings"], active: "settings",
     head: { eyebrow: "WORKFLOW", title: "Workflow builder", lede: "When this happens, do that — without an integration project.", action: "Publish", meta: "Draft · 6 steps" },
     rail: a.navList("Workflows", [
@@ -1482,7 +1482,7 @@ add("tasks-workflow", "workflow-builder", () =>
       { t: "Measure", s: "Re-score risk after 30 days and record the outcome", tag: "Close the loop", tone: "success" },
     ])) }));
 
-add("tasks-workflow", "mobile-task-view", () =>
+add("flow", "mobile-task-view", () =>
   k.phone({ title: { t: "Your tasks", s: "3 due today" },
     body: `<div class="card" style="background:${T.dangerSoft};border-color:transparent">
         <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:${T.danger}">OVERDUE · 4 DAYS</div>
@@ -1498,7 +1498,7 @@ add("tasks-workflow", "mobile-task-view", () =>
         <div style="margin-top:10px"><span class="btn2 sm">Find a slot</span></div>`) }));
 
 /* ═══════════════════════════════════════════════════ mobile-e-learning (4) */
-add("mobile-e-learning", "mobile-learning-home", () =>
+add("ilearn", "mobile-learning-home", () =>
   k.phone({ title: { t: "Learning", s: "12 minutes to finish this week" },
     body: `<div class="card" style="background:${T.brandSoft};border-color:transparent">
         <div style="font-size:10px;font-weight:700;letter-spacing:.1em;color:${T.brandStrong}">CONTINUE</div>
@@ -1519,7 +1519,7 @@ add("mobile-e-learning", "mobile-learning-home", () =>
           <span class="rw-ic" style="background:${T.infoSoft}">🌙</span>
           <span class="rw-m"><b>Shift and sleep</b><i>8 min · most opened this month</i></span></div>`) }));
 
-add("mobile-e-learning", "learning-path-builder", () =>
+add("ilearn", "learning-path-builder", () =>
   a.rail({ crumbs: ["Knowledge", "Knowledge"], active: "knowledge",
     head: { eyebrow: "LEARNING", title: "Path builder", lede: "Sequence the modules once, and everyone on the path gets them in the right order at the right time.", action: "Publish path", meta: "Draft · 6 modules" },
     rail: a.navList("Paths", [
@@ -1538,7 +1538,7 @@ add("mobile-e-learning", "learning-path-builder", () =>
       { t: "Your first 360", s: "Week 12 · assessment", tag: "Assessment", tone: "success" },
     ])) }));
 
-add("mobile-e-learning", "learning-recommendation-feed", () =>
+add("ilearn", "learning-recommendation-feed", () =>
   a.dash({ crumbs: ["Knowledge", "Knowledge"], active: "knowledge",
     head: { eyebrow: "LEARNING", title: "Recommendations", lede: "Suggested from the skills gap, the 360 result and what similar people did next.", action: "Enrol", meta: "Refreshed weekly" },
     stats: [{ l: "COMPLETION", v: "78%", d: "▲ 11 pts" }, { l: "AVG MODULE", v: "18m", d: "▼ 4m" }, { l: "FROM RECOMMENDATION", v: "64%", d: "▲ 19 pts" }, { l: "SKILLS CLOSED", v: "412", d: "▲ 88" }],
@@ -1556,7 +1556,7 @@ add("mobile-e-learning", "learning-recommendation-feed", () =>
       { t: "Compliance requirements", s: "Non-negotiable", right: meter(17, "brand") + " 17%" },
     ]) + `<p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:12px">Recommendations never use performance ratings, and a manager cannot see what you chose to take.</p>`) }));
 
-add("mobile-e-learning", "training-progress-and-compliance-dashboard", () =>
+add("ilearn", "training-progress-and-compliance-dashboard", () =>
   a.dash({ crumbs: ["Knowledge", "Knowledge"], active: "knowledge",
     head: { eyebrow: "COMPLIANCE", title: "Training and compliance", lede: "Who is current, who is overdue, and which certificates expire before the audit.", action: "Export for audit", meta: "12,480 people" },
     stats: [{ l: "COMPLIANT", v: "94%", d: "▲ 3 pts" }, { l: "OVERDUE", v: "742", sub: "people", d: "▼ 210", dir: "up" }, { l: "EXPIRING · 90D", v: "1,180", d: "needs scheduling", dir: "dn" }, { l: "AUDIT READY", v: "Yes", d: "evidence attached" }],
@@ -1575,7 +1575,7 @@ add("mobile-e-learning", "training-progress-and-compliance-dashboard", () =>
     ]) + `<div style="margin-top:12px">${aiNote("Night shift is the whole gap", "Mobile completion rose 22 points after modules were cut to under 15 minutes and made available offline.", "Apply to all courses")}</div>`) }));
 
 /* ═══════════════════════════════════════════════ enterprise-integrations (4) */
-add("enterprise-integrations", "integration-directory", () =>
+add("link", "integration-directory", () =>
   a.full({ crumbs: ["Account", "Settings"], active: "settings",
     head: { eyebrow: "INTEGRATIONS", title: "Integration directory", lede: "Connect the systems you already run. Anything with a REST API can be wired up.", action: "Request a connector", meta: "33 available · 9 connected" },
     stats: [{ l: "AVAILABLE", v: "33" }, { l: "CONNECTED", v: "9", d: "▲ 2" }, { l: "SYNC HEALTH", v: "100%", d: "all green" }, { l: "RECORDS SYNCED", v: "12.4M", sub: "30d" }],
@@ -1588,7 +1588,7 @@ add("enterprise-integrations", "integration-directory", () =>
       { ic: "📊", bg: "#fde9e2", t: "Power BI", s: "Analytics · push curated datasets", tag: "Available", tone: "neutral" },
     ], 3)) }));
 
-add("enterprise-integrations", "connector-configuration-panel", () =>
+add("link", "connector-configuration-panel", () =>
   a.rail({ crumbs: ["Account", "Settings"], active: "settings",
     head: { eyebrow: "INTEGRATIONS", title: "Workday connector", lede: "Field mapping, sync frequency and exactly what leaves your system.", action: "Save and sync", meta: "Connected 14 Mar" },
     rail: a.navList("Setup", [
@@ -1610,7 +1610,7 @@ add("enterprise-integrations", "connector-configuration-panel", () =>
        ["<code>performance_rating</code>", "—", "Not read", badge("Excluded", "neutral")]]) +
       `<p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:12px">Pay and performance data are excluded by default and cannot be enabled from this screen — that change needs a signed data-processing amendment.</p>`) }));
 
-add("enterprise-integrations", "data-sync-status-dashboard", () =>
+add("link", "data-sync-status-dashboard", () =>
   a.dash({ crumbs: ["Account", "Settings"], active: "settings",
     head: { eyebrow: "INTEGRATIONS", title: "Sync status", lede: "Every connector, its last run and exactly what changed.", action: "Run all now", meta: "Last full sync 02:00 UTC" },
     stats: [{ l: "CONNECTORS", v: "9", d: "all healthy" }, { l: "RECORDS · 30D", v: "12.4M" }, { l: "FAILED RUNS", v: "0", d: "▼ 2", dir: "up" }, { l: "AVG RUN", v: "4m 12s", d: "▼ 38s" }],
@@ -1630,7 +1630,7 @@ add("enterprise-integrations", "data-sync-status-dashboard", () =>
        <div class="kv"><span class="muted">Records unchanged</span><b>12,407</b></div>` +
       `<div style="margin-top:14px">${aiNote("Nothing needs your attention", "Eighty-eight consecutive successful runs. Vadal alerts only when a run fails or a record count moves more than 5% in a night.", "Alert settings")}</div>`) }));
 
-add("enterprise-integrations", "api-and-webhook-management", () =>
+add("link", "api-and-webhook-management", () =>
   a.dash({ crumbs: ["Account", "Settings"], active: "settings",
     head: { eyebrow: "DEVELOPER", title: "API and webhooks", lede: "Anything the connectors do not cover, you can build. Keys are scoped and rotatable.", action: "New key", meta: "REST + webhooks" },
     stats: [{ l: "ACTIVE KEYS", v: "6" }, { l: "CALLS · 30D", v: "2.1M" }, { l: "WEBHOOKS", v: "12", d: "all delivering" }, { l: "P95 LATENCY", v: "84ms", d: "▼ 12ms" }],
@@ -1650,7 +1650,7 @@ add("enterprise-integrations", "api-and-webhook-management", () =>
     ]) + `<p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:12px">Payloads are signed, retried with backoff for 24 hours, and never contain free-text comments.</p>`) }));
 
 /* ═══════════════════════════════════════════════════ security-compliance (2) */
-add("security-compliance", "security-controls-dashboard", () =>
+add("trust", "security-controls-dashboard", () =>
   a.dash({ crumbs: ["Account", "Settings"], active: "settings",
     head: { eyebrow: "SECURITY", title: "Security controls", lede: "What is enforced on this workspace, and what your team still has switched off.", action: "Download evidence", meta: "Last reviewed 1 Jun" },
     stats: [{ l: "CONTROLS ENFORCED", v: "38", sub: "of 41", d: "▲ 4" }, { l: "SSO COVERAGE", v: "100%", d: "enforced" }, { l: "OPEN FINDINGS", v: "3", d: "▼ 5", dir: "up" }, { l: "LAST PEN TEST", v: "Apr 26", d: "no criticals" }],
@@ -1669,7 +1669,7 @@ add("security-compliance", "security-controls-dashboard", () =>
       { ic: "ℹ️", t: "Quarterly access review due", s: "Last completed 1 March", right: badge("Low", "info") },
     ]) + `<div style="margin-top:12px">${aiNote("Certifications are held by the platform", "ISO 27001, SOC 2 Type II and GDPR compliance are maintained centrally. Evidence packs are generated on request for your auditors.", "Request evidence")}</div>`) }));
 
-add("security-compliance", "audit-log-viewer", () =>
+add("trust", "audit-log-viewer", () =>
   a.full({ crumbs: ["Account", "Settings"], active: "settings",
     head: { eyebrow: "AUDIT", title: "Audit log", lede: "Every read, export and configuration change — immutable, and exportable to your SIEM.", action: "Export to SIEM", meta: "24 months retained" },
     stats: [{ l: "EVENTS · 30D", v: "1.2M" }, { l: "EXPORTS", v: "38", d: "all attributed" }, { l: "CONFIG CHANGES", v: "12" }, { l: "RETENTION", v: "24m", d: "immutable" }],
@@ -1685,7 +1685,7 @@ add("security-compliance", "audit-log-viewer", () =>
       `<p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:12px">Denied events are retained with the same detail as allowed ones. The log cannot be edited or deleted by any role, including super admin.</p>`) }));
 
 /* ═══════════════════════════════════════════════════════ implementation (4) */
-add("implementation", "implementation-roadmap-view", () =>
+add("launch", "implementation-roadmap-view", () =>
   a.dash({ crumbs: ["Account", "Settings"], active: "settings",
     head: { eyebrow: "IMPLEMENTATION", title: "Your roadmap", lede: "Six weeks from kickoff to first insight, with a named owner on every step.", action: "Book next session", meta: "Week 3 of 6" },
     stats: [{ l: "PHASE", v: "3", sub: "of 6", d: "on track" }, { l: "TASKS DONE", v: "24", sub: "of 38", d: "▲ 6 this week" }, { l: "GO-LIVE", v: "14 Jul", d: "on schedule" }, { l: "BLOCKERS", v: "1", d: "needs you", dir: "dn" }],
@@ -1704,7 +1704,7 @@ add("implementation", "implementation-roadmap-view", () =>
         { t: "SSO test with 20 users", s: "Owner: Vadal", right: badge("Done", "success") }]) +
       `<div style="margin-top:12px">${aiNote("This is the only thing between you and week four", "Median time to resolve is under a day once the right admin is in the room.", "Email your IT lead")}</div>`) }));
 
-add("implementation", "configuration-and-template-library", () =>
+add("launch", "configuration-and-template-library", () =>
   a.full({ crumbs: ["Account", "Settings"], active: "settings",
     head: { eyebrow: "IMPLEMENTATION", title: "Configuration library", lede: "Start from a configuration that already works for a company like yours.", action: "Apply template", meta: "Mixed desk + frontline · 5–15K" },
     stats: [{ l: "TEMPLATES", v: "18" }, { l: "MATCHED TO YOU", v: "6" }, { l: "AVG SETUP SAVED", v: "9d" }, { l: "USED BY", v: "412", sub: "companies" }],
@@ -1717,7 +1717,7 @@ add("implementation", "configuration-and-template-library", () =>
       { ic: "📊", bg: "#e9f2ff", t: "Board reporting pack", s: "Quarterly people review plus monthly exec dashboard.", tag: "Optional", tone: "neutral" },
     ], 3)) }));
 
-add("implementation", "adoption-dashboard", () =>
+add("launch", "adoption-dashboard", () =>
   a.dash({ crumbs: ["People intelligence", "Analytics"], active: "analytics",
     head: { eyebrow: "ADOPTION", title: "Adoption", lede: "Who is actually using it — because a rollout that nobody opens is not a rollout.", action: "Export", meta: "Since go-live" },
     stats: [{ l: "ACTIVATED", v: "91%", sub: "11,360", d: "▲ 7 pts" }, { l: "WEEKLY ACTIVE", v: "68%", d: "▲ 11 pts" }, { l: "MANAGERS ACTIVE", v: "84%", d: "▲ 9 pts" }, { l: "MOBILE SHARE", v: "54%", d: "▲ 18 pts" }],
@@ -1730,7 +1730,7 @@ add("implementation", "adoption-dashboard", () =>
       { t: "Frontline · night", s: "1,910 people", right: meter(48, "danger") + " " + num("48%") },
     ]) + `<div style="margin-top:12px">${aiNote("Night shift needs the kiosk", "Adoption is 48% against 88% desk-based. Sites that added shop-floor terminals reached 74% within a month.", "Enable kiosks")}</div>`) }));
 
-add("implementation", "customer-success-portal", () =>
+add("launch", "customer-success-portal", () =>
   a.dash({ crumbs: ["Account", "Settings"], active: "settings",
     head: { eyebrow: "CUSTOMER SUCCESS", title: "Your success plan", lede: "Your named team, your goals, and the review cadence agreed at kickoff.", action: "Book a session", meta: "Next QBR 14 Jul" },
     stats: [{ l: "HEALTH SCORE", v: "92", d: "▲ 4" }, { l: "GOALS ON TRACK", v: "4", sub: "of 5", d: "1 at risk", dir: "flat" }, { l: "OPEN TICKETS", v: "2", d: "both low", dir: "flat" }, { l: "RESPONSE TIME", v: "1.2h", d: "vs 4h SLA" }],
@@ -1771,7 +1771,7 @@ add("decision-intelligence-copilot", "recommendation-panel", () =>
        <div class="kv"><span class="muted">Time to measurable effect</span><b>~8 weeks</b></div>` +
       `<div style="margin-top:14px"><span class="btn sm">Create the plan</span> <span class="btn2 sm">Show the working</span></div>`) }));
 
-add("ai-workforce-assistant", "manager-guidance-panel", () =>
+add("nudge", "manager-guidance-panel", () =>
   a.dash({ crumbs: ["Operations", "Manager hub"], active: "managers",
     head: { eyebrow: "ASSISTANT", title: "Manager guidance", lede: "What to do this week for each person, and why — drafted, not dictated.", action: "Accept all", meta: "Design pod · 6" },
     stats: [{ l: "SUGGESTIONS", v: "7", d: "3 urgent", dir: "flat" }, { l: "ACCEPTED · 30D", v: "18", d: "▲ 5" }, { l: "TEAM HEALTH", v: "74", d: "▲ 2" }, { l: "1:1 COMPLETION", v: "67%", d: "▼ 3 pts", dir: "dn" }],
@@ -1791,7 +1791,7 @@ add("ai-workforce-assistant", "manager-guidance-panel", () =>
       </div>` +
       `<div style="display:flex;gap:8px;margin-top:14px"><span class="btn sm">Schedule 1:1</span><span class="btn2 sm">Give recognition</span></div>
        <p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:12px">Drafted from his own pulse responses and recognition history. Rohan's individual answers are never shown to you.</p>`) }));
-add("people-analytics", "workforce-health-dashboard", () =>
+add("insight", "workforce-health-dashboard", () =>
   a.dash({ crumbs: ["People intelligence", "Analytics"], active: "analytics",
     head: { eyebrow: "PEOPLE INTELLIGENCE", title: "Workforce health", lede: "One score for how the organisation is holding up, and the drivers moving it this quarter.", action: "Export", meta: "Updated 2h ago" },
     stats: [{ l: "HEALTH SCORE", v: "82", d: "▲ 4 vs last quarter" },
@@ -1807,4 +1807,151 @@ add("people-analytics", "workforce-health-dashboard", () =>
       { t: "Pay & growth", s: "176 mentions", right: meter(61, "warning") + " " + num(61) },
       { t: "Leadership clarity", s: "98 mentions", right: meter(74, "success") + " " + num(74) },
     ])) }));
+
+/* ═════════════════════════════════════════════════════════════ social (4) */
+add("social", "the-feed", () =>
+  a.rail({
+    crumbs: ["My space", "Social"], active: "social",
+    head: { eyebrow: "MY SPACE", title: "Social", lede: "Company news, team wins and questions — one feed, read in the language each person works in.", action: "Write a post", meta: "412 posts this month" },
+    rail: a.navList("Views", [
+      { t: "For you", s: "Ranked for your team", ic: "1", on: true },
+      { t: "Latest", s: "Newest first", ic: "2" },
+      { t: "Popular", s: "Most read this week", ic: "3" },
+      { t: "Must read", s: "2 waiting on you", ic: "4" },
+      { t: "Questions", s: "5 unanswered", ic: "5" },
+      { t: "Saved", s: "9 posts", ic: "6" },
+    ]),
+    canvas:
+      card(cardHead({ e: "MUST READ · BY FRI 25 SEP", t: "New shift-swap process for Plant Ops" }, badge("Confirm you have read it", "warning")) +
+        `<p style="font-size:13.5px;line-height:1.7;color:${T.muted}">From Monday, swaps go through the app instead of the noticeboard. Your supervisor approves in one tap, and the roster updates for everyone straight away.</p>
+         <div style="display:flex;gap:8px;margin-top:13px"><span class="btn sm">Got it</span><span class="btn2 sm">Ask a question</span></div>
+         <p class="faint" style="font-size:11.5px;margin-top:11px">1,884 of 3,400 have confirmed · Priya Sharma, People Partner</p>`) +
+      card(cardHead({ e: "QUESTION · ANSWERED", t: "How do I claim back my internet bill?" }) +
+        `<div style="display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border:1px solid ${T.line};border-radius:10px;background:${T.tintSoft || "#f6f5ff"}">
+           <span class="pill success" style="flex:none">Accepted answer</span>
+           <p style="font-size:13px;line-height:1.65;margin:0">Expenses → Broadband, attach the bill, and it is paid with that month's salary. Up to ₹1,500 a month.</p>
+         </div>
+         <p class="faint" style="font-size:11.5px;margin-top:10px">Answered by Anita Desai · marked as the answer by the person who asked · 14 people found this</p>`),
+  }));
+
+add("social", "post-composer-ai", () =>
+  a.pair({
+    crumbs: ["My space", "Social"], active: "social",
+    head: { eyebrow: "MY SPACE · COMPOSE", title: "Write a post", lede: "Say it once. Vadal helps with the words, picks the community and translates it for everyone else." },
+    a: card(cardHead({ e: "YOUR POST", t: "What happened?" }, seg(["Post", "Question", "Poll"], 0)) +
+      `<div class="fld"><label>Community</label><div class="inp">#wins · Plant Ops, Engineering</div></div>
+       <div class="fld"><label>Your words</label><div class="inp tall">200 days without a lost-time incident on Line 3. That is not luck — it is a thousand small decisions made properly, every shift. Well done, everyone.</div></div>
+       <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:12px">
+         <span class="chip">📷 Photo</span><span class="chip">📊 Poll</span><span class="chip">🏆 Kudos</span><span class="chip">📌 Must read</span>
+       </div>`),
+    b: aiNote("Make it shorter and warmer", "Posts under 60 words are read to the end three times as often on mobile, and most of Plant Ops reads this on a phone between shifts.", "Rewrite it") +
+      card(cardHead({ e: "TRANSLATION", t: "Everyone reads it in their own language" }) + rows([
+        { t: "English", s: "Original", right: badge("Source", "neutral") },
+        { t: "हिन्दी", s: "1,240 people", right: badge("Auto", "success") },
+        { t: "ಕನ್ನಡ", s: "860 people", right: badge("Auto", "success") },
+        { t: "தமிழ்", s: "410 people", right: badge("Auto", "success") },
+      ])),
+  }));
+
+add("social", "communities", () =>
+  a.full({
+    crumbs: ["My space", "Social"], active: "social",
+    head: { eyebrow: "MY SPACE · COMMUNITIES", title: "Communities", lede: "Company-wide channels and the spaces teams make for themselves.", action: "New community", meta: "24 communities" },
+    stats: [{ l: "COMMUNITIES", v: "24", d: "▲ 3 this quarter" }, { l: "POSTS THIS MONTH", v: "412", d: "▲ 18%" },
+      { l: "PEOPLE POSTING", v: "1,840", sub: "15%", d: "▲ 4 pts" }, { l: "READ RATE", v: "71%", d: "▲ 6 pts" }],
+    body: a.tiles([
+      { t: "#company", s: "Leadership and org-wide news", m: "12,480 members · 6 posts this week" },
+      { t: "#wins", s: "Recognition and shout-outs", m: "9,120 members · 23 posts this week" },
+      { t: "#plant-ops", s: "Shift notes, swaps and safety", m: "3,400 members · 31 posts this week" },
+      { t: "#product", s: "What we are building", m: "980 members · 14 posts this week" },
+      { t: "#wellbeing", s: "Health, balance and benefits", m: "7,600 members · 9 posts this week" },
+      { t: "#watercooler", s: "Off-topic and genuinely off-topic", m: "5,210 members · 41 posts this week" },
+    ], 3),
+  }));
+
+add("social", "reach-analytics", () =>
+  a.dash({
+    crumbs: ["My space", "Social"], active: "social",
+    head: { eyebrow: "SOCIAL · ANALYTICS", title: "What actually got read", lede: "Reach, read rate and who a post never got to — by channel and by team.", action: "Export", meta: "Last 30 days" },
+    stats: [{ l: "POSTS", v: "412", d: "▲ 18%" }, { l: "READ RATE", v: "71%", d: "▲ 6 pts" },
+      { l: "MUST-READ CONFIRMED", v: "84%", d: "▲ 11 pts" }, { l: "QUESTIONS ANSWERED", v: "92%", sub: "in 1 day", d: "▲ 7 pts" }],
+    left: card(cardHead({ e: "BY TEAM", t: "Who is reading" }, seg(["30d", "90d"], 0)) +
+      bars([{ l: "Design", v: 88, tone: T.teal }, { l: "Engineering", v: 79 }, { l: "Sales", v: 74 },
+        { l: "Support", v: 68 }, { l: "Plant Ops · day", v: 62 }, { l: "Plant Ops · night", v: 41, tone: T.strong }])),
+    right: card(cardHead({ e: "MOST READ", t: "This month" }) + rows([
+      { t: "200 days without a lost-time incident", s: "#wins · 9 Sep", right: badge("94% read", "success") },
+      { t: "New shift-swap process", s: "#plant-ops · 15 Sep", right: badge("84% confirmed", "success") },
+      { t: "Q3 all-hands invite", s: "#company · 2 Sep", right: badge("81% read", "success") },
+      { t: "Parental leave, rebuilt with you", s: "#people · 27 Aug", right: badge("76% read", "success") },
+      { t: "Night-shift canteen menu", s: "#plant-ops · 21 Aug", right: badge("38% read", "warning") },
+    ])) }));
+
+/* ════════════════════════════════════════════════════════════ amplify (4) */
+add("amplify", "share-studio", () =>
+  a.rail({
+    crumbs: ["Engage", "Amplify"], active: "amplify",
+    head: { eyebrow: "ENGAGE", title: "Amplify", lede: "Your wins and the company's news, shared in your own words. Nothing posts without you.", action: "Preferences", meta: "412 people reached · 3 shares" },
+    rail: a.navList("Ready to share", [
+      { t: "Shipped the onboarding flow", s: "Recognition · yesterday", ic: "★", on: true },
+      { t: "Cut new-joiner onboarding", s: "Shipped · last week", ic: "▲" },
+      { t: "Accessibility certification", s: "Certification · 2 weeks", ic: "◆" },
+      { t: "200 days, no incident", s: "LinkedIn · company", ic: "in" },
+      { t: "We are hiring engineers", s: "X · company", ic: "𝕏" },
+    ]),
+    canvas: card(cardHead({ e: "RECOGNITION · YESTERDAY", t: "Shipped the onboarding flow ahead of schedule" }, badge("Not this one", "neutral")) +
+      `<p style="font-size:13px;line-height:1.65;color:${T.muted}">Neha recognised you for this publicly yesterday. It is the most recent thing anyone said about your work — and it is about craft, which reads well outside.</p>` +
+      `<div class="fld" style="margin-top:14px"><label>Written as you · Warm</label><div class="inp tall">Dev and I just shipped the onboarding flow ahead of schedule — calm under pressure and zero shortcuts on craft. Good week.</div></div>
+       <div style="display:flex;gap:8px;margin-top:12px"><span class="btn sm">Copy &amp; open LinkedIn</span><span class="btn2 sm">Copy</span></div>
+       <p class="faint" style="font-size:11.5px;margin-top:10px">122 / 3,000 characters · LinkedIn opens with the caption on your clipboard. You press post there.</p>`),
+  }));
+
+add("amplify", "post-preview", () =>
+  a.pair({
+    crumbs: ["Engage", "Amplify"], active: "amplify",
+    head: { eyebrow: "ENGAGE · PREVIEW", title: "How it will look", lede: "The shape of the post before it leaves Vadal — your name, your words, the right crop." },
+    a: card(cardHead({ e: "YOUR CAPTION", t: "Written as you" }, seg(["Plain", "Warm", "Proud", "Technical"], 1)) +
+      `<div class="fld"><label>Post to</label><div class="inp">LinkedIn</div></div>
+       <div class="fld"><label>Caption</label><div class="inp tall">Our Plant Ops team just closed 200 days without a lost-time incident. That is not luck — it is a thousand small decisions made properly, every shift.</div></div>
+       <p class="faint" style="font-size:11.5px;margin-top:9px">Tags · #EmployeeExperience #Manufacturing · Image 1.91:1 · Best at 8:15am</p>`),
+    b: card(cardHead({ e: "HOW IT WILL LOOK", t: "LinkedIn" }) +
+      `<div style="border:1px solid ${T.line};border-radius:12px;padding:14px">
+         <div style="display:flex;gap:10px;align-items:center">
+           <span style="width:38px;height:38px;border-radius:50%;background:#e8e3fe;display:inline-block"></span>
+           <span><b style="font-size:13.5px">Aarav Sharma</b><br><span class="faint" style="font-size:11.5px">Software Engineer · now</span></span>
+         </div>
+         <p style="font-size:13px;line-height:1.65;margin-top:11px">Our Plant Ops team just closed 200 days without a lost-time incident. That is not luck — it is a thousand small decisions made properly, every shift.</p>
+         <div style="height:132px;border-radius:9px;background:linear-gradient(120deg,#dff0ff,#e8e3fe);margin-top:11px"></div>
+         <p class="faint" style="font-size:11.5px;margin-top:10px;border-top:1px solid ${T.line};padding-top:9px">Like · Comment · Share</p>
+       </div>
+       <p class="faint" style="font-size:11.5px;margin-top:10px">A preview of the shape — LinkedIn shows it in its own layout.</p>`),
+  }));
+
+add("amplify", "your-record", () =>
+  a.dash({
+    crumbs: ["Engage", "Amplify"], active: "amplify",
+    head: { eyebrow: "ENGAGE · YOUR RECORD", title: "What your shares reached", lede: "Modelled reach, what you sent, and the referral clicks we can actually count.", meta: "8 weeks" },
+    stats: [{ l: "PEOPLE REACHED", v: "412", d: "▲ 2 shares" }, { l: "SHARES", v: "3", d: "26th of 148 taking part" },
+      { l: "REFERRAL CLICKS", v: "34", d: "counted, not modelled" }, { l: "WEEKS RUNNING", v: "4", d: "best 6", dir: "flat" }],
+    left: card(cardHead({ e: "EIGHT WEEKS", t: "Reach over time" }) + line([48, 96, 96, 140, 180, 240, 330, 412], { tone: T.brand })),
+    right: card(cardHead({ e: "WHAT YOU'VE SENT", t: "Your shares" }) + rows([
+      { t: "Aarav, Dev and I just cut new-joiner onboarding…", s: "LinkedIn · 8 days ago · your moment", right: badge("counted", "success") },
+      { t: "We're hiring across engineering, ops and people…", s: "LinkedIn · 3 weeks ago · company post", right: badge("34 clicks", "success") },
+      { t: "Sharing this from our team: 200 days without…", s: "X · 5 weeks ago · company post", right: badge("counted", "neutral") },
+    ]) + `<p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:12px">We can't see how these did — the platforms don't tell us, and we'd rather say so than guess.</p>`) }));
+
+add("amplify", "programme-queue", () =>
+  a.dash({
+    crumbs: ["Engage", "Amplify"], active: "amplify",
+    head: { eyebrow: "ENGAGE · PROGRAMME", title: "Waiting on you", lede: "Nothing reaches an employee's feed until it is approved here.", action: "Queue it", meta: "Apprenticeship intake · 12–26 Sep" },
+    stats: [{ l: "SHARES", v: "47", sub: "of 120", d: "▲ 12 this week" }, { l: "APPLICATIONS", v: "31", d: "traced to a share" },
+      { l: "HIRED", v: "4", d: "₹7.2L of agency fees not spent" }, { l: "TAKING PART", v: "148", sub: "1.2%", d: "opt-in, off by default", dir: "flat" }],
+    left: card(cardHead({ e: "IF YOU QUEUE THIS", t: "Our apprenticeship intake doubled this year" }, badge("LinkedIn · suggested by Comms", "neutral")) +
+      `<p style="font-size:13px;line-height:1.65;color:${T.muted}">Sixteen people started on the floor in March who had never worked in manufacturing. Best for Plant Ops, HR, Logistics.</p>` +
+      `<div style="display:flex;gap:26px;margin-top:14px"><span><b style="font-size:22px">1,214–3,531</b><br><span class="faint" style="font-size:11.5px">people reached, beyond the company account</span></span>
+        <span><b style="font-size:22px">~31</b><br><span class="faint" style="font-size:11.5px">likely to share, at the usual 21%</span></span></div>
+       <div style="display:flex;gap:8px;margin-top:14px"><span class="btn sm">Queue it</span><span class="btn2 sm">Not this one</span></div>`),
+    right: card(cardHead({ e: "WHY PEOPLE PASSED", t: "This is a writing problem" }) +
+      bars([{ l: "Reads too corporate", v: 58, tone: T.strong }, { l: "Not my area", v: 21 }, { l: "Not right now", v: 14 }, { l: "Rather not share work posts", v: 7 }]) +
+      `<p class="faint" style="font-size:11.5px;line-height:1.55;margin-top:12px">Never attributed to anyone. Being able to say no is what keeps the yes worth having.</p>`) }));
+
 export { S as SCREENS };

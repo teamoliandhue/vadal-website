@@ -136,7 +136,14 @@ export const products: Product[] = [
       "Stop answering the same question twice",
       "Give frontline teams a voice"
     ],
-    "screens": [],
+    "screens": [
+      "The Feed",
+      "Post Composer AI",
+      "Communities",
+      "Reach Analytics",
+      "Announcement Composer",
+      "Communication Analytics"
+    ],
     "integrations": [
       "Microsoft Teams",
       "Slack",
@@ -238,7 +245,12 @@ export const products: Product[] = [
       "Give employees a reason to post",
       "Show what advocacy is worth"
     ],
-    "screens": [],
+    "screens": [
+      "Share Studio",
+      "Post Preview",
+      "Your Record",
+      "Programme Queue"
+    ],
     "integrations": [
       "LinkedIn",
       "Microsoft Teams",
