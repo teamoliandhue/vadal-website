@@ -259,6 +259,27 @@ export const platformLayers: PlatformLayer[] = [
     ],
   },
   {
+    // Not one of the brief's five landing layers: the brief treats these as
+    // "associated intelligence" woven through every module. They are real,
+    // live product pages though, so they keep a home in the menus, placed last.
+    id: "workforce-intelligence",
+    name: "Workforce Intelligence",
+    lede: "Turn workforce data into decisions.",
+    description:
+      "Transform workforce data into AI-powered insights that help leaders measure organizational health, predict risks and make informed business decisions.",
+    icon: "chart",
+    modules: [
+      { name: "People Analytics",
+ icon: "chart", hook: "See the whole workforce", slug: "people-analytics" , blurb: "Predictive analytics, AI dashboards and BI to uncover trends and identify risks." },
+      { name: "Sentiment Intelligence",
+ icon: "pulse", hook: "Read the mood", slug: "sentiment-intelligence" , blurb: "NLP-driven analysis of emotions, workplace trends and engagement drivers." },
+      { name: "Benchmark Intelligence",
+ icon: "chart", hook: "Compare with peers", slug: "benchmark-intelligence" , blurb: "Compare engagement and performance across units, locations and industry benchmarks." },
+      { name: "Executive Reports",
+ icon: "shield", hook: "Board-ready in minutes", slug: "executive-reports" , blurb: "Executive-ready dashboards, board reports and AI-powered workforce summaries." },
+    ],
+  },
+  {
     // brief: placed last of its five and collapsed, it serves IT/procurement
     id: "enterprise-platform",
     name: "Enterprise AI Platform",
@@ -338,27 +359,6 @@ export const platformLayers: PlatformLayer[] = [
           "Cross-Product Awareness, draws on comms, tasks, learning and sentiment together.",
         ],
       },
-    ],
-  },
-  {
-    // Not one of the brief's five landing layers: the brief treats these as
-    // "associated intelligence" woven through every module. They are real,
-    // live product pages though, so they keep a home in the menus, placed last.
-    id: "workforce-intelligence",
-    name: "Workforce Intelligence",
-    lede: "Turn workforce data into decisions.",
-    description:
-      "Transform workforce data into AI-powered insights that help leaders measure organizational health, predict risks and make informed business decisions.",
-    icon: "chart",
-    modules: [
-      { name: "People Analytics",
- icon: "chart", hook: "See the whole workforce", slug: "people-analytics" , blurb: "Predictive analytics, AI dashboards and BI to uncover trends and identify risks." },
-      { name: "Sentiment Intelligence",
- icon: "pulse", hook: "Read the mood", slug: "sentiment-intelligence" , blurb: "NLP-driven analysis of emotions, workplace trends and engagement drivers." },
-      { name: "Benchmark Intelligence",
- icon: "chart", hook: "Compare with peers", slug: "benchmark-intelligence" , blurb: "Compare engagement and performance across units, locations and industry benchmarks." },
-      { name: "Executive Reports",
- icon: "shield", hook: "Board-ready in minutes", slug: "executive-reports" , blurb: "Executive-ready dashboards, board reports and AI-powered workforce summaries." },
     ],
   },
 ];

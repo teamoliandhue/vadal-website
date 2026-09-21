@@ -2,12 +2,15 @@
 
 import { useId, useState } from "react";
 import { Icon } from "./Icon";
-import { SparkMark } from "./Brand";
+import { SparkMark, VFlag } from "./Brand";
 
 const INTELLIGENCE = [
-  { name: "Understand", title: "A thousand signals. One clear picture.", body: "Vadal connects feedback, sentiment and team context to surface what matters.", result: "Workload is rising across 3 teams", icon: "chart" as const },
-  { name: "Anticipate", title: "See the change before it becomes a risk.", body: "Spot shifts in engagement and emerging concerns while there’s time to respond.", result: "An early signal, with the reasons why", icon: "pulse" as const },
-  { name: "Activate", title: "Make the next step a confident one.", body: "Turn insight into a focused recommendation, ready for a manager to review and own.", result: "A team action plan, ready for review", icon: "checks" as const },
+  { name: "Understand", title: "A thousand signals. One clear picture.", body: "Vadal connects feedback, sentiment and team context to surface what matters.", result: "Workload is rising across 3 teams", icon: "chart" as const,
+    legs: [0, 1], lit: ["one", "two"], out: ["Insight", "Action"] },
+  { name: "Anticipate", title: "See the change before it becomes a risk.", body: "Spot shifts in engagement and emerging concerns while there’s time to respond.", result: "An early signal, with the reasons why", icon: "pulse" as const,
+    legs: [2], lit: ["three"], out: ["Early signal", "Action"] },
+  { name: "Activate", title: "Make the next step a confident one.", body: "Turn insight into a focused recommendation, ready for a manager to review and own.", result: "A team action plan, ready for review", icon: "checks" as const,
+    legs: [3], lit: ["four"], out: ["Insight", "Action plan"] },
 ];
 
 export function VadalIntelligence() {
@@ -18,6 +21,9 @@ export function VadalIntelligence() {
   return (
     <div className="hw-scene hw-intelligence" data-mode={selected}>
       <div className="vi-universe" aria-label="Employee signals flow through Vadal AI into actionable insight">
+          {/* the V, in the aurora gradient and without the apricot spark, as the
+            motif the whole scene sits on */}
+        <VFlag className="vi-flag" size={340} opacity={0.1} />
         <div className="vi-aurora vi-aurora--teal" aria-hidden="true" />
         <div className="vi-aurora vi-aurora--violet" aria-hidden="true" />
         <div className="vi-stars" aria-hidden="true" />
@@ -28,10 +34,10 @@ export function VadalIntelligence() {
           {[
             "M85 43 C170 43 170 90 280 90", "M85 137 C170 137 170 90 280 90",
             "M280 90 C390 90 390 43 475 43", "M280 90 C390 90 390 137 475 137",
-          ].map((d, i) => <g key={d}><path d={d} fill="none" stroke={`url(#${id}-flow)`} strokeOpacity=".35"/><path className="vi-moving-signal" d={d} fill="none" stroke={`url(#${id}-flow)`} strokeWidth="2" pathLength="100" strokeDasharray="5 95" style={{animationDelay:`${i * -.8}s`}}/></g>)}
+          ].map((d, i) => <g key={d} data-on={item.legs.includes(i)}><path d={d} fill="none" stroke={`url(#${id}-flow)`} strokeOpacity=".35"/><path className="vi-moving-signal" d={d} fill="none" stroke={`url(#${id}-flow)`} strokeWidth="2" pathLength="100" strokeDasharray="5 95" style={{animationDelay:`${i * -.8}s`}}/></g>)}
         </svg>
-        <span className="vi-node vi-node--one"><Icon name="chat" size={15}/>Feedback</span>
-        <span className="vi-node vi-node--two"><Icon name="pulse" size={15}/>Sentiment</span>
+        <span className="vi-node vi-node--one" data-on={item.lit.includes("one")}><Icon name="chat" size={15}/>Feedback</span>
+        <span className="vi-node vi-node--two" data-on={item.lit.includes("two")}><Icon name="pulse" size={15}/>Sentiment</span>
         <div className="vi-core">
           <span className="vi-orbit vi-orbit--one"/>
           <span className="vi-orbit vi-orbit--two"/>
@@ -43,8 +49,8 @@ export function VadalIntelligence() {
           </span>
           <b>vadal<span>.ai</span></b>
         </div>
-        <span className="vi-node vi-node--three"><Icon name="chart" size={15}/>Insight</span>
-        <span className="vi-node vi-node--four"><Icon name="checks" size={15}/>Action</span>
+        <span className="vi-node vi-node--three" data-on={item.lit.includes("three")}><Icon name="chart" size={15}/>{item.out[0]}</span>
+        <span className="vi-node vi-node--four" data-on={item.lit.includes("four")}><Icon name="checks" size={15}/>{item.out[1]}</span>
       </div>
       <div className="vi-copy" key={selected}><h3>{item.title}</h3><p>{item.body}</p></div>
       <div className="vi-modes" role="group" aria-label="Explore Vadal AI capabilities">{INTELLIGENCE.map((mode, index) => <button type="button" key={mode.name} aria-pressed={selected === index} onClick={() => setSelected(index)}><span className="vi-mode-number">0{index+1}</span><Icon name={mode.icon} size={14}/>{mode.name}</button>)}</div>

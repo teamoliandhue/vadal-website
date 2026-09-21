@@ -1,0 +1,109 @@
+/* ============================================================================
+   Act — action planning, and the home of what used to be the Analyse tab.
+
+   The old Act was a track of plans with owners and percentages. It looked
+   busy and it read as analysis: three statuses, no decision. This one is a
+   recommendation surface — the signal, the play Vadal suggests for it, and a
+   button that starts it. The first play is the lead and carries the action;
+   the other two are one line each.
+
+   Analyse folded in as the eNPS band across the top. A trend is evidence for
+   a decision rather than a destination of its own, and it is eNPS now rather
+   than a generic "engagement score".
+   ========================================================================== */
+
+.ac-experience { gap: 0; }
+
+.ac-canvas {
+  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 16px 18px; border-radius: 16px;
+  background:
+    radial-gradient(56% 56% at 2% 2%, #ffe0d6 0%, transparent 62%),
+    radial-gradient(52% 54% at 60% 0%, #dce7ff 0%, transparent 64%),
+    radial-gradient(60% 64% at 99% 98%, #cdf0e4 0%, transparent 62%),
+    linear-gradient(140deg, #fdeee9 0%, #edf1fd 48%, #e8f7f2 100%);
+}
+.ac-canvas::before {
+  content: ""; position: absolute; width: 150%; height: 72%;
+  left: -25%; top: -30%; transform: rotate(-9deg); border-radius: 46%;
+  background: linear-gradient(96deg, #ffffff96, #ffffff26 62%, transparent);
+  filter: blur(16px); pointer-events: none;
+}
+
+/* ------------------------------------------------------------ evidence --- */
+.ac-evidence {
+  position: relative; z-index: 1; display: flex; align-items: center; gap: 16px;
+  padding: 10px 14px; border-radius: 13px; flex-shrink: 0;
+  background: #ffffffd1; box-shadow: 0 10px 22px -16px #2b325a73, 0 0 0 1px #ffffffcc;
+}
+.ac-score { display: flex; align-items: baseline; gap: 9px; flex-shrink: 0; }
+.ac-score b {
+  font-size: 28px; line-height: 1; letter-spacing: -.055em; font-weight: 700;
+  background: linear-gradient(96deg, #0b7a6b, #1f6fc4 58%, #5b3fd0);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.ac-score > span { font-size: 11px; font-weight: 650; color: #2f3644; }
+.ac-score small { display: block; margin-top: 2px; font-size: 10px; font-weight: 500; color: #0a6f61; }
+.ac-trend { flex: 1; min-width: 0; height: 40px; display: block; }
+.ac-line {
+  stroke-width: 2.25; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 0;
+  animation: ac-draw 1.4s cubic-bezier(.35,.1,.25,1) both;
+}
+.ac-area { animation: ac-rise .8s ease-out .4s both; }
+.ac-span { flex-shrink: 0; font-size: 9px; font-weight: 600; letter-spacing: .04em; color: #5b6270; }
+
+/* --------------------------------------------------------------- plays --- */
+.ac-plays { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.ac-kicker {
+  display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
+  font-size: 10px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #4a5060;
+}
+.ac-play {
+  display: flex; align-items: center; gap: 11px; flex-shrink: 0;
+  padding: 9px 11px; border-radius: 12px; background: #ffffffd1;
+  box-shadow: 0 8px 18px -14px #2b325a80, 0 0 0 1px #ffffffcc;
+  animation: ac-in .55s cubic-bezier(.2,.7,.3,1) both; animation-delay: var(--play-delay);
+}
+/* the lead play is the one you can act on, so it gets the weight */
+.ac-play[data-lead="true"] { padding: 11px 12px; background: #fff; box-shadow: 0 16px 30px -20px #2b325a8c, 0 0 0 1px #ffffffe0; }
+.ac-play-icon {
+  display: grid; place-items: center; width: 30px; height: 30px; flex-shrink: 0;
+  border-radius: 50%; color: var(--a); background: var(--b);
+}
+.ac-play > div { min-width: 0; flex: 1; }
+.ac-signal { display: block; font-size: 10px; font-weight: 600; color: var(--a); }
+.ac-play strong { display: block; margin-top: 2px; font-size: 13px; line-height: 1.35; font-weight: 600; color: #1f2431; }
+.ac-play[data-lead="true"] strong { font-size: 14.5px; font-weight: 650; letter-spacing: -.012em; }
+.ac-play--violet { --a: #5b3fd0; --b: #efeafe; }
+.ac-play--coral  { --a: #b4432a; --b: #fdece6; }
+.ac-play--blue   { --a: #1a63b8; --b: #e7f1fd; }
+.ac-start {
+  display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0; cursor: pointer;
+  height: 30px; padding: 0 14px; border-radius: 999px; border: 0;
+  background: linear-gradient(100deg, #5b3fd0, #1f6fc4); color: #fff;
+  font-size: 12px; font-weight: 650;
+  transition: filter .2s, transform .2s;
+}
+.ac-start:hover { transform: translateY(-1px); filter: brightness(1.06); }
+.ac-start[aria-pressed="true"] { background: #0a7264; }
+.ac-arrow { flex-shrink: 0; color: #8a90a0; }
+
+@keyframes ac-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes ac-rise { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ac-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 600px) {
+  .ac-canvas { padding: 14px; gap: 10px; }
+  .ac-evidence { flex-wrap: wrap; gap: 10px 14px; }
+  .ac-trend { order: 3; flex-basis: 100%; height: 34px; }
+  .ac-span { margin-left: auto; }
+  .ac-play { gap: 9px; padding: 9px 10px; }
+  .ac-play strong, .ac-play[data-lead="true"] strong { font-size: 13px; }
+  .ac-start { padding: 0 11px; font-size: 11.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ac-line, .ac-area, .ac-play { animation: none; }
+  .ac-start { transition: none; }
+}

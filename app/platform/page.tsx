@@ -8,6 +8,7 @@ import { ProductShot } from "@/components/ProductShot";
 import { LogoMarquee, StatBand } from "@/components/sections";
 import { homeStats, ILLUSTRATIVE, type IconName } from "@/lib/content";
 import { platformLayers } from "@/lib/platform-nav";
+import { AnalyticsSection } from "@/components/home-v2";
 
 export const metadata: Metadata = {
   title: "Platform",
@@ -252,6 +253,9 @@ export default function PlatformPage() {
                 <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[var(--muted)]">
                   {g.description ?? g.lede}
                 </p>
+                {/* this layer opens with what it is — the summary that used to
+                    sit on the home page with nothing around it to explain it */}
+                {g.id === "workforce-intelligence" && <AnalyticsSection embedded />}
                 <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                   {g.modules.map((it) =>
                     it.slug ? (

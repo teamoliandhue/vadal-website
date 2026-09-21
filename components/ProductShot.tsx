@@ -18,7 +18,12 @@
 
 import { ProductStage, productTint } from "./ProductStage";
 
-export type ShotInfo = { file: string; label: string };
+export type ShotInfo = {
+  file: string;
+  label: string;
+  /** where to crop into, when the subject is not in the default working area */
+  focus?: { zoom: number; x: string; y: string };
+};
 
 /** product slug → real screen from the app build */
 export const PRODUCT_SHOTS: Record<string, ShotInfo> = {
@@ -60,6 +65,7 @@ export function ProductShot({
   priority = false,
   slug,
   stage = true,
+  crop = true,
 }: {
   shot: ShotInfo;
   className?: string;
@@ -68,7 +74,20 @@ export function ProductShot({
   slug?: string;
   /** set false where the shot is already inside a framed surface */
   stage?: boolean;
+  /** crop into the working area instead of showing the whole dashboard */
+  crop?: boolean;
 }) {
+  /* A 1600px dashboard rendered at ~560px is unreadable: the left nav and the
+     empty right margin eat half the frame and the numbers turn to texture. So
+     the frame crops into the working area — past the sidebar and the app's own
+     top bar — which is the part the page is actually pointing at. `focus` on a
+     shot overrides the default for screens whose subject sits elsewhere. */
+  /* origin maths: with transform-origin X and scale Z, the visible left edge
+     lands at X·(1 − 1/Z) of the original. The sidebar ends around 18% and the
+     app's top bar around 10%, so at Z = 1.5 that is X = 54% and Y = 30%. An
+     eyeballed origin left a sliver of the nav in frame, which reads as a
+     mistake rather than a crop. */
+  const focus = shot.focus ?? { zoom: 1.5, x: "54%", y: "30%" };
   const window = (
     <div className="overflow-hidden rounded-[var(--r-lg)] border border-white/25 bg-[var(--card)] shadow-[0_30px_70px_-20px_rgba(13,11,22,0.55)]">
         {/* browser chrome — matches the DashboardMock frame */}
@@ -83,17 +102,21 @@ export function ProductShot({
               <rect x="1" y="4.5" width="8" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.4" />
               <path d="M3 4.5V3a2 2 0 1 1 4 0v1.5" stroke="currentColor" strokeWidth="1.4" />
             </svg>
-            app.vadal.ai · {shot.label}
+            {shot.label}
           </span>
         </div>
-        <img
-          src={`/product/${shot.file}.webp`}
-          alt={`The ${shot.label} screen in the Vadal.ai product`}
-          width={1600}
-          height={1000}
-          loading={priority ? "eager" : "lazy"}
-          className="block h-auto w-full"
-        />
+        <div className={crop ? "relative overflow-hidden" : undefined} style={crop ? { aspectRatio: "1600 / 1000" } : undefined}>
+          <img
+            src={`/product/${shot.file}.webp`}
+            alt={`The ${shot.label} screen in the Vadal.ai product`}
+            width={1600}
+            height={1000}
+            loading={priority ? "eager" : "lazy"}
+            decoding="async"
+            className="block h-auto w-full"
+            style={crop ? { transform: `scale(${focus.zoom})`, transformOrigin: `${focus.x} ${focus.y}` } : undefined}
+          />
+        </div>
     </div>
   );
 

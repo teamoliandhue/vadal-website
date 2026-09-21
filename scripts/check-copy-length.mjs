@@ -31,6 +31,7 @@ const push = (tier: string, where: string, vals: (string|undefined)[]) =>
 
 push("glance", "hero.lede", [heroV2.lede]);
 push("glance", "home.analytics.lede", [analyticsSection.lede]);
+push("card", "home.analytics.feature.short", analyticsSection.features.map((f: any) => f.short));
 push("glance", "home.feedback.body", [feedbackSection.body]);
 push("glance", "home.integrations.lede", [integrationsSection.lede]);
 push("glance", "persona.lede", personaTabs.map(p => p.lede));

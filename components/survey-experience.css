@@ -1,0 +1,120 @@
+/* ============================================================================
+   Engagement pulse — the "Survey" view of the hero workspace.
+
+   Three views, three silhouettes. Listen is two wide cards stacked on a
+   wallpaper; Analyse has no card at all and lets the chart be the surface;
+   this one is a side-by-side — one narrow card, the shape a pulse actually
+   has when it reaches someone, with the participation figures as bare type
+   beside it rather than in a second card.
+
+   What came out: the "Weekly check-in" chip (the breadcrumb above already
+   says Engagement pulse), the "Think about your experience this week" prompt,
+   the anonymity note, the "Agree selected" confirmation — the chosen face
+   already shows it — and the 1-5 numerals under the faces.
+
+   The scale carries a sentiment ramp, coral through amber, slate, teal to
+   green, so the row reads as a scale before you reach the labels under it.
+   ========================================================================== */
+
+.sv-experience { gap: 0; }
+
+.sv-canvas {
+  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; gap: 32px;
+  padding: 22px; border-radius: 16px;
+  background:
+    radial-gradient(56% 60% at 2% 0%, #ded4fb 0%, transparent 62%),
+    radial-gradient(52% 56% at 99% 8%, #cfe0ff 0%, transparent 64%),
+    radial-gradient(62% 66% at 96% 100%, #c7eee3 0%, transparent 62%),
+    linear-gradient(142deg, #f2edfe 0%, #eef2fd 50%, #eaf7f4 100%);
+}
+.sv-canvas::before {
+  content: ""; position: absolute; width: 150%; height: 72%;
+  left: -25%; top: -30%; transform: rotate(-9deg); border-radius: 46%;
+  background: linear-gradient(96deg, #ffffff8c, #ffffff20 62%, transparent);
+  filter: blur(16px); pointer-events: none;
+}
+
+/* ------------------------------------------------------------- summary --- */
+/* no card: the numbers sit on the wallpaper, which is what lets the one card
+   on the right read as an object rather than a panel */
+.sv-summary { position: relative; z-index: 1; flex: 0 0 auto; max-width: 216px; }
+.sv-number b {
+  display: block; font-size: 46px; line-height: .92; letter-spacing: -.06em; font-weight: 700;
+  background: linear-gradient(96deg, #5b3fd0, #1f6fc4 58%, #0b7a6b);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.sv-number > span { display: block; margin-top: 8px; font-size: 11px; font-weight: 500; color: #555c6b; }
+.sv-who { display: flex; align-items: center; gap: 14px; margin-top: 20px; }
+/* not overlapped — a white ring reads as a halo on a gradient, not as depth */
+.sv-avatars { display: flex; gap: 5px; flex-shrink: 0; }
+.sv-avatar {
+  display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+  font-size: 9px; font-weight: 650; font-style: normal;
+}
+.sv-avatar--violet { background: #ece5fd; color: #5335bd; }
+.sv-avatar--teal   { background: #d9f3ec; color: #0a6f61; }
+.sv-avatar--amber  { background: #fbeed6; color: #8a5a0c; }
+.sv-bars { display: flex; align-items: flex-end; gap: 5px; height: 26px; flex: 0 0 90px; }
+.sv-bars i {
+  display: block; flex: 1; max-width: 7px; min-width: 3px; height: var(--bar-height); min-height: 5px;
+  border-radius: 3px; background: linear-gradient(180deg, #8a6cf9, #4a8ef5);
+  transform-origin: bottom; animation: sv-grow .7s cubic-bezier(.2,.7,.3,1) both;
+  animation-delay: var(--bar-delay);
+}
+
+/* ---------------------------------------------------------------- card --- */
+/* narrow and upright — the shape the question has when it arrives */
+.sv-card {
+  position: relative; z-index: 1; flex: 0 0 252px; background: #fff;
+  border-radius: 18px; padding: 18px 20px 16px;
+  box-shadow: 0 26px 44px -22px #2b325a59, 0 2px 6px #2b325a14, 0 0 0 1px #ffffffb3;
+}
+.sv-progress { display: flex; align-items: center; gap: 10px; }
+.sv-progress > span { display: flex; gap: 4px; flex: 1; }
+.sv-progress i { display: block; flex: 1; height: 4px; border-radius: 3px; background: #e8e9ef; }
+.sv-progress i:nth-child(-n+3) { background: linear-gradient(90deg, #7c5cf8, #5b3fd0); }
+.sv-progress small { font-size: 9px; font-weight: 650; color: #5c6472; }
+.sv-card h3 {
+  font-size: 18px; line-height: 1.32; font-weight: 650; letter-spacing: -.018em;
+  color: #1f2431; margin: 14px 0 0;
+}
+.sv-responses { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 16px; }
+.sv-point {
+  display: grid; place-items: center; height: 42px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--e); background: var(--t); color: var(--i);
+  transition: transform .18s, box-shadow .18s, border-color .18s;
+}
+/* --i is the ink, --t the resting tint, --e the hairline */
+.sv-point--0 { --i: #b4432a; --t: #fdf1ed; --e: #f6ded5; }
+.sv-point--1 { --i: #8a5a0c; --t: #fdf5e7; --e: #f4e4c6; }
+.sv-point--2 { --i: #5c6472; --t: #f4f5f8; --e: #e6e8ee; }
+.sv-point--3 { --i: #0a6f61; --t: #ecf8f4; --e: #cfeae2; }
+.sv-point--4 { --i: #0f7a4a; --t: #ecf8f0; --e: #cfe8da; }
+.sv-point:hover { transform: translateY(-2px); box-shadow: 0 6px 14px -6px color-mix(in srgb, var(--i) 45%, transparent); }
+.sv-point[data-selected="true"] {
+  border-color: var(--i);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--i) 15%, transparent), 0 8px 16px -8px color-mix(in srgb, var(--i) 55%, transparent);
+}
+.sv-ends { display: flex; justify-content: space-between; margin-top: 10px; font-size: 9px; font-weight: 500; color: #5c6472; }
+
+@keyframes sv-grow { from { transform: scaleY(.2); opacity: 0; } to { transform: none; opacity: 1; } }
+
+@media (max-width: 780px) {
+  .sv-canvas { flex-direction: column; align-items: stretch; justify-content: center; gap: 16px; padding: 18px; }
+  .sv-summary { max-width: none; display: flex; align-items: center; gap: 18px; }
+  .sv-number b { font-size: 38px; }
+  .sv-number > span { margin-top: 5px; }
+  .sv-who { margin: 0 0 0 auto; }
+  .sv-card { flex: 0 0 auto; }
+}
+@media (max-width: 600px) {
+  .sv-summary { flex-wrap: wrap; gap: 12px; }
+  .sv-card { padding: 16px 18px 14px; }
+  .sv-card h3 { font-size: 17px; }
+  .sv-point { height: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sv-bars i { animation: none; }
+  .sv-point { transition: none; }
+}

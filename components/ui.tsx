@@ -169,13 +169,13 @@ export function Section({
     top: "left-1/2 top-[-14%] h-[340px] w-[720px] -translate-x-1/2 bg-[radial-gradient(ellipse,rgba(59,158,255,0.12),transparent_70%)]",
   };
   return (
-    // tightened rhythm (was py-14/20/28) — founder feedback 2026-07-07:
-    // less dead canvas between sections, Maze-style density.
+    // tightened twice: py-14/20/28 → py-10/14/16 (2026-07-07) → this
+    // (2026-09-21), where the founders read the page as too airy at 1920.
     // overflow-hidden only when a glow is present (else it'd clip overflowing
     // badges like the pricing "Most popular" pill and hover lifts).
     <section
       id={id}
-      className={`relative py-10 sm:py-14 lg:py-16 ${glow ? "overflow-hidden" : ""} ${tones[tone]} ${className}`}
+      className={`relative py-8 sm:py-11 lg:py-[52px] ${glow ? "overflow-hidden" : ""} ${tones[tone]} ${className}`}
     >
       {glow && <div className={`section-glow ${glows[glow]}`} aria-hidden="true" />}
       {reveal ? <Reveal>{children}</Reveal> : children}

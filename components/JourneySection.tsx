@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+
 import { Icon } from "./Icon";
 import { LOOP_SCENES } from "./LoopScene";
 import type { IconName } from "@/lib/content";
@@ -16,21 +16,15 @@ import type { IconName } from "@/lib/content";
    anything, and because each stage is a moment the reader recognises rather
    than a feature name.
 
-   THE STAGE ADVANCE IS THE SCROLL. The first version ran a 6s timer and gave
-   the reader tabs; that reads as a carousel and it moves whether or not anyone
-   is looking. Here the four stages are four tall blocks in the left column and
-   the illustration is sticky beside them, so scrolling *is* the walkthrough:
-   whichever block is crossing the middle of the viewport is the live stage.
+   NO SCROLL MECHANIC. Two earlier versions moved by themselves: a 6s timer
+   with tabs (a carousel — it moves whether or not anyone is looking), then a
+   scroll-driven walkthrough, four 68vh blocks against a sticky illustration,
+   with the live stage resolved by measuring which block crossed the viewport
+   centre. The second read better but cost 3,314px — a quarter of the home
+   page — and it took the scroll away from the reader to do it.
 
-   Which block that is gets resolved by measuring — the block whose centre is
-   nearest the viewport centre wins — rather than by an IntersectionObserver
-   band. A band has to be either zero-height (which some engines never report
-   as intersecting) or tall enough that two blocks match at once, and then the
-   answer depends on callback order. Four getBoundingClientRect calls per
-   scroll frame is cheap and it is never ambiguous.
-
-   Below lg there is no sticky column: each block carries its own illustration
-   inline and the page simply reads top to bottom.
+   Four rows now, each with its own picture, revealing like every other band.
+   Same content, same scenes, no hijacked scroll, a third less page.
    ========================================================================== */
 
 /* 16:10 on desktop and square on mobile is not an aesthetic choice — it makes
@@ -116,195 +110,65 @@ const STAGES: Stage[] = [
 ];
 
 export function JourneySection() {
-  const [active, setActive] = useState(0);
-  const blocks = useRef<(HTMLDivElement | null)[]>([]);
-
-  /* the live stage is whichever block sits nearest the middle of the viewport */
-  useEffect(() => {
-    let queued = false;
-    const pick = () => {
-      queued = false;
-      const mid = window.innerHeight / 2;
-      let best = 0;
-      let bestD = Infinity;
-      blocks.current.forEach((el, i) => {
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        const d = Math.abs(r.top + r.height / 2 - mid);
-        if (d < bestD) {
-          bestD = d;
-          best = i;
-        }
-      });
-      setActive(best);
-    };
-    const onScroll = () => {
-      if (queued) return;
-      queued = true;
-      /* rAF so a fast scroll coalesces to one measurement per frame */
-      requestAnimationFrame(pick);
-    };
-    pick();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
-  /* the rail jumps to a stage by scrolling its block to the same middle line
-     the observer reads from, so the click and the scroll agree */
-  const goTo = useCallback((i: number) => {
-    const el = blocks.current[i];
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const top = window.scrollY + r.top + r.height / 2 - window.innerHeight / 2;
-    /* hand the jump to Lenis when it is running — a native scrollTo fights its
-       rAF loop for the scroll position and lands jumpy. Lenis is absent under
-       reduced motion, and an explicit behavior:"smooth" would animate anyway
-       past the global scroll-behavior:auto, so ask for that case directly. */
-    if (window.__lenis) {
-      window.__lenis.scrollTo(top, { duration: 0.9 });
-      return;
-    }
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top, behavior: still ? "auto" : "smooth" });
-  }, []);
-
   return (
     <div>
-      <h2 className="display-lg max-w-3xl font-semibold tracking-[-0.02em]">
+      <h2 className="display-md mx-auto max-w-3xl text-center font-extrabold">
         Vadal listens, explains, acts —{" "}
         <span className="aurora-text">and proves it worked.</span>
       </h2>
 
-      <div className="mt-10 lg:mt-14 lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-16">
-        {/* --------------------------------------------- the column that scrolls */}
-        <div>
-          {STAGES.map((x, i) => {
-            const on = i === active;
-            return (
-              <div
-                key={x.id}
-                ref={(el) => {
-                  blocks.current[i] = el;
-                }}
-                className={`border-t border-[var(--line)] py-11 first:border-t-0 first:pt-0 transition-opacity duration-500 lg:flex lg:min-h-[68vh] lg:flex-col lg:justify-center lg:border-t-0 lg:py-0 ${
-                  on ? "lg:opacity-100" : "lg:opacity-35"
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <span
-                    className="grid h-7 w-7 shrink-0 place-items-center rounded-full transition-colors duration-500"
-                    style={{ background: on ? x.accent : "var(--line)" }}
-                  >
-                    <Icon
-                      name={x.icon}
-                      size={14}
-                      style={{ color: on ? "#fff" : "var(--muted-2)" }}
-                    />
-                  </span>
-                  <span className="text-[12px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
-                    Step {i + 1} · {x.tab}
-                  </span>
-                </div>
-
-                <h3 className="mt-4 text-[clamp(1.5rem,1.1rem+1.5vw,2.1rem)] font-bold leading-tight tracking-[-0.02em] text-[var(--foreground)]">
-                  {x.title}
-                </h3>
-                <p className="mt-4 max-w-md text-[16px] leading-relaxed text-[var(--muted)] sm:text-[17px]">
-                  {x.body}
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2.5">
-                  {x.links.map((l) => (
-                    <Link
-                      key={l.href}
-                      href={l.href}
-                      className="inline-flex items-center gap-1.5 rounded-full border bg-[var(--card)] px-4 py-2 text-[13.5px] font-bold text-[var(--foreground)] transition-colors hover:border-[var(--line-strong)]"
-                      style={{ borderColor: `${x.accent}55` }}
-                    >
-                      {l.name}
-                      <Icon name="arrow" size={13} style={{ color: x.accent }} />
-                    </Link>
-                  ))}
-                </div>
-
-                {/* below lg there is no sticky column, so the picture rides
-                    with its own copy */}
-                {/* Square on mobile, not 13/10. At 350px wide a 13:10 box is 269px tall and
-                    these scenes need ~326px — Listen was overflowing its panel by 50px.
-                    The desktop column keeps 13/10, where there is room. */}
-                <div className={`mt-7 aspect-square lg:hidden ${FRAME}`} style={FRAME_STYLE}>
-                  {LOOP_SCENES[x.id]()}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* ------------------------------------------------- the column that stays */}
-        <div className="hidden lg:block">
-          <div className="sticky top-[13vh] flex h-[74vh] flex-col justify-center">
-            <div
-              className={`relative mx-auto aspect-[16/10] w-full max-w-[560px] ${FRAME}`}
-              style={FRAME_STYLE}
-            >
-              {/* all four are mounted and crossfade in place — remounting on
-                  every change made the picture flash rather than change */}
-              {STAGES.map((x, i) => (
-                <div
-                  key={x.id}
-                  aria-hidden={i !== active}
-                  className="absolute inset-0 transition-[opacity,transform] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-                  style={{
-                    opacity: i === active ? 1 : 0,
-                    transform: i === active ? "none" : "scale(0.97)",
-                    pointerEvents: i === active ? undefined : "none",
-                  }}
+      {/* Was a scroll-driven walkthrough: four 68vh blocks against a sticky
+          illustration, 3,314px of page to read four paragraphs — a quarter of
+          the home page, and it took the scroll away from the reader to do it.
+          The four stages are four rows now. Same content, same pictures, no
+          hijacked scroll, and it costs about a third of the height. */}
+      <div className="mt-10 lg:mt-14">
+        {STAGES.map((x, i) => (
+          <div
+            key={x.id}
+            className="grid items-center gap-7 border-t border-[var(--line)] py-10 first:border-t-0 first:pt-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14 lg:py-10"
+          >
+            <div>
+              <div className="flex items-center gap-2.5">
+                <span
+                  className="grid h-7 w-7 shrink-0 place-items-center rounded-full"
+                  style={{ background: x.accent }}
                 >
-                  {LOOP_SCENES[x.id]()}
-                </div>
-              ))}
+                  <Icon name={x.icon} size={14} style={{ color: "#fff" }} />
+                </span>
+                <span className="text-[12px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">
+                  Step {i + 1} · {x.tab}
+                </span>
+              </div>
+
+              <h3 className="mt-4 text-[clamp(1.4rem,1.1rem+1.2vw,1.95rem)] font-bold leading-tight tracking-[-0.02em] text-[var(--foreground)]">
+                {x.title}
+              </h3>
+              <p className="mt-3.5 max-w-md text-[16px] leading-relaxed text-[var(--muted)] sm:text-[16.5px]">
+                {x.body}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2.5">
+                {x.links.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="inline-flex items-center gap-1.5 rounded-full border bg-[var(--card)] px-4 py-2 text-[13.5px] font-bold text-[var(--foreground)] transition-colors hover:border-[var(--line-strong)]"
+                    style={{ borderColor: `${x.accent}55` }}
+                  >
+                    {l.name}
+                    <Icon name="arrow" size={13} style={{ color: x.accent }} />
+                  </Link>
+                ))}
+              </div>
             </div>
 
-            {/* the rail is progress first, navigation second */}
-            <ol className="mx-auto mt-7 flex w-full max-w-[560px] gap-2.5">
-              {STAGES.map((x, i) => {
-                const on = i === active;
-                return (
-                  <li key={x.id} className="flex-1">
-                    <button
-                      type="button"
-                      onClick={() => goTo(i)}
-                      aria-current={on ? "step" : undefined}
-                      aria-label={`Go to step ${i + 1}, ${x.tab}`}
-                      className="block w-full text-left"
-                    >
-                      <span className="block h-[3px] overflow-hidden rounded-full bg-[var(--line)]">
-                        <span
-                          className="block h-full rounded-full transition-[width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                          style={{ width: i <= active ? "100%" : "0%", background: x.accent }}
-                        />
-                      </span>
-                      <span
-                        className="mt-2 flex items-center gap-1.5 text-[12.5px] font-semibold transition-colors duration-300"
-                        style={{ color: on ? "var(--foreground)" : "var(--muted-2)" }}
-                      >
-                        <Icon
-                          name={x.icon}
-                          size={13}
-                          style={{ color: on ? x.accent : "currentColor" }}
-                        />
-                        {x.tab}
-                      </span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ol>
+            {/* square on mobile, 16:10 where there is room — the scenes need
+                ~326px and a 13:10 box at 350px wide only gives 269px */}
+            <div className={`aspect-square lg:aspect-[16/10] ${FRAME}`} style={FRAME_STYLE}>
+              {LOOP_SCENES[x.id]()}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
 
       {/* the loop, as the thing the four stages add up to */}

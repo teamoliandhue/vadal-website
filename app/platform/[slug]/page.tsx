@@ -11,6 +11,7 @@ import { getProductPage, productPages } from "@/lib/product-pages";
 import { getProduct, products } from "@/lib/products";
 import { ProductV2, type RelatedMeta } from "@/components/ProductV2";
 import { ProductShot, PRODUCT_SHOTS } from "@/components/ProductShot";
+import { SurveysSection } from "@/components/home-v2";
 import { ILLUSTRATIVE } from "@/lib/content";
 
 // Two registries share this route: the 24-product v2 set (master doc) takes
@@ -69,7 +70,20 @@ export default async function ProductPage({
 
   // v2 registry first — the 24 products from the master doc
   const v2 = getProduct(slug);
-  if (v2) return <ProductV2 p={v2} related={relatedMeta(v2.related)} />;
+  if (v2)
+    return (
+      <>
+        <ProductV2 p={v2} related={relatedMeta(v2.related)} />
+        {/* moved off the home page, where it landed with no context around it */}
+        {slug === "engagement-surveys" && (
+          <Section tone="surface" reveal>
+            <Container>
+              <SurveysSection embedded />
+            </Container>
+          </Section>
+        )}
+      </>
+    );
 
   const p = getProductPage(slug);
   if (!p) notFound();

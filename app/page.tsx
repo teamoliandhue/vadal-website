@@ -8,12 +8,9 @@ import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { EnterprisePanel, LogoMarquee } from "@/components/sections";
 import {
   ActionBand,
-  AnalyticsSection,
   FeedbackSection,
   ImplementationSection,
   IntegrationsSection,
-  PrivacySection,
-  SurveysSection,
 } from "@/components/home-v2";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { MobilePlatformLayers } from "@/components/MobilePlatformLayers";
@@ -22,8 +19,13 @@ import { homeFaqsV2, platformOverview, securitySection } from "@/lib/content";
 /* ============================================================================
    Home — the AI-Powered Workforce Engagement & Decision Intelligence platform.
    Section order mirrors the content doc (and the category's proven flow):
-   hero → trust → persona tabs → surveys → analytics → feedback → action →
-   privacy → integrations → security → implementation → testimonials → FAQ.
+   hero → trust → journey → platform → persona tabs → feedback → action →
+   integrations → security → implementation → testimonials → FAQ.
+
+   Surveys moved to the Engagement Surveys page and Analytics to the Workforce
+   Intelligence layer on /platform: both landed out of context here, and the
+   three of them plus Feedback were four overlapping "insight" sections. The
+   privacy band went too — the security section below already covers it.
    ========================================================================== */
 
 export default function HomePage() {
@@ -106,17 +108,6 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* ========================================================= SURVEYS */}
-      {/* Desktop-only: superseded on mobile by the accordion index above. */}
-      <Section tone="base" id="surveys" reveal glow="right" className="scroll-mt-20 max-lg:hidden">
-        <SurveysSection />
-      </Section>
-
-      {/* ======================================================= ANALYTICS */}
-      <Section tone="surface" id="analytics" reveal glow="left" className="scroll-mt-20 max-lg:hidden">
-        <AnalyticsSection />
-      </Section>
-
       {/* ======================================================== FEEDBACK */}
       <Section tone="base" id="feedback" reveal className="scroll-mt-20 max-lg:hidden">
         <FeedbackSection />
@@ -128,15 +119,10 @@ export default function HomePage() {
         <ActionBand />
       </Section>
 
-      {/* ========================================================= PRIVACY */}
-      <Section tone="base" id="privacy" reveal className="scroll-mt-20 max-lg:hidden">
-        <PrivacySection />
-      </Section>
-
       {/* ==================================================== INTEGRATIONS */}
       {/* MOBILE-FIRST BRIEF: the Enterprise AI Platform layer (integrations)
           "serves IT/procurement, not first-time visitors" — desktop only. */}
-      <Section tone="surface" id="integrations" reveal glow="right" className="scroll-mt-20 max-lg:hidden">
+      <Section tone="base" id="integrations" reveal glow="right" className="scroll-mt-20 max-lg:hidden">
         <IntegrationsSection />
       </Section>
 
@@ -144,7 +130,7 @@ export default function HomePage() {
       {/* MOBILE-FIRST BRIEF: Security = "Low / move lower / link out — trust
           badges only… evaluated later, usually on desktop". On phones the
           footer's SOC 2 badge + /security link carry it. */}
-      <Section tone="base" id="security" reveal className="scroll-mt-20 max-lg:hidden">
+      <Section tone="surface" id="security" reveal className="scroll-mt-20 max-lg:hidden">
         <EnterprisePanel
           items={securitySection.cards}
           title={securitySection.title}
@@ -157,14 +143,14 @@ export default function HomePage() {
       {/* ================================================== IMPLEMENTATION */}
       {/* MOBILE-FIRST BRIEF: rollout detail isn't in the mobile IA — it's an
           evaluation-stage question, not a first-visit one. Desktop only. */}
-      <Section tone="surface" id="implementation" reveal className="scroll-mt-20 max-lg:hidden">
+      <Section tone="base" id="implementation" reveal className="scroll-mt-20 max-lg:hidden">
         <ImplementationSection />
       </Section>
 
       {/* ==================================================== TESTIMONIALS */}
       {/* MOBILE-FIRST BRIEF: Social Proof = "HOLD / HIDE FOR NOW" until we have
           real customer stories + one verified metric. Desktop only. */}
-      <Section tone="base" reveal className="max-lg:hidden">
+      <Section tone="surface" reveal className="max-lg:hidden">
         <Container>
           <SectionHead
             eyebrow="Customer stories"

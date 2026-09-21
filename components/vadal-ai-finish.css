@@ -38,7 +38,7 @@
 .vi-modes { gap:7px; }
 .vi-modes button { padding:7px 9px; color:#aeb7c9; border-color:#a2adc51a; background:#bac6dc07; font-size:11px; }
 .vi-modes button[aria-pressed="true"] { background:linear-gradient(115deg,#74c3b91b,#9b8ecb22); color:#e2ebf4; border-color:#9dafc64d; box-shadow:0 3px 12px #00000012; }
-.vi-mode-number { color:#7a869e; font-size:9px; }.vi-modes button[aria-pressed="true"] .vi-mode-number { color:#8bcebe; }
+.vi-mode-number { color:#8b97ae; font-size:9px; }  /* #7a869e measured 4.36 on this canvas */.vi-modes button[aria-pressed="true"] .vi-mode-number { color:#8bcebe; }
 .vi-result { background:#afcee208; color:#b8c8d7; border-color:#a7c5da12; font-size:11px; }
 .hw-intelligence[data-mode="1"] .vi-core-light { background:conic-gradient(#86a4e970,#b899e890,#86a4e970); }
 .hw-intelligence[data-mode="2"] .vi-core-light { background:conic-gradient(#74d5b280,#9db3ef70,#74d5b280); }
@@ -73,4 +73,44 @@
   .vi-ai-icon-gradient { width:48px; height:48px; }
   .vi-ai-icon-gradient svg { width:27px; height:27px; }
   .vi-core > b { top:calc(50% + 42px); font-size:12px; }
+}
+
+/* ============================================================================
+   Mode-dependent visuals, the V motif, and no apricot on the deep canvas.
+
+   The three mode buttons used to change only the words underneath. They drive
+   the diagram now: Understand lights the two inputs and runs the signal into
+   the core; Anticipate runs it out to an early signal; Activate runs it to the
+   action plan. Only the legs for the selected mode carry a moving pulse, and
+   the nodes that are not part of that story step back.
+   ========================================================================== */
+
+/* the V, in the aurora gradient and without the apricot spark. The spark is an
+   accent built for light ground — on this canvas it reads as a wrong-coloured
+   dot sitting on top of the shape. */
+.vi-flag {
+  position: absolute; left: 50%; top: 50%; translate: -50% -52%;
+  z-index: 0; pointer-events: none; filter: blur(.4px);
+}
+
+.vi-connections g { transition: opacity .45s ease; }
+.vi-connections g[data-on="false"] { opacity: .22; }
+.vi-connections g[data-on="false"] .vi-moving-signal { animation: none; opacity: 0; }
+
+.vi-node { transition: opacity .45s ease, border-color .45s ease, box-shadow .45s ease, transform .45s ease; }
+.vi-node[data-on="false"] { opacity: .42; }
+.vi-node[data-on="true"] {
+  opacity: 1; transform: scale(1.04);
+  border-color: #8fd8ff5c;
+  box-shadow: 0 0 0 1px #8fd8ff3d, 0 10px 26px -14px #4fa8ffa6;
+}
+
+/* the core answers the mode too — it gathers on Understand, and pushes on the
+   two modes that send something outward */
+.hw-intelligence[data-mode="0"] .vi-core-light { animation-duration: 26s; }
+.hw-intelligence[data-mode="1"] .vi-core-light { animation-duration: 9s; opacity: .8; }
+.hw-intelligence[data-mode="2"] .vi-core-light { animation-duration: 5s; opacity: .95; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vi-connections g, .vi-node { transition: none; }
 }

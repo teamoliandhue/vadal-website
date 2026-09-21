@@ -1,0 +1,130 @@
+/* ============================================================================
+   Recognition — the "Recognise" view of the hero workspace.
+
+   Four views, four silhouettes. Listen stacks two wide cards on a wallpaper,
+   Survey is a side-by-side, Analyse has no card and lets the chart be the
+   surface. This one is a centred deck: one note you can read with two more
+   behind it.
+
+   The deck is doing the work. A single kind word in a panel reads as "here is
+   a feature"; a stack reads as the thing the copy actually claims — that this
+   happens all the time. The two cards behind are ::before/::after, so the
+   whole effect costs no markup.
+
+   What came out: the "Living our values" chip, the timestamp, "A little
+   appreciation for", the "Above & beyond" chip, "6 kind words", "+250
+   points", the two small stats and the AI line. The quote lost its second
+   sentence. What is left is a name, a sentence, who sent it, and how many
+   people have said so.
+   ========================================================================== */
+
+.rc-experience { gap: 0; }
+
+.rc-canvas {
+  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+  padding: 22px; border-radius: 16px;
+  background:
+    radial-gradient(58% 60% at 4% 0%, #ffe7c9 0%, transparent 62%),
+    radial-gradient(54% 56% at 98% 6%, #ffdfe4 0%, transparent 64%),
+    radial-gradient(64% 66% at 92% 100%, #e6dcff 0%, transparent 62%),
+    radial-gradient(50% 48% at 12% 104%, #ffeed6 0%, transparent 60%),
+    linear-gradient(142deg, #fff4e6 0%, #fdeff1 48%, #f1ecfe 100%);
+}
+.rc-canvas::before {
+  content: ""; position: absolute; width: 150%; height: 72%;
+  left: -25%; top: -30%; transform: rotate(-9deg); border-radius: 46%;
+  background: linear-gradient(96deg, #ffffff96, #ffffff26 62%, transparent);
+  filter: blur(16px); pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- deck --- */
+.rc-deck { position: relative; z-index: 1; width: min(340px, 100%); flex-shrink: 0; }
+/* the two notes behind — deliberately blank: they are depth, not content to
+   read. Real elements rather than pseudos so they can deal themselves in one
+   after another, which is what makes the deck read as a stream. */
+.rc-back {
+  position: absolute; left: 0; right: 0; top: 0; height: 70px;
+  border-radius: 18px; z-index: -1;
+  animation: rc-deal .55s cubic-bezier(.2,.7,.3,1) both;
+}
+.rc-back--1 { background: #fffdfa; --ty: -12px; --rot: -1.4deg; --sc: .958; animation-delay: .12s;
+  box-shadow: 0 0 0 1px #6b452a1c, 0 10px 18px -14px #6b452a80; }
+.rc-back--2 { background: #fffcf6; --ty: -23px; --rot: 1.6deg;  --sc: .912; animation-delay: 0s;
+  box-shadow: 0 0 0 1px #6b452a17, 0 10px 18px -14px #6b452a66; }
+@keyframes rc-deal {
+  from { opacity: 0; transform: translateY(14px) rotate(0deg) scale(.88); }
+  to   { opacity: 1; transform: translateY(var(--ty)) rotate(var(--rot)) scale(var(--sc)); }
+}
+
+.rc-note {
+  animation: rc-land .55s cubic-bezier(.2,.7,.3,1) .26s both;
+  position: relative; background: #fff; border-radius: 18px; padding: 18px 20px 14px;
+  box-shadow: 0 26px 44px -22px #6b452a73, 0 2px 6px #5a3b2a1a, 0 0 0 1px #ffffffb3;
+}
+/* the award is the moment — it leads the card */
+.rc-award {
+  display: inline-flex; align-items: center; gap: 7px; margin-bottom: 11px;
+  padding: 5px 11px 5px 9px; border-radius: 999px;
+  background: linear-gradient(100deg, #fbe7c8, #f9dfe4); color: #8a5a0c;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .01em;
+}
+.rc-note header { display: flex; align-items: center; gap: 11px; }
+.rc-avatar {
+  display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(140deg, #fbe7c8, #f7d7dc); color: #8a5a0c;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+}
+.rc-note header b { display: block; font-size: 15px; font-weight: 650; color: #1f2431; letter-spacing: -.012em; }
+.rc-note header small { display: block; margin-top: 2px; font-size: 10px; color: #5c6472; }
+.rc-note p {
+  font-size: 15px; line-height: 1.45; font-weight: 500; letter-spacing: -.012em;
+  color: #262b38; margin: 15px 0 0;
+}
+.rc-note footer {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  margin-top: 16px; padding-top: 12px; border-top: 1px solid #f1eae2;
+}
+.rc-appreciate {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  padding: 5px 11px 5px 9px; border-radius: 999px; border: 1px solid #f4dcd3;
+  background: #fdf2ec; color: #b4432a; font-size: 11px; font-weight: 650;
+  transition: transform .18s, box-shadow .18s, background .18s;
+}
+.rc-appreciate:hover { transform: translateY(-1px); box-shadow: 0 6px 14px -7px #b4432a99; }
+.rc-appreciate[aria-pressed="true"] { background: #b4432a; border-color: #b4432a; color: #fff; }
+.rc-reward {
+  display: inline-flex; align-items: center; gap: 5px; margin-left: auto;
+  font-size: 10px; font-weight: 600; color: #0a6f61; white-space: nowrap;
+}
+
+/* ------------------------------------------------------------ confetti --- */
+.rc-confetti { position: absolute; inset: auto 0 34px 0; display: flex; justify-content: center; pointer-events: none; }
+.rc-confetti i {
+  position: absolute; width: 6px; height: 6px; border-radius: 2px; background: var(--c);
+  opacity: 0; transform: translate(var(--x), 0);
+}
+.rc-deck[data-celebrating="true"] .rc-confetti i {
+  animation: rc-burst .95s cubic-bezier(.2,.7,.3,1) both; animation-delay: var(--d);
+}
+@keyframes rc-land { from { opacity: 0; transform: translateY(16px) scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes rc-burst {
+  0%   { opacity: 0; transform: translate(0, 0) scale(.4) rotate(0deg); }
+  25%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--x), -78px) scale(1) rotate(190deg); }
+}
+
+/* ------------------------------------------------------------- caption --- */
+/* bare type on the wallpaper — the one number, and nothing around it */
+.rc-caption { position: relative; z-index: 1; margin: 0; font-size: 11px; color: #5a5147; flex-shrink: 0; }
+.rc-caption b { font-weight: 700; color: #2f2822; }
+
+@media (max-width: 600px) {
+  .rc-canvas { padding: 16px; gap: 14px; }
+  .rc-note { padding: 16px 17px 13px; }
+  .rc-note p { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rc-appreciate { transition: none; }
+  .rc-deck[data-celebrating="true"] .rc-confetti i, .rc-back, .rc-note { animation: none; }
+}

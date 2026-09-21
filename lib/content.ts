@@ -1347,26 +1347,31 @@ export const analyticsSection = {
   features: [
     {
       title: "Employee Engagement Score (eNPS)",
+      short: "One score from engagement, recognition and feedback — not a survey question.",
       body: "Go beyond traditional eNPS by combining engagement, recognition, feedback and workforce intelligence to uncover what drives loyalty and retention. Track trends, benchmark teams and get AI-driven recommendations.",
       icon: "pulse" as IconName,
     },
     {
       title: "AI Sentiment Intelligence",
+      short: "Reads surveys, feedback and conversations for concerns as they emerge.",
       body: "Advanced AI and NLP analyze surveys, feedback, recognition and conversations to identify emotions, emerging concerns and engagement drivers, so leaders act before issues hit morale or retention.",
       icon: "chat" as IconName,
     },
     {
       title: "Workforce Benchmark Intelligence",
+      short: "Compare teams, locations and functions against industry norms.",
       body: "Measure performance against business units, locations, functions and industry benchmarks, across engagement, workforce health, leadership effectiveness and organizational performance.",
       icon: "globe" as IconName,
     },
     {
       title: "Executive Reports & AI Insights",
+      short: "Presentation-ready dashboards, written for the leader reading them.",
       body: "Presentation-ready dashboards and AI-powered insights covering engagement, workforce analytics, leadership and talent trends, customized for CEOs, CHROs, managers and business leaders.",
       icon: "chart" as IconName,
     },
     {
       title: "Enterprise Data Export & Integration",
+      short: "Excel, CSV, PDF, or straight into your BI stack.",
       body: "Export surveys, analytics, sentiment and benchmark reports to Excel, CSV or PDF, or integrate with Workday, SAP SuccessFactors, Oracle HCM, Power BI and Tableau for advanced reporting.",
       icon: "plug" as IconName,
     },

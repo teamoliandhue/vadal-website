@@ -1,0 +1,112 @@
+/* ============================================================================
+   Social — the first capability tab after Vadal AI.
+
+   A feed column, and the only scene in the workspace built around
+   photography. The others are type, charts and cards; this one has to show
+   that a company feed is full of people, so the mosaic is the largest single
+   element on the stage.
+
+   Deliberately NOT the consumer pattern: no blue chrome, no thumbs-up, no
+   infinite column. A composer bar on the wallpaper, one post, and the people
+   in it. The composer's third button is the one that matters — the spark on
+   "Write this for me" is the difference between an intranet and this.
+   ========================================================================== */
+
+.sc-experience { gap: 0; }
+
+.sc-canvas {
+  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center; gap: 12px;
+  padding: 18px; border-radius: 16px;
+  background:
+    radial-gradient(56% 58% at 3% 0%, #ffe3d2 0%, transparent 62%),
+    radial-gradient(52% 54% at 98% 6%, #dbe6ff 0%, transparent 64%),
+    radial-gradient(60% 64% at 94% 100%, #d9f2e8 0%, transparent 62%),
+    linear-gradient(142deg, #fdefe7 0%, #eef2fd 50%, #eaf7f2 100%);
+}
+.sc-canvas::before {
+  content: ""; position: absolute; width: 150%; height: 72%;
+  left: -25%; top: -30%; transform: rotate(-9deg); border-radius: 46%;
+  background: linear-gradient(96deg, #ffffff96, #ffffff26 62%, transparent);
+  filter: blur(16px); pointer-events: none;
+}
+
+/* ------------------------------------------------------------ composer --- */
+.sc-composer {
+  position: relative; z-index: 1; display: flex; align-items: center; gap: 10px;
+  padding: 8px 9px 8px 12px; border-radius: 999px; flex-shrink: 0;
+  background: #ffffffd9; box-shadow: 0 8px 20px -14px #2b325a73, 0 0 0 1px #ffffffcc;
+}
+.sc-placeholder { flex: 1; min-width: 0; font-size: 12px; color: #6a7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc-tools { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.sc-tool {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  height: 28px; padding: 0 9px; border-radius: 999px; border: 1px solid #e7e9f0;
+  background: #fff; color: #5c6472; font-size: 11px; font-weight: 600;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.sc-tool:hover { border-color: #d6d9e4; color: #2c313c; }
+/* the button that is the whole argument for the module */
+.sc-tool--ai {
+  border-color: transparent; color: #fff;
+  background: linear-gradient(100deg, #5b3fd0, #1f6fc4);
+  box-shadow: 0 6px 14px -8px #5b3fd0cc;
+}
+.sc-tool--ai:hover { color: #fff; filter: brightness(1.06); }
+.sc-tool--ai svg { color: #fff; }
+
+/* ---------------------------------------------------------------- post --- */
+.sc-post {
+  position: relative; z-index: 1; background: #fff; border-radius: 16px;
+  padding: 13px 14px 11px; flex-shrink: 0;
+  box-shadow: 0 22px 38px -22px #2b325a59, 0 2px 6px #2b325a12, 0 0 0 1px #ffffffb3;
+}
+.sc-post header { display: flex; align-items: center; gap: 10px; }
+.sc-avatar {
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  font-size: 10px; font-weight: 700; flex-shrink: 0;
+}
+.sc-avatar--you    { background: #e8e2fd; color: #5335bd; width: 28px; height: 28px; font-size: 9px; }
+.sc-avatar--author { background: linear-gradient(140deg, #fbe7c8, #f7d7dc); color: #8a5a0c; }
+.sc-post header b { display: block; font-size: 13px; font-weight: 650; color: #1f2431; line-height: 1.2; }
+.sc-post header small { display: block; margin-top: 2px; font-size: 10px; color: #5c6472; }
+.sc-topic {
+  margin-left: auto; flex-shrink: 0; padding: 4px 9px; border-radius: 999px;
+  background: #eef2fd; color: #1f4a8c; font-size: 9.5px; font-weight: 650; white-space: nowrap;
+}
+
+/* the mosaic — the largest thing on the stage, because the people are */
+.sc-photos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 11px; }
+.sc-photos img {
+  display: block; width: 100%; height: 104px; object-fit: cover; border-radius: 10px;
+  animation: sc-photo-in .6s cubic-bezier(.2,.7,.3,1) both;
+  transition: transform .3s;
+}
+.sc-photos img:hover { transform: translateY(-3px); }
+
+.sc-post footer { display: flex; align-items: center; gap: 14px; margin-top: 11px; }
+.sc-act {
+  display: inline-flex; align-items: center; gap: 6px; border: 0; background: none;
+  padding: 0; font-size: 11.5px; font-weight: 600; color: #4f5665;
+}
+button.sc-act { cursor: pointer; transition: color .2s, transform .2s; }
+button.sc-act:hover { transform: translateY(-1px); }
+.sc-act[data-on="true"] { color: #b4432a; }
+.sc-seen { margin-left: auto; font-size: 10px; color: #6b7280; }
+
+@keyframes sc-photo-in { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 600px) {
+  .sc-canvas { padding: 14px; gap: 10px; }
+  .sc-composer { padding: 7px 8px 7px 10px; gap: 8px; }
+  .sc-placeholder { display: none; }          /* the tools matter more than the hint */
+  .sc-tools { margin-left: auto; }
+  .sc-photos { grid-template-columns: repeat(2, 1fr); }
+  .sc-photos img { height: 82px; }
+  .sc-photos img:nth-child(n+3) { display: none; }
+  .sc-topic { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sc-photos img { animation: none; transition: none; }
+  .sc-tool, button.sc-act { transition: none; }
+}

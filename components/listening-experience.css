@@ -1,63 +1,145 @@
-.ls-experience { --ls-teal:#279d8f; gap:9px; }
-.ls-summary { position:relative; display:flex; align-items:center; min-height:70px; padding:11px 14px; border:1px solid #dceee9; border-radius:12px; background:radial-gradient(ellipse at 83% 50%,#d9f0e88a,transparent 65%),linear-gradient(110deg,#f3fbf8,#fafffd); overflow:hidden; flex-shrink:0; }
-.ls-summary::after { content:""; position:absolute; height:1px; bottom:0; left:12%; right:12%; background:linear-gradient(90deg,transparent,#aadfce,transparent); }
-.ls-summary-copy { position:relative; z-index:1; flex-shrink:0; }
-.ls-kicker { font-size:8px; font-weight:600; letter-spacing:.1em; color:#728b83; }
-.ls-number { display:flex; align-items:baseline; gap:9px; color:#275f53; font-size:30px; line-height:1.2; letter-spacing:-.065em; font-weight:600; }
-.ls-number>span { font-size:10px; color:#78948a; font-weight:400; letter-spacing:0; }
-.ls-audio { display:flex; align-items:center; justify-content:center; gap:3px; height:56px; width:150px; margin-left:auto; padding-inline:12px; mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent); }
-.ls-audio i { display:block; width:3px; flex:1; max-width:4px; height:var(--bar-height); min-height:3px; border-radius:4px; background:linear-gradient(#99d4bc,#42aa99); animation:ls-wave 2.8s ease-in-out infinite; animation-delay:var(--bar-delay); transform-origin:center; }
-.ls-live { display:flex; align-items:center; gap:5px; font-size:9px; color:#489a86; position:absolute; right:12px; top:9px; }
-.ls-live i { width:4px; height:4px; background:#42b194; border-radius:50%; box-shadow:0 0 0 3px #45b99512; animation:hw-beacon 2.8s ease infinite; }
-.ls-toolbar { display:flex; justify-content:space-between; align-items:center; gap:7px; flex-shrink:0; }
-.ls-filters { display:flex; align-items:center; gap:3px; }
-.ls-filters button { border:1px solid transparent; padding:4px 8px; border-radius:6px; color:#92949f; background:transparent; font-size:10px; font-weight:500; cursor:pointer; transition:background .2s,color .2s; }
-.ls-filters button:hover { color:#4e8e80; background:#f3f9f6; }
-.ls-filters button[aria-pressed="true"] { color:#367e6c; background:#edf6f1; border-color:#deece4; }
-.ls-private { display:flex; align-items:center; gap:4px; color:#a2a6af; font-size:9px; white-space:nowrap; }
-.ls-stream { display:flex; flex-direction:column; gap:7px; flex-shrink:0; }
-.ls-message { position:relative; display:flex; gap:9px; align-items:flex-start; padding:10px 11px; border:1px solid #eae8f1; border-radius:10px; background:linear-gradient(115deg,#fcfbff,#fff 45%); box-shadow:0 3px 8px #38344a03; animation:ls-arrive .65s cubic-bezier(.2,.7,.3,1) both; animation-delay:var(--message-delay); transition:box-shadow .25s,border-color .25s; }
-.ls-message:hover { border-color:#d6cfe5; box-shadow:0 5px 14px #5b50770b; }
-.ls-message--teal { background:linear-gradient(115deg,#f8fcfa,#fff 45%); border-color:#e5ede8; }
-.ls-message-icon { display:grid; place-items:center; width:28px; height:28px; flex-shrink:0; border-radius:9px; border:1px solid #e9e0f9; color:#a084c4; background:#f1ebfb; box-shadow:inset 0 1px #ffffffa6; }
-.ls-message--teal .ls-message-icon { background:#eaf6f0; color:#65a28d; border-color:#deeee5; }
-.ls-message-body { min-width:0; flex:1; }
-.ls-message-meta { display:flex; align-items:center; justify-content:space-between; gap:5px; font-size:9px; color:#8c8999; }
-.ls-message-meta time { font-size:8px; color:#a7a5ae; font-style:normal; }
-.ls-message p { font-size:12px; line-height:1.5; color:#5d596b; margin:4px 0 0; }
-.ls-message mark { background:linear-gradient(transparent 55%,#e8def77d 55%); color:#6f5991; padding:0; }
-.ls-message--teal mark { color:#4b8a72; background:linear-gradient(transparent 55%,#d6eddf87 55%); }
-.ls-theme { position:absolute; right:11px; top:9px; display:none; font-size:8px; color:#9b8aaa; }
-.ls-discovery { position:relative; display:flex; align-items:center; gap:9px; background:linear-gradient(110deg,#eff8f5,#f4f2fc 80%); border:1px solid #e4e9ef; border-radius:10px; padding:9px 11px; margin-top:auto; flex-shrink:0; overflow:hidden; }
-.ls-discovery::before { content:""; position:absolute; left:0; top:12px; bottom:12px; width:2px; background:linear-gradient(#66cdb5,#9480d8); border-radius:2px; }
-.ls-discovery-icon { width:30px; height:30px; display:grid; place-items:center; background:#ffffffb3; border:1px solid #e4e9f1; border-radius:9px; flex-shrink:0; box-shadow:0 2px 5px #76768f05; }
-.ls-discovery>div { min-width:0; }
-.ls-discovery-heading { display:flex; align-items:center; gap:8px; font-size:8px; letter-spacing:.06em; color:#85909f; font-weight:600; }
-.ls-discovery-theme { padding:2px 5px; border-radius:4px; background:#e6e7f580; color:#8b80a7; letter-spacing:0; font-size:8px; font-weight:450; }
-.ls-discovery p { font-size:11px; line-height:1.45; margin:4px 0 0; color:#858395; }
-.ls-discovery p strong { color:#696777; font-weight:550; }
-@keyframes ls-wave { 0%,100% { transform:scaleY(.6);opacity:.6; } 50% { transform:scaleY(1.2);opacity:1; } }
-@keyframes ls-arrive { from { opacity:0;transform:translateY(7px); } to { opacity:1;transform:none; } }
-@media(max-width:600px) {
-  .ls-experience { gap:13px; }
-  .ls-summary { min-height:89px; padding:13px; }
-  .ls-kicker { font-size:8px; }
-  .ls-number { font-size:32px; display:block; }
-  .ls-number>span { display:block; font-size:11px; margin-top:4px; }
-  .ls-audio { width:105px; padding:0; height:62px; gap:2px; }
-  .ls-live { font-size:8px; }
-  .ls-private { font-size:8px; }.ls-filters button{font-size:9px;padding:5px 6px}
-  .ls-message { padding:12px 10px; gap:8px; }
-  .ls-message p { font-size:13px; line-height:1.55; }
-  .ls-message-meta { font-size:9px; }.ls-message-meta time{font-size:8px}
-  .ls-discovery { padding:12px 10px; align-items:flex-start; }
-  .ls-discovery p { font-size:12px; line-height:1.5; }.ls-discovery-heading{font-size:8px;gap:4px;flex-wrap:wrap}
+/* ============================================================================
+   Continuous listening — the "Listen" view of the hero workspace.
+
+   This is a visual panel, not a page. The headline above it already says what
+   the product does, so the panel's job is to LOOK like the product, not to
+   explain it again. Everything that was a second telling has gone: the filter
+   tabs, the "identity protected" note, the theme labels, the AI paragraph.
+
+   What is left is a crop. Two cards sit on a wallpaper and run off its edges,
+   the way a product shot does when you zoom into the one part worth showing —
+   a live count with its waveform, and a list of voices cut off mid-scroll.
+   The clipping is the point: it reads as a window onto something larger.
+
+   Colour still carries meaning rather than decorating — each voice is tinted
+   by its THEME (career growth violet, workload coral, manager support blue,
+   belonging teal), and only on the icon and the highlighted phrase.
+
+   Contrast: every text colour is the 700-weight end of its hue, checked by
+   sampling the pixels actually painted behind it.
+   ========================================================================== */
+
+.ls-experience {
+  --ls-teal: #0a7264;
+  --ls-violet: #6d4de0;
+  --ls-blue: #1a63b8;
+  --ls-coral: #b4432a;
+  gap: 0;
 }
-.hw-shell[data-visible="false"] .ls-audio i { animation-play-state:paused; }
-@media(min-width:1024px) {
-  .ls-experience { gap:5px; }
-  .ls-summary { min-height:62px; padding-block:8px; }
-  .ls-audio { height:42px; }
-  .ls-discovery { padding-block:8px; }
+
+/* per-theme accent — the icon and the highlight, nothing else */
+.ls-theme-career   { --a: var(--ls-violet); --b: #f1ecfe; }
+.ls-theme-workload { --a: var(--ls-coral);  --b: #fdece6; }
+.ls-theme-manager  { --a: var(--ls-blue);   --b: #e7f1fd; }
+.ls-theme-belonging{ --a: var(--ls-teal);   --b: #e3f7f2; }
+
+/* -------------------------------------------------------------- canvas --- */
+/* the cards sit wholly inside this, staggered against opposite edges so the
+   wallpaper shows on both sides rather than only around the outside */
+.ls-canvas {
+  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center; gap: 14px;
+  padding: 20px; border-radius: 16px;
+  background:
+    radial-gradient(62% 58% at 6% 0%, #b9ecdd 0%, transparent 62%),
+    radial-gradient(58% 56% at 98% 8%, #bfdcff 0%, transparent 64%),
+    radial-gradient(68% 70% at 92% 100%, #ddd2ff 0%, transparent 62%),
+    radial-gradient(56% 52% at 16% 104%, #a9e5d6 0%, transparent 60%),
+    linear-gradient(146deg, #e6f6f1 0%, #edf2fd 52%, #f2ecfe 100%);
 }
-@media(prefers-reduced-motion:reduce) { .ls-audio i,.ls-message,.ls-live i { animation:none!important; }.ls-message,.ls-filters button{transition:none} }
+/* the soft sheet that gives the wallpaper its diagonal — deliberately vague */
+.ls-canvas::before {
+  content: ""; position: absolute; width: 150%; height: 72%;
+  left: -25%; top: -30%; transform: rotate(-9deg); border-radius: 46%;
+  background: linear-gradient(96deg, #ffffff96, #ffffff24 62%, transparent);
+  filter: blur(16px); pointer-events: none;
+}
+
+.ls-pulse, .ls-tile {
+  position: relative; z-index: 1; background: #fff; border-radius: 16px;
+  box-shadow: 0 22px 40px -22px #2b325a4d, 0 2px 6px #2b325a12, 0 0 0 1px #ffffffb3;
+}
+/* one card is inset from the right, the other from the left — the stagger is
+   what gives the composition depth now that nothing runs off the edge */
+.ls-pulse {
+  padding: 18px 24px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 22px;
+}
+
+/* --------------------------------------------------------------- pulse --- */
+.ls-state { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
+.ls-timing { font-size: 9px; font-weight: 500; color: #5c6472; white-space: nowrap; }
+.ls-live {
+  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+  font-size: 10px; font-weight: 600; color: #0a6f61;
+}
+.ls-live i {
+  width: 6px; height: 6px; background: #0e9c88; border-radius: 50%;
+  box-shadow: 0 0 0 3px #0e9c8826; animation: hw-beacon 2.8s ease infinite;
+}
+.ls-number { display: flex; align-items: baseline; gap: 10px; flex-shrink: 0; }
+.ls-number b {
+  font-size: 34px; line-height: 1; letter-spacing: -.065em; font-weight: 700;
+  background: linear-gradient(96deg, #0b7a6b, #1f6fc4 62%, #5b3fd0);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.ls-number > span { font-size: 11px; font-weight: 500; color: #5f6674; }
+.ls-audio {
+  display: flex; align-items: flex-end; gap: 3px; height: 42px; flex: 1; min-width: 150px;
+  mask-image: linear-gradient(90deg, transparent, #000 18%);
+}
+/* the ramp runs ACROSS the bars, so the field reads as many voices */
+.ls-audio i {
+  display: block; flex: 1; min-width: 3px; height: var(--bar-height); min-height: 4px;
+  border-radius: 4px; background: linear-gradient(180deg, var(--bar-top), var(--bar-bottom));
+  animation: ls-wave 2.8s ease-in-out infinite; animation-delay: var(--bar-delay);
+  transform-origin: bottom;
+}
+
+/* --------------------------------------------------------------- board --- */
+/* Three tiles across, not a stack of messages. A chat column reads as the
+   assistant's territory; listening is a surface you scan by theme, so the
+   themes sit side by side and the timestamps line up along the bottom. */
+.ls-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.ls-tile {
+  display: flex; flex-direction: column; min-width: 0;
+  padding: 11px 12px 9px; border-radius: 12px; background: #fff;
+  box-shadow: 0 10px 22px -16px #2b325a73, 0 0 0 1px #ffffffcc;
+  border-top: 3px solid var(--a);
+  animation: ls-arrive .6s cubic-bezier(.2,.7,.3,1) both;
+  animation-delay: var(--voice-delay);
+}
+.ls-tile header { display: flex; align-items: center; gap: 7px; }
+.ls-tile-icon {
+  display: grid; place-items: center; width: 24px; height: 24px; flex-shrink: 0;
+  border-radius: 50%; color: var(--a); background: var(--b);
+}
+.ls-tile-theme { font-size: 9.5px; font-weight: 650; color: var(--a); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ls-tile p { margin: 9px 0 0; font-size: 12.5px; line-height: 1.45; color: #262b38; }
+.ls-tile mark {
+  background: color-mix(in srgb, var(--a) 13%, transparent);
+  color: var(--a); font-weight: 600; border-radius: 4px;
+  padding: 1px 3px; margin: 0 -2px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.ls-tile footer { margin-top: auto; padding-top: 9px; font-size: 9.5px; font-weight: 500; color: #5c6472; }
+
+@keyframes ls-wave { 0%,100% { transform: scaleY(.55); opacity: .6; } 50% { transform: scaleY(1.15); opacity: 1; } }
+@keyframes ls-arrive { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 600px) {
+  .ls-canvas { gap: 14px; padding: 16px; }
+  .ls-pulse  { margin-right: 26px; padding: 16px 18px; flex-wrap: wrap; gap: 10px 14px; }
+  .ls-board { grid-template-columns: 1fr; gap: 7px; }
+  .ls-tile footer { padding-top: 6px; }
+  .ls-number b { font-size: 34px; }
+  .ls-audio { height: 34px; order: 3; flex-basis: 100%; }
+}
+.hw-shell[data-visible="false"] .ls-audio i { animation-play-state: paused; }
+@media (min-width: 1024px) {
+  .ls-canvas { gap: 16px; padding: 20px; }
+  .ls-pulse { padding-block: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ls-audio i, .ls-tile, .ls-live i { animation: none !important; }
+}
