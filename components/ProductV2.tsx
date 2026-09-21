@@ -283,34 +283,36 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
         </Container>
       </Section>
 
-      {/* ------------------------------------------------ how teams use it */}
-      <Section tone="base">
-        <CrowdPanel tone="teal" color={`hsl(${theme.hue} 62% 78%)`} eyebrow="How teams use it" title="From challenge to outcome">
-          <div className="grid gap-3 lg:grid-cols-3" data-reveal-stagger>
-            {(
-              [
-                ["The challenge", p.story.challenge],
-                ["The solution", p.story.solution],
-                ["The outcome", p.story.outcomes],
-              ] as const
-            ).map(([label, body]) => (
-              <div
-                key={label}
-                className="flex flex-col rounded-[var(--r-lg)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)]"
-              >
-                <span className="inline-flex items-center gap-2 self-start rounded-md border border-[var(--line)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--foreground)]">
-                  <span className="h-2 w-2 rounded-[2px]" style={{ background: "#FF8A5B" }} />
-                  {label}
-                </span>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-[var(--muted)]">{body}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-6 text-center text-[12.5px] text-[var(--ink-deep)]/75">
-            Illustrative scenario, named customer stories coming soon.
-          </p>
-        </CrowdPanel>
-      </Section>
+      {/* how teams use it — omitted where a module has no story yet */}
+      {p.story && (
+        <Section tone="base">
+          <CrowdPanel tone="teal" color={`hsl(${theme.hue} 62% 78%)`} eyebrow="How teams use it" title="From challenge to outcome">
+            <div className="grid gap-3 lg:grid-cols-3" data-reveal-stagger>
+              {(
+                [
+                  ["The challenge", p.story.challenge],
+                  ["The solution", p.story.solution],
+                  ["The outcome", p.story.outcomes],
+                ] as const
+              ).map(([label, body]) => (
+                <div
+                  key={label}
+                  className="flex flex-col rounded-[var(--r-lg)] bg-[var(--card)] p-6 shadow-[var(--shadow-sm)]"
+                >
+                  <span className="inline-flex items-center gap-2 self-start rounded-md border border-[var(--line)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--foreground)]">
+                    <span className="h-2 w-2 rounded-[2px]" style={{ background: "#FF8A5B" }} />
+                    {label}
+                  </span>
+                  <p className="mt-3 text-[14.5px] leading-relaxed text-[var(--muted)]">{body}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-center text-[12.5px] text-[var(--ink-deep)]/75">
+              Illustrative scenario, named customer stories coming soon.
+            </p>
+          </CrowdPanel>
+        </Section>
+      )}
 
       {/* ----------------------------------------------------- integrations */}
       <Section tone="surface">

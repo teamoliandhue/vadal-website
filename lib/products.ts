@@ -29,7 +29,8 @@ export type Product = {
   capabilities: ProductCapability[];
   aiCapabilities: string[];
   outcomes: string[];
-  story: { challenge: string; solution: string; outcomes: string };
+  /** omitted until a real customer story exists — never invented */
+  story?: { challenge: string; solution: string; outcomes: string };
   /** §6 of the content spec: the named product screens for this page */
   screens: string[];
   integrations: string[];
@@ -39,6 +40,232 @@ export type Product = {
 };
 
 export const products: Product[] = [
+  {
+    "slug": "social",
+    "name": "Social",
+    "cloud": "workforce-experience",
+    "icon": "users",
+    "mock": "phone",
+    "heroTitle": "The company feed people actually open",
+    "heroLede": "News, wins and questions in one enterprise feed, with AI that helps people write the post and translation so everyone reads it in their own language.",
+    "challengesTitle": "Why an Enterprise Feed, Not a Social Network",
+    "challenges": [
+      "Company news lands in email, where most of it is never opened.",
+      "Frontline and deskless employees are left out of the conversation entirely.",
+      "People hesitate to post because writing something public takes time they do not have.",
+      "The same question gets asked over and over because no answer is ever marked as the right one.",
+      "A critical announcement looks identical to everything else in the feed.",
+      "Teams spread across languages read the same post very differently."
+    ],
+    "pillars": [
+      "Six ways to read",
+      "Must-read confirmation",
+      "Accepted answers",
+      "Communities",
+      "Translation",
+      "AI composer"
+    ],
+    "capabilities": [
+      {
+        "title": "Six ways into the feed",
+        "body": "For you, Latest, Popular, Must read, Questions and Saved, so people read the way they actually read, not one endless column.",
+        "bullets": [
+          "Catch up on what matters without scrolling everything",
+          "Find the unanswered questions in one view",
+          "Keep the posts you want to come back to"
+        ],
+        "screen": "Feed Views"
+      },
+      {
+        "title": "Must-read posts, confirmed",
+        "body": "Mark a post as must-read and see who has confirmed they have read it, so a policy change is not just published but acknowledged.",
+        "bullets": [
+          "Separate the critical announcement from the noise",
+          "See confirmation, not just impressions",
+          "Follow up with the people who have not read it"
+        ],
+        "screen": "Must-read Confirmation"
+      },
+      {
+        "title": "Questions with an accepted answer",
+        "body": "People ask, colleagues answer, and the right answer gets accepted, so the thread becomes the reference rather than another thing to search.",
+        "bullets": [
+          "Mark the answer that is actually correct",
+          "Stop answering the same question twice",
+          "Turn the feed into a knowledge base by using it"
+        ],
+        "screen": "Questions"
+      },
+      {
+        "title": "Communities",
+        "body": "Groups for teams, locations, interests and initiatives, so a post reaches the people it is for without going company-wide.",
+        "bullets": [
+          "Give each team a home in the feed",
+          "Keep company-wide for company-wide",
+          "Let people choose what they follow"
+        ],
+        "screen": "Communities"
+      },
+      {
+        "title": "Write this for me",
+        "body": "The composer drafts the post from a few words, so people who have something worth sharing are not stopped by the blank box.",
+        "bullets": [
+          "Draft a post from a one-line prompt",
+          "Keep the person's own voice, not a template",
+          "Lower the cost of posting for busy teams"
+        ],
+        "screen": "Composer"
+      },
+      {
+        "title": "Read in your own language",
+        "body": "Posts and replies translate in place, so a company that works in six languages still has one conversation.",
+        "bullets": [
+          "Read any post in your own language",
+          "Reply in yours, be read in theirs",
+          "Keep one feed instead of one per region"
+        ],
+        "screen": "Translation"
+      }
+    ],
+    "aiCapabilities": [
+      "AI Post Composer",
+      "AI Translation",
+      "AI Topic Suggestions"
+    ],
+    "outcomes": [
+      "Reach every employee, not just inboxes",
+      "Turn announcements into conversations",
+      "Stop answering the same question twice",
+      "Give frontline teams a voice"
+    ],
+    "screens": [],
+    "integrations": [
+      "Microsoft Teams",
+      "Slack",
+      "Workday",
+      "SAP SuccessFactors"
+    ],
+    "faqs": [
+      {
+        "q": "How is this different from a consumer social network?",
+        "a": "There is no infinite scroll and no engagement ranking working against you. The feed is built around how work reading actually happens: a Must read view that people confirm, a Questions view where answers get accepted, and communities so a post reaches the team it is for rather than everyone."
+      },
+      {
+        "q": "Do employees need a company email address to take part?",
+        "a": "No. Social is part of the same workforce platform that reaches frontline and deskless employees on mobile, so people without a corporate inbox read, post and reply from their phones."
+      },
+      {
+        "q": "What does the AI composer actually write?",
+        "a": "It drafts a post from a short prompt and keeps the author's own wording where they have given it. The employee edits and publishes, so what goes out is theirs, not a template."
+      }
+    ],
+    "related": [
+      "employee-communication",
+      "employee-experience",
+      "recognition-rewards",
+      "amplify"
+    ],
+    "footerCta": "Ready to give your whole company one place to talk?"
+  },
+  {
+    "slug": "amplify",
+    "name": "Amplify",
+    "cloud": "workforce-experience",
+    "icon": "rocket",
+    "mock": "phone",
+    "heroTitle": "Employee advocacy, in your people's own words",
+    "heroLede": "Employees share company news and their own wins with their networks, see how a post will look before it goes out, and reach traces back to hires.",
+    "challengesTitle": "Why Advocacy Stalls",
+    "challenges": [
+      "Company news reaches the same audience every time: the company's own followers.",
+      "Employees are asked to share posts written in a voice that is obviously not theirs.",
+      "Nobody can see what a share will look like until after it has gone out.",
+      "Advocacy programmes stop at share counts and never reach a hiring outcome.",
+      "The company's best advocates go unused while recruiting spend grows."
+    ],
+    "pillars": [
+      "Their own words",
+      "Live preview",
+      "Company news and personal wins",
+      "Reach to hires"
+    ],
+    "capabilities": [
+      {
+        "title": "Their words, not a script",
+        "body": "Employees write the post themselves from a suggested angle, not a mandated caption. A share that reads like marketing copy persuades nobody.",
+        "bullets": [
+          "Start from a prompt, not a script",
+          "Keep the employee's own voice",
+          "Make sharing something people want to do"
+        ],
+        "screen": "Share Composer"
+      },
+      {
+        "title": "See it before you post",
+        "body": "A live preview shows the post exactly as the network will render it, so people are not publishing blind to their own audience.",
+        "bullets": [
+          "Preview the post as it will appear",
+          "Fix the wording before it is public",
+          "Remove the reason people hesitate"
+        ],
+        "screen": "Live Preview"
+      },
+      {
+        "title": "Company news, and your own wins",
+        "body": "The same place carries what the company wants shared and what the employee is proud of, so advocacy is not only a distribution channel.",
+        "bullets": [
+          "Share a launch, a milestone or your own work",
+          "Give people something worth posting",
+          "Keep the company voice and the personal one distinct"
+        ],
+        "screen": "Share Library"
+      },
+      {
+        "title": "Reach traced to applications and hires",
+        "body": "The admin side follows a share through to the applications and hires it produced, so advocacy is measured where it matters.",
+        "bullets": [
+          "See reach per share, per employee, per campaign",
+          "Attribute applications and hires to the share that drove them",
+          "Show what the programme is actually worth"
+        ],
+        "screen": "Advocacy Analytics"
+      }
+    ],
+    "aiCapabilities": [
+      "AI Post Suggestions",
+      "AI Tone Matching"
+    ],
+    "outcomes": [
+      "Extend reach beyond the company page",
+      "Attribute applications and hires to employee shares",
+      "Give employees a reason to post",
+      "Show what advocacy is worth"
+    ],
+    "screens": [],
+    "integrations": [
+      "LinkedIn",
+      "Microsoft Teams",
+      "Slack",
+      "Workday"
+    ],
+    "faqs": [
+      {
+        "q": "Does Vadal.ai post on an employee's behalf?",
+        "a": "No. Every share is written and published by the employee. Amplify supplies the prompt, the preview and the measurement; the decision and the wording stay with the person."
+      },
+      {
+        "q": "How are hires attributed to a share?",
+        "a": "Each share carries its own link, so the applications that arrive through it are traced back to the employee who posted it, and through to the hires that follow. The admin view reports reach, applications and hires together rather than reach alone."
+      }
+    ],
+    "related": [
+      "social",
+      "employee-communication",
+      "recognition-rewards",
+      "pre-onboarding"
+    ],
+    "footerCta": "Ready to let your people carry the message further than your company page?"
+  },
   {
     "slug": "employee-communication",
     "name": "Employee Communication",

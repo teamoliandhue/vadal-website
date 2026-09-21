@@ -62,6 +62,37 @@ export const platformLayers: PlatformLayer[] = [
     icon: "heart",
     modules: [
       {
+        /* Social was buried inside Employee Communication and is the module
+           every employee touches daily, so it leads the layer. */
+        name: "Social",
+        icon: "users",
+        hook: "One feed the whole company reads",
+        slug: "social",
+        blurb: "An enterprise feed with must-read confirmation, accepted answers, communities and translation.",
+        landing: true,
+        lines: [
+          "Six ways to read, For you, Latest, Popular, Must read, Questions and Saved.",
+          "Must-read posts, confirmed by the people who read them.",
+          "Questions with an accepted answer, so nobody asks twice.",
+          "Communities and translation, one conversation across teams and languages.",
+        ],
+      },
+      {
+        /* A shipped module that had no presence on the site at all. */
+        name: "Amplify",
+        icon: "rocket",
+        hook: "Your people carry the message",
+        slug: "amplify",
+        blurb: "Employee advocacy in your people's own words, with reach traced through to applications and hires.",
+        landing: true,
+        lines: [
+          "Their own words, a suggested angle rather than a mandated caption.",
+          "Live preview, see the post exactly as the network will render it.",
+          "Company news and personal wins, from the same place.",
+          "Reach to hires, advocacy measured where it matters.",
+        ],
+      },
+      {
         name: "Employee Communication",
         icon: "broadcast",
         hook: "Reach everyone, instantly",
