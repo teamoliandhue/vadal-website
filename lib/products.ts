@@ -916,6 +916,26 @@ export const products: Product[] = [
         "screen": "Driver-Level Heatmap"
       },
       {
+        "title": "Risk Intelligence, By Team",
+        "body": "Which teams are under strain and why \u2014 a rota published late, a pay band, tooling that logs people out. Never a list of names.",
+        "bullets": [
+          "Risk is a team and a reason, never a person",
+          "Every driver is something the team can see for itself",
+          "An action with an owner, while there is still time"
+        ],
+        "screen": "Where the Risk Is"
+      },
+      {
+        "title": "Succession Intelligence",
+        "body": "If this person left on Friday, what happens on Monday \u2014 who is ready, who is a year or two away, and which roles have no cover at all.",
+        "bullets": [
+          "Critical roles, with the gap said plainly",
+          "Readiness recorded by People after a conversation, never inferred",
+          "Single points of failure surfaced before they fail"
+        ],
+        "screen": "Succession Intelligence"
+      },
+      {
         "title": "Manager-Ready Views",
         "body": "Give every manager a personalized view of their own team's health, not just an HR-only dashboard.",
         "bullets": [
@@ -946,10 +966,12 @@ export const products: Product[] = [
       "outcomes": "Faster reporting cycles, earlier risk detection, higher manager engagement with data."
     },
     "screens": [
-          "Workforce Health Dashboard",
-          "Driver-Level Heatmap",
-          "Manager Team View",
-          "AI Insight Summary Panel"
+      "Workforce Health Dashboard",
+      "Where the Risk Is",
+      "Succession Intelligence",
+      "Driver-Level Heatmap",
+      "Manager Team View",
+      "AI Insight Summary Panel"
     ],
     "integrations": [
       "Workday",
@@ -2645,14 +2667,14 @@ export const products: Product[] = [
         "screen": "Task Dashboard"
       },
       {
-        "title": "Workflow Automation",
-        "body": "Automate routine multi-step workflows (requests, approvals, checklists) with an easy builder.",
+        "title": "Automations That State Their Limits",
+        "body": "Rules that open, route and chase work by themselves \u2014 each one saying what it did, how often, and what it is never allowed to do.",
         "bullets": [
-          "Automate requests, approvals and checklists",
-          "Easy builder, no custom development required",
-          "Routine multi-step processes run themselves"
+          "A case opens itself when a pulse flags a team",
+          "Every rule carries the line it will not cross",
+          "Nothing is closed by an automation; a person closes it"
         ],
-        "screen": "Workflow Builder"
+        "screen": "Automations & Rules"
       },
       {
         "title": "Mobile-First Task Completion",
@@ -2694,10 +2716,11 @@ export const products: Product[] = [
       "outcomes": "Higher completion rates, better compliance adherence, clearer operational visibility."
     },
     "screens": [
-          "Task Dashboard",
-          "Workflow Builder",
-          "Mobile Task View",
-          "Manager Oversight Panel"
+      "Case Inbox",
+      "Task Dashboard",
+      "Automations & Rules",
+      "Mobile Task View",
+      "Manager Oversight Panel"
     ],
     "integrations": [
       "Microsoft Teams",
@@ -2914,14 +2937,14 @@ export const products: Product[] = [
         "screen": "API & Webhook Management"
       },
       {
-        "title": "Low-Maintenance Architecture",
-        "body": "Minimize ongoing IT burden with managed, resilient integrations.",
+        "title": "One Workforce Record",
+        "body": "Every field, the system that owns it, which module reads it \u2014 and what a blank one costs, because a gap is a person a module cannot reach.",
         "bullets": [
-          "Managed connectors reduce ongoing IT workload",
-          "Resilient sync keeps data flowing through changes",
-          "Configure and monitor integrations from one panel"
+          "One record behind every module and report",
+          "A missing manager or mobile number is named, not rounded away",
+          "What Vadal writes back is two things, and then nothing"
         ],
-        "screen": "Connector Configuration Panel"
+        "screen": "The Workforce Record"
       },
       {
         "title": "Single Sign-On (SSO)",
@@ -2953,7 +2976,7 @@ export const products: Product[] = [
     },
     "screens": [
           "Integration Directory",
-          "Connector Configuration Panel",
+          "The Workforce Record",
           "Data Sync Status Dashboard",
           "API & Webhook Management"
     ],
@@ -3041,7 +3064,7 @@ export const products: Product[] = [
           "Privacy controls tailored to varying local regulations",
           "Deploy confidently across countries and jurisdictions"
         ],
-        "screen": "Security Controls Dashboard"
+        "screen": "Privacy Controls Panel"
       },
       {
         "title": "Compliance Alignment",
@@ -3051,7 +3074,7 @@ export const products: Product[] = [
           "Simplify audit preparation with accessible logs",
           "Speed up procurement and security reviews"
         ],
-        "screen": "Audit Log Viewer"
+        "screen": "Security Controls Dashboard"
       },
       {
         "title": "Responsible AI Governance",
@@ -3084,7 +3107,7 @@ export const products: Product[] = [
     "screens": [
           "Security Controls Dashboard",
           "Role-Based Access Management",
-          "Audit Log Viewer",
+          "Privacy Controls Panel",
           "AI Governance & Transparency Panel"
     ],
     "integrations": [
@@ -3152,14 +3175,14 @@ export const products: Product[] = [
         "screen": "Implementation Roadmap View"
       },
       {
-        "title": "AI-Accelerated Setup",
-        "body": "Use AI to accelerate configuration, data mapping and initial content setup, shortening time-to-value.",
+        "title": "ROI Tracked From Week One",
+        "body": "Measured against a baseline written down before go-live, with each number labelled by how much of it Vadal can honestly claim.",
         "bullets": [
-          "AI assists configuration and data mapping",
-          "Initial content set up faster with less manual effort",
-          "Shorter path from purchase to first value"
+          "A baseline taken with your People team, not reconstructed later",
+          "Ours to claim, partly ours, or context \u2014 said on every measure",
+          "And the section most vendors leave out: what we are not claiming"
         ],
-        "screen": "Configuration & Template Library"
+        "screen": "Value Against the Baseline"
       },
       {
         "title": "Dedicated Customer Success",
@@ -3202,7 +3225,7 @@ export const products: Product[] = [
     },
     "screens": [
           "Implementation Roadmap View",
-          "Configuration & Template Library",
+          "Value Against the Baseline",
           "Adoption Dashboard",
           "Customer Success Portal"
     ],

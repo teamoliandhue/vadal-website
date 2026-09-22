@@ -2,7 +2,7 @@
   "name": "vadal-website",
   "version": "0.1.0",
   "private": true,
-  "description": "Vadal \u2014 the engagement operating system. Marketing website.",
+  "description": "Vadal — the engagement operating system. Marketing website.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -21,6 +21,7 @@
     "@types/node": "^22.0.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
+    "puppeteer-core": "^23.11.1",
     "tailwindcss": "^4.1.0",
     "typescript": "^5.6.0"
   }

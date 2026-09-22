@@ -31,3 +31,6 @@ yarn-error.log*
 *.pem
 .vercel
 *.tsbuildinfo
+
+# screenshot scratch (capture-product writes 2x PNGs before webp)
+/scripts/capture-product/png

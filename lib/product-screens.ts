@@ -6,7 +6,7 @@
    basename under public/product/screens/<slug>/. A slot appears here only when
    a real exported screen depicts it; every other slot keeps its placeholder.
 
-   115 of 121 screen slots are filled.
+   118 of 124 screen slots are filled.
    ========================================================================== */
 
 export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
@@ -55,10 +55,11 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "Theme Trend-Over-Time View": "theme-trend-over-time-view"
   },
   "flow": {
+    "Automations & Rules": "automations-and-rules",
+    "Case Inbox": "case-inbox",
     "Manager Oversight Panel": "manager-oversight-panel",
     "Mobile Task View": "mobile-task-view",
-    "Task Dashboard": "task-dashboard",
-    "Workflow Builder": "workflow-builder"
+    "Task Dashboard": "task-dashboard"
   },
   "ilearn": {
     "Learning Path Builder": "learning-path-builder",
@@ -70,6 +71,8 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "AI Insight Summary Panel": "ai-insight-summary-panel",
     "Driver-Level Heatmap": "driver-level-heatmap",
     "Manager Team View": "manager-team-view",
+    "Succession Intelligence": "succession-intelligence",
+    "Where the Risk Is": "where-the-risk-is",
     "Workforce Health Dashboard": "workforce-health-dashboard"
   },
   "ithrive": {
@@ -98,9 +101,9 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
   },
   "launch": {
     "Adoption Dashboard": "adoption-dashboard",
-    "Configuration & Template Library": "configuration-and-template-library",
     "Customer Success Portal": "customer-success-portal",
-    "Implementation Roadmap View": "implementation-roadmap-view"
+    "Implementation Roadmap View": "implementation-roadmap-view",
+    "Value Against the Baseline": "value-against-the-baseline"
   },
   "leadership-intelligence": {
     "Continuous 360 Feedback Interface": "continuous-360-feedback-interface",
@@ -110,9 +113,9 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
   },
   "link": {
     "API & Webhook Management": "api-and-webhook-management",
-    "Connector Configuration Panel": "connector-configuration-panel",
     "Data Sync Status Dashboard": "data-sync-status-dashboard",
-    "Integration Directory": "integration-directory"
+    "Integration Directory": "integration-directory",
+    "The Workforce Record": "the-workforce-record"
   },
   "listen": {
     "Channel Coverage View": "channel-coverage-view",
@@ -167,7 +170,7 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
   },
   "trust": {
     "AI Governance & Transparency Panel": "ai-governance-and-transparency-panel",
-    "Audit Log Viewer": "audit-log-viewer",
+    "Privacy Controls Panel": "privacy-controls-panel",
     "Role-Based Access Management": "role-based-access-management",
     "Security Controls Dashboard": "security-controls-dashboard"
   },

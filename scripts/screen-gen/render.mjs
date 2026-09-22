@@ -6,6 +6,12 @@ import { execFileSync } from "node:child_process";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SCREENS } from "./screens.mjs";
+import { SHOTS } from "../capture-product/shots.mjs";
+
+/* Screens that now exist for real are captured from the running product by
+   scripts/capture-product. A mock must never overwrite one of those, so this
+   generator skips anything that list owns. */
+const REAL = new Set(SHOTS.map((s) => `${s.slug}/${s.file}`));
 
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 /* fileURLToPath, not .pathname: this repo lives under "Claude Code", and a
@@ -19,8 +25,11 @@ const only = process.argv[3];
 mkdirSync(TMP, { recursive: true });
 mkdirSync(OUT, { recursive: true });
 
-const list = SCREENS.filter((s) => !only || `${s.slug}/${s.file}`.includes(only));
+const wanted = SCREENS.filter((s) => !only || `${s.slug}/${s.file}`.includes(only));
+const skipped = wanted.filter((s) => REAL.has(`${s.slug}/${s.file}`));
+const list = wanted.filter((s) => !REAL.has(`${s.slug}/${s.file}`));
 console.log(`rendering ${list.length} screen(s)`);
+if (skipped.length) console.log(`skipping ${skipped.length} captured from the real product: ${skipped.map((s) => `${s.slug}/${s.file}`).join(", ")}`);
 
 let ok = 0;
 const failed = [];

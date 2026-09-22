@@ -1,9 +1,16 @@
 # Generated product screens
 
-84 of the 111 screens in `public/product/screens/` are generated here. The other
-27 are real designs exported from the "All Pages" board in Figma — those are the
-reference these are built to match, and they are never overwritten by this
-generator.
+The screens in `public/product/screens/` come from three places now:
+
+- **43 are captures of the running product** (`scripts/capture-product`). Where
+  a module is built, the site shows the real screen.
+- **27 are designs exported from the "All Pages" board in Figma** — the
+  reference the mocks are built to match.
+- **The rest are generated here**, for screens the content spec names and the
+  product has not built yet.
+
+This generator skips anything `scripts/capture-product/shots.mjs` owns, so
+re-running it can never put a mock back over a real screen.
 
 ## Why generated
 
