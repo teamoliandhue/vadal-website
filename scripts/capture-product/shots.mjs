@@ -36,6 +36,7 @@ export const SHOTS = [
   { slug: "social", file: "communities", route: "/product/social/groups" },
   { slug: "amplify", file: "share-studio", route: "/product/amplify" },
   { slug: "kudos", file: "recognition-feed-wall-of-fame", route: "/product/kudos" },
+  { slug: "kudos", file: "rewards-catalog-and-redemption", route: "/product/marketplace" },
   { slug: "ithrive", file: "wellbeing-risk-dashboard", route: "/product/ithrive" },
 
   /* ── Digital workplace ─────────────────────────────────────────── */
