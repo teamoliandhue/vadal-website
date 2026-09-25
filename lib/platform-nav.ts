@@ -3,10 +3,17 @@ import type { IconName } from "./content";
 /* ============================================================================
    Platform taxonomy — THE single source of truth for the product catalog.
 
-   Six layers, sixteen modules, four capabilities each — exactly the structure
-   the founders signed off (21 Sep). Module names are the product's own names,
-   so the website and the platform say the same words: a customer who sees
-   "Kudos" here opens Kudos in the app.
+   The product's own nine, in the product's own order, taken from its tour
+   (`apps/product/src/lib/tour.ts`): Listen · Social · Amplify · iThrive ·
+   Broadcast · iLearn · iCare · Managers · Flow — "nine HR products, one AI
+   that acts". Each layer's lede and description are that pillar's own title
+   and meaning, verbatim. Nudge is the assistant running through all of them;
+   Platform is what IT and procurement ask about.
+
+   Module names are the product's own names, so the website and the platform
+   say the same words: a customer who sees "Kudos" here opens Kudos in the app.
+   Onboard and Alumni sit under Managers, and SmartWork under Flow, because
+   that is where the product's own navigation groups them.
 
    Everything that renders the catalog derives from this file — the desktop
    mega menu, the mobile module menu, /platform, the footer, the homepage
@@ -17,9 +24,10 @@ import type { IconName } from "./content";
    - `landingLayers`    the homepage accordion's IA
    - `platformModules`  every module flattened, with its layer and href
 
-   Layer ids are used as /platform#<id> anchors, so they are stable strings —
-   `decision-intelligence` replaced `workforce-intelligence` when that layer
-   was renamed.
+   Layer ids are used as /platform#<id> anchors, so they are stable strings.
+   They are the pillar names now; the previous six (`workforce-experience`,
+   `ai-engagement`, `digital-workplace`, `talent-intelligence`,
+   `enterprise-platform`, `decision-intelligence`) no longer exist.
    ========================================================================== */
 
 export type PlatformModule = {
@@ -53,12 +61,96 @@ export type PlatformLayer = {
 
 export const platformLayers: PlatformLayer[] = [
   {
-    id: "workforce-experience",
-    name: "Workforce Experience",
-    lede: "Connect, engage and retain your people.",
+    id: "listen",
+    name: "Listen",
+    lede: "Hear how people really feel.",
     description:
-      "The day-to-day experience of working here: the feed people actually open, the journey from first day to last, the wellbeing signals that arrive early, and recognition that reaches everyone.",
-    icon: "heart",
+      "Surveys, check-ins and comments become one health score \u2014 with every input shown.",
+    icon: "pulse",
+    modules: [
+      {
+        name: "Insight",
+        icon: "chart",
+        hook: "See risk early",
+        slug: "insight",
+        blurb:
+          "Workforce analytics with attrition risk, succession readiness and recommendations, explained well enough to act on.",
+        landing: true,
+        lines: [
+          "Workforce Analytics, engagement, attrition and productivity in one place.",
+          "Risk Intelligence, the teams and people at risk, while there is time.",
+          "Succession Intelligence, who is ready, who is nearly ready, where the gaps are.",
+          "Recommendations, the next move, with the data behind it.",
+        ],
+      },
+      {
+        name: "Pulse",
+        icon: "pulse",
+        hook: "Ask, read, act",
+        slug: "pulse",
+        blurb:
+          "Adaptive surveys on the channel each person answers on, results you can read by team, and follow-ups people hear back about.",
+        landing: true,
+        lines: [
+          "Adaptive Surveys, people only get the questions their answers make worth asking.",
+          "Omnichannel Surveys, app, email, WhatsApp, SMS and QR, in their language.",
+          "Sentiment Analysis, the mix behind every score, and which way it is moving.",
+          "Action Plans, a fix with an owner and a date, and a 'you said, we did' when it lands.",
+        ],
+      },
+      {
+        name: "Sentiment",
+        icon: "pulse",
+        hook: "What people mean, not just what they said",
+        slug: "sentiment-intelligence",
+        blurb:
+          "Themes that say whether they are getting better or worse, mood by team, and the fix in one step.",
+        landing: true,
+        lines: [
+          "Theme Direction, whether a theme is improving or worsening, not just louder.",
+          "The Split, every theme carries its mix of positive and negative, and how it is shifting.",
+          "Mood By Team, a net score and its drivers, with small teams withheld rather than estimated.",
+          "Theme To Fix, turn a theme into an action without leaving the page.",
+        ],
+      },
+      {
+        name: "Listen",
+        icon: "bell",
+        hook: "Hear it as it happens",
+        slug: "listen",
+        blurb:
+          "Always-on listening across every channel and every stage, read as themes rather than as individuals.",
+        landing: true,
+        lines: [
+          "Always-On Listening, employee voice captured continuously, not once a year.",
+          "Lifecycle Listening, the right check-in from onboarding to exit.",
+          "Real-Time Signals, emerging issues surface as they happen.",
+          "Voice Analytics, themes, drivers and tone read from what people wrote.",
+        ],
+      },
+      {
+        name: "Explore",
+        icon: "chart",
+        hook: "Slice it any way you need",
+        slug: "people-analytics",
+        blurb:
+          "Driver-level analysis across team, tenure, site and manager, with the anonymity floor applied everywhere.",
+        lines: [
+          "Driver Heatmaps, engagement by team and tenure in one grid.",
+          "Cohort Comparison, compare sites, functions and managers on the same scale.",
+          "Trend Depth, six months of history behind every number.",
+          "Safe By Default, no slice below five responses is ever shown.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "social",
+    name: "Social",
+    lede: "A feed where people share wins.",
+    description:
+      "Post, celebrate, recognise. Tied to your values, visible to everyone.",
+    icon: "users",
     modules: [
       {
         name: "Social",
@@ -73,51 +165,6 @@ export const platformLayers: PlatformLayer[] = [
           "Communities, spaces for teams, sites and interests to talk in their own words.",
           "Collaboration, posts, replies and polls that turn announcements into conversations.",
           "Knowledge Sharing, questions answered once, marked as the answer, findable after.",
-        ],
-      },
-      {
-        name: "Amplify",
-        icon: "broadcast",
-        hook: "Your people, your reach",
-        slug: "amplify",
-        blurb:
-          "Employees share company news and their own wins in their own words — with a preview of the post, and reach, applications and hires traced back to the share.",
-        landing: true,
-        lines: [
-          "Employee Advocacy, the company's news carried by the people who work here.",
-          "Written As You, a draft in your own voice, yours to edit, never auto-posted.",
-          "Referral Tracking, applications and hires traced to the person who shared.",
-          "Reach Analytics, what each share reached beyond the company's own accounts.",
-        ],
-      },
-      {
-        name: "Journey",
-        icon: "compass",
-        hook: "Every moment matters",
-        slug: "journey",
-        blurb:
-          "One hub for people, policies and tasks, with an experience tailored to where each person is in their time with you.",
-        landing: true,
-        lines: [
-          "Employee Hub, one place for people, policies, tasks and resources.",
-          "Moments That Matter, promotions, milestones and life events recognised automatically.",
-          "Personalized Journeys, the right step at the right stage, hire to retire.",
-          "Experience Analytics, measure and fix friction at every touchpoint.",
-        ],
-      },
-      {
-        name: "iThrive",
-        icon: "heart",
-        hook: "Spot burnout early",
-        slug: "ithrive",
-        blurb:
-          "Continuous wellbeing signals, culture programmes that run at scale, and coaching for the managers who can actually change something.",
-        landing: true,
-        lines: [
-          "Wellbeing, check-ins and support people will actually use.",
-          "Burnout Detection, catch the risk while there is still time to act.",
-          "Culture Programs, challenges and values delivered across every site.",
-          "Manager Coaching, AI guidance for the teams that need support.",
         ],
       },
       {
@@ -138,68 +185,103 @@ export const platformLayers: PlatformLayer[] = [
     ],
   },
   {
-    id: "ai-engagement",
-    name: "Employee Engagement & Listening",
-    lede: "Listen daily. Act fast. Keep talent.",
+    id: "amplify",
+    name: "Amplify",
+    lede: "Your moments, shared outside.",
     description:
-      "Hear what people are saying between surveys, ask the right question at the right moment, and finish the loop by telling them what changed.",
-    icon: "chat",
+      "Vadal drafts your wins in your voice. You choose what goes out.",
+    icon: "rocket",
     modules: [
       {
-        name: "Listen",
-        icon: "bell",
-        hook: "Hear it as it happens",
-        slug: "listen",
+        name: "Amplify",
+        icon: "broadcast",
+        hook: "Your people, your reach",
+        slug: "amplify",
         blurb:
-          "Always-on listening across every channel and every stage, read as themes rather than as individuals.",
+          "Employees share company news and their own wins in their own words \u2014 with a preview of the post, and reach, applications and hires traced back to the share.",
         landing: true,
         lines: [
-          "Always-On Listening, employee voice captured continuously, not once a year.",
-          "Lifecycle Listening, the right check-in from onboarding to exit.",
-          "Real-Time Signals, emerging issues surface as they happen.",
-          "Voice Analytics, themes, drivers and tone read from what people wrote.",
-        ],
-      },
-      {
-        name: "Pulse",
-        icon: "pulse",
-        hook: "Ask, read, act",
-        slug: "pulse",
-        blurb:
-          "Adaptive surveys on the channel each person answers on, results you can read by team, and follow-ups people hear back about.",
-        landing: true,
-        lines: [
-          "Adaptive Surveys, people only get the questions their answers make worth asking.",
-          "Omnichannel Surveys, app, email, WhatsApp, SMS and QR, in their language.",
-          "Sentiment Analysis, the mix behind every score, and which way it is moving.",
-          "Action Plans, a fix with an owner and a date, and a 'you said, we did' when it lands.",
+          "Employee Advocacy, the company's news carried by the people who work here.",
+          "Written As You, a draft in your own voice, yours to edit, never auto-posted.",
+          "Referral Tracking, applications and hires traced to the person who shared.",
+          "Reach Analytics, what each share reached beyond the company's own accounts.",
         ],
       },
     ],
   },
   {
-    id: "digital-workplace",
-    name: "Digital Workplace",
-    lede: "Answers, learning and work that flows.",
+    id: "ithrive",
+    name: "iThrive",
+    lede: "Health and wealth, side by side.",
     description:
-      "The everyday machinery: HR questions answered from your own policies, learning that fits a shift, and cases and tasks that never fall through.",
-    icon: "rocket",
+      "A goal that fits your job, and money guidance right next to it.",
+    icon: "heart",
     modules: [
       {
-        name: "SmartWork",
-        icon: "chat",
-        hook: "Answers, not tickets",
-        slug: "smartwork",
+        name: "iThrive",
+        icon: "heart",
+        hook: "Spot burnout early",
+        slug: "ithrive",
         blurb:
-          "HR questions answered from your own policies, resolved automatically where they can be and escalated to a person where they should be.",
+          "Continuous wellbeing signals, culture programmes that run at scale, and coaching for the managers who can actually change something.",
         landing: true,
         lines: [
-          "HR Queries, answered instantly, day or night, in any language.",
-          "Automated Resolution, routine requests handled end to end.",
-          "Smart Escalation, the cases that need a human reach one, with context.",
-          "Policy Answers, grounded in your documents, with the source shown.",
+          "Wellbeing, check-ins and support people will actually use.",
+          "Burnout Detection, catch the risk while there is still time to act.",
+          "Culture Programs, challenges and values delivered across every site.",
+          "Manager Coaching, AI guidance for the teams that need support.",
         ],
       },
+    ],
+  },
+  {
+    id: "broadcast",
+    name: "Broadcast",
+    lede: "One channel everyone trusts.",
+    description:
+      "Announcements that get acknowledged, campaigns that report reach, and a policy library you can ask.",
+    icon: "broadcast",
+    modules: [
+      {
+        name: "Campaigns",
+        icon: "broadcast",
+        hook: "Interventions that move the number",
+        slug: "campaigns",
+        blurb:
+          "Wellness weeks, 1:1 sprints and recognition pushes with a plan, a channel mix and an honest measure of lift.",
+        landing: true,
+        lines: [
+          "Ready Plans, wellness weeks, 1:1 sprints, recognition pushes, burnout resets.",
+          "Channel Mix, feed, Teams and WhatsApp, with a weekly send limit per team.",
+          "Honest Lift, the campaign's own effect, separated from what moved anyway.",
+          "Run It Again, what worked, what did not, and the version worth repeating.",
+        ],
+      },
+      {
+        name: "Knowledge",
+        icon: "compass",
+        hook: "Answers with their source",
+        slug: "knowledge",
+        blurb:
+          "A policy library anyone can ask, answers that cite the document, and the gaps found from real questions.",
+        landing: true,
+        lines: [
+          "Ask The Library, plain questions, answers grounded in your own documents.",
+          "Cited Answers, the source shown every time, so an answer can be checked.",
+          "Gap Detection, questions nobody could answer become the next article.",
+          "Staleness Warnings, a policy past its review date says so before it is quoted.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "ilearn",
+    name: "iLearn",
+    lede: "Learning in five minutes.",
+    description:
+      "Short lessons, quick quizzes, and reminders for what you keep missing.",
+    icon: "graduation",
+    modules: [
       {
         name: "iLearn",
         icon: "graduation",
@@ -215,31 +297,56 @@ export const platformLayers: PlatformLayer[] = [
           "Compliance Tracking, who has completed what, ready for an audit.",
         ],
       },
+    ],
+  },
+  {
+    id: "icare",
+    name: "iCare",
+    lede: "A private door to support.",
+    description:
+      "Talk it through confidentially. A real person is always one tap away.",
+    icon: "lifebuoy",
+    modules: [
       {
-        name: "Flow",
-        icon: "checks",
-        hook: "Nothing falls through",
-        slug: "flow",
+        name: "iCare",
+        icon: "heart",
+        hook: "A private door to support",
+        slug: "icare",
         blurb:
-          "Cases, tasks and approvals with an owner, automation for the repetitive parts, and SLAs you can actually report on.",
+          "Talk it through confidentially with a companion that keeps nothing, and reach a real person in one tap.",
         landing: true,
         lines: [
-          "Case Management, every request tracked from raised to resolved.",
-          "Task Management, work assigned, visible and chased automatically.",
-          "Workflow Automation, approvals and handovers that run themselves.",
-          "SLA Analytics, response and resolution times by team and case type.",
+          "Confidential Companion, talk it through; the conversation is deleted, nothing kept.",
+          "One Tap To A Person, a real counsellor is always one tap away.",
+          "For Someone Else, help a colleague you are worried about.",
+          "What Tends To Help, short, practical steps for the moment you are in.",
         ],
       },
     ],
   },
   {
-    id: "talent-intelligence",
-    name: "Talent Intelligence",
-    lede: "From first day to alumni.",
+    id: "managers",
+    name: "Managers",
+    lede: "Insight managers act on.",
     description:
-      "Start people well and keep the relationship after they leave — the two ends of the lifecycle that most systems ignore.",
-    icon: "compass",
+      "Team health, what is driving it, and the one action to take this week.",
+    icon: "users",
     modules: [
+      {
+        name: "Manager hub",
+        icon: "users",
+        hook: "The one action this week",
+        slug: "manager-hub",
+        blurb:
+          "Team health, what is driving it, and a prioritised queue \u2014 never an individual's words with their name on them.",
+        landing: true,
+        lines: [
+          "Team Health, the score and the drivers behind it, for your team only.",
+          "Action Queue, what to do this week, in priority order.",
+          "1:1 Prep, per-report context before the conversation.",
+          "Aggregate Only, the team as a whole, never a person's words with their name.",
+        ],
+      },
       {
         name: "Onboard",
         icon: "rocket",
@@ -261,7 +368,7 @@ export const platformLayers: PlatformLayer[] = [
         hook: "Leavers stay reachable",
         slug: "alumni",
         blurb:
-          "An alumni network that keeps good leavers close — exit documents in one place, boomerang hiring and referrals that keep paying back.",
+          "An alumni network that keeps good leavers close \u2014 exit documents in one place, boomerang hiring and referrals that keep paying back.",
         landing: true,
         lines: [
           "Alumni Network, a directory and feed that people stay in.",
@@ -273,12 +380,77 @@ export const platformLayers: PlatformLayer[] = [
     ],
   },
   {
-    id: "enterprise-platform",
-    name: "Enterprise AI Platform",
+    id: "flow",
+    name: "Flow",
+    lede: "Nothing raised gets lost.",
+    description:
+      "Concerns become cases \u2014 owned, timed, and resolved.",
+    icon: "checks",
+    modules: [
+      {
+        name: "Flow",
+        icon: "checks",
+        hook: "Nothing falls through",
+        slug: "flow",
+        blurb:
+          "Cases, tasks and approvals with an owner, automation for the repetitive parts, and SLAs you can actually report on.",
+        landing: true,
+        lines: [
+          "Case Management, every request tracked from raised to resolved.",
+          "Task Management, work assigned, visible and chased automatically.",
+          "Workflow Automation, approvals and handovers that run themselves.",
+          "SLA Analytics, response and resolution times by team and case type.",
+        ],
+      },
+      {
+        name: "SmartWork",
+        icon: "chat",
+        hook: "Answers, not tickets",
+        slug: "smartwork",
+        blurb:
+          "HR questions answered from your own policies, resolved automatically where they can be and escalated to a person where they should be.",
+        landing: true,
+        lines: [
+          "HR Queries, answered instantly, day or night, in any language.",
+          "Automated Resolution, routine requests handled end to end.",
+          "Smart Escalation, the cases that need a human reach one, with context.",
+          "Policy Answers, grounded in your documents, with the source shown.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "nudge",
+    name: "Nudge",
+    lede: "One assistant. It can act.",
+    description:
+      "Ask, draft, launch a pulse, give kudos. It confirms before anything reaches a person.",
+    icon: "spark",
+    modules: [
+      {
+        name: "Nudge",
+        icon: "spark",
+        hook: "The next right thing",
+        slug: "nudge",
+        blurb:
+          "The AI teammate: proactive alerts, manager guidance and the short list of what to do first today.",
+        landing: true,
+        lines: [
+          "Proactive Alerts, what needs attention, before anyone goes looking.",
+          "Manager Guidance, team-specific coaching prompts in plain words.",
+          "Retention Nudges, act to keep the people you cannot afford to lose.",
+          "Task Priorities, today's short list, ordered by what matters.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "platform",
+    name: "Platform",
     lede: "Connected, secure, live in weeks.",
     description:
-      "The foundation every module sits on: one workforce record, security and privacy people can trust, and an implementation that reaches go-live.",
-    icon: "shield",
+      "The people record, the security posture and the rollout \u2014 the part IT and procurement ask about.",
+    icon: "plug",
     modules: [
       {
         name: "Link",
@@ -327,50 +499,8 @@ export const platformLayers: PlatformLayer[] = [
       },
     ],
   },
-  {
-    id: "decision-intelligence",
-    name: "Decision Intelligence",
-    lede: "Know what is coming, and what to do.",
-    description:
-      "Where the whole platform adds up: analytics that show risk early, and an assistant that tells each person the next right thing to do.",
-    icon: "chart",
-    modules: [
-      {
-        name: "Insight",
-        icon: "chart",
-        hook: "See risk early",
-        slug: "insight",
-        blurb:
-          "Workforce analytics with attrition risk, succession readiness and recommendations, explained well enough to act on.",
-        landing: true,
-        lines: [
-          "Workforce Analytics, engagement, attrition and productivity in one place.",
-          "Risk Intelligence, the teams and people at risk, while there is time.",
-          "Succession Intelligence, who is ready, who is nearly ready, where the gaps are.",
-          "Recommendations, the next move, with the data behind it.",
-        ],
-      },
-      {
-        name: "Nudge",
-        icon: "spark",
-        hook: "The next right thing",
-        slug: "nudge",
-        blurb:
-          "The AI teammate: proactive alerts, manager guidance and the short list of what to do first today.",
-        isNew: true,
-        landing: true,
-        lines: [
-          "Proactive Alerts, what needs attention, before anyone goes looking.",
-          "Manager Guidance, team-specific coaching prompts in plain words.",
-          "Retention Nudges, act to keep the people you cannot afford to lose.",
-          "Task Priorities, today's short list, ordered by what matters.",
-        ],
-      },
-    ],
-  },
 ];
 
-/* The homepage accordion renders the same catalog, layer by layer. */
 export const landingLayers: PlatformLayer[] = platformLayers.map((l) => ({
   ...l,
   modules: l.modules.filter((m) => m.landing),

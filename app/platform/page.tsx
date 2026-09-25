@@ -232,14 +232,14 @@ export default function PlatformPage() {
         </Container>
       </Section>
 
-      {/* portfolio — the six product families (Portfolio for Vadal.docx).
+      {/* portfolio — the product's own nine, from its tour (tour.ts).
           Anchor ids are shared with the header mega-menu. */}
       <Section tone="base" id="portfolio" className="scroll-mt-20">
         <Container>
           <SectionHead
             eyebrow="The full portfolio"
-            title="Every capability, six product families"
-            lede="From workforce experience to decision intelligence, the complete Vadal.ai portfolio, unified on one AI-powered platform."
+            title="Nine HR products, and the assistant running through them"
+            lede="Listen, Social, Amplify, iThrive, Broadcast, iLearn, iCare, Managers and Flow — the product's own nine, plus Nudge and the platform underneath."
           />
           <div className="mt-14 space-y-14">
             {platformLayers.map((g) => (

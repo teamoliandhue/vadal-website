@@ -99,8 +99,8 @@ export default function HomePage() {
         <Container>
           <SectionHead
             eyebrow="The platform"
-            title="Everything your workforce needs, in six layers"
-            lede="Tap a layer to see its modules, and any module to see what you get."
+            title="Nine HR products. One AI that acts."
+            lede="Tap a product to see what is inside it, and any module to see what you get."
           />
           <div className="mt-10">
             <MobilePlatformLayers />

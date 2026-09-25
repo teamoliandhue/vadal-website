@@ -41,9 +41,411 @@ export type Product = {
 
 export const products: Product[] = [
   {
+    "slug": "campaigns",
+    "name": "Campaigns",
+    "cloud": "broadcast",
+    "icon": "broadcast",
+    "mock": "broadcast",
+    "heroTitle": "Interventions that actually move the number",
+    "heroLede": "Wellness weeks, 1:1 sprints and recognition pushes, each with a plan, a channel mix and an honest measure of what it changed.",
+    "challengesTitle": "Why Most HR Campaigns Cannot Prove Anything",
+    "challenges": [
+      "A campaign goes out and nobody can say what it changed.",
+      "Reach is reported as sends, not as people who actually saw it.",
+      "Every uplift is claimed by the campaign, including the part that would have happened anyway.",
+      "Frontline teams get the same email as head office, and never open it.",
+      "Teams are hit by three campaigns in one week because nobody is counting.",
+      "The campaign that worked is never run again, because nobody wrote down why it worked."
+    ],
+    "pillars": [
+      "Ready plans",
+      "Channel mix",
+      "Honest lift",
+      "Run it again"
+    ],
+    "capabilities": [
+      {
+        "title": "Ready-made plans",
+        "body": "Wellness weeks, 1:1 sprints, recognition pushes and burnout resets arrive as dated plans with steps, not as an empty builder.",
+        "bullets": [
+          "Start from a plan that has a shape already",
+          "Each step has a date, an audience and a channel",
+          "Adapt it rather than invent it"
+        ],
+        "screen": "Campaign Dashboard"
+      },
+      {
+        "title": "The channels people are actually on",
+        "body": "Feed, Teams and WhatsApp together, so the frontline is reached where it reads — with a weekly send limit per team so nobody is flooded.",
+        "bullets": [
+          "Reach desk and frontline in the same campaign",
+          "A weekly cap per team, enforced",
+          "Send progress as it goes out, not after"
+        ],
+        "screen": "Multi-Channel Delivery"
+      },
+      {
+        "title": "Honest lift",
+        "body": "The campaign's own effect, separated from what was moving anyway, so a number you take to the board survives the first question.",
+        "bullets": [
+          "Measured against the team's own baseline",
+          "The counterfactual shown, not hidden",
+          "Participation and reach reported separately"
+        ],
+        "screen": "Value Against the Baseline"
+      },
+      {
+        "title": "Lessons, and the version worth repeating",
+        "body": "What worked, what did not, and the campaign saved in the state that earned the result.",
+        "bullets": [
+          "Write the lesson while it is still true",
+          "Re-run the version that worked",
+          "Compare this run with the last"
+        ],
+        "screen": "Campaign Results"
+      }
+    ],
+    "aiCapabilities": [
+      "AI Campaign Suggestions",
+      "AI Copy Assist",
+      "AI Send-Time Optimisation"
+    ],
+    "outcomes": [
+      "Reach the frontline, not just the inbox",
+      "Report lift you can defend",
+      "Stop flooding the same teams",
+      "Repeat what worked"
+    ],
+    "screens": [],
+    "integrations": [
+      "Microsoft Teams",
+      "WhatsApp Business",
+      "Slack",
+      "Workday"
+    ],
+    "faqs": [
+      {
+        "q": "How is “honest lift” different from a before-and-after number?",
+        "a": "A before-and-after number credits the campaign with everything that moved, including the part that was already moving. Lift is measured against the team's own baseline trend, so what is reported is the campaign's own effect. Reach and participation are reported separately, because they are different questions."
+      },
+      {
+        "q": "How do you stop teams being flooded with campaigns?",
+        "a": "There is a weekly send limit per team. A campaign that would push a team over its cap says so while you are still planning it, rather than after it has gone out."
+      }
+    ],
+    "related": [
+      "knowledge",
+      "social",
+      "amplify",
+      "pulse"
+    ],
+    "footerCta": "Ready to run a campaign you can actually measure?"
+  },
+  {
+    "slug": "knowledge",
+    "name": "Knowledge",
+    "cloud": "broadcast",
+    "icon": "compass",
+    "mock": "dashboard",
+    "heroTitle": "A policy library anyone can just ask",
+    "heroLede": "Plain questions, answers grounded in your own documents with the source shown, and the gaps found from what nobody could answer.",
+    "challengesTitle": "Why Policy Questions Never Stop",
+    "challenges": [
+      "The same questions reach HR every week because the answer is hard to find.",
+      "Policies live in a drive nobody can search.",
+      "An answer arrives with no source, so nobody trusts it enough to act.",
+      "A policy changes and the old version keeps being quoted.",
+      "Nobody knows which questions have no answer at all.",
+      "Frontline employees have no way to ask without going through a manager."
+    ],
+    "pillars": [
+      "Ask the library",
+      "Cited answers",
+      "Gap detection",
+      "Staleness warnings"
+    ],
+    "capabilities": [
+      {
+        "title": "Ask it in your own words",
+        "body": "A plain question, answered from your own documents — not a search box that returns a list of PDFs.",
+        "bullets": [
+          "Ask the way people actually ask",
+          "Answers drawn only from your own content",
+          "Available to frontline teams without a manager in between"
+        ],
+        "screen": "AI Answer Experience"
+      },
+      {
+        "title": "Every answer cites its source",
+        "body": "The document and the section are shown with the answer, so it can be checked before anyone acts on it.",
+        "bullets": [
+          "The source shown every time",
+          "Open the policy itself in one tap",
+          "An answer that cannot be sourced is not given"
+        ],
+        "screen": "Knowledge Base Library"
+      },
+      {
+        "title": "The gaps find themselves",
+        "body": "Questions nobody could answer become the list of what to write next, and a thumbs-down becomes a correction rather than a complaint.",
+        "bullets": [
+          "Unanswered questions collected automatically",
+          "Thumbs-down routes to a correction",
+          "The next article chosen by demand, not guesswork"
+        ],
+        "screen": "Knowledge Gap Detection"
+      },
+      {
+        "title": "Stale policies say so",
+        "body": "A document past its review date is flagged before it is quoted, so an out-of-date answer does not go out with confidence.",
+        "bullets": [
+          "Review dates tracked per document",
+          "Warned before a stale policy is used",
+          "Role-gated, so people see what applies to them"
+        ],
+        "screen": "Policy Version Control"
+      }
+    ],
+    "aiCapabilities": [
+      "AI Grounded Answers",
+      "AI Gap Detection",
+      "AI Summarisation"
+    ],
+    "outcomes": [
+      "Cut repeat questions to HR",
+      "Give the frontline a direct answer",
+      "Trust an answer enough to act on it",
+      "Write the articles people actually need"
+    ],
+    "screens": [],
+    "integrations": [
+      "SharePoint",
+      "Google Drive",
+      "Microsoft Teams",
+      "Workday"
+    ],
+    "faqs": [
+      {
+        "q": "Can it answer from documents we have not published?",
+        "a": "No. It answers only from the documents in the library, and only those the person is allowed to see. Role-gating is applied before an answer is produced, not after."
+      },
+      {
+        "q": "What happens when there is no answer?",
+        "a": "It says so rather than inventing one, and the question joins the gap list. That list is what tells you which article to write next, ranked by how often it has been asked."
+      }
+    ],
+    "related": [
+      "campaigns",
+      "smartwork",
+      "ilearn",
+      "nudge"
+    ],
+    "footerCta": "Ready to stop answering the same question twice?"
+  },
+  {
+    "slug": "icare",
+    "name": "iCare",
+    "cloud": "icare",
+    "icon": "heart",
+    "mock": "phone",
+    "heroTitle": "A private door to support",
+    "heroLede": "Talk it through confidentially with a companion that keeps nothing, and reach a real counsellor in one tap.",
+    "challengesTitle": "Why People Do Not Ask For Help At Work",
+    "challenges": [
+      "Asking for help means telling someone, and telling someone feels like a record.",
+      "The employee assistance number is on a poster nobody has read.",
+      "People worry a conversation will reach their manager.",
+      "Someone notices a colleague struggling and has no idea what to do.",
+      "Support exists but is three forms away from the moment it was needed.",
+      "Frontline employees have no private moment in which to ask."
+    ],
+    "pillars": [
+      "Confidential companion",
+      "One tap to a person",
+      "For someone else",
+      "What tends to help"
+    ],
+    "capabilities": [
+      {
+        "title": "A conversation that is not kept",
+        "body": "Talk to the companion about what is going on. The conversation is deleted — nothing is stored, and nothing reaches a manager.",
+        "bullets": [
+          "Nothing kept once the conversation ends",
+          "Never surfaced to a manager or in analytics",
+          "Available any hour, in your own language"
+        ],
+        "screen": "AI Companion"
+      },
+      {
+        "title": "A real person, one tap away",
+        "body": "When it is more than a conversation, a counsellor is reachable immediately rather than through a form.",
+        "bullets": [
+          "Speak to someone now, without a referral",
+          "Book a session at a time that works",
+          "The companion says when it thinks a person would help more"
+        ],
+        "screen": "Counsellor Booking"
+      },
+      {
+        "title": "For someone else",
+        "body": "A route for the colleague who has noticed something and does not know what to do about it.",
+        "bullets": [
+          "Describe what you have noticed",
+          "Get a way to open the conversation",
+          "Escalate without naming anyone"
+        ],
+        "screen": "Helping Someone Else"
+      },
+      {
+        "title": "What tends to help",
+        "body": "Short, practical steps for the moment someone is actually in, rather than a library to read later.",
+        "bullets": [
+          "Start here when it is hard to start",
+          "Steps sized for a break, not an evening",
+          "Built for the shift floor as much as the desk"
+        ],
+        "screen": "Support Library"
+      }
+    ],
+    "aiCapabilities": [
+      "AI Companion",
+      "AI Risk Signals",
+      "AI Translation"
+    ],
+    "outcomes": [
+      "Give people a private way to ask",
+      "Reach support before it becomes leave",
+      "Help colleagues help each other",
+      "Reduce the distance between noticing and acting"
+    ],
+    "screens": [],
+    "integrations": [
+      "Microsoft Teams",
+      "WhatsApp Business"
+    ],
+    "faqs": [
+      {
+        "q": "Can my manager see that I used iCare?",
+        "a": "No. Conversations are deleted and are never attributed to a person in any report. Nothing from iCare appears in a manager's view, and nothing is counted below the workspace's anonymity threshold of five people anywhere else."
+      },
+      {
+        "q": "Is the companion a replacement for a counsellor?",
+        "a": "No, and it says so. It is the first, private step; a real counsellor is one tap away throughout, and the companion recommends one when the conversation suggests it would help more."
+      }
+    ],
+    "related": [
+      "ithrive",
+      "smartwork",
+      "flow",
+      "nudge"
+    ],
+    "footerCta": "Ready to give your people a door they will actually use?"
+  },
+  {
+    "slug": "manager-hub",
+    "name": "Manager hub",
+    "cloud": "managers",
+    "icon": "users",
+    "mock": "dashboard",
+    "heroTitle": "Insight a manager can act on this week",
+    "heroLede": "Team health, what is driving it, and a prioritised queue — the team as a whole, never a person's words with their name on them.",
+    "challengesTitle": "Why Managers Do Not Use Engagement Data",
+    "challenges": [
+      "A manager gets a score and no idea what to do with it.",
+      "The dashboard is built for HR, not for someone with eleven people and a day job.",
+      "By the time the report arrives, the moment has passed.",
+      "Managers fear seeing individual answers, and employees fear them seeing them.",
+      "1:1s happen without preparation, so they cover status and not the person.",
+      "Nobody tells a manager which of their people is quietly at risk."
+    ],
+    "pillars": [
+      "Team health",
+      "Action queue",
+      "1:1 prep",
+      "Aggregate only"
+    ],
+    "capabilities": [
+      {
+        "title": "Your team's health, and what drives it",
+        "body": "One score for the team, with the drivers behind it, so a manager can see what is actually moving before deciding anything.",
+        "bullets": [
+          "The team's own score, not the company average",
+          "Drivers ranked by how much they move it",
+          "Compared with the team's own history"
+        ],
+        "screen": "Manager Team View"
+      },
+      {
+        "title": "The one action this week",
+        "body": "A prioritised queue rather than a dashboard — what to do, in order, sized for a manager who also has a job.",
+        "bullets": [
+          "Ranked by what will move the number",
+          "One action at a time, with a reason",
+          "Marked done, and measured afterwards"
+        ],
+        "screen": "Manager Action Queue"
+      },
+      {
+        "title": "Prepared 1:1s",
+        "body": "Per-report context before the conversation: recognition given and received, cadence, and what has changed since last time.",
+        "bullets": [
+          "Prep gathered before the meeting, not during",
+          "Recognition and cadence in one view",
+          "Prompts drawn from what actually changed"
+        ],
+        "screen": "1:1 Preparation"
+      },
+      {
+        "title": "Aggregate only, by design",
+        "body": "A manager sees the team as a whole. Individual answers are never attributed, and nothing is shown below the anonymity threshold.",
+        "bullets": [
+          "Never a person's words with their name",
+          "Nothing shown below five responses",
+          "The same floor applies to admins"
+        ],
+        "screen": "Manager Enablement"
+      }
+    ],
+    "aiCapabilities": [
+      "AI Coaching Nudges",
+      "AI 1:1 Prep",
+      "AI Risk Signals"
+    ],
+    "outcomes": [
+      "Give managers one action, not a dashboard",
+      "Catch risk while there is time",
+      "Make 1:1s worth the half hour",
+      "Protect the people who answered"
+    ],
+    "screens": [],
+    "integrations": [
+      "Microsoft Teams",
+      "Slack",
+      "Workday",
+      "Darwinbox"
+    ],
+    "faqs": [
+      {
+        "q": "Can a manager see who said what?",
+        "a": "No. The manager view is the team as a whole. Individual responses are never attributed, and no slice below five responses is shown — the same floor that applies to admins."
+      },
+      {
+        "q": "What stops this becoming another dashboard managers ignore?",
+        "a": "It leads with a queue rather than a chart: one action, why it was chosen, and what happened after it was done. The score is there to explain the action, not the other way round."
+      }
+    ],
+    "related": [
+      "flow",
+      "pulse",
+      "kudos",
+      "icare"
+    ],
+    "footerCta": "Ready to give managers something they can actually do?"
+  },
+  {
     "slug": "social",
     "name": "Social",
-    "cloud": "workforce-experience",
+    "cloud": "social",
     "icon": "users",
     "mock": "phone",
     "heroTitle": "The company feed people actually open",
@@ -174,7 +576,7 @@ export const products: Product[] = [
   {
     "slug": "amplify",
     "name": "Amplify",
-    "cloud": "workforce-experience",
+    "cloud": "amplify",
     "icon": "rocket",
     "mock": "phone",
     "heroTitle": "Employee advocacy, in your people's own words",
@@ -277,7 +679,7 @@ export const products: Product[] = [
   {
     "slug": "employee-communication",
     "name": "Employee Communication",
-    "cloud": "workforce-experience",
+    "cloud": "broadcast",
     "icon": "broadcast",
     "mock": "broadcast",
     "heroTitle": "Intelligent Employee Communication Powered by AI",
@@ -427,7 +829,7 @@ export const products: Product[] = [
   {
     "slug": "journey",
     "name": "Journey",
-    "cloud": "workforce-experience",
+    "cloud": "social",
     "icon": "compass",
     "mock": "phone",
     "heroTitle": "Reimagine Every Employee Moment with AI",
@@ -575,7 +977,7 @@ export const products: Product[] = [
   {
     "slug": "ithrive",
     "name": "iThrive",
-    "cloud": "workforce-experience",
+    "cloud": "ithrive",
     "icon": "heart",
     "mock": "voice",
     "heroTitle": "Build a Culture of Wellbeing with AI",
@@ -720,7 +1122,7 @@ export const products: Product[] = [
   {
     "slug": "kudos",
     "name": "Kudos",
-    "cloud": "workforce-experience",
+    "cloud": "social",
     "icon": "bell",
     "mock": "phone",
     "heroTitle": "Make Every Employee Feel Valued with AI-Powered Recognition",
@@ -864,7 +1266,7 @@ export const products: Product[] = [
   {
     "slug": "insight",
     "name": "Insight",
-    "cloud": "decision-intelligence",
+    "cloud": "listen",
     "icon": "chart",
     "mock": "dashboard",
     "heroTitle": "Understand Your Workforce with AI-Powered People Analytics",
@@ -1011,7 +1413,7 @@ export const products: Product[] = [
   {
     "slug": "sentiment-intelligence",
     "name": "Sentiment Intelligence",
-    "cloud": "decision-intelligence",
+    "cloud": "listen",
     "icon": "pulse",
     "mock": "voice",
     "heroTitle": "Know How Your Workforce Really Feels, in Real Time",
@@ -1134,7 +1536,7 @@ export const products: Product[] = [
   {
     "slug": "benchmark-intelligence",
     "name": "Benchmark Intelligence",
-    "cloud": "decision-intelligence",
+    "cloud": "listen",
     "icon": "globe",
     "mock": "dashboard",
     "heroTitle": "See How Your Workforce Compares, and What to Do About It",
@@ -1252,7 +1654,7 @@ export const products: Product[] = [
   {
     "slug": "executive-reports",
     "name": "Executive Reports",
-    "cloud": "decision-intelligence",
+    "cloud": "listen",
     "icon": "checks",
     "mock": "dashboard",
     "heroTitle": "Turn Workforce Data Into Board-Ready Insight, Instantly",
@@ -1371,7 +1773,7 @@ export const products: Product[] = [
   {
     "slug": "onboard",
     "name": "Onboard",
-    "cloud": "talent-intelligence",
+    "cloud": "managers",
     "icon": "rocket",
     "mock": "phone",
     "heroTitle": "Turn New Hires Into Productive Team Members, Faster",
@@ -1500,7 +1902,7 @@ export const products: Product[] = [
   {
     "slug": "skills-intelligence",
     "name": "Skills Intelligence",
-    "cloud": "talent-intelligence",
+    "cloud": "managers",
     "icon": "graduation",
     "mock": "dashboard",
     "heroTitle": "Know the Skills You Have, and the Skills You Need",
@@ -1621,7 +2023,7 @@ export const products: Product[] = [
   {
     "slug": "leadership-intelligence",
     "name": "Leadership Intelligence",
-    "cloud": "talent-intelligence",
+    "cloud": "managers",
     "icon": "users",
     "mock": "dashboard",
     "heroTitle": "Develop Leaders Who Actually Drive Engagement",
@@ -1741,7 +2143,7 @@ export const products: Product[] = [
   {
     "slug": "workforce-planning",
     "name": "Workforce Planning",
-    "cloud": "talent-intelligence",
+    "cloud": "managers",
     "icon": "compass",
     "mock": "dashboard",
     "heroTitle": "Plan Your Workforce with the Same Rigor as Your Budget",
@@ -1861,7 +2263,7 @@ export const products: Product[] = [
   {
     "slug": "alumni",
     "name": "Alumni",
-    "cloud": "talent-intelligence",
+    "cloud": "managers",
     "icon": "users",
     "mock": "phone",
     "heroTitle": "Stay Connected After Goodbye",
@@ -2001,7 +2403,7 @@ export const products: Product[] = [
   {
     "slug": "pulse",
     "name": "Pulse",
-    "cloud": "ai-engagement",
+    "cloud": "listen",
     "icon": "pulse",
     "mock": "dashboard",
     "heroTitle": "Listen to Your Workforce, Continuously and Intelligently",
@@ -2132,7 +2534,7 @@ export const products: Product[] = [
   {
     "slug": "listen",
     "name": "Listen",
-    "cloud": "ai-engagement",
+    "cloud": "listen",
     "icon": "chat",
     "mock": "voice",
     "heroTitle": "Actively Listen and Engage With Your Workforce Every Day, Not Once a Year",
@@ -2254,7 +2656,7 @@ export const products: Product[] = [
   {
     "slug": "feedback-intelligence",
     "name": "Feedback Intelligence",
-    "cloud": "ai-engagement",
+    "cloud": "listen",
     "icon": "spark",
     "mock": "voice",
     "heroTitle": "Turn Thousands of Comments Into Clear, Actionable Insight",
@@ -2377,7 +2779,7 @@ export const products: Product[] = [
   {
     "slug": "action-planning",
     "name": "Action Planning",
-    "cloud": "ai-engagement",
+    "cloud": "flow",
     "icon": "checks",
     "mock": "dashboard",
     "heroTitle": "Close the Loop From Feedback to Real Action",
@@ -2498,7 +2900,7 @@ export const products: Product[] = [
   {
     "slug": "smartwork",
     "name": "SmartWork",
-    "cloud": "digital-workplace",
+    "cloud": "flow",
     "icon": "chat",
     "mock": "phone",
     "heroTitle": "An AI Assistant That Answers Every Employee, Instantly",
@@ -2625,7 +3027,7 @@ export const products: Product[] = [
   {
     "slug": "flow",
     "name": "Flow",
-    "cloud": "digital-workplace",
+    "cloud": "flow",
     "icon": "checks",
     "mock": "phone",
     "heroTitle": "Get Everyday Work Done, Right Inside the Flow of Work",
@@ -2759,7 +3161,7 @@ export const products: Product[] = [
   {
     "slug": "ilearn",
     "name": "iLearn",
-    "cloud": "digital-workplace",
+    "cloud": "ilearn",
     "icon": "phone",
     "mock": "phone",
     "heroTitle": "Learning That Fits Every Employee, on Any Device",
@@ -2885,7 +3287,7 @@ export const products: Product[] = [
   {
     "slug": "link",
     "name": "Link",
-    "cloud": "enterprise-platform",
+    "cloud": "platform",
     "icon": "plug",
     "mock": "dashboard",
     "heroTitle": "Connect Vadal.ai to Everything Your Workforce Already Uses",
@@ -3025,7 +3427,7 @@ export const products: Product[] = [
   {
     "slug": "trust",
     "name": "Trust",
-    "cloud": "enterprise-platform",
+    "cloud": "platform",
     "icon": "shield",
     "mock": "dashboard",
     "heroTitle": "Enterprise-Grade Security Your Workforce Data Deserves",
@@ -3143,7 +3545,7 @@ export const products: Product[] = [
   {
     "slug": "launch",
     "name": "Launch",
-    "cloud": "enterprise-platform",
+    "cloud": "platform",
     "icon": "lifebuoy",
     "mock": "dashboard",
     "heroTitle": "From Kickoff to Value, With a Partner Beside You",
@@ -3260,7 +3662,7 @@ export const products: Product[] = [
   {
     "slug": "decision-intelligence-copilot",
     "name": "Decision Intelligence Copilot",
-    "cloud": "enterprise-platform",
+    "cloud": "nudge",
     "icon": "spark",
     "mock": "dashboard",
     "heroTitle": "Your AI Copilot for Every Workforce Decision",
@@ -3381,7 +3783,7 @@ export const products: Product[] = [
   {
     "slug": "nudge",
     "name": "Nudge",
-    "cloud": "decision-intelligence",
+    "cloud": "nudge",
     "icon": "bell",
     "mock": "phone",
     "heroTitle": "An AI Teammate for Every Employee and Manager",

@@ -139,7 +139,7 @@ export function PlatformReveal() {
       </div>
 
       <p className="mt-10 text-center text-[15px] text-[var(--muted)]">
-        <b className="font-bold text-[var(--foreground)]">{total} products</b> across six layers, on one
+        <b className="font-bold text-[var(--foreground)]">{total} products</b> across nine products, on one
         AI platform — <Link href="/platform" className="font-semibold text-[var(--brand)] underline-offset-4 hover:underline">see them all</Link>
       </p>
     </div>
