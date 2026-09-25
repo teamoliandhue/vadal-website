@@ -5,7 +5,7 @@ import { Icon } from "./Icon";
 import { SparkMark, VFlag } from "./Brand";
 
 const INTELLIGENCE = [
-  { name: "Understand", title: "A thousand signals. One clear picture.", body: "Vadal connects feedback, sentiment and team context to surface what matters.", result: "Workload is rising across 3 teams", icon: "chart" as const,
+  { name: "Understand", title: "A thousand signals. One clear picture.", body: "Nudge connects feedback, sentiment and team context to surface what matters.", result: "Workload is rising across 3 teams", icon: "chart" as const,
     legs: [0, 1], lit: ["one", "two"], out: ["Insight", "Action"] },
   { name: "Anticipate", title: "See the change before it becomes a risk.", body: "Spot shifts in engagement and emerging concerns while there’s time to respond.", result: "An early signal, with the reasons why", icon: "pulse" as const,
     legs: [2], lit: ["three"], out: ["Early signal", "Action"] },
@@ -20,7 +20,7 @@ export function VadalIntelligence() {
 
   return (
     <div className="hw-scene hw-intelligence" data-mode={selected}>
-      <div className="vi-universe" aria-label="Employee signals flow through Vadal AI into actionable insight">
+      <div className="vi-universe" aria-label="Employee signals flow through Nudge into actionable insight">
           {/* the V, in the aurora gradient and without the apricot spark, as the
             motif the whole scene sits on */}
         <VFlag className="vi-flag" size={340} opacity={0.1} />
@@ -42,7 +42,7 @@ export function VadalIntelligence() {
           <span className="vi-orbit vi-orbit--one"/>
           <span className="vi-orbit vi-orbit--two"/>
           <span className="vi-core-light"/>
-          <span className="vi-ai-icon" role="img" aria-label="Vadal AI: a white spark centred in an Aurora gradient circle">
+          <span className="vi-ai-icon" role="img" aria-label="Nudge: a white spark centred in an Aurora gradient circle">
             <span className="vi-ai-icon-gradient">
               <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3C21.1 14.1 25.9 18.9 37 20C25.9 21.1 21.1 25.9 20 37C18.9 25.9 14.1 21.1 3 20C14.1 18.9 18.9 14.1 20 3Z" fill="white"/></svg>
             </span>
@@ -53,7 +53,7 @@ export function VadalIntelligence() {
         <span className="vi-node vi-node--four" data-on={item.lit.includes("four")}><Icon name="checks" size={15}/>{item.out[1]}</span>
       </div>
       <div className="vi-copy" key={selected}><h3>{item.title}</h3><p>{item.body}</p></div>
-      <div className="vi-modes" role="group" aria-label="Explore Vadal AI capabilities">{INTELLIGENCE.map((mode, index) => <button type="button" key={mode.name} aria-pressed={selected === index} onClick={() => setSelected(index)}><span className="vi-mode-number">0{index+1}</span><Icon name={mode.icon} size={14}/>{mode.name}</button>)}</div>
+      <div className="vi-modes" role="group" aria-label="Explore what Nudge does">{INTELLIGENCE.map((mode, index) => <button type="button" key={mode.name} aria-pressed={selected === index} onClick={() => setSelected(index)}><span className="vi-mode-number">0{index+1}</span><Icon name={mode.icon} size={14}/>{mode.name}</button>)}</div>
       <div className="vi-result" aria-live="polite"><SparkMark size={17}/><span>{item.result}</span><Icon name="check" size={14}/></div>
     </div>
   );

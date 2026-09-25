@@ -17,15 +17,20 @@ import { AskExperience } from "./AskExperience";
 
 /* Social leads the capabilities — it is the one every employee touches daily.
    Analyse is no longer its own tab: its trend chart moved inside Act, where a
-   number is evidence for a decision rather than a destination. */
+   number is evidence for a decision rather than a destination.
+
+   The tab words are the product's own: the assistant is Nudge (decided 17 Sep),
+   surveys are Pulse and recognition is Kudos. Listen, Act and Ask stay verbs —
+   they are the story, not modules. Same rule as lib/platform-nav.ts: someone
+   who sees "Kudos" here opens Kudos in the app. */
 const VIEWS: { tab: string; icon: IconName; title: string; description: string }[] = [
-  { tab: "Vadal AI", icon: "spark", title: "Intelligence in every interaction.", description: "Meet Vadal.ai / Your workforce, connected" },
+  { tab: "Nudge", icon: "spark", title: "Intelligence in every interaction.", description: "Meet Nudge / Your workforce, connected" },
   { tab: "Social", icon: "users", title: "Where the whole company shows up.", description: "Social / Company-wide feed" },
   { tab: "Listen", icon: "chat", title: "Every voice. A clearer picture.", description: "Continuous listening / All teams" },
-  { tab: "Survey", icon: "pulse", title: "Small questions. Real understanding.", description: "Engagement pulse / September 2026" },
-  { tab: "Recognise", icon: "heart", title: "Make great work feel seen.", description: "Recognition / Across your organisation" },
+  { tab: "Pulse", icon: "pulse", title: "Small questions. Real understanding.", description: "Pulse / September 2026" },
+  { tab: "Kudos", icon: "heart", title: "Make great work feel seen.", description: "Kudos / Across your organisation" },
   { tab: "Act", icon: "checks", title: "Good insights deserve a next step.", description: "Action planning / Engineering" },
-  { tab: "Ask", icon: "spark", title: "Your next decision starts here.", description: "Vadal AI / Grounded in your workforce data" },
+  { tab: "Ask", icon: "spark", title: "Your next decision starts here.", description: "Nudge / Grounded in your workforce data" },
 ];
 
 function Avatar({ initials, tone = "violet" }: { initials: string; tone?: string }) {
@@ -72,7 +77,7 @@ export function HeroBento() {
   const select=(index:number)=>{setActive(index);setPlaying(false);};
   const scenes=[<VadalIntelligence key="vadal-ai"/>,<Social key="social"/>,<Listening key="listen"/>,<Survey key="survey" value={response} onChange={setResponse}/>,<Recognition key="recognise"/>,<Actions key="act" id={`${id}-trend`}/>,<Copilot key="ask"/>];
   return <div className="hw-shell" data-view={VIEWS[active].tab} data-visible={visible} ref={root} onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)} onFocusCapture={()=>setFocused(true)} onBlurCapture={event=>{if(!event.currentTarget.contains(event.relatedTarget))setFocused(false);}}>
-    <div className="hw-window-bar"><div className="hw-workspace-name">{VIEWS[active].tab === "Vadal AI" ? <VFlag size={19}/> : <SignalMark size={20}/>}<b>Workspace</b><span>/</span><span>Overview</span></div><div className="hw-window-right"><span className="hw-demo">Product preview</span><Avatar initials="JD"/></div></div>
+    <div className="hw-window-bar"><div className="hw-workspace-name">{VIEWS[active].tab === "Nudge" ? <VFlag size={19}/> : <SignalMark size={20}/>}<b>Workspace</b><span>/</span><span>Overview</span></div><div className="hw-window-right"><span className="hw-demo">Product preview</span><Avatar initials="JD"/></div></div>
     <div className="hw-heading"><p>{VIEWS[active].description}</p><h2>{VIEWS[active].title}</h2></div>
     <div className="hw-stage"><div key={active} id={`${id}-panel-${active}`} role="tabpanel" aria-labelledby={`${id}-tab-${active}`} className="hw-panel">{scenes[active]}</div></div>
     <div className="hw-navigation"><div role="tablist" aria-label="Explore Vadal capabilities" className="hw-tabs">{VIEWS.map((view,i)=><button key={view.tab} type="button" ref={el=>{tabs.current[i]=el;}} role="tab" id={`${id}-tab-${i}`} aria-controls={active===i?`${id}-panel-${i}`:undefined} aria-selected={active===i} tabIndex={active===i?0:-1} onClick={()=>select(i)} onKeyDown={event=>{let next=i;if(event.key==="ArrowRight")next=(i+1)%VIEWS.length;else if(event.key==="ArrowLeft")next=(i+VIEWS.length-1)%VIEWS.length;else if(event.key==="Home")next=0;else if(event.key==="End")next=VIEWS.length-1;else return;event.preventDefault();select(next);tabs.current[next]?.focus();}}><Icon name={view.icon} size={16}/><span>{view.tab}</span></button>)}</div><button className="hw-play" type="button" aria-label={playing?"Pause product tour":"Play product tour"} aria-pressed={playing} onClick={()=>setPlaying(p=>!p)}>{playing?<span className="hw-pause-symbol" aria-hidden="true"/>:<Icon name="play" size={13}/>}</button></div>

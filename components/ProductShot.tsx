@@ -45,7 +45,7 @@ export const PRODUCT_SHOTS: Record<string, ShotInfo> = {
   "feedback-intelligence": { file: "screens/feedback-intelligence/theme-cluster-dashboard", label: "Theme clusters" },
   "action-planning": { file: "screens/action-planning/action-impact-tracker", label: "Action impact" },
   // Digital Workplace
-  "ai-employee-chat": { file: "screens/ai-employee-chat/employee-chat-interface", label: "Ask Vadal" },
+  "ai-employee-chat": { file: "screens/ai-employee-chat/employee-chat-interface", label: "Ask Nudge" },
   "tasks-workflow": { file: "screens/tasks-workflow/case-inbox", label: "Cases" },
   // Enterprise AI Platform
   "decision-intelligence-copilot": { file: "screens/decision-intelligence-copilot/data-grounded-answer-view", label: "Grounded answers" },

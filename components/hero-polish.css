@@ -91,18 +91,18 @@
 .hw-question-options button[aria-pressed="true"] { color:#755daa; background:#f4f0fb; border-color:#e1d7f0; }
 
 /* Vadal AI: the signature Aurora moment. */
-.hw-shell[data-view="Vadal AI"] { --hw-ink:#f0effc; --hw-muted:#a5a4bf; --hw-line:#ffffff14; --view-accent:#9c8aeb; --view-wash:#ffffff0d; color:#f0effc; background:#121421; border-color:#53526760; box-shadow:0 25px 65px -20px #322b5d65,0 0 0 1px #a299e410; }
-[data-view="Vadal AI"] .hw-window-bar { background:#ffffff03; }
-[data-view="Vadal AI"] .hw-workspace-name b { color:#eae8f4; }
-[data-view="Vadal AI"] .hw-demo { color:#c4bed9; border-color:#ffffff12; background:#ffffff04; }
-[data-view="Vadal AI"] .hw-window-right .hw-avatar { background:#28233f;color:#bba8ef; }
-[data-view="Vadal AI"] .hw-navigation { background:#ffffff03; border-color:#ffffff12; }
-[data-view="Vadal AI"] .hw-tabs>button { color:#9897b1; }
-[data-view="Vadal AI"] .hw-tabs>button[aria-selected="true"] { color:#d2c4ff;background:#9380d829;border-color:#a592e62b;box-shadow:none; }
-[data-view="Vadal AI"] .hw-play{border-color:#ffffff18;color:#bcb5d6}
-[data-view="Vadal AI"] .hw-heading::after{background:#66d0ba;box-shadow:0 0 10px #66d0ba50}
-[data-view="Vadal AI"] .hw-heading h2 { color:#f0edfc; }
-[data-view="Vadal AI"] .hw-heading p { color:#a6a3bf; }
+.hw-shell[data-view="Nudge"] { --hw-ink:#f0effc; --hw-muted:#a5a4bf; --hw-line:#ffffff14; --view-accent:#9c8aeb; --view-wash:#ffffff0d; color:#f0effc; background:#121421; border-color:#53526760; box-shadow:0 25px 65px -20px #322b5d65,0 0 0 1px #a299e410; }
+[data-view="Nudge"] .hw-window-bar { background:#ffffff03; }
+[data-view="Nudge"] .hw-workspace-name b { color:#eae8f4; }
+[data-view="Nudge"] .hw-demo { color:#c4bed9; border-color:#ffffff12; background:#ffffff04; }
+[data-view="Nudge"] .hw-window-right .hw-avatar { background:#28233f;color:#bba8ef; }
+[data-view="Nudge"] .hw-navigation { background:#ffffff03; border-color:#ffffff12; }
+[data-view="Nudge"] .hw-tabs>button { color:#9897b1; }
+[data-view="Nudge"] .hw-tabs>button[aria-selected="true"] { color:#d2c4ff;background:#9380d829;border-color:#a592e62b;box-shadow:none; }
+[data-view="Nudge"] .hw-play{border-color:#ffffff18;color:#bcb5d6}
+[data-view="Nudge"] .hw-heading::after{background:#66d0ba;box-shadow:0 0 10px #66d0ba50}
+[data-view="Nudge"] .hw-heading h2 { color:#f0edfc; }
+[data-view="Nudge"] .hw-heading p { color:#a6a3bf; }
 .hw-intelligence { gap:9px; position:relative; }
 .vi-universe { position:relative; min-height:110px; flex:1; max-height:190px; overflow:hidden; border:1px solid #ffffff0b; border-radius:12px; background:radial-gradient(ellipse at 50% 50%,#4d3d7838,transparent 65%); }
 .vi-stars { position:absolute; inset:0; background-image:radial-gradient(circle,#9f8bc345 .7px,transparent .8px);background-size:15px 15px;mask-image:radial-gradient(ellipse,#000,transparent 80%); }

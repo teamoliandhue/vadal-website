@@ -6,7 +6,7 @@ import { SparkMark } from "./Brand";
 import "./action-experience.css";
 
 /* Act used to be a track of plans with owners — which read as analysis, not
-   action. It is a recommendation surface now: the signal, the play Vadal
+   action. It is a recommendation surface now: the signal, the play Nudge
    suggests for it, and a way to start it. Analyse folded in here as the eNPS
    band across the top, because a trend is evidence for a decision rather than
    a destination of its own. */
@@ -26,7 +26,7 @@ type Play = { signal: string; action: string; tone: string; icon: "heart" | "use
 const PLAYS: Play[] = [
   { signal: "Recognition is low in Engineering", action: "Run a peer recognition round this week", tone: "violet", icon: "heart" },
   { signal: "6 high performers at flight risk",  action: "Book retention 1:1s with their managers", tone: "coral",  icon: "users" },
-  { signal: "3 people tracking below target",    action: "Start a coaching plan with Vadal",       tone: "blue",   icon: "compass" },
+  { signal: "3 people tracking below target",    action: "Start a coaching plan with Nudge",       tone: "blue",   icon: "compass" },
 ];
 
 export function ActionExperience({ id }: { id: string }) {
@@ -54,7 +54,7 @@ export function ActionExperience({ id }: { id: string }) {
         </div>
 
         <div className="ac-plays">
-          <span className="ac-kicker"><SparkMark size={14}/>Vadal recommends</span>
+          <span className="ac-kicker"><SparkMark size={14}/>Nudge recommends</span>
 
           {PLAYS.map((play,index)=><div className={`ac-play ac-play--${play.tone}`} key={play.signal} data-lead={index === 0} style={{"--play-delay":`${index * 120}ms`} as CSSProperties}>
             <span className="ac-play-icon"><Icon name={play.icon} size={15}/></span>

@@ -1,14 +1,14 @@
 /* The AI introduction is a luminous focal point within the compact product frame. */
-.hw-shell[data-view="Vadal AI"] {
+.hw-shell[data-view="Nudge"] {
   background: radial-gradient(ellipse at 85% 5%, #302448 0%, transparent 48%),
     radial-gradient(ellipse at 0% 70%, #153237 0%, transparent 50%), #101622;
   border-color: #bbb9e333;
   box-shadow: 0 22px 52px -18px #24274266, 0 0 0 1px #ffffff40, inset 0 1px #ffffff1a;
 }
-[data-view="Vadal AI"] .hw-window-bar { background:#131a25a6; }
-[data-view="Vadal AI"] .hw-heading h2 { letter-spacing:-.025em; }
-[data-view="Vadal AI"] .hw-navigation { background:#121822c9; }
-[data-view="Vadal AI"] .hw-tabs > button:first-child { background:linear-gradient(115deg,#5db8b32b,#9676db38); box-shadow:inset 0 0 0 1px #aaa4d435; color:#e4e9fc; }
+[data-view="Nudge"] .hw-window-bar { background:#131a25a6; }
+[data-view="Nudge"] .hw-heading h2 { letter-spacing:-.025em; }
+[data-view="Nudge"] .hw-navigation { background:#121822c9; }
+[data-view="Nudge"] .hw-tabs > button:first-child { background:linear-gradient(115deg,#5db8b32b,#9676db38); box-shadow:inset 0 0 0 1px #aaa4d435; color:#e4e9fc; }
 .vi-universe { isolation:isolate; border:0; overflow:hidden; border-radius:12px;
   background:radial-gradient(ellipse at center,#6f80b91c 0%,transparent 68%); }
 .vi-universe::after { content:""; position:absolute; inset:0; pointer-events:none; border:1px solid #bacce110; border-radius:inherit; }

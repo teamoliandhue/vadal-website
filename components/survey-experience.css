@@ -97,6 +97,13 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--i) 15%, transparent), 0 8px 16px -8px color-mix(in srgb, var(--i) 55%, transparent);
 }
 .sv-ends { display: flex; justify-content: space-between; margin-top: 10px; font-size: 9px; font-weight: 500; color: #5c6472; }
+/* the floor belongs next to the question, not in a policy page nobody opens */
+.sv-anon {
+  display: flex; align-items: flex-start; justify-content: center; gap: 5px;
+  margin: 11px 0 0; padding-top: 9px; border-top: 1px solid #f0f1f5;
+  font-size: 9.5px; font-weight: 500; line-height: 1.4; color: #5c6472;
+}
+.sv-anon svg { margin-top: 1px; flex-shrink: 0; }
 
 @keyframes sv-grow { from { transform: scaleY(.2); opacity: 0; } to { transform: none; opacity: 1; } }
 

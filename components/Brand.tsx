@@ -20,7 +20,7 @@ export function SignalMark({ className = "", size = 28 }: { className?: string; 
 }
 
 /* VFlag — the V on its own, in the aurora gradient, WITHOUT the apricot
-   spark. The spark is an accent built for light ground; on the deep Vadal AI
+   spark. The spark is an accent built for light ground; on the deep Nudge
    canvas it reads as a wrong-coloured dot sitting on top of the shape. Use
    this wherever the mark appears on a dark surface, and as the background
    motif of the intelligence scene. */

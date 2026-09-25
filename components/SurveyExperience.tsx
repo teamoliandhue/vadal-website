@@ -1,6 +1,7 @@
 "use client";
 
 import { type CSSProperties } from "react";
+import { Icon } from "./Icon";
 import "./survey-experience.css";
 
 /* Not the Listen shape. Listen is two wide cards stacked on a wallpaper;
@@ -48,6 +49,8 @@ export function SurveyExperience({ value, onChange }: { value: number; onChange:
             </button>)}
           </div>
           <div className="sv-ends"><span>Strongly disagree</span><span>Strongly agree</span></div>
+          {/* the anonymity floor, stated where someone is being asked to answer */}
+          <p className="sv-anon"><Icon name="lock" size={11}/>Anonymous · hidden below 5 responses</p>
         </div>
       </div>
     </div>

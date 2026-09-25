@@ -43,14 +43,14 @@ export function AskExperience() {
           </div>
         </div>
 
-        <div className="ak-chips" role="group" aria-label="Example questions for Vadal AI">
+        <div className="ak-chips" role="group" aria-label="Example questions for Nudge">
           {ANSWERS.map((option,index)=><button key={option.chip} type="button" aria-pressed={asked===index} onClick={()=>setAsked(index)}>{option.chip}</button>)}
         </div>
 
         {/* typing is not the only way in — voice sits beside the field wherever
             the assistant appears */}
         <div className="ak-input">
-          <span>Ask Vadal anything…</span>
+          <span>Ask Nudge anything…</span>
           <button type="button" className="ak-mic" aria-label="Ask by voice">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <rect x="9" y="2.5" width="6" height="11.5" rx="3" stroke="currentColor" strokeWidth="1.7"/>

@@ -56,7 +56,7 @@ export function BroadcastCard({ className = "" }: { className?: string }) {
   return <ProductShot stage={false} shot={{ file: "campaigns", label: "Campaigns" }} className={className} />;
 }
 
-/* Ask Vadal — the AI knowledge assistant. */
+/* Ask Nudge — the AI knowledge assistant. */
 export function ChatMock({ className = "" }: { className?: string }) {
-  return <ProductShot stage={false} shot={{ file: "knowledge", label: "Ask Vadal" }} className={className} />;
+  return <ProductShot stage={false} shot={{ file: "knowledge", label: "Ask Nudge" }} className={className} />;
 }
