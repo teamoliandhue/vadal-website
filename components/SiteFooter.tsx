@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo, SparkMark } from "./Brand";
 import { Button, Container } from "./ui";
 import { Icon } from "./Icon";
-import { solutionsByOutcome, solutionsByWorkforce, surveyTypes } from "@/lib/content";
+import { solutionsByOutcome, solutionsByWorkforce } from "@/lib/content";
 import { platformLayers } from "@/lib/platform-nav";
 import { FooterLink } from "./FooterLink";
 import { LANDING_ONLY } from "@/lib/flags";
@@ -25,13 +25,6 @@ const columns = [
         activeFor: l.modules.filter((m) => m.slug).map((m) => `/platform/${m.slug}`),
       })),
     ],
-  },
-  {
-    // the five survey types — CultureMonkey's footer gives surveys their own
-    // column, and ours are otherwise only discoverable via the Engagement
-    // Surveys page
-    title: "Surveys",
-    links: surveyTypes.map((t) => ({ label: t.name, href: t.href })),
   },
   {
     title: "Solutions",

@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo, SparkMark } from "./Brand";
 import { Icon } from "./Icon";
 import { MenuGlyph, type GlyphKind } from "./MenuGlyph";
-import { PRODUCT_SHOTS } from "./ProductShot";
 import { Button, Container } from "./ui";
 import { MobileTabBar } from "./MobileTabBar";
 import {
@@ -16,9 +15,9 @@ import {
   solutionsByOutcome,
   solutionsByWorkforce,
   solutionsNav,
-  surveyTypes,
   type MenuItem,
 } from "@/lib/content";
+import { groupHue } from "@/lib/page-theme";
 import { platformLayers } from "@/lib/platform-nav";
 import { LANDING_ONLY } from "@/lib/flags";
 
@@ -280,7 +279,7 @@ function MenuFeatureCard({
 function MenuGroup({ label, children }: { label: React.ReactNode; children: React.ReactNode }) {
   return (
     <div>
-      <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted-2)]">{label}</p>
+      <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">{label}</p>
       <div>{children}</div>
     </div>
   );
@@ -327,10 +326,33 @@ function PanelShell({
   children: React.ReactNode;
   footer?: React.ReactNode;
 }) {
+  /* The panels are positioned from the nav, and the nav is not centred in the
+     viewport — the logo is wider than the actions — so every panel sat 44px
+     left of centre, and at 1024px a wide one ran into the edge. Centre on the
+     viewport instead: offset by the distance between the two centres. Measured
+     from the nav, which does not animate, rather than from the panel, which is
+     mid-entrance (scaled) when this runs. max-w keeps a 16px gutter. */
+  const ref = useRef<HTMLDivElement>(null);
+  const [dx, setDx] = useState(0);
+  useLayoutEffect(() => {
+    const fit = () => {
+      const host = ref.current?.offsetParent as HTMLElement | null;
+      if (!host) return;
+      const r = host.getBoundingClientRect();
+      setDx(Math.round(window.innerWidth / 2 - (r.left + r.width / 2)));
+    };
+    fit();
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
+  }, []);
   return (
     <div
-      className={`absolute left-1/2 top-full z-50 max-w-[calc(100vw-24px)] -translate-x-1/2 pt-3 ${width}`}
-      style={{ animation: "menu-in 0.22s cubic-bezier(0.22,1,0.36,1)" }}
+      ref={ref}
+      className={`absolute left-1/2 top-full z-50 max-w-[calc(100vw-32px)] pt-3 ${width}`}
+      /* `translate`, not `transform`: menu-in animates transform, and the two
+         properties compose — an inline transform would be overwritten for the
+         length of the entrance and the panel would jump sideways at its end */
+      style={{ animation: "menu-in 0.22s cubic-bezier(0.22,1,0.36,1)", translate: `calc(-50% + ${dx}px) 0` }}
     >
       <div className="menu-panel">
         {children}
@@ -372,58 +394,51 @@ function MegaPanel({ id, onNavigate }: { id: MegaId; onNavigate: () => void }) {
   return <ScienceMega onNavigate={onNavigate} />;
 }
 
-/* Two-pane platform mega: a rail of the platform layers on the left, the
-   hovered/focused layer's modules on the right. The catalog is far too big for
-   a flat grid (16 modules), and this is the only shape that gives every module
-   room for its benefit hook — which is how the brief describes the taxonomy.
-   Rail items are real links to /platform#<layer>, so the menu stays navigable
-   and keyboard-accessible without bespoke key handling: focus swaps the pane. */
+/* A pillar's colour, taken from the same hue family its pages use
+   (lib/page-theme), so Listen is teal in the menu and teal when you land on it.
+   The glyph and ink are dark enough to clear AA on the tint they sit on. */
+function pillarTone(id: string): React.CSSProperties {
+  const h = groupHue(id);
+  return {
+    ["--tile" as string]: `hsl(${h} 80% 94.5%)`,
+    ["--ink" as string]: `hsl(${h} 62% 30%)`,
+    ["--wash" as string]: `hsl(${h} 70% 97.5%)`,
+    ["--ring" as string]: `hsl(${h} 55% 78%)`,
+  };
+}
+
+/** where a pillar's name goes: its only module, or its section on /platform */
+function pillarHref(l: (typeof platformLayers)[number]) {
+  const linked = l.modules.filter((m) => m.slug);
+  return linked.length === 1 ? `/platform/${linked[0].slug}` : `/platform#${l.id}`;
+}
+
+/* The platform menu is the product's own shape: nine HR products, one AI that
+   acts, and the platform underneath.
+
+   It used to be a rail of eleven names with the modules one hover away and a
+   thumbnail of the whole app beside them. That hid the catalogue behind
+   hover-hunting, the names carried no meaning on their own ("iThrive",
+   "Flow", "Broadcast"), single-module products opened a pane with one row in
+   it, and the thumbnail was too small to read.
+
+   Now all nine are on screen at once, as a 3×3 grid in the product's own order.
+   Each carries the product's plain descriptor so the name explains itself, and
+   its modules as direct links. Nudge gets its own panel because it is not a
+   tenth product — it is the assistant running through the other nine. Every
+   item is a plain link, so keyboard order is reading order with no bespoke
+   handling, and nothing swaps on hover. */
 function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
-  // open on the layer the visitor is currently inside, so the menu picks up
-  // where the page left off rather than always resetting to the first layer
   const pathname = usePathname();
-  const contextual = Math.max(
-    0,
-    platformLayers.findIndex(
-      (l) =>
-        pathname === `/platform#${l.id}` ||
-        l.modules.some((m) => m.slug && pathname === `/platform/${m.slug}`),
-    ),
-  );
-  const [active, setActive] = useState(contextual);
-  const intent = useRef<number | null>(null);
-
-  // small delay so a diagonal mouse path across the rail doesn't strobe the pane
-  const point = (i: number) => {
-    if (intent.current) window.clearTimeout(intent.current);
-    intent.current = window.setTimeout(() => setActive(i), 70);
-  };
-  const pointNow = (i: number) => {
-    if (intent.current) window.clearTimeout(intent.current);
-    setActive(i);
-  };
-  useEffect(() => () => {
-    if (intent.current) window.clearTimeout(intent.current);
-  }, []);
-
-  const layer = platformLayers[active];
-
-  // the preview follows the hovered module; scoped to a layer so switching rails
-  // can't leave a stale index pointing at the wrong (or a missing) module
-  const [hover, setHover] = useState<{ l: number; m: number } | null>(null);
-  const setHoverMod = (m: number) => setHover({ l: active, m });
-  const previewMod =
-    (hover?.l === active ? layer.modules[hover.m] : null) ??
-    layer.modules.find((m) => m.slug && PRODUCT_SHOTS[m.slug]) ??
-    layer.modules[0];
-  const preview = {
-    mod: previewMod,
-    shot: previewMod.slug ? PRODUCT_SHOTS[previewMod.slug] : undefined,
-  };
+  const products = platformLayers.filter((l) => l.id !== "nudge" && l.id !== "platform");
+  const nudge = platformLayers.find((l) => l.id === "nudge");
+  const platform = platformLayers.find((l) => l.id === "platform");
+  const hereIn = (l: (typeof platformLayers)[number]) =>
+    l.modules.some((m) => m.slug && pathname === `/platform/${m.slug}`);
 
   return (
     <PanelShell
-      width="w-[min(1060px,94vw)]"
+      width="w-[min(1140px,94vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
@@ -434,168 +449,162 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
         />
       }
     >
-      <div className="grid grid-cols-[292px_minmax(0,1fr)_300px]">
-        {/* ------------------------------------------------------- layer rail */}
-        <div
-          className="flex flex-col gap-0.5 border-r border-[var(--line)] bg-[var(--surface)]/50 p-3"
-          onMouseLeave={() => {
-            if (intent.current) window.clearTimeout(intent.current);
-          }}
-        >
-          {platformLayers.map((l, i) => {
-            const on = i === active;
-            return (
-              <Link
-                key={l.id}
-                href={`/platform#${l.id}`}
-                onClick={onNavigate}
-                onMouseEnter={() => point(i)}
-                onFocus={() => pointNow(i)}
-                aria-current={on ? "true" : undefined}
-                className={`group flex items-center gap-3 rounded-[var(--r-md)] px-3 py-2.5 text-left transition-colors ${
-                  on ? "bg-[var(--card)] shadow-[var(--shadow-sm)]" : "hover:bg-[var(--card)]/70"
-                }`}
-              >
-                <span
-                  className={`grid h-8 w-8 shrink-0 place-items-center rounded-[9px] transition-colors ${
-                    on ? "bg-[var(--brand)] text-white" : "bg-[var(--brand-tint)] text-[var(--brand)]"
-                  }`}
-                >
-                  <Icon name={l.icon} size={16} />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span
-                    className={`block text-[14px] font-semibold leading-tight ${
-                      on ? "text-[var(--brand)]" : "text-[var(--foreground)]"
-                    }`}
-                  >
-                    {l.name}
-                  </span>
-                </span>
-                <Icon
-                  name="arrow"
-                  size={14}
-                  className={`shrink-0 transition-all ${
-                    on ? "text-[var(--brand)] opacity-100" : "text-[var(--muted-2)] opacity-0 group-hover:opacity-100"
-                  }`}
-                />
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* ------------------------------------------------------ module pane */}
-        <div className="flex min-w-0 flex-col p-5">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted-2)]">
-            {layer.name}
+      <div className="grid grid-cols-[minmax(0,1fr)_264px] xl:grid-cols-[minmax(0,1fr)_316px]">
+        {/* --------------------------------------------------- the nine */}
+        <div className="p-4 pb-3">
+          <p className="px-2.5 pb-2.5 pt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+            Nine HR products
           </p>
-          <p className="mt-1 text-[13.5px] text-[var(--muted)]">{layer.lede}</p>
-
-          {/* one column, not two: a layer holds 3–5 modules, so a 2-up grid made
-              two short rows and left the rest of the pane blank. Full-width rows
-              with a glyph fill the height the six-item rail sets. */}
-          <div className="mt-3 flex flex-col gap-0.5">
-            {layer.modules.map((m, mi) => {
-              const on = m === preview.mod;
+          <ul className="grid grid-cols-3 gap-1">
+            {products.map((l, i) => {
+              const here = hereIn(l);
+              const multi = l.modules.filter((m) => m.slug).length > 1;
               return (
-                <Link
-                  key={m.slug ?? m.name}
-                  href={m.slug ? `/platform/${m.slug}` : `/platform#${layer.id}`}
-                  onClick={onNavigate}
-                  onMouseEnter={() => setHoverMod(mi)}
-                  onFocus={() => setHoverMod(mi)}
-                  className={`group flex items-center gap-3 rounded-[var(--r-md)] px-3 py-2.5 transition-colors ${
-                    on ? "bg-[var(--surface)]" : "hover:bg-[var(--surface)]"
+                <li
+                  key={l.id}
+                  style={{ ...pillarTone(l.id), animationDelay: `${i * 22}ms` }}
+                  className={`pm-tile group relative rounded-[14px] p-2.5 transition-colors duration-200 hover:bg-[var(--wash)] ${
+                    here ? "bg-[var(--wash)] shadow-[inset_0_0_0_1px_var(--ring)]" : ""
                   }`}
                 >
-                  <span
-                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-[10px] transition-colors ${
-                      on ? "bg-[var(--brand)] text-white" : "bg-[var(--brand-tint)] text-[var(--brand)]"
-                    }`}
+                  <Link
+                    href={pillarHref(l)}
+                    onClick={onNavigate}
+                    aria-current={here && !multi ? "page" : undefined}
+                    className="flex items-start gap-3 rounded-[10px]"
                   >
-                    <Icon name={m.icon} size={17} />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="flex items-center gap-2">
-                      <span
-                        className={`text-[14.5px] font-semibold leading-tight ${
-                          on ? "text-[var(--brand)]" : "text-[var(--foreground)]"
-                        }`}
-                      >
-                        {m.name}
-                      </span>
-                      {m.isNew && (
-                        <span className="rounded-[5px] bg-[var(--brand-tint)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.06em] text-[var(--brand)]">
-                          New
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-[var(--tile)] text-[var(--ink)] transition-transform duration-200 group-hover:scale-[1.06]">
+                      <Icon name={l.icon} size={17} />
+                    </span>
+                    <span className="min-w-0 flex-1 pt-px">
+                      <span className="flex items-center gap-1.5">
+                        <span className="text-[14.5px] font-bold leading-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--ink)]">
+                          {l.name}
                         </span>
-                      )}
+                        <Icon
+                          name="arrow"
+                          size={12}
+                          className="-translate-x-1 text-[var(--ink)] opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
+                        />
+                      </span>
+                      <span className="mt-0.5 block text-[12.5px] leading-snug text-[var(--muted)]">{l.short}</span>
                     </span>
-                    <span className="mt-0.5 block text-[12.5px] leading-snug text-[var(--muted)]">
-                      {m.hook}
-                    </span>
-                  </span>
-                  <Icon
-                    name="arrow"
-                    size={14}
-                    className={`shrink-0 transition-opacity ${
-                      on ? "text-[var(--brand)] opacity-100" : "text-[var(--muted-2)] opacity-0 group-hover:opacity-100"
-                    }`}
-                  />
-                </Link>
+                  </Link>
+                  {/* the modules, when there is more than one — a single-module
+                      product is its own link above, so repeating it here would
+                      only say the name twice */}
+                  {multi && (
+                    <div className="ml-12 mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                      {l.modules
+                        .filter((m) => m.slug)
+                        .map((m) => {
+                          const on = pathname === `/platform/${m.slug}`;
+                          return (
+                            <Link
+                              key={m.slug}
+                              href={`/platform/${m.slug}`}
+                              onClick={onNavigate}
+                              aria-current={on ? "page" : undefined}
+                              className={`text-[12.5px] font-semibold underline-offset-[3px] transition-colors hover:text-[var(--ink)] hover:underline ${
+                                on ? "text-[var(--ink)] underline" : "text-[var(--foreground)]/75"
+                              }`}
+                            >
+                              {m.name}
+                            </Link>
+                          );
+                        })}
+                    </div>
+                  )}
+                </li>
               );
             })}
-          </div>
+          </ul>
 
-          <Link
-            href={`/platform#${layer.id}`}
-            onClick={onNavigate}
-            className="group mt-auto flex items-center justify-between gap-4 border-t border-[var(--line)] pt-4 text-[13px] font-bold text-[var(--brand)]"
-          >
-            <span>
-              See all {layer.modules.length} in {layer.name}
-            </span>
-            <Icon name="arrow" size={14} className="transition-transform group-hover:translate-x-0.5" />
-          </Link>
-        </div>
-
-        {/* ----------------------------------------------------- live preview */}
-        {/* The pane is as tall as the six-item rail, so a four-module layer left
-            roughly a third of the panel empty — and the menu showed none of the
-            product screenshots we already ship. This fills that space with the
-            actual screen behind whichever module is hovered. */}
-        <div className="flex flex-col border-l border-[var(--line)] bg-[var(--surface)]/40 p-5">
-          {preview.shot ? (
-            <figure className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] shadow-[var(--shadow-sm)]">
-              <img
-                key={preview.shot.file}
-                src={`/product/${preview.shot.file}.webp`}
-                alt=""
-                className="min-h-[168px] w-full flex-1 object-cover object-left-top"
-                loading="lazy"
-              />
-              <figcaption className="border-t border-[var(--line)] px-3.5 py-2 text-[11.5px] font-semibold text-[var(--muted)]">
-                {preview.shot.label}
-              </figcaption>
-            </figure>
-          ) : (
-            <div className="grid min-h-[196px] flex-1 place-items-center rounded-[var(--r-lg)] border border-dashed border-[var(--line-strong)] bg-[var(--card)]">
-              <span className="grid h-12 w-12 place-items-center rounded-[14px] bg-[var(--brand-tint)] text-[var(--brand)]">
-                <Icon name={layer.icon} size={22} />
+          {/* the platform underneath the nine — what IT and procurement ask
+              about. A strip, not a tenth tile: it is the base they all sit on */}
+          {platform && (
+            <div
+              style={pillarTone(platform.id)}
+              className="mt-2 flex items-center gap-4 rounded-[14px] border border-[var(--line)] bg-[var(--surface)]/60 px-3 py-2.5"
+            >
+              <span className="flex shrink-0 items-center gap-2.5 pr-1">
+                <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-[var(--tile)] text-[var(--ink)]">
+                  <Icon name={platform.icon} size={15} />
+                </span>
+                <span>
+                  <span className="block text-[13.5px] font-bold leading-tight text-[var(--foreground)]">{platform.name}</span>
+                  <span className="block text-[11.5px] leading-tight text-[var(--muted)]">{platform.short}</span>
+                </span>
               </span>
+              <ul className="grid flex-1 grid-cols-3 gap-1 border-l border-[var(--line)] pl-3">
+                {platform.modules
+                  .filter((m) => m.slug)
+                  .map((m) => {
+                    const on = pathname === `/platform/${m.slug}`;
+                    return (
+                      <li key={m.slug}>
+                        <Link
+                          href={`/platform/${m.slug}`}
+                          onClick={onNavigate}
+                          aria-current={on ? "page" : undefined}
+                          className={`group flex items-center gap-2 rounded-[10px] px-2 py-1.5 transition-colors hover:bg-[var(--card)] ${on ? "bg-[var(--card)]" : ""}`}
+                        >
+                          <Icon name={m.icon} size={14} className="shrink-0 text-[var(--ink)]" />
+                          <span className="min-w-0">
+                            <span className="block text-[13px] font-semibold leading-tight text-[var(--foreground)] group-hover:text-[var(--ink)]">{m.name}</span>
+                            <span className="hidden truncate text-[11.5px] leading-tight text-[var(--muted)] xl:block">{m.hook}</span>
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+              </ul>
             </div>
           )}
-          <p className="mt-3.5 text-[14px] font-bold text-[var(--foreground)]">{preview.mod.name}</p>
-          <p className="mt-1 text-[12.5px] leading-snug text-[var(--muted)]">{preview.mod.hook}</p>
-          {preview.mod.slug && (
+        </div>
+
+        {/* ---------------------------------------------------- the assistant */}
+        <div className="flex flex-col border-l border-[var(--line)] bg-[var(--surface)]/60 p-4">
+          {nudge && (
             <Link
-              href={`/platform/${preview.mod.slug}`}
+              href={pillarHref(nudge)}
               onClick={onNavigate}
-              className="mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[var(--brand)]"
+              aria-current={hereIn(nudge) ? "page" : undefined}
+              className="pm-nudge group relative isolate flex flex-1 flex-col overflow-hidden rounded-[16px] p-5 text-white"
             >
-              Explore {preview.mod.name}
-              <Icon name="arrow" size={13} />
+              <span className="flex items-center gap-2 text-[10.5px] font-bold uppercase tracking-[0.14em] text-[#cfd6ff]">
+                <SparkMark size={14} />
+                Nudge · the AI layer
+              </span>
+              <span className="mt-2.5 text-[17px] font-bold leading-snug tracking-[-0.01em]">{nudge.lede}</span>
+              <span className="mt-1.5 text-[12.5px] leading-relaxed text-[#c9cde0]">{nudge.description}</span>
+              {/* a real exchange, verbatim from the product's own tour: the
+                  question, and what Nudge actually says back */}
+              <span className="mt-4 flex flex-col gap-2" aria-hidden="true">
+                <span className="self-end rounded-[12px] rounded-br-[4px] bg-white/[0.14] px-3 py-1.5 text-[12px] text-white">
+                  How is the team feeling?
+                </span>
+                <span className="flex items-start gap-2">
+                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/[0.1]">
+                    <SparkMark size={12} />
+                  </span>
+                  <span
+                    className="rounded-[12px] rounded-tl-[4px] border bg-white/[0.06] px-3 py-2 text-[12px] leading-relaxed text-[#e7e9f5]"
+                    /* inline, not border-white/10: the unlayered `* { border-color }`
+                       in globals.css beats a layered utility and painted it grey */
+                    style={{ borderColor: "rgba(255,255,255,0.1)" }}
+                  >
+                    I read 8,486 responses. Net sentiment is <b className="font-bold text-white">+52</b>, up 4 this quarter.
+                  </span>
+                </span>
+              </span>
+              <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-[13px] font-bold text-white">
+                Meet Nudge
+                <Icon name="arrow" size={13} className="transition-transform group-hover:translate-x-0.5" />
+              </span>
             </Link>
           )}
+
         </div>
       </div>
     </PanelShell>
@@ -742,7 +751,6 @@ function buildSearchIndex(): SearchEntry[] {
         group: l.name,
       });
   }
-  for (const s of surveyTypes) entries.push({ label: s.name, href: s.href, group: "Surveys" });
   for (const s of [...solutionsByOutcome, ...solutionsByWorkforce])
     entries.push({ label: s.name, href: s.href, group: "Solutions" });
   for (const s of solutionsNav)
@@ -788,7 +796,7 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search the platform, solutions, resources…"
               aria-label="Search"
-              className="h-11 w-full bg-transparent text-[16px] outline-none placeholder:text-[var(--muted-2)] sm:text-[15px]"
+              className="h-11 w-full bg-transparent text-[16px] outline-none placeholder:text-[var(--muted)] sm:text-[15px]"
             />
             <button onClick={onClose} aria-label="Close search" className="text-[13px] font-semibold text-[var(--muted)] hover:text-[var(--foreground)]">
               Esc
@@ -804,7 +812,7 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
                     className="flex items-center justify-between px-4 py-2.5 text-[14px] font-semibold transition-colors hover:bg-[var(--surface)]"
                   >
                     {r.label}
-                    <span className="text-[12px] font-medium text-[var(--muted-2)]">{r.group}</span>
+                    <span className="text-[12px] font-medium text-[var(--muted)]">{r.group}</span>
                   </Link>
                 </li>
               ))}
@@ -858,81 +866,105 @@ function MobileLink({ item, onClose }: { item: MenuItem; onClose: () => void }) 
    then its modules as name + hook — is the only way 16 modules stay scannable
    on a phone. Rows navigate straight to the product page; the four benefit
    lines belong to the landing-page accordion, not to the menu. */
+/* The same shape as the desktop menu, sized for a thumb. A product with one
+   module is a single row that goes straight to it — it used to open an
+   accordion holding one row with the same name, two taps for one page. Only
+   products with several modules expand. It opens on the product you are in. */
 function MobileLayerGroup({ onClose }: { onClose: () => void }) {
-  const [open, setOpen] = useState<string | null>(platformLayers[0].id);
-  return (
-    <div className="flex flex-col gap-1.5 pb-1">
-      {platformLayers.map((l) => {
-        const on = open === l.id;
-        return (
-          <div key={l.id} className="overflow-hidden rounded-[var(--r-md)] border border-[var(--line)]">
+  const pathname = usePathname();
+  const products = platformLayers.filter((l) => l.id !== "nudge" && l.id !== "platform");
+  const nudge = platformLayers.find((l) => l.id === "nudge");
+  const platform = platformLayers.find((l) => l.id === "platform");
+  const current = platformLayers.find((l) => l.modules.some((m) => m.slug && pathname === `/platform/${m.slug}`));
+  const [open, setOpen] = useState<string | null>(current?.id ?? null);
+
+  const row = (l: (typeof platformLayers)[number]) => {
+    const linked = l.modules.filter((m) => m.slug);
+    const multi = linked.length > 1;
+    const on = open === l.id;
+    const head = (
+      <>
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[9px] bg-[var(--tile)] text-[var(--ink)]">
+          <Icon name={l.icon} size={15} />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-[15px] font-semibold leading-tight text-[var(--foreground)]">{l.name}</span>
+          <span className="mt-0.5 block truncate text-[12.5px] text-[var(--muted)]">{l.short}</span>
+        </span>
+      </>
+    );
+    return (
+      <li key={l.id} style={pillarTone(l.id)} className="overflow-hidden rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--card)]">
+        {multi ? (
+          <>
             <button
               type="button"
               onClick={() => setOpen(on ? null : l.id)}
               aria-expanded={on}
-              className={`flex w-full items-center gap-2.5 px-3 py-2.5 text-left transition-colors ${
-                on ? "bg-[var(--surface)]" : ""
-              }`}
+              className={`flex min-h-[56px] w-full items-center gap-3 px-3 py-2.5 text-left transition-colors ${on ? "bg-[var(--wash)]" : ""}`}
             >
-              <span className="grid h-7 w-7 shrink-0 place-items-center rounded-[8px] bg-[var(--brand-tint)] text-[var(--brand)]">
-                <Icon name={l.icon} size={14} />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block text-[14.5px] font-semibold leading-tight text-[var(--foreground)]">
-                  {l.name}
-                </span>
-                <span className="mt-0.5 block truncate text-[12px] text-[var(--muted)]">{l.lede}</span>
-              </span>
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                aria-hidden="true"
-                className={`shrink-0 text-[var(--muted-2)] transition-transform ${on ? "rotate-180" : ""}`}
-              >
+              {head}
+              <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"
+                className={`shrink-0 text-[var(--muted)] transition-transform ${on ? "rotate-180" : ""}`}>
                 <path d="M2.5 4.5 6 8l3.5-3.5" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
             {on && (
-              <div className="border-t border-[var(--line)]">
-                {l.modules.map((m) => (
-                  <Link
-                    key={m.slug ?? m.name}
-                    href={m.slug ? `/platform/${m.slug}` : `/platform#${l.id}`}
-                    onClick={onClose}
-                    className="flex items-center gap-2 border-b border-[var(--line)] px-3 py-2.5 last:border-b-0"
-                  >
-                    <span className="min-w-0 flex-1">
-                      <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                        <span className="text-[14px] font-semibold leading-tight text-[var(--foreground)]">
-                          {m.name}
+              <ul className="border-t border-[var(--line)]">
+                {linked.map((m) => {
+                  const here = pathname === `/platform/${m.slug}`;
+                  return (
+                    <li key={m.slug}>
+                      <Link
+                        href={`/platform/${m.slug}`}
+                        onClick={onClose}
+                        aria-current={here ? "page" : undefined}
+                        className={`flex min-h-[48px] items-center gap-2 border-b border-[var(--line)] py-2.5 pl-[56px] pr-3 last:border-b-0 ${here ? "bg-[var(--wash)]" : ""}`}
+                      >
+                        <span className="min-w-0 flex-1">
+                          <span className={`block text-[14px] font-semibold leading-tight ${here ? "text-[var(--ink)]" : "text-[var(--foreground)]"}`}>{m.name}</span>
+                          <span className="mt-0.5 block text-[12px] leading-snug text-[var(--muted)]">{m.hook}</span>
                         </span>
-                        {m.isNew && (
-                          <span className="rounded-full bg-[var(--brand-tint)] px-1.5 py-0.5 text-[9.5px] font-bold uppercase tracking-[0.06em] text-[var(--brand)]">
-                            New
-                          </span>
-                        )}
-                      </span>
-                      <span className="mt-0.5 block text-[12px] leading-snug text-[var(--muted)]">
-                        {m.hook}
-                      </span>
-                    </span>
-                    <Icon name="arrow" size={14} className="shrink-0 text-[var(--muted-2)]" />
-                  </Link>
-                ))}
-                <Link
-                  href={`/platform#${l.id}`}
-                  onClick={onClose}
-                  className="flex items-center gap-1.5 px-3 py-2.5 text-[13px] font-bold text-[var(--brand)]"
-                >
-                  View {l.name}
-                  <Icon name="arrow" size={13} />
-                </Link>
-              </div>
+                        <Icon name="arrow" size={14} className="shrink-0 text-[var(--muted)]" />
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             )}
-          </div>
-        );
-      })}
+          </>
+        ) : (
+          <Link
+            href={pillarHref(l)}
+            onClick={onClose}
+            aria-current={pathname === pillarHref(l) ? "page" : undefined}
+            className={`flex min-h-[56px] items-center gap-3 px-3 py-2.5 ${pathname === pillarHref(l) ? "bg-[var(--wash)]" : ""}`}
+          >
+            {head}
+            <Icon name="arrow" size={14} className="shrink-0 text-[var(--muted)]" />
+          </Link>
+        )}
+      </li>
+    );
+  };
+
+  return (
+    <div className="flex flex-col gap-3 pb-1">
+      <p className="px-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">Nine HR products</p>
+      <ul className="flex flex-col gap-1.5">{products.map(row)}</ul>
+
+      {nudge && (
+        <Link href={pillarHref(nudge)} onClick={onClose} className="pm-nudge flex items-center gap-3 rounded-[var(--r-md)] px-3.5 py-3 text-white">
+          <SparkMark size={18} />
+          <span className="min-w-0 flex-1">
+            <span className="block text-[15px] font-semibold leading-tight">{nudge.name}</span>
+            <span className="mt-0.5 block text-[12.5px] text-[#c9cde0]">{nudge.lede}</span>
+          </span>
+          <Icon name="arrow" size={14} className="shrink-0 text-white/70" />
+        </Link>
+      )}
+
+      {platform && <ul className="flex flex-col gap-1.5">{row(platform)}</ul>}
     </div>
   );
 }
@@ -1008,7 +1040,7 @@ function MobileMenu({ view, onClose }: { view: "platform" | "more"; onClose: () 
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search products, solutions…"
               aria-label="Search"
-              className="h-11 w-full bg-transparent text-[16px] outline-none placeholder:text-[var(--muted-2)]"
+              className="h-11 w-full bg-transparent text-[16px] outline-none placeholder:text-[var(--muted)]"
             />
             {q && (
               <button onClick={() => setQ("")} aria-label="Clear search" className="shrink-0 text-[13px] font-semibold text-[var(--muted)]">
@@ -1030,7 +1062,7 @@ function MobileMenu({ view, onClose }: { view: "platform" | "more"; onClose: () 
                     className="flex items-center justify-between gap-3 border-b border-[var(--line)] px-2 py-3.5 text-[15.5px] font-semibold"
                   >
                     {r.label}
-                    <span className="shrink-0 text-[12px] font-medium text-[var(--muted-2)]">{r.group}</span>
+                    <span className="shrink-0 text-[12px] font-medium text-[var(--muted)]">{r.group}</span>
                   </Link>
                 ))
               ) : (
@@ -1061,15 +1093,15 @@ function MobileMenu({ view, onClose }: { view: "platform" | "more"; onClose: () 
         ) : (
           <>
         <MobileGroup label="Solutions">
-          <p className="px-2 pb-1 pt-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">By outcome</p>
+          <p className="px-2 pb-1 pt-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted)]">By outcome</p>
           {solutionsByOutcome.map((s) => (
             <MobileLink key={s.name} item={s} onClose={onClose} />
           ))}
-          <p className="px-2 pb-1 pt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">By workforce</p>
+          <p className="px-2 pb-1 pt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted)]">By workforce</p>
           {solutionsByWorkforce.map((s) => (
             <MobileLink key={s.name} item={s} onClose={onClose} />
           ))}
-          <p className="px-2 pb-1 pt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted-2)]">By need</p>
+          <p className="px-2 pb-1 pt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--muted)]">By need</p>
           {solutionsNav.map((s) => (
             <MobileLink
               key={s.slug}

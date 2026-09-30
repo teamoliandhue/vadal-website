@@ -6,7 +6,7 @@
    basename under public/product/screens/<slug>/. A slot appears here only when
    a real exported screen depicts it; every other slot keeps its placeholder.
 
-   118 of 124 screen slots are filled.
+   120 of 126 screen slots are filled.
    ========================================================================== */
 
 export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
@@ -47,6 +47,9 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "Board-Ready Report Template": "board-ready-report-template",
     "Executive Report Builder": "executive-report-builder",
     "Report Scheduling & Distribution View": "report-scheduling-and-distribution-view"
+  },
+  "explore": {
+    "Driver-Level Heatmap": "driver-level-heatmap"
   },
   "feedback-intelligence": {
     "Priority Themes Panel": "priority-themes-panel",
@@ -141,6 +144,9 @@ export const PRODUCT_SCREENS: Record<string, Record<string, string>> = {
     "Omnichannel Distribution Panel": "omnichannel-distribution-panel",
     "Real-Time Response Dashboard": "real-time-response-dashboard",
     "Survey Builder & Template Library": "survey-builder-and-template-library"
+  },
+  "sentiment": {
+    "Sentiment Trend Dashboard": "sentiment-trend-dashboard"
   },
   "sentiment-intelligence": {
     "Attrition Risk Alert Panel": "attrition-risk-alert-panel",

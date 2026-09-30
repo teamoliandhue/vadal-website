@@ -51,6 +51,9 @@ export type PlatformModule = {
 export type PlatformLayer = {
   id: string;
   name: string;
+  /** the product's own plain descriptor for the pillar (tour.ts `short`) —
+      what a visitor who has never heard "iThrive" reads to know what it is */
+  short: string;
   /** the layer's value-prop line — menus */
   lede: string;
   /** fuller paragraph — the /platform portfolio sections */
@@ -63,6 +66,7 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "listen",
     name: "Listen",
+    short: "Pulse surveys & sentiment",
     lede: "Hear how people really feel.",
     description:
       "Surveys, check-ins and comments become one health score \u2014 with every input shown.",
@@ -102,7 +106,7 @@ export const platformLayers: PlatformLayer[] = [
         name: "Sentiment",
         icon: "pulse",
         hook: "What people mean, not just what they said",
-        slug: "sentiment-intelligence",
+        slug: "sentiment",
         blurb:
           "Themes that say whether they are getting better or worse, mood by team, and the fix in one step.",
         landing: true,
@@ -132,7 +136,7 @@ export const platformLayers: PlatformLayer[] = [
         name: "Explore",
         icon: "chart",
         hook: "Slice it any way you need",
-        slug: "people-analytics",
+        slug: "explore",
         blurb:
           "Driver-level analysis across team, tenure, site and manager, with the anonymity floor applied everywhere.",
         lines: [
@@ -147,10 +151,11 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "social",
     name: "Social",
+    short: "Feed & kudos",
     lede: "A feed where people share wins.",
     description:
       "Post, celebrate, recognise. Tied to your values, visible to everyone.",
-    icon: "users",
+    icon: "chat",
     modules: [
       {
         name: "Social",
@@ -187,10 +192,11 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "amplify",
     name: "Amplify",
+    short: "Employee advocacy",
     lede: "Your moments, shared outside.",
     description:
       "Vadal drafts your wins in your voice. You choose what goes out.",
-    icon: "rocket",
+    icon: "globe",
     modules: [
       {
         name: "Amplify",
@@ -212,6 +218,7 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "ithrive",
     name: "iThrive",
+    short: "Health & wealth",
     lede: "Health and wealth, side by side.",
     description:
       "A goal that fits your job, and money guidance right next to it.",
@@ -237,6 +244,7 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "broadcast",
     name: "Broadcast",
+    short: "Comms & policies",
     lede: "One channel everyone trusts.",
     description:
       "Announcements that get acknowledged, campaigns that report reach, and a policy library you can ask.",
@@ -277,6 +285,7 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "ilearn",
     name: "iLearn",
+    short: "Micro-learning",
     lede: "Learning in five minutes.",
     description:
       "Short lessons, quick quizzes, and reminders for what you keep missing.",
@@ -302,6 +311,7 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "icare",
     name: "iCare",
+    short: "Private support",
     lede: "A private door to support.",
     description:
       "Talk it through confidentially. A real person is always one tap away.",
@@ -327,6 +337,7 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "managers",
     name: "Managers",
+    short: "Manager tools",
     lede: "Insight managers act on.",
     description:
       "Team health, what is driving it, and the one action to take this week.",
@@ -382,6 +393,7 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "flow",
     name: "Flow",
+    short: "Issue resolution",
     lede: "Nothing raised gets lost.",
     description:
       "Concerns become cases \u2014 owned, timed, and resolved.",
@@ -422,6 +434,7 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "nudge",
     name: "Nudge",
+    short: "The AI layer",
     lede: "One assistant. It can act.",
     description:
       "Ask, draft, launch a pulse, give kudos. It confirms before anything reaches a person.",
@@ -447,6 +460,7 @@ export const platformLayers: PlatformLayer[] = [
   {
     id: "platform",
     name: "Platform",
+    short: "Integrations, security, rollout",
     lede: "Connected, secure, live in weeks.",
     description:
       "The people record, the security posture and the rollout \u2014 the part IT and procurement ask about.",
@@ -484,7 +498,7 @@ export const platformLayers: PlatformLayer[] = [
       },
       {
         name: "Launch",
-        icon: "lifebuoy",
+        icon: "rocket",
         hook: "Live, then proven",
         slug: "launch",
         blurb:

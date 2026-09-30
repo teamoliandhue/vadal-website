@@ -9,8 +9,8 @@
    The fix is a two-tier hierarchy rather than 39 arbitrary colours:
 
    TIER 1 — the GROUP owns a hue family.
-     Six platform layers and three solution groups each sit at a fixed hue on
-     the brand's teal → violet arc. This is the signal that says "you are in
+     Eleven platform groups and three solution groups each sit at a fixed hue
+     on an arc that runs green → teal → violet → rose. This is the signal that says "you are in
      Talent Intelligence", and it matches what the mega menu, the persona
      switcher and the FAQ plates already do, so the whole site agrees.
 
@@ -39,18 +39,35 @@
 
 /** hue in degrees for each group, walking the brand arc teal → violet */
 const GROUP_HUE: Record<string, number> = {
-  // platform layers
-  "workforce-experience": 172, // teal
-  "ai-engagement": 192, // cyan
-  "digital-workplace": 210, // sky
-  "talent-intelligence": 228, // indigo
-  "enterprise-platform": 252, // violet
-  "workforce-intelligence": 272, // deep violet
+  /* The product's nine, plus Nudge and Platform. Eleven families will not fit
+     the original 100° teal → violet arc at the spacing SPREAD needs, so the
+     arc runs green → rose: 148 to 320. The rose end is pinned where it is
+     because mid-lightness magentas are a dead zone — at 334° and 310° neither
+     white nor ink cleared 4.5:1 on a lone page. Health sits at the green end and care at
+     the rose end on purpose; the rest keep the brand's teal → violet order.
+     Neighbours that both carry several pages sit 16°+ apart. */
+  ithrive: 148, // green — health & wealth
+  listen: 170, // teal
+  social: 190, // cyan
+  amplify: 206, // sky
+  broadcast: 222, // azure
+  ilearn: 238, // blue
+  managers: 254, // indigo
+  nudge: 268, // brand violet — the assistant
+  flow: 280, // purple
+  platform: 300, // orchid
+  icare: 320, // rose — private support
   // solution groups
   "sol-outcome": 182,
   "sol-workforce": 218,
   "sol-need": 262,
 };
+
+/** a group's hue family centre — the mega menu uses it so a product wears
+    the same colour in the nav as on its own page */
+export function groupHue(group: string): number {
+  return GROUP_HUE[group] ?? FALLBACK_HUE;
+}
 
 const FALLBACK_HUE = 252;
 /** hue drift either side of the group centre. Must stay under half the

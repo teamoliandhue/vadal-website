@@ -12,7 +12,6 @@ import { FaqAccordion } from "./FaqAccordion";
 import { FaqBand } from "./FaqBand";
 import { ProductShot, PRODUCT_SHOTS } from "./ProductShot";
 import { platformLayers } from "@/lib/platform-nav";
-import { surveyTypes } from "@/lib/content";
 import type { Product } from "@/lib/products";
 
 /* ============================================================================
@@ -221,33 +220,6 @@ export function ProductV2({ p, related }: { p: Product; related: RelatedMeta[] }
       </Section>
 
       {/* --------------------------------------------------- survey types */}
-      {/* The brief: "MERGE Survey Types (Pulse / Lifecycle / eNPS /
-          Confidential) into Engagement Surveys, don't give it a separate
-          block." They used to be their own mega-menu column; the pages stay
-          live and are surfaced here, on their parent product. */}
-      {p.slug === "engagement-surveys" && (
-        <Section tone="base" className="!pt-0">
-          <Container>
-            <SectionHead eyebrow="Survey types" title="Every kind of survey, one engine" />
-            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {surveyTypes.slice(1).map((s) => (
-                <Link
-                  key={s.name}
-                  href={s.href}
-                  className="group flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-[var(--line)] bg-[var(--card)] px-5 py-4 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-[var(--shadow-lg)]"
-                >
-                  <span className="text-[15px] font-bold">{s.name}</span>
-                  <Icon
-                    name="arrow"
-                    size={15}
-                    className="shrink-0 text-[var(--brand)] transition-transform group-hover:translate-x-0.5"
-                  />
-                </Link>
-              ))}
-            </div>
-          </Container>
-        </Section>
-      )}
 
       {/* -------------------------------------------------- product screens */}
       <ProductScreens screens={p.screens} slug={p.slug} name={p.name} />

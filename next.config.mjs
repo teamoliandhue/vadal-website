@@ -15,11 +15,11 @@ const nextConfig = {
   // Pin the workspace root to this project (a stray lockfile exists in $HOME).
   outputFileTracingRoot: __dirname,
 
-  /* The 16 modules took the platform's own names (Sep 2026). Old URLs keep
+  /* The modules took the platform's own names (Sep 2026). Old URLs keep
      working so nothing already shared or indexed breaks. */
   async redirects() {
     return [
-    { source: "/platform/employee-experience", destination: "/platform/journey", permanent: true },
+    { source: "/platform/employee-experience", destination: "/platform/onboard", permanent: true },
     { source: "/platform/employee-wellbeing-culture", destination: "/platform/ithrive", permanent: true },
     { source: "/platform/recognition-rewards", destination: "/platform/kudos", permanent: true },
     { source: "/platform/employee-listening", destination: "/platform/listen", permanent: true },
@@ -32,20 +32,32 @@ const nextConfig = {
     { source: "/platform/enterprise-integrations", destination: "/platform/link", permanent: true },
     { source: "/platform/security-compliance", destination: "/platform/trust", permanent: true },
     { source: "/platform/implementation", destination: "/platform/launch", permanent: true },
-    { source: "/platform/people-analytics", destination: "/platform/insight", permanent: true },
+    { source: "/platform/people-analytics", destination: "/platform/explore", permanent: true },
     { source: "/platform/ai-workforce-assistant", destination: "/platform/nudge", permanent: true },
 
     /* pages that are now capabilities inside one of the sixteen modules */
     { source: "/platform/employee-communication", destination: "/platform/social", permanent: true },
     { source: "/platform/feedback-intelligence", destination: "/platform/listen", permanent: true },
     { source: "/platform/action-planning", destination: "/platform/pulse", permanent: true },
-    { source: "/platform/sentiment-intelligence", destination: "/platform/pulse", permanent: true },
+    { source: "/platform/sentiment-intelligence", destination: "/platform/sentiment", permanent: true },
     { source: "/platform/benchmark-intelligence", destination: "/platform/insight", permanent: true },
     { source: "/platform/executive-reports", destination: "/platform/insight", permanent: true },
     { source: "/platform/skills-intelligence", destination: "/platform/insight", permanent: true },
     { source: "/platform/leadership-intelligence", destination: "/platform/insight", permanent: true },
     { source: "/platform/workforce-planning", destination: "/platform/insight", permanent: true },
     { source: "/platform/decision-intelligence-copilot", destination: "/platform/nudge", permanent: true },
+
+    /* Sep 2026, the product's nine. Journey was reverted to Home in the app and
+       its joiner journey now lives inside Onboard. The four survey-type pages
+       are Pulse programmes in the product (DECISIONS.md §7), so they go to the
+       module that runs them rather than staying live under names the product
+       does not use. */
+    { source: "/platform/journey", destination: "/platform/onboard", permanent: true },
+    { source: "/platform/pulse-surveys", destination: "/platform/pulse", permanent: true },
+    { source: "/platform/lifecycle-surveys", destination: "/platform/pulse", permanent: true },
+    { source: "/platform/predictive-enps", destination: "/platform/insight", permanent: true },
+    { source: "/platform/confidential-feedback", destination: "/platform/listen", permanent: true },
+    { source: "/platform/workforce-intelligence", destination: "/platform/insight", permanent: true },
     ];
   },
 };

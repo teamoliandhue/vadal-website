@@ -1610,14 +1610,6 @@ export const platformPillars: MenuItem[] = [
   },
 ];
 
-export const surveyTypes: MenuItem[] = [
-  { name: "Pulse", blurb: "Annual intelligence surveys for culture and performance.", href: "/platform/pulse" },
-  { name: "Pulse Surveys", blurb: "Frequent, intelligent pulse checks that predict trends.", href: "/platform/pulse-surveys" },
-  { name: "Lifecycle Surveys", blurb: "Feedback at key milestones, onboarding to offboarding.", href: "/platform/lifecycle-surveys" },
-  { name: "Predictive eNPS", blurb: "Track loyalty and the AI-explained drivers behind it.", href: "/platform/predictive-enps" },
-  { name: "Confidential Feedback", blurb: "Anonymous, secure channels for honest feedback.", href: "/platform/confidential-feedback" },
-];
-
 export const platformFeatured: MenuItem[] = [
   { name: "Enterprise Workforce Intelligence", blurb: "AI-driven surveys and analytics at enterprise scale, security and compliance.", href: "/solutions/enterprise", icon: "shield" },
   { name: "AI-Powered People Intelligence", blurb: "Workforce data, AI insights and people science, better decisions, lasting trust.", href: "/science", icon: "spark" },

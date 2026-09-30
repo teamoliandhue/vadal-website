@@ -73,7 +73,7 @@
   --btn-primary-bg-hover: #232329;
   --btn-primary-bg-active: #000000;
   --btn-primary-label: #ffffff;
-  --btn-brand-bg: #7c5cf8;
+  --btn-brand-bg: #7856f5;   /* #7c5cf8 carried white labels at 4.43:1 — under AA for button text */
   --btn-brand-bg-hover: #6a4fe6;
   --btn-brand-bg-active: #5a40d6;
   --btn-brand-label: #ffffff;
@@ -728,3 +728,39 @@ html.lenis body {
 .ls-rise    { animation: ls-rise 5s ease-in-out infinite; }
 /* the dashed return line crawls back toward Score, so the loop reads as travel */
 .ls-arc path:nth-child(2) { animation: ls-arc 2.2s linear infinite; }
+
+/* ============================================================================
+   Platform menu — the nine products, the assistant, the platform underneath.
+   ========================================================================== */
+
+/* the tiles arrive as one gesture, not nine: a short rise, staggered by a
+   few frames each so the grid reads left-to-right, top-to-bottom */
+.pm-tile {
+  animation: pm-rise 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes pm-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Nudge is the assistant running through the other nine, so it is not a
+   tenth tile — it gets the product's own dark AI canvas, the same one the
+   hero's Nudge scene uses, with the aurora underneath it */
+.pm-nudge {
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(124, 92, 248, 0.42), transparent 55%),
+    radial-gradient(90% 80% at 0% 100%, rgba(25, 198, 180, 0.30), transparent 60%),
+    linear-gradient(160deg, #161a2c 0%, #0f1320 100%);
+  box-shadow: 0 18px 36px -22px rgba(22, 20, 60, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s;
+}
+.pm-nudge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 44px -22px rgba(22, 20, 60, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+.pm-nudge:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-tile { animation: none; }
+  .pm-nudge { transition: none; }
+}

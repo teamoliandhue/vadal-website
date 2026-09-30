@@ -41,6 +41,208 @@ export type Product = {
 
 export const products: Product[] = [
   {
+    "slug": "sentiment",
+    "name": "Sentiment",
+    "cloud": "listen",
+    "icon": "pulse",
+    "mock": "dashboard",
+    "heroTitle": "How people feel, what about, and where",
+    "heroLede": "Themes that say whether they are getting better or worse, mood by team, and one step from a theme to a fix.",
+    "challengesTitle": "Why Sentiment Dashboards Mislead",
+    "challenges": [
+      "A rising theme shows up in red even when what is rising is praise.",
+      "A theme gets one label, positive or negative, when it is really a mix.",
+      "You can see the company's mood, but not which team is driving it.",
+      "Small teams get estimated, and an estimate about four people identifies them.",
+      "Reading chat feels like surveillance when nobody opted in.",
+      "A theme is spotted, and then nothing happens to it."
+    ],
+    "pillars": [
+      "Theme direction",
+      "The split",
+      "Mood by team",
+      "Theme to fix"
+    ],
+    "capabilities": [
+      {
+        "title": "Better or worse, not just louder",
+        "body": "Each theme says whether it is improving or worsening, so rising praise never reads as bad news.",
+        "bullets": [
+          "Direction shown, not only volume",
+          "Months run to the current month",
+          "Read at a glance, questioned in a click"
+        ],
+        "screen": "Sentiment Trend Dashboard"
+      },
+      {
+        "title": "Every theme is a mix",
+        "body": "A theme carries its split of positive and negative, and how that split is moving, instead of a single label.",
+        "bullets": [
+          "The split, not a verdict",
+          "How the split changed since last month",
+          "Source comments kept for every theme"
+        ],
+        "screen": "Theme & Emotion Cluster View"
+      },
+      {
+        "title": "Mood by team, safely",
+        "body": "Each team has a net score, a change and the themes driving it. Teams too small to stay anonymous are withheld, never estimated.",
+        "bullets": [
+          "Find the team behind the number",
+          "Nothing shown below five responses",
+          "Chat read only where a team opted in"
+        ],
+        "screen": "Team-Level Sentiment Heatmap"
+      },
+      {
+        "title": "From a theme to a fix",
+        "body": "Turn a theme into an owned action in one step, so what was spotted this morning is being worked on this afternoon.",
+        "bullets": [
+          "One step from theme to action",
+          "An owner and a date on every fix",
+          "Measured against where the theme started"
+        ],
+        "screen": "Theme to Action"
+      }
+    ],
+    "aiCapabilities": [
+      "AI Theme Extraction",
+      "AI Anomaly Detection",
+      "AI Wave Summaries"
+    ],
+    "outcomes": [
+      "See which way each theme is moving",
+      "Find the team behind the number",
+      "Protect small teams",
+      "Act on a theme the day it appears"
+    ],
+    "screens": [
+      "Sentiment Trend Dashboard"
+    ],
+    "integrations": [
+      "Microsoft Teams",
+      "Slack",
+      "WhatsApp Business"
+    ],
+    "faqs": [
+      {
+        "q": "Do you read people's private messages?",
+        "a": "No. Chat is read only in channels a team has opted in to, and nothing is ever shown with a name. Sentiment is reported as themes and trends, never as a person's words."
+      },
+      {
+        "q": "What happens with small teams?",
+        "a": "A team with fewer than five responses is withheld, not estimated. An estimate about four people can identify them, so the product shows nothing rather than a guess."
+      }
+    ],
+    "related": [
+      "pulse",
+      "listen",
+      "insight",
+      "explore"
+    ],
+    "footerCta": "Ready to know which way the mood is moving?"
+  },
+  {
+    "slug": "explore",
+    "name": "Explore",
+    "cloud": "listen",
+    "icon": "chart",
+    "mock": "dashboard",
+    "heroTitle": "Any metric, any cut",
+    "heroLede": "The free-slicing companion to Pulse: engagement, attrition risk, recognition and adoption, broken down by team, location, tenure and seniority.",
+    "challengesTitle": "Why Fixed Dashboards Stop Being Useful",
+    "challenges": [
+      "The dashboard answers the question it was built for, and no other.",
+      "Every new cut is a request to an analyst and a week of waiting.",
+      "Engagement is reported in one place and adoption in another.",
+      "Slicing small groups risks identifying the people in them.",
+      "A number in a report cannot be traced back to what moved it."
+    ],
+    "pillars": [
+      "Any metric",
+      "Any cut",
+      "Straight from Pulse",
+      "Safe by default"
+    ],
+    "capabilities": [
+      {
+        "title": "Every metric in one place",
+        "body": "Engagement, participation, attrition risk, manager score, recognition coverage, check-in rate and weekly active, side by side.",
+        "bullets": [
+          "Engagement beside adoption",
+          "The same scale for every metric",
+          "Six months of history behind each one"
+        ],
+        "screen": "Driver-Level Heatmap"
+      },
+      {
+        "title": "Cut it any way",
+        "body": "Team, location, tenure and seniority, compared on one scale, without filing a request with an analyst.",
+        "bullets": [
+          "Four dimensions, any combination",
+          "Compare cohorts directly",
+          "Answer the next question yourself"
+        ],
+        "screen": "Cohort Comparison"
+      },
+      {
+        "title": "Straight from Pulse",
+        "body": "Pulse shows what needs attention now; one click opens the same metric here, already sliced to the right cut.",
+        "bullets": [
+          "Deep-linked from Pulse",
+          "The metric and the cut carried across",
+          "No re-building the view by hand"
+        ],
+        "screen": "Pulse Deep Link"
+      },
+      {
+        "title": "Safe by default",
+        "body": "No slice below five responses is shown, for any role, including admins, however the data is cut.",
+        "bullets": [
+          "The anonymity floor applies to every cut",
+          "Exports are aggregates only",
+          "Never a name next to a score"
+        ],
+        "screen": "Anonymity Floor"
+      }
+    ],
+    "aiCapabilities": [
+      "Ask Nudge about any number",
+      "AI Anomaly Detection"
+    ],
+    "outcomes": [
+      "Answer the next question yourself",
+      "See adoption beside engagement",
+      "Trace a number back to its cause",
+      "Slice without identifying anyone"
+    ],
+    "screens": [
+      "Driver-Level Heatmap"
+    ],
+    "integrations": [
+      "Power BI",
+      "Workday",
+      "Darwinbox"
+    ],
+    "faqs": [
+      {
+        "q": "How is Explore different from Pulse?",
+        "a": "Pulse curates what needs attention now; Explore answers any metric, any cut. They share the same data, and Pulse links straight into Explore with the metric and the cut already chosen."
+      },
+      {
+        "q": "Can we take the numbers into our own BI tool?",
+        "a": "Yes, as aggregates. The Power BI export never goes below the anonymity threshold, and never carries individual answers or names next to scores."
+      }
+    ],
+    "related": [
+      "insight",
+      "pulse",
+      "sentiment",
+      "listen"
+    ],
+    "footerCta": "Ready to answer your own next question?"
+  },
+  {
     "slug": "campaigns",
     "name": "Campaigns",
     "cloud": "broadcast",
