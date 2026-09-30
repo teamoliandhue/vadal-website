@@ -733,15 +733,70 @@ html.lenis body {
    Platform menu — the nine products, the assistant, the platform underneath.
    ========================================================================== */
 
-/* the tiles arrive as one gesture, not nine: a short rise, staggered by a
-   few frames each so the grid reads left-to-right, top-to-bottom */
-.pm-tile {
-  animation: pm-rise 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+/* The grid sits in a faintly recessed well so white cards read as objects,
+   not as regions of the same white. */
+.pm-well {
+  background: color-mix(in srgb, var(--surface) 55%, var(--card));
 }
+
+/* One card per product. Border, lift and ring live here rather than in
+   utilities: the unlayered `* { border-color }` above beats a layered
+   border-colour utility, so a hover ring written as a class never showed. */
+.pm-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 2px rgba(13, 11, 22, 0.04);
+  transition: border-color 0.2s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  /* backwards, not both: a forwards fill would pin transform:none and cancel
+     the hover lift below */
+  animation: pm-rise 0.34s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.pm-card:not(.pm-card--static):hover,
+.pm-card[data-here] {
+  border-color: var(--ring);
+  box-shadow: 0 10px 24px -14px color-mix(in srgb, var(--ink) 45%, transparent), 0 1px 2px rgba(13, 11, 22, 0.04);
+}
+.pm-card:not(.pm-card--static):hover { transform: translateY(-1px); }
+.pm-card[data-here] { background: var(--wash); }
 @keyframes pm-rise {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: none; }
 }
+
+/* the header link is stretched over the whole card, so anywhere on it is a
+   target; the chips sit above it (z-index 1) and stay their own links */
+.pm-stretch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.pm-stretch:focus-visible { outline: none; }
+.pm-card:has(.pm-stretch:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+.pm-icon { transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
+.pm-card:hover .pm-icon { transform: scale(1.06); }
+
+/* the product's number, and the arrow that takes its place on hover */
+.pm-num, .pm-arrow { transition: opacity 0.18s, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1); }
+.pm-arrow { opacity: 0; transform: translateX(-4px); }
+.pm-card:hover .pm-num, .pm-card:has(.pm-stretch:focus-visible) .pm-num { opacity: 0; transform: translateX(4px); }
+.pm-card:hover .pm-arrow, .pm-card:has(.pm-stretch:focus-visible) .pm-arrow { opacity: 1; transform: none; }
+
+/* modules: tinted, so they read as things to click; they fill on hover */
+.pm-chip {
+  background: var(--tile);
+  color: var(--ink);
+  transition: background-color 0.18s, color 0.18s;
+}
+.pm-chip:hover, .pm-chip[data-on] { background: var(--ink); color: #fff; }
+
+/* capabilities: outlined and neutral — they describe, the card is the link */
+.pm-tag { border-color: var(--line); background: transparent; }
+
+/* platform modules share the card's hover language, one step smaller */
+.pm-sub { transition: background-color 0.18s; }
+.pm-sub:hover, .pm-sub[data-on] { background: var(--wash); }
 
 /* Nudge is the assistant running through the other nine, so it is not a
    tenth tile — it gets the product's own dark AI canvas, the same one the
@@ -761,6 +816,7 @@ html.lenis body {
 .pm-nudge:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .pm-tile { animation: none; }
-  .pm-nudge { transition: none; }
+  .pm-card { animation: none; transition: none; }
+  .pm-card:hover { transform: none; }
+  .pm-icon, .pm-num, .pm-arrow, .pm-chip, .pm-sub, .pm-nudge { transition: none; }
 }

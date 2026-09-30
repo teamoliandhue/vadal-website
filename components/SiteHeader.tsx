@@ -413,6 +413,121 @@ function pillarHref(l: (typeof platformLayers)[number]) {
   return linked.length === 1 ? `/platform/${linked[0].slug}` : `/platform#${l.id}`;
 }
 
+/** "Written As You" → "Written as you", keeping acronyms like AI and 1:1 */
+function sentenceCase(t: string) {
+  return t
+    .split(" ")
+    .map((w, i) => (/^[A-Z0-9:]{2,}$/.test(w) || i === 0 ? w : w.toLowerCase()))
+    .join(" ");
+}
+
+/* What a one-module product shows in its bottom row: the first capabilities
+   from its own data, skipping any that just restate its descriptor
+   ("Micro-learning" / "Microlearning"), as many as fit on one line. */
+function capabilityTags(l: (typeof platformLayers)[number]) {
+  const norm = (t: string) => t.toLowerCase().replace(/[^a-z]/g, "");
+  const mod = l.modules.find((m) => m.slug);
+  const out: string[] = [];
+  let chars = 0;
+  for (const line of mod?.lines ?? []) {
+    const t = sentenceCase(line.split(",")[0].trim());
+    if (norm(t) === norm(l.short) || norm(t) === norm(l.name)) continue;
+    if (out.length === 2 || (out.length > 0 && chars + t.length > 31)) break;
+    out.push(t);
+    chars += t.length;
+  }
+  return out;
+}
+
+/* One product, one card. Every card has the same anatomy — icon, name, plain
+   descriptor, and a bottom row pinned to the base so the rows line up across
+   the grid. A product with several modules lists them as tinted chips, each its
+   own link. A one-module product lists what it does as outlined tags, and the
+   whole card is its link, so nothing in it is a dead click. The header link is
+   stretched over the card either way; the chips sit above it. */
+function ProductCard({
+  l,
+  n,
+  pathname,
+  onNavigate,
+}: {
+  l: (typeof platformLayers)[number];
+  n: number;
+  pathname: string;
+  onNavigate: () => void;
+}) {
+  const mods = l.modules.filter((m) => m.slug);
+  const multi = mods.length > 1;
+  const here = mods.some((m) => pathname === `/platform/${m.slug}`);
+  const tags = multi ? [] : capabilityTags(l);
+  return (
+    <li
+      style={{ ...pillarTone(l.id), animationDelay: `${n * 24}ms` }}
+      data-here={here || undefined}
+      className="pm-card group relative flex flex-col rounded-[16px] p-3 xl:p-3.5"
+    >
+      <Link
+        href={pillarHref(l)}
+        onClick={onNavigate}
+        aria-current={here && !multi ? "page" : undefined}
+        aria-label={`${l.name} — ${l.short}`}
+        className="pm-stretch flex items-start gap-3"
+      >
+        <span className="pm-icon grid h-10 w-10 shrink-0 place-items-center rounded-[11px] bg-[var(--tile)] text-[var(--ink)]">
+          <Icon name={l.icon} size={18} />
+        </span>
+        <span className="min-w-0 flex-1 pt-0.5">
+          <span className="block text-[15px] font-bold leading-tight tracking-[-0.01em] text-[var(--foreground)] transition-colors duration-200 group-hover:text-[var(--ink)]">
+            {l.name}
+          </span>
+          <span className="mt-1 block text-[12px] leading-snug text-[var(--muted)] xl:text-[12.5px]">{l.short}</span>
+        </span>
+        {/* the product's own number, 01–09; on hover it gives way to an arrow */}
+        <span className="pm-corner relative -mr-0.5 mt-0.5 h-5 w-6 shrink-0 text-right" aria-hidden="true">
+          <span className="pm-num absolute inset-0 text-[11px] font-semibold tabular-nums tracking-[0.04em] text-[var(--muted)]">
+            {String(n).padStart(2, "0")}
+          </span>
+          <Icon name="arrow" size={15} className="pm-arrow absolute right-0 top-0.5 text-[var(--ink)]" />
+        </span>
+      </Link>
+
+      <div className="relative z-[1] mt-auto flex flex-wrap gap-1.5 pt-3">
+        {multi
+          ? mods.map((m, mi) => {
+              const on = pathname === `/platform/${m.slug}`;
+              return (
+                <Link
+                  key={m.slug}
+                  href={`/platform/${m.slug}`}
+                  onClick={onNavigate}
+                  aria-current={on ? "page" : undefined}
+                  data-on={on || undefined}
+                  className="pm-chip inline-flex h-6 items-center rounded-full px-2 text-[11.5px] font-semibold"
+                >
+                  {m.name}
+                </Link>
+              );
+            }).flatMap((chip, mi) =>
+              /* more than four modules will not fit one line; left to wrap they
+                 break 4 + 1 and orphan the last. Break them evenly instead. */
+              mods.length > 4 && mi === Math.ceil(mods.length / 2)
+                ? [<span key="break" className="basis-full" aria-hidden="true" />, chip]
+                : [chip],
+            )
+          : tags.map((t, ti) => (
+              <span
+                key={t}
+                aria-hidden="true"
+                className={`pm-tag pointer-events-none h-6 items-center rounded-full border px-2 text-[11.5px] font-medium text-[var(--muted)] ${ti > 0 ? "hidden xl:inline-flex" : "inline-flex"}`}
+              >
+                {t}
+              </span>
+            ))}
+      </div>
+    </li>
+  );
+}
+
 /* The platform menu is the product's own shape: nine HR products, one AI that
    acts, and the platform underneath.
 
@@ -438,7 +553,7 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
 
   return (
     <PanelShell
-      width="w-[min(1140px,94vw)]"
+      width="w-[min(1180px,94vw)]"
       footer={
         <PanelFooter
           onNavigate={onNavigate}
@@ -449,94 +564,31 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
         />
       }
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_264px] xl:grid-cols-[minmax(0,1fr)_316px]">
+      <div className="grid grid-cols-[minmax(0,1fr)_260px] xl:grid-cols-[minmax(0,1fr)_296px]">
         {/* --------------------------------------------------- the nine */}
-        <div className="p-4 pb-3">
-          <p className="px-2.5 pb-2.5 pt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
+        <div className="pm-well p-3.5">
+          <p className="px-1.5 pb-2.5 pt-0.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--muted)]">
             Nine HR products
           </p>
-          <ul className="grid grid-cols-3 gap-1">
-            {products.map((l, i) => {
-              const here = hereIn(l);
-              const multi = l.modules.filter((m) => m.slug).length > 1;
-              return (
-                <li
-                  key={l.id}
-                  style={{ ...pillarTone(l.id), animationDelay: `${i * 22}ms` }}
-                  className={`pm-tile group relative rounded-[14px] p-2.5 transition-colors duration-200 hover:bg-[var(--wash)] ${
-                    here ? "bg-[var(--wash)] shadow-[inset_0_0_0_1px_var(--ring)]" : ""
-                  }`}
-                >
-                  <Link
-                    href={pillarHref(l)}
-                    onClick={onNavigate}
-                    aria-current={here && !multi ? "page" : undefined}
-                    className="flex items-start gap-3 rounded-[10px]"
-                  >
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-[var(--tile)] text-[var(--ink)] transition-transform duration-200 group-hover:scale-[1.06]">
-                      <Icon name={l.icon} size={17} />
-                    </span>
-                    <span className="min-w-0 flex-1 pt-px">
-                      <span className="flex items-center gap-1.5">
-                        <span className="text-[14.5px] font-bold leading-tight text-[var(--foreground)] transition-colors group-hover:text-[var(--ink)]">
-                          {l.name}
-                        </span>
-                        <Icon
-                          name="arrow"
-                          size={12}
-                          className="-translate-x-1 text-[var(--ink)] opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
-                        />
-                      </span>
-                      <span className="mt-0.5 block text-[12.5px] leading-snug text-[var(--muted)]">{l.short}</span>
-                    </span>
-                  </Link>
-                  {/* the modules, when there is more than one — a single-module
-                      product is its own link above, so repeating it here would
-                      only say the name twice */}
-                  {multi && (
-                    <div className="ml-12 mt-2 flex flex-wrap gap-x-3 gap-y-1">
-                      {l.modules
-                        .filter((m) => m.slug)
-                        .map((m) => {
-                          const on = pathname === `/platform/${m.slug}`;
-                          return (
-                            <Link
-                              key={m.slug}
-                              href={`/platform/${m.slug}`}
-                              onClick={onNavigate}
-                              aria-current={on ? "page" : undefined}
-                              className={`text-[12.5px] font-semibold underline-offset-[3px] transition-colors hover:text-[var(--ink)] hover:underline ${
-                                on ? "text-[var(--ink)] underline" : "text-[var(--foreground)]/75"
-                              }`}
-                            >
-                              {m.name}
-                            </Link>
-                          );
-                        })}
-                    </div>
-                  )}
-                </li>
-              );
-            })}
+          <ul className="grid grid-cols-3 gap-2">
+            {products.map((l, i) => (
+              <ProductCard key={l.id} l={l} n={i + 1} pathname={pathname} onNavigate={onNavigate} />
+            ))}
           </ul>
 
-          {/* the platform underneath the nine — what IT and procurement ask
-              about. A strip, not a tenth tile: it is the base they all sit on */}
+          {/* the platform underneath the nine — the same card language, one row */}
           {platform && (
-            <div
-              style={pillarTone(platform.id)}
-              className="mt-2 flex items-center gap-4 rounded-[14px] border border-[var(--line)] bg-[var(--surface)]/60 px-3 py-2.5"
-            >
-              <span className="flex shrink-0 items-center gap-2.5 pr-1">
-                <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-[var(--tile)] text-[var(--ink)]">
-                  <Icon name={platform.icon} size={15} />
+            <div style={pillarTone(platform.id)} className="pm-card pm-card--static mt-2 flex items-center gap-4 rounded-[16px] p-3">
+              <span className="flex w-[236px] shrink-0 items-center gap-3">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[11px] bg-[var(--tile)] text-[var(--ink)]">
+                  <Icon name={platform.icon} size={18} />
                 </span>
-                <span>
-                  <span className="block text-[13.5px] font-bold leading-tight text-[var(--foreground)]">{platform.name}</span>
-                  <span className="block text-[11.5px] leading-tight text-[var(--muted)]">{platform.short}</span>
+                <span className="min-w-0">
+                  <span className="block text-[15px] font-bold leading-tight tracking-[-0.01em] text-[var(--foreground)]">{platform.name}</span>
+                  <span className="mt-1 block text-[12px] leading-snug text-[var(--muted)]">{platform.short}</span>
                 </span>
               </span>
-              <ul className="grid flex-1 grid-cols-3 gap-1 border-l border-[var(--line)] pl-3">
+              <ul className="grid flex-1 grid-cols-3 gap-1.5">
                 {platform.modules
                   .filter((m) => m.slug)
                   .map((m) => {
@@ -547,12 +599,15 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
                           href={`/platform/${m.slug}`}
                           onClick={onNavigate}
                           aria-current={on ? "page" : undefined}
-                          className={`group flex items-center gap-2 rounded-[10px] px-2 py-1.5 transition-colors hover:bg-[var(--card)] ${on ? "bg-[var(--card)]" : ""}`}
+                          data-on={on || undefined}
+                          className="pm-sub group/sub flex items-center gap-2.5 rounded-[12px] px-2 py-1.5"
                         >
-                          <Icon name={m.icon} size={14} className="shrink-0 text-[var(--ink)]" />
+                          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[9px] bg-[var(--tile)] text-[var(--ink)]">
+                            <Icon name={m.icon} size={15} />
+                          </span>
                           <span className="min-w-0">
-                            <span className="block text-[13px] font-semibold leading-tight text-[var(--foreground)] group-hover:text-[var(--ink)]">{m.name}</span>
-                            <span className="hidden truncate text-[11.5px] leading-tight text-[var(--muted)] xl:block">{m.hook}</span>
+                            <span className="block text-[13.5px] font-semibold leading-tight text-[var(--foreground)] group-hover/sub:text-[var(--ink)]">{m.name}</span>
+                            <span className="mt-0.5 hidden truncate text-[11.5px] leading-tight text-[var(--muted)] xl:block">{m.hook}</span>
                           </span>
                         </Link>
                       </li>
@@ -595,6 +650,22 @@ function PlatformMega({ onNavigate }: { onNavigate: () => void }) {
                     style={{ borderColor: "rgba(255,255,255,0.1)" }}
                   >
                     I read 8,486 responses. Net sentiment is <b className="font-bold text-white">+52</b>, up 4 this quarter.
+                  </span>
+                </span>
+                {/* the second is the one where it acts rather than answers;
+                    below xl the column is too narrow to hold both */}
+                <span className="mt-2 hidden self-end rounded-[12px] rounded-br-[4px] bg-white/[0.14] px-3 py-1.5 text-[12px] text-white xl:block">
+                  Write up the onboarding win for LinkedIn.
+                </span>
+                <span className="hidden items-start gap-2 xl:flex">
+                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/[0.1]">
+                    <SparkMark size={12} />
+                  </span>
+                  <span
+                    className="rounded-[12px] rounded-tl-[4px] border bg-white/[0.06] px-3 py-2 text-[12px] leading-relaxed text-[#e7e9f5]"
+                    style={{ borderColor: "rgba(255,255,255,0.1)" }}
+                  >
+                    Drafted in your voice. <span className="font-semibold text-[#8ff0d8]">Policy check passed</span> — it&apos;s your tap.
                   </span>
                 </span>
               </span>
